@@ -1,0 +1,572 @@
+components:
+  schemas:
+    CommentDto:
+      additionalProperties: false
+      properties:
+        content:
+          nullable: true
+          type: string
+        postId:
+          format: int32
+          type: integer
+        timeStamp:
+          format: date-time
+          type: string
+        userId:
+          format: int32
+          type: integer
+      type: object
+    FriendshipModel:
+      additionalProperties: false
+      properties:
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          format: int32
+          type: integer
+        receiverId:
+          format: int32
+          type: integer
+        reciever:
+          $ref: '#/components/schemas/UserModel'
+        requester:
+          $ref: '#/components/schemas/UserModel'
+        requesterId:
+          format: int32
+          type: integer
+        status:
+          $ref: '#/components/schemas/FriendshipStatus'
+      type: object
+    FriendshipStatus:
+      enum:
+      - 0
+      - 1
+      - 2
+      format: int32
+      type: integer
+    LikeDto:
+      additionalProperties: false
+      properties:
+        postId:
+          format: int32
+          type: integer
+        userId:
+          format: int32
+          type: integer
+      type: object
+    LoginDto:
+      additionalProperties: false
+      properties:
+        password:
+          nullable: true
+          type: string
+        username:
+          nullable: true
+          type: string
+      type: object
+    SocialPostDto:
+      additionalProperties: false
+      properties:
+        content:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        imageUrl:
+          nullable: true
+          type: string
+      type: object
+    SocialPostModel:
+      additionalProperties: false
+      properties:
+        content:
+          nullable: true
+          type: string
+        createdAt:
+          format: date-time
+          type: string
+        id:
+          format: int32
+          type: integer
+        imageUrl:
+          nullable: true
+          type: string
+        userId:
+          format: int32
+          type: integer
+      type: object
+    TrackDto:
+      additionalProperties: false
+      properties:
+        gpxData:
+          format: byte
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        logData:
+          format: byte
+          nullable: true
+          type: string
+        userId:
+          format: int32
+          type: integer
+      type: object
+    UserModel:
+      additionalProperties: false
+      properties:
+        bio:
+          nullable: true
+          type: string
+        firstName:
+          nullable: true
+          type: string
+        id:
+          format: int32
+          type: integer
+        lastName:
+          nullable: true
+          type: string
+        passwordHash:
+          nullable: true
+          type: string
+        profilePictureUrl:
+          nullable: true
+          type: string
+        username:
+          nullable: true
+          type: string
+      type: object
+info:
+  title: PacePalAPI
+  version: '1.0'
+openapi: 3.0.1
+paths:
+  /api/SocialPost:
+    get:
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+    post:
+      requestBody:
+        content:
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SocialPostModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SocialPostModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SocialPostModel'
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+  /api/SocialPost/comments/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+  /api/SocialPost/likes/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+  /api/SocialPost/user/{userId}:
+    get:
+      parameters:
+      - in: path
+        name: userId
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+  /api/SocialPost/{id}:
+    delete:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+    get:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+    put:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SocialPostDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SocialPostDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SocialPostDto'
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+  /api/SocialPost/{postId}/comment:
+    post:
+      parameters:
+      - in: path
+        name: postId
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/CommentDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CommentDto'
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+  /api/SocialPost/{postId}/comments:
+    get:
+      parameters:
+      - in: path
+        name: postId
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+  /api/SocialPost/{postId}/like:
+    post:
+      parameters:
+      - in: path
+        name: postId
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/LikeDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LikeDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/LikeDto'
+      responses:
+        '200':
+          description: Success
+      tags:
+      - SocialPost
+  /api/Track/{id}/uploadTrack:
+    post:
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/TrackDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/TrackDto'
+      responses:
+        '200':
+          description: Success
+      tags:
+      - Track
+  /api/Track/{id}/userTracks:
+    get:
+      parameters:
+      - in: query
+        name: userId
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TrackDto'
+                type: array
+            text/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TrackDto'
+                type: array
+            text/plain:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TrackDto'
+                type: array
+          description: Success
+      tags:
+      - Track
+  /api/User:
+    get:
+      responses:
+        '200':
+          description: Success
+      tags:
+      - User
+    post:
+      requestBody:
+        content:
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserModel'
+      responses:
+        '200':
+          description: Success
+      tags:
+      - User
+  /api/User/acceptFriendRequest:
+    post:
+      parameters:
+      - in: query
+        name: requestId
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: Success
+      tags:
+      - User
+  /api/User/declineFriendRequest:
+    post:
+      parameters:
+      - in: query
+        name: requestId
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: Success
+      tags:
+      - User
+  /api/User/getFriendRequests:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FriendshipModel'
+                type: array
+            text/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FriendshipModel'
+                type: array
+            text/plain:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FriendshipModel'
+                type: array
+          description: Success
+      tags:
+      - User
+  /api/User/login:
+    post:
+      requestBody:
+        content:
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/LoginDto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/LoginDto'
+      responses:
+        '200':
+          description: Success
+      tags:
+      - User
+  /api/User/sendFriendRequest:
+    post:
+      parameters:
+      - in: query
+        name: requesterId
+        schema:
+          format: int32
+          type: integer
+      - in: query
+        name: receiverId
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          description: Success
+      tags:
+      - User
+  /api/User/{id}/deleteProfilePicture:
+    post:
+      parameters:
+      - in: query
+        name: userId
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+      tags:
+      - User
+  /api/User/{id}/getProfilePicture:
+    get:
+      parameters:
+      - in: query
+        name: userId
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+          description: Success
+      tags:
+      - User
+  /api/User/{id}/uploadProfilePictureBase64:
+    post:
+      parameters:
+      - in: query
+        name: userId
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/*+json:
+            schema:
+              format: byte
+              type: string
+          application/json:
+            schema:
+              format: byte
+              type: string
+          text/json:
+            schema:
+              format: byte
+              type: string
+      responses:
+        '200':
+          description: Success
+      tags:
+      - User
