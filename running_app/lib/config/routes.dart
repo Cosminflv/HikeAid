@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:running_app/onboarding/authentication_page.dart';
+import 'package:running_app/onboarding/authentication/authentication_page.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/onboarding_menu_page.dart';
 import 'package:running_app/onboarding/registration_page.dart';
