@@ -15,6 +15,13 @@ dependencies:
   running_app:
     path: ../
 
+  domain:
+    path: ../domain
+  data:
+    path: ../data
+  openapi:
+    path: ../api
+
 
   get_it: ^7.6.4
 

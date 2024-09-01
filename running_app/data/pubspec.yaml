@@ -14,8 +14,13 @@ dependencies:
   domain:
     path: ../domain
 
+  openapi:
+    path: ../api
+
   gem_kit:
     path: ../plugins/gem_kit
+
+  dio: ^5.6.0
 
 dev_dependencies:
   lints: ^4.0.0
