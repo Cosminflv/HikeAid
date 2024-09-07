@@ -1,12 +1,12 @@
 import 'package:core/di/injection_container.dart';
-import 'package:domain/entities/authrntication_status.dart';
+import 'package:domain/entities/authentication_status.dart';
 import 'package:domain/use_cases/authentication_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_state.dart';
 
 class AuthenticationViewBloc extends Bloc<AuthenticationViewEvent, AuthenticationViewState> {
-  final authUsecase = sl.get<AuthenticationUseCase>();
+  final authUsecase = sl.get<OnboardingUseCase>();
 
   AuthenticationViewBloc() : super(const InitialAuthenticationState()) {
     on<PerformAuthenticationEvent>(_authenticateEventHandler);
@@ -15,8 +15,8 @@ class AuthenticationViewBloc extends Bloc<AuthenticationViewEvent, Authenticatio
     on<AuthenticationLoadingEvent>(_handleAuthenticationLoading);
     on<AuthenticationFailedEvent>(_handleAuthenticationFailed);
 
-    on<UpdateLoginUsernameValueEvent>(_handleUpdateLoginEmailValue);
-    on<UpdateLoginPasswordValueEvent>(_handleUpdateLoginPasswordValue);
+    on<UpdateUsernameValueEvent>(_handleUpdateLoginEmailValue);
+    on<UpdatePasswordValueEvent>(_handleUpdateLoginPasswordValue);
 
     on<AuthResetEvent>(_authResetEventHandler);
     on<AuthClearEvent>(_authClearEventHandler);
@@ -55,13 +55,13 @@ class AuthenticationViewBloc extends Bloc<AuthenticationViewEvent, Authenticatio
     emit(const InitialAuthenticationState());
   }
 
-  _handleUpdateLoginEmailValue(UpdateLoginUsernameValueEvent event, Emitter<AuthenticationViewState> emit) {
+  _handleUpdateLoginEmailValue(UpdateUsernameValueEvent event, Emitter<AuthenticationViewState> emit) {
     final initialState = state as InitialAuthenticationState;
 
     emit(initialState.copyWith(username: event.value));
   }
 
-  _handleUpdateLoginPasswordValue(UpdateLoginPasswordValueEvent event, Emitter<AuthenticationViewState> emit) {
+  _handleUpdateLoginPasswordValue(UpdatePasswordValueEvent event, Emitter<AuthenticationViewState> emit) {
     final initialState = state as InitialAuthenticationState;
 
     emit(initialState.copyWith(password: event.value));

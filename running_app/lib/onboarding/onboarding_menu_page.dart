@@ -40,7 +40,7 @@ class OnboardingMenuPage extends StatelessWidget {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.onPrimary),
                   onPressed: () {
-                    //Navigator.of(context).pushReplacementNamed(RouteNames.authenticationPage);
+                    Navigator.of(context).pushReplacementNamed(RouteNames.registrationPage);
                   },
                   child: const Text('Register'),
                 ),

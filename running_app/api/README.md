@@ -99,6 +99,7 @@ Class | Method | HTTP request | Description
  - [SocialPostDto](doc/SocialPostDto.md)
  - [SocialPostModel](doc/SocialPostModel.md)
  - [TrackDto](doc/TrackDto.md)
+ - [UserDto](doc/UserDto.md)
  - [UserModel](doc/UserModel.md)
 
 

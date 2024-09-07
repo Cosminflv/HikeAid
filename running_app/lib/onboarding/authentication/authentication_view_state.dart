@@ -1,5 +1,5 @@
 import 'package:domain/entities/auth_session_entity.dart';
-import 'package:domain/entities/authrntication_status.dart';
+import 'package:domain/entities/authentication_status.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class AuthenticationViewState extends Equatable {
@@ -36,12 +36,6 @@ class AuthenticationLoadingState extends AuthenticationViewState {
     super.username,
     super.password,
   });
-
-  InitialAuthenticationState copyWith({
-    String? username,
-    String? password,
-  }) =>
-      InitialAuthenticationState(username: username ?? this.username, password: password ?? this.password);
 
   @override
   List<Object?> get props => [

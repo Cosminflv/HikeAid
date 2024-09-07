@@ -1,9 +1,8 @@
 import 'package:data/repositories_impl/authentication_repository_impl.dart';
-import 'package:data/repositories_impl/registration__repository_impl.dart';
-import 'package:domain/repositories/authentication_repository.dart';
-import 'package:domain/repositories/registration_repository.dart';
+import 'package:domain/repositories/onboarding_repository.dart';
 import 'package:domain/use_cases/authentication_usecase.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
+import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 import 'package:running_app/location/location_bloc.dart';
 
 import 'package:openapi/openapi.dart';
@@ -39,10 +38,10 @@ initEarlyDependencies() {
   sl.allowReassignment = true;
 
   //Onboarding
-  sl.registerLazySingleton<AuthenticationRepository>(() => AuthenticationRepositoryImpl(openApi.getUserApi()));
-  sl.registerLazySingleton<RegistrationRepository>(() => RegistrationRepositoryImpl(openApi.getUserApi()));
+  sl.registerLazySingleton<OnboardingRepository>(() => OnboardingRepositoryImpl(openApi.getUserApi()));
 
-  sl.registerLazySingleton<AuthenticationUseCase>(() => AuthenticationUseCase(sl.get<AuthenticationRepository>()));
+  sl.registerLazySingleton<OnboardingUseCase>(() => OnboardingUseCase(sl.get<OnboardingRepository>()));
 
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
+  sl.registerLazySingleton<RegistrationViewBloc>(() => RegistrationViewBloc());
 }

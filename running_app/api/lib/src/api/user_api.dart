@@ -12,7 +12,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/friendship_model.dart';
 import 'package:openapi/src/model/login_dto.dart';
-import 'package:openapi/src/model/user_model.dart';
+import 'package:openapi/src/model/user_dto.dart';
 
 class UserApi {
 
@@ -524,7 +524,7 @@ class UserApi {
   /// 
   ///
   /// Parameters:
-  /// * [userModel] 
+  /// * [userDto] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -535,7 +535,7 @@ class UserApi {
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
   Future<Response<void>> apiUserPost({ 
-    UserModel? userModel,
+    UserDto? userDto,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -560,8 +560,8 @@ class UserApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(UserModel);
-      _bodyData = userModel == null ? null : _serializers.serialize(userModel, specifiedType: _type);
+      const _type = FullType(UserDto);
+      _bodyData = userDto == null ? null : _serializers.serialize(userDto, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(

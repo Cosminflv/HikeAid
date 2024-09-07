@@ -15,6 +15,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(SocialPostDto.serializer)
       ..add(SocialPostModel.serializer)
       ..add(TrackDto.serializer)
+      ..add(UserDto.serializer)
       ..add(UserModel.serializer))
     .build();
 

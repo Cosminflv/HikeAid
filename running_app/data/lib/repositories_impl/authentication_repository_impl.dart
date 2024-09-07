@@ -1,13 +1,14 @@
 import 'package:data/models/auth_session_entity_impl.dart';
 import 'package:data/models/user_entity_impl.dart';
-import 'package:domain/entities/authrntication_status.dart';
-import 'package:domain/repositories/authentication_repository.dart';
+import 'package:domain/entities/authentication_status.dart';
+import 'package:domain/entities/registration_status.dart';
+import 'package:domain/repositories/onboarding_repository.dart';
 import 'package:openapi/openapi.dart';
 
-class AuthenticationRepositoryImpl extends AuthenticationRepository {
+class OnboardingRepositoryImpl extends OnboardingRepository {
   final UserApi _userApi;
 
-  AuthenticationRepositoryImpl(this._userApi);
+  OnboardingRepositoryImpl(this._userApi);
 
   @override
   Future<void> authenticate(
@@ -38,6 +39,37 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       }
     } catch (e) {
       print("$e");
+    }
+  }
+
+  @override
+  Future<void> register(
+      {required String username,
+      required String password,
+      required String firstName,
+      required String lastName,
+      required Function(RegistrationStatus status) onRegistrationProgressUpdated}) async {
+    try {
+      onRegistrationProgressUpdated(RegistrationStarted());
+      onRegistrationProgressUpdated(RegistrationInProgress());
+
+      final result = await _userApi.apiUserPost(
+        userDto: UserDto(
+          (builder) {
+            builder.username = username;
+            builder.passwordHash = password;
+            builder.firstName = firstName;
+            builder.lastName = lastName;
+          },
+        ),
+      );
+
+      if (result.statusCode == 201) onRegistrationProgressUpdated(RegistrationSuccesfulStatus());
+      if (result.statusCode == 400) {
+        onRegistrationProgressUpdated(RegistrationFailed(reason: RegistrationFailType.usernameExists));
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

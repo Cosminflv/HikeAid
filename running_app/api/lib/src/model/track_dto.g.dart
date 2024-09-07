@@ -8,18 +8,18 @@ part of 'track_dto.dart';
 
 class _$TrackDto extends TrackDto {
   @override
-  final String? gpxData;
-  @override
   final int? id;
   @override
-  final String? logData;
-  @override
   final int? userId;
+  @override
+  final String? gpxData;
+  @override
+  final String? logData;
 
   factory _$TrackDto([void Function(TrackDtoBuilder)? updates]) =>
       (new TrackDtoBuilder()..update(updates))._build();
 
-  _$TrackDto._({this.gpxData, this.id, this.logData, this.userId}) : super._();
+  _$TrackDto._({this.id, this.userId, this.gpxData, this.logData}) : super._();
 
   @override
   TrackDto rebuild(void Function(TrackDtoBuilder) updates) =>
@@ -32,19 +32,19 @@ class _$TrackDto extends TrackDto {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is TrackDto &&
-        gpxData == other.gpxData &&
         id == other.id &&
-        logData == other.logData &&
-        userId == other.userId;
+        userId == other.userId &&
+        gpxData == other.gpxData &&
+        logData == other.logData;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, gpxData.hashCode);
     _$hash = $jc(_$hash, id.hashCode);
-    _$hash = $jc(_$hash, logData.hashCode);
     _$hash = $jc(_$hash, userId.hashCode);
+    _$hash = $jc(_$hash, gpxData.hashCode);
+    _$hash = $jc(_$hash, logData.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -52,10 +52,10 @@ class _$TrackDto extends TrackDto {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'TrackDto')
-          ..add('gpxData', gpxData)
           ..add('id', id)
-          ..add('logData', logData)
-          ..add('userId', userId))
+          ..add('userId', userId)
+          ..add('gpxData', gpxData)
+          ..add('logData', logData))
         .toString();
   }
 }
@@ -63,21 +63,21 @@ class _$TrackDto extends TrackDto {
 class TrackDtoBuilder implements Builder<TrackDto, TrackDtoBuilder> {
   _$TrackDto? _$v;
 
-  String? _gpxData;
-  String? get gpxData => _$this._gpxData;
-  set gpxData(String? gpxData) => _$this._gpxData = gpxData;
-
   int? _id;
   int? get id => _$this._id;
   set id(int? id) => _$this._id = id;
 
-  String? _logData;
-  String? get logData => _$this._logData;
-  set logData(String? logData) => _$this._logData = logData;
-
   int? _userId;
   int? get userId => _$this._userId;
   set userId(int? userId) => _$this._userId = userId;
+
+  String? _gpxData;
+  String? get gpxData => _$this._gpxData;
+  set gpxData(String? gpxData) => _$this._gpxData = gpxData;
+
+  String? _logData;
+  String? get logData => _$this._logData;
+  set logData(String? logData) => _$this._logData = logData;
 
   TrackDtoBuilder() {
     TrackDto._defaults(this);
@@ -86,10 +86,10 @@ class TrackDtoBuilder implements Builder<TrackDto, TrackDtoBuilder> {
   TrackDtoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _gpxData = $v.gpxData;
       _id = $v.id;
-      _logData = $v.logData;
       _userId = $v.userId;
+      _gpxData = $v.gpxData;
+      _logData = $v.logData;
       _$v = null;
     }
     return this;
@@ -112,7 +112,7 @@ class TrackDtoBuilder implements Builder<TrackDto, TrackDtoBuilder> {
   _$TrackDto _build() {
     final _$result = _$v ??
         new _$TrackDto._(
-            gpxData: gpxData, id: id, logData: logData, userId: userId);
+            id: id, userId: userId, gpxData: gpxData, logData: logData);
     replace(_$result);
     return _$result;
   }

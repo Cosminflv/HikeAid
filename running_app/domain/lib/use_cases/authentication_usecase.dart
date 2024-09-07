@@ -1,10 +1,11 @@
-import 'package:domain/entities/authrntication_status.dart';
-import 'package:domain/repositories/authentication_repository.dart';
+import 'package:domain/entities/authentication_status.dart';
+import 'package:domain/entities/registration_status.dart';
+import 'package:domain/repositories/onboarding_repository.dart';
 
-class AuthenticationUseCase {
-  final AuthenticationRepository _authRepository;
+class OnboardingUseCase {
+  final OnboardingRepository _onboardingRepository;
 
-  AuthenticationUseCase(this._authRepository);
+  OnboardingUseCase(this._onboardingRepository);
 
   Future<void> authenticate(
       {String? username, String? password, required Function(AuthenticationStatus) onProgress}) async {
@@ -13,7 +14,26 @@ class AuthenticationUseCase {
       return;
     }
 
-    await _authRepository.authenticate(
+    await _onboardingRepository.authenticate(
         username: username, password: password, onAuthProgressUpdated: (status) => onProgress(status));
+  }
+
+  Future<void> register(
+      {String? username,
+      String? password,
+      String? firstName,
+      String? lastName,
+      required Function(RegistrationStatus) onProgress}) async {
+    if (username == null || password == null || firstName == null || lastName == null) {
+      onProgress(RegistrationFailed(reason: RegistrationFailType.invalidCredentials));
+      return;
+    }
+
+    await _onboardingRepository.register(
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        onRegistrationProgressUpdated: (status) => onProgress(status));
   }
 }

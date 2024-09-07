@@ -37,8 +37,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
           children: [
             // Username TextField
             TextFormField(
-              onChanged: (value) =>
-                  BlocProviders.authentication(context).add(UpdateLoginUsernameValueEvent(value: value)),
+              onChanged: (value) => BlocProviders.authentication(context).add(UpdateUsernameValueEvent(value: value)),
               controller: usernameController,
               decoration: const InputDecoration(
                 labelText: 'Username',
@@ -49,8 +48,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
             // Password TextField
             TextFormField(
-              onChanged: (value) =>
-                  BlocProviders.authentication(context).add(UpdateLoginPasswordValueEvent(value: value)),
+              onChanged: (value) => BlocProviders.authentication(context).add(UpdatePasswordValueEvent(value: value)),
               controller: passwordController,
               obscureText: true,
               decoration: const InputDecoration(

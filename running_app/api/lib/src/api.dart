@@ -14,7 +14,7 @@ import 'package:openapi/src/api/track_api.dart';
 import 'package:openapi/src/api/user_api.dart';
 
 class Openapi {
-  static const String basePath = r'https://192.168.1.6:7011/';
+  static const String basePath = r'http://localhost';
 
   final Dio dio;
   final Serializers serializers;
@@ -51,22 +51,19 @@ class Openapi {
 
   void setBearerAuth(String name, String token) {
     if (this.dio.interceptors.any((i) => i is BearerAuthInterceptor)) {
-      (this.dio.interceptors.firstWhere((i) => i is BearerAuthInterceptor) as BearerAuthInterceptor).tokens[name] =
-          token;
+      (this.dio.interceptors.firstWhere((i) => i is BearerAuthInterceptor) as BearerAuthInterceptor).tokens[name] = token;
     }
   }
 
   void setBasicAuth(String name, String username, String password) {
     if (this.dio.interceptors.any((i) => i is BasicAuthInterceptor)) {
-      (this.dio.interceptors.firstWhere((i) => i is BasicAuthInterceptor) as BasicAuthInterceptor).authInfo[name] =
-          BasicAuthInfo(username, password);
+      (this.dio.interceptors.firstWhere((i) => i is BasicAuthInterceptor) as BasicAuthInterceptor).authInfo[name] = BasicAuthInfo(username, password);
     }
   }
 
   void setApiKey(String name, String apiKey) {
     if (this.dio.interceptors.any((i) => i is ApiKeyAuthInterceptor)) {
-      (this.dio.interceptors.firstWhere((element) => element is ApiKeyAuthInterceptor) as ApiKeyAuthInterceptor)
-          .apiKeys[name] = apiKey;
+      (this.dio.interceptors.firstWhere((element) => element is ApiKeyAuthInterceptor) as ApiKeyAuthInterceptor).apiKeys[name] = apiKey;
     }
   }
 

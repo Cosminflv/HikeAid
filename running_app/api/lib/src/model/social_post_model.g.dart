@@ -8,21 +8,21 @@ part of 'social_post_model.dart';
 
 class _$SocialPostModel extends SocialPostModel {
   @override
+  final int? id;
+  @override
+  final int? userId;
+  @override
   final String? content;
   @override
   final DateTime? createdAt;
   @override
-  final int? id;
-  @override
   final String? imageUrl;
-  @override
-  final int? userId;
 
   factory _$SocialPostModel([void Function(SocialPostModelBuilder)? updates]) =>
       (new SocialPostModelBuilder()..update(updates))._build();
 
   _$SocialPostModel._(
-      {this.content, this.createdAt, this.id, this.imageUrl, this.userId})
+      {this.id, this.userId, this.content, this.createdAt, this.imageUrl})
       : super._();
 
   @override
@@ -37,21 +37,21 @@ class _$SocialPostModel extends SocialPostModel {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is SocialPostModel &&
+        id == other.id &&
+        userId == other.userId &&
         content == other.content &&
         createdAt == other.createdAt &&
-        id == other.id &&
-        imageUrl == other.imageUrl &&
-        userId == other.userId;
+        imageUrl == other.imageUrl;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
+    _$hash = $jc(_$hash, id.hashCode);
+    _$hash = $jc(_$hash, userId.hashCode);
     _$hash = $jc(_$hash, content.hashCode);
     _$hash = $jc(_$hash, createdAt.hashCode);
-    _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, imageUrl.hashCode);
-    _$hash = $jc(_$hash, userId.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -59,11 +59,11 @@ class _$SocialPostModel extends SocialPostModel {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'SocialPostModel')
+          ..add('id', id)
+          ..add('userId', userId)
           ..add('content', content)
           ..add('createdAt', createdAt)
-          ..add('id', id)
-          ..add('imageUrl', imageUrl)
-          ..add('userId', userId))
+          ..add('imageUrl', imageUrl))
         .toString();
   }
 }
@@ -71,6 +71,14 @@ class _$SocialPostModel extends SocialPostModel {
 class SocialPostModelBuilder
     implements Builder<SocialPostModel, SocialPostModelBuilder> {
   _$SocialPostModel? _$v;
+
+  int? _id;
+  int? get id => _$this._id;
+  set id(int? id) => _$this._id = id;
+
+  int? _userId;
+  int? get userId => _$this._userId;
+  set userId(int? userId) => _$this._userId = userId;
 
   String? _content;
   String? get content => _$this._content;
@@ -80,17 +88,9 @@ class SocialPostModelBuilder
   DateTime? get createdAt => _$this._createdAt;
   set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
 
-  int? _id;
-  int? get id => _$this._id;
-  set id(int? id) => _$this._id = id;
-
   String? _imageUrl;
   String? get imageUrl => _$this._imageUrl;
   set imageUrl(String? imageUrl) => _$this._imageUrl = imageUrl;
-
-  int? _userId;
-  int? get userId => _$this._userId;
-  set userId(int? userId) => _$this._userId = userId;
 
   SocialPostModelBuilder() {
     SocialPostModel._defaults(this);
@@ -99,11 +99,11 @@ class SocialPostModelBuilder
   SocialPostModelBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _id = $v.id;
+      _userId = $v.userId;
       _content = $v.content;
       _createdAt = $v.createdAt;
-      _id = $v.id;
       _imageUrl = $v.imageUrl;
-      _userId = $v.userId;
       _$v = null;
     }
     return this;
@@ -126,11 +126,11 @@ class SocialPostModelBuilder
   _$SocialPostModel _build() {
     final _$result = _$v ??
         new _$SocialPostModel._(
+            id: id,
+            userId: userId,
             content: content,
             createdAt: createdAt,
-            id: id,
-            imageUrl: imageUrl,
-            userId: userId);
+            imageUrl: imageUrl);
     replace(_$result);
     return _$result;
   }

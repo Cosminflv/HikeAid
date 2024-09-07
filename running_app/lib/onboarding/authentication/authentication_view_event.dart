@@ -1,5 +1,5 @@
 import 'package:domain/entities/auth_session_entity.dart';
-import 'package:domain/entities/authrntication_status.dart';
+import 'package:domain/entities/authentication_status.dart';
 
 abstract class AuthenticationViewEvent {}
 
@@ -25,14 +25,14 @@ class AuthenticationFailedEvent extends AuthenticationViewEvent {
   });
 }
 
-class UpdateLoginUsernameValueEvent extends AuthenticationViewEvent {
+class UpdateUsernameValueEvent extends AuthenticationViewEvent {
   String value;
 
-  UpdateLoginUsernameValueEvent({required this.value});
+  UpdateUsernameValueEvent({required this.value});
 }
 
-class UpdateLoginPasswordValueEvent extends AuthenticationViewEvent {
+class UpdatePasswordValueEvent extends AuthenticationViewEvent {
   String value;
 
-  UpdateLoginPasswordValueEvent({required this.value});
+  UpdatePasswordValueEvent({required this.value});
 }

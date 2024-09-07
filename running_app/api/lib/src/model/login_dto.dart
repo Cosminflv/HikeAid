@@ -11,15 +11,15 @@ part 'login_dto.g.dart';
 /// LoginDto
 ///
 /// Properties:
-/// * [password] 
 /// * [username] 
+/// * [password] 
 @BuiltValue()
 abstract class LoginDto implements Built<LoginDto, LoginDtoBuilder> {
-  @BuiltValueField(wireName: r'password')
-  String? get password;
-
   @BuiltValueField(wireName: r'username')
   String? get username;
+
+  @BuiltValueField(wireName: r'password')
+  String? get password;
 
   LoginDto._();
 
@@ -44,17 +44,17 @@ class _$LoginDtoSerializer implements PrimitiveSerializer<LoginDto> {
     LoginDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.password != null) {
-      yield r'password';
-      yield serializers.serialize(
-        object.password,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
     if (object.username != null) {
       yield r'username';
       yield serializers.serialize(
         object.username,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.password != null) {
+      yield r'password';
+      yield serializers.serialize(
+        object.password,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -81,14 +81,6 @@ class _$LoginDtoSerializer implements PrimitiveSerializer<LoginDto> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'password':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
-          result.password = valueDes;
-          break;
         case r'username':
           final valueDes = serializers.deserialize(
             value,
@@ -96,6 +88,14 @@ class _$LoginDtoSerializer implements PrimitiveSerializer<LoginDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.username = valueDes;
+          break;
+        case r'password':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.password = valueDes;
           break;
         default:
           unhandled.add(key);

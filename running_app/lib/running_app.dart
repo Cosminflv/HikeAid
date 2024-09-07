@@ -7,6 +7,7 @@ import 'package:running_app/location/location_event.dart';
 import 'package:running_app/config/theme.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
+import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 
 class RunningApp extends StatefulWidget {
   const RunningApp({super.key});
@@ -29,6 +30,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => sl.get<AuthenticationViewBloc>()),
+        BlocProvider(create: (context) => sl.get<RegistrationViewBloc>()),
       ],
       child: MaterialApp(
         title: "Running App",

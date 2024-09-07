@@ -11,16 +11,16 @@ part 'social_post_dto.g.dart';
 /// SocialPostDto
 ///
 /// Properties:
-/// * [content] 
 /// * [id] 
+/// * [content] 
 /// * [imageUrl] 
 @BuiltValue()
 abstract class SocialPostDto implements Built<SocialPostDto, SocialPostDtoBuilder> {
-  @BuiltValueField(wireName: r'content')
-  String? get content;
-
   @BuiltValueField(wireName: r'id')
   int? get id;
+
+  @BuiltValueField(wireName: r'content')
+  String? get content;
 
   @BuiltValueField(wireName: r'imageUrl')
   String? get imageUrl;
@@ -48,18 +48,18 @@ class _$SocialPostDtoSerializer implements PrimitiveSerializer<SocialPostDto> {
     SocialPostDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.content != null) {
-      yield r'content';
-      yield serializers.serialize(
-        object.content,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
     if (object.id != null) {
       yield r'id';
       yield serializers.serialize(
         object.id,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.content != null) {
+      yield r'content';
+      yield serializers.serialize(
+        object.content,
+        specifiedType: const FullType.nullable(String),
       );
     }
     if (object.imageUrl != null) {
@@ -92,6 +92,13 @@ class _$SocialPostDtoSerializer implements PrimitiveSerializer<SocialPostDto> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
         case r'content':
           final valueDes = serializers.deserialize(
             value,
@@ -99,13 +106,6 @@ class _$SocialPostDtoSerializer implements PrimitiveSerializer<SocialPostDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.content = valueDes;
-          break;
-        case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
           break;
         case r'imageUrl':
           final valueDes = serializers.deserialize(

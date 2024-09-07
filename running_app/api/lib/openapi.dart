@@ -22,5 +22,6 @@ export 'package:openapi/src/model/login_dto.dart';
 export 'package:openapi/src/model/social_post_dto.dart';
 export 'package:openapi/src/model/social_post_model.dart';
 export 'package:openapi/src/model/track_dto.dart';
+export 'package:openapi/src/model/user_dto.dart';
 export 'package:openapi/src/model/user_model.dart';
 

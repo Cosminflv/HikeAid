@@ -1,14 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_model.dart';
+part of 'user_dto.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$UserModel extends UserModel {
-  @override
-  final int? id;
+class _$UserDto extends UserDto {
   @override
   final String? username;
   @override
@@ -17,78 +15,54 @@ class _$UserModel extends UserModel {
   final String? lastName;
   @override
   final String? passwordHash;
-  @override
-  final String? bio;
-  @override
-  final String? profilePictureUrl;
 
-  factory _$UserModel([void Function(UserModelBuilder)? updates]) =>
-      (new UserModelBuilder()..update(updates))._build();
+  factory _$UserDto([void Function(UserDtoBuilder)? updates]) =>
+      (new UserDtoBuilder()..update(updates))._build();
 
-  _$UserModel._(
-      {this.id,
-      this.username,
-      this.firstName,
-      this.lastName,
-      this.passwordHash,
-      this.bio,
-      this.profilePictureUrl})
+  _$UserDto._({this.username, this.firstName, this.lastName, this.passwordHash})
       : super._();
 
   @override
-  UserModel rebuild(void Function(UserModelBuilder) updates) =>
+  UserDto rebuild(void Function(UserDtoBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  UserModelBuilder toBuilder() => new UserModelBuilder()..replace(this);
+  UserDtoBuilder toBuilder() => new UserDtoBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is UserModel &&
-        id == other.id &&
+    return other is UserDto &&
         username == other.username &&
         firstName == other.firstName &&
         lastName == other.lastName &&
-        passwordHash == other.passwordHash &&
-        bio == other.bio &&
-        profilePictureUrl == other.profilePictureUrl;
+        passwordHash == other.passwordHash;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, username.hashCode);
     _$hash = $jc(_$hash, firstName.hashCode);
     _$hash = $jc(_$hash, lastName.hashCode);
     _$hash = $jc(_$hash, passwordHash.hashCode);
-    _$hash = $jc(_$hash, bio.hashCode);
-    _$hash = $jc(_$hash, profilePictureUrl.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'UserModel')
-          ..add('id', id)
+    return (newBuiltValueToStringHelper(r'UserDto')
           ..add('username', username)
           ..add('firstName', firstName)
           ..add('lastName', lastName)
-          ..add('passwordHash', passwordHash)
-          ..add('bio', bio)
-          ..add('profilePictureUrl', profilePictureUrl))
+          ..add('passwordHash', passwordHash))
         .toString();
   }
 }
 
-class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
-  _$UserModel? _$v;
-
-  int? _id;
-  int? get id => _$this._id;
-  set id(int? id) => _$this._id = id;
+class UserDtoBuilder implements Builder<UserDto, UserDtoBuilder> {
+  _$UserDto? _$v;
 
   String? _username;
   String? get username => _$this._username;
@@ -106,58 +80,43 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
   String? get passwordHash => _$this._passwordHash;
   set passwordHash(String? passwordHash) => _$this._passwordHash = passwordHash;
 
-  String? _bio;
-  String? get bio => _$this._bio;
-  set bio(String? bio) => _$this._bio = bio;
-
-  String? _profilePictureUrl;
-  String? get profilePictureUrl => _$this._profilePictureUrl;
-  set profilePictureUrl(String? profilePictureUrl) =>
-      _$this._profilePictureUrl = profilePictureUrl;
-
-  UserModelBuilder() {
-    UserModel._defaults(this);
+  UserDtoBuilder() {
+    UserDto._defaults(this);
   }
 
-  UserModelBuilder get _$this {
+  UserDtoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _id = $v.id;
       _username = $v.username;
       _firstName = $v.firstName;
       _lastName = $v.lastName;
       _passwordHash = $v.passwordHash;
-      _bio = $v.bio;
-      _profilePictureUrl = $v.profilePictureUrl;
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(UserModel other) {
+  void replace(UserDto other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$UserModel;
+    _$v = other as _$UserDto;
   }
 
   @override
-  void update(void Function(UserModelBuilder)? updates) {
+  void update(void Function(UserDtoBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  UserModel build() => _build();
+  UserDto build() => _build();
 
-  _$UserModel _build() {
+  _$UserDto _build() {
     final _$result = _$v ??
-        new _$UserModel._(
-            id: id,
+        new _$UserDto._(
             username: username,
             firstName: firstName,
             lastName: lastName,
-            passwordHash: passwordHash,
-            bio: bio,
-            profilePictureUrl: profilePictureUrl);
+            passwordHash: passwordHash);
     replace(_$result);
     return _$result;
   }

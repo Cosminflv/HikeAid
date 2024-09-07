@@ -11,23 +11,23 @@ part 'comment_dto.g.dart';
 /// CommentDto
 ///
 /// Properties:
-/// * [content] 
 /// * [postId] 
-/// * [timeStamp] 
 /// * [userId] 
+/// * [content] 
+/// * [timeStamp] 
 @BuiltValue()
 abstract class CommentDto implements Built<CommentDto, CommentDtoBuilder> {
-  @BuiltValueField(wireName: r'content')
-  String? get content;
-
   @BuiltValueField(wireName: r'postId')
   int? get postId;
 
-  @BuiltValueField(wireName: r'timeStamp')
-  DateTime? get timeStamp;
-
   @BuiltValueField(wireName: r'userId')
   int? get userId;
+
+  @BuiltValueField(wireName: r'content')
+  String? get content;
+
+  @BuiltValueField(wireName: r'timeStamp')
+  DateTime? get timeStamp;
 
   CommentDto._();
 
@@ -52,13 +52,6 @@ class _$CommentDtoSerializer implements PrimitiveSerializer<CommentDto> {
     CommentDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.content != null) {
-      yield r'content';
-      yield serializers.serialize(
-        object.content,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
     if (object.postId != null) {
       yield r'postId';
       yield serializers.serialize(
@@ -66,18 +59,25 @@ class _$CommentDtoSerializer implements PrimitiveSerializer<CommentDto> {
         specifiedType: const FullType(int),
       );
     }
-    if (object.timeStamp != null) {
-      yield r'timeStamp';
-      yield serializers.serialize(
-        object.timeStamp,
-        specifiedType: const FullType(DateTime),
-      );
-    }
     if (object.userId != null) {
       yield r'userId';
       yield serializers.serialize(
         object.userId,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.content != null) {
+      yield r'content';
+      yield serializers.serialize(
+        object.content,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.timeStamp != null) {
+      yield r'timeStamp';
+      yield serializers.serialize(
+        object.timeStamp,
+        specifiedType: const FullType(DateTime),
       );
     }
   }
@@ -103,6 +103,20 @@ class _$CommentDtoSerializer implements PrimitiveSerializer<CommentDto> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'postId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.postId = valueDes;
+          break;
+        case r'userId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.userId = valueDes;
+          break;
         case r'content':
           final valueDes = serializers.deserialize(
             value,
@@ -111,26 +125,12 @@ class _$CommentDtoSerializer implements PrimitiveSerializer<CommentDto> {
           if (valueDes == null) continue;
           result.content = valueDes;
           break;
-        case r'postId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.postId = valueDes;
-          break;
         case r'timeStamp':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.timeStamp = valueDes;
-          break;
-        case r'userId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.userId = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -13,36 +13,36 @@ part 'friendship_model.g.dart';
 /// FriendshipModel
 ///
 /// Properties:
-/// * [createdAt] 
 /// * [id] 
-/// * [receiverId] 
-/// * [reciever] 
-/// * [requester] 
 /// * [requesterId] 
+/// * [receiverId] 
+/// * [createdAt] 
 /// * [status] 
+/// * [requester] 
+/// * [reciever] 
 @BuiltValue()
 abstract class FriendshipModel implements Built<FriendshipModel, FriendshipModelBuilder> {
-  @BuiltValueField(wireName: r'createdAt')
-  DateTime? get createdAt;
-
   @BuiltValueField(wireName: r'id')
   int? get id;
-
-  @BuiltValueField(wireName: r'receiverId')
-  int? get receiverId;
-
-  @BuiltValueField(wireName: r'reciever')
-  UserModel? get reciever;
-
-  @BuiltValueField(wireName: r'requester')
-  UserModel? get requester;
 
   @BuiltValueField(wireName: r'requesterId')
   int? get requesterId;
 
+  @BuiltValueField(wireName: r'receiverId')
+  int? get receiverId;
+
+  @BuiltValueField(wireName: r'createdAt')
+  DateTime? get createdAt;
+
   @BuiltValueField(wireName: r'status')
   FriendshipStatus? get status;
   // enum statusEnum {  0,  1,  2,  };
+
+  @BuiltValueField(wireName: r'requester')
+  UserModel? get requester;
+
+  @BuiltValueField(wireName: r'reciever')
+  UserModel? get reciever;
 
   FriendshipModel._();
 
@@ -67,17 +67,17 @@ class _$FriendshipModelSerializer implements PrimitiveSerializer<FriendshipModel
     FriendshipModel object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.createdAt != null) {
-      yield r'createdAt';
-      yield serializers.serialize(
-        object.createdAt,
-        specifiedType: const FullType(DateTime),
-      );
-    }
     if (object.id != null) {
       yield r'id';
       yield serializers.serialize(
         object.id,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.requesterId != null) {
+      yield r'requesterId';
+      yield serializers.serialize(
+        object.requesterId,
         specifiedType: const FullType(int),
       );
     }
@@ -88,11 +88,18 @@ class _$FriendshipModelSerializer implements PrimitiveSerializer<FriendshipModel
         specifiedType: const FullType(int),
       );
     }
-    if (object.reciever != null) {
-      yield r'reciever';
+    if (object.createdAt != null) {
+      yield r'createdAt';
       yield serializers.serialize(
-        object.reciever,
-        specifiedType: const FullType(UserModel),
+        object.createdAt,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.status != null) {
+      yield r'status';
+      yield serializers.serialize(
+        object.status,
+        specifiedType: const FullType(FriendshipStatus),
       );
     }
     if (object.requester != null) {
@@ -102,18 +109,11 @@ class _$FriendshipModelSerializer implements PrimitiveSerializer<FriendshipModel
         specifiedType: const FullType(UserModel),
       );
     }
-    if (object.requesterId != null) {
-      yield r'requesterId';
+    if (object.reciever != null) {
+      yield r'reciever';
       yield serializers.serialize(
-        object.requesterId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.status != null) {
-      yield r'status';
-      yield serializers.serialize(
-        object.status,
-        specifiedType: const FullType(FriendshipStatus),
+        object.reciever,
+        specifiedType: const FullType(UserModel),
       );
     }
   }
@@ -139,40 +139,12 @@ class _$FriendshipModelSerializer implements PrimitiveSerializer<FriendshipModel
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'createdAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.createdAt = valueDes;
-          break;
         case r'id':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
           result.id = valueDes;
-          break;
-        case r'receiverId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.receiverId = valueDes;
-          break;
-        case r'reciever':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(UserModel),
-          ) as UserModel;
-          result.reciever.replace(valueDes);
-          break;
-        case r'requester':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(UserModel),
-          ) as UserModel;
-          result.requester.replace(valueDes);
           break;
         case r'requesterId':
           final valueDes = serializers.deserialize(
@@ -181,12 +153,40 @@ class _$FriendshipModelSerializer implements PrimitiveSerializer<FriendshipModel
           ) as int;
           result.requesterId = valueDes;
           break;
+        case r'receiverId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.receiverId = valueDes;
+          break;
+        case r'createdAt':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdAt = valueDes;
+          break;
         case r'status':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(FriendshipStatus),
           ) as FriendshipStatus;
           result.status = valueDes;
+          break;
+        case r'requester':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(UserModel),
+          ) as UserModel;
+          result.requester.replace(valueDes);
+          break;
+        case r'reciever':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(UserModel),
+          ) as UserModel;
+          result.reciever.replace(valueDes);
           break;
         default:
           unhandled.add(key);

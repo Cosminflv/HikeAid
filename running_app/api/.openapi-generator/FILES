@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 analysis_options.yaml
 doc/CommentDto.md
@@ -13,6 +12,7 @@ doc/SocialPostModel.md
 doc/TrackApi.md
 doc/TrackDto.md
 doc/UserApi.md
+doc/UserDto.md
 doc/UserModel.md
 lib/openapi.dart
 lib/src/api.dart
@@ -35,18 +35,8 @@ lib/src/model/login_dto.dart
 lib/src/model/social_post_dto.dart
 lib/src/model/social_post_model.dart
 lib/src/model/track_dto.dart
+lib/src/model/user_dto.dart
 lib/src/model/user_model.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/comment_dto_test.dart
-test/friendship_model_test.dart
-test/friendship_status_test.dart
-test/like_dto_test.dart
-test/login_dto_test.dart
-test/social_post_api_test.dart
-test/social_post_dto_test.dart
-test/social_post_model_test.dart
-test/track_api_test.dart
-test/track_dto_test.dart
-test/user_api_test.dart
-test/user_model_test.dart
+test/user_dto_test.dart

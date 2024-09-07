@@ -1,17 +1,36 @@
 abstract class RegistrationStatus {}
 
-enum RegistrationFailType { usernameExists, noConnection, other }
+enum RegistrationFailType { usernameExists, noConnection, invalidCredentials, other }
+
+class RegistrationStarted extends RegistrationStatus {}
 
 class InitialRegistrationStatus extends RegistrationStatus {}
 
-class RegistrationLoadingStatus extends RegistrationStatus {}
+class RegistrationInProgress extends RegistrationStatus {}
 
 class RegistrationSuccesfulStatus extends RegistrationStatus {}
 
-class RegistrationFailedStatus extends RegistrationStatus {
+class RegistrationFailed extends RegistrationStatus {
   final RegistrationFailType reason;
 
-  RegistrationFailedStatus({this.reason = RegistrationFailType.other});
+  RegistrationFailed({this.reason = RegistrationFailType.other});
 }
 
 class RegistrationCanceledStatus extends RegistrationStatus {}
+
+extension RegistrationFailTypeExtension on RegistrationFailType {
+  String get description {
+    switch (this) {
+      case RegistrationFailType.usernameExists:
+        return "Username already exists";
+      case RegistrationFailType.noConnection:
+        return "No internet connection";
+      case RegistrationFailType.invalidCredentials:
+        return "Invalid credentials";
+      case RegistrationFailType.other:
+        return "An unknown error occurred";
+      default:
+        return "An unknown error occurred"; // This case should not occur, but it's good to have a fallback.
+    }
+  }
+}

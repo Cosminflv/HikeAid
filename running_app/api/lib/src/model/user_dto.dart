@@ -6,88 +6,77 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'social_post_model.g.dart';
+part 'user_dto.g.dart';
 
-/// SocialPostModel
+/// UserDto
 ///
 /// Properties:
-/// * [id] 
-/// * [userId] 
-/// * [content] 
-/// * [createdAt] 
-/// * [imageUrl] 
+/// * [username] 
+/// * [firstName] 
+/// * [lastName] 
+/// * [passwordHash] 
 @BuiltValue()
-abstract class SocialPostModel implements Built<SocialPostModel, SocialPostModelBuilder> {
-  @BuiltValueField(wireName: r'id')
-  int? get id;
+abstract class UserDto implements Built<UserDto, UserDtoBuilder> {
+  @BuiltValueField(wireName: r'username')
+  String? get username;
 
-  @BuiltValueField(wireName: r'userId')
-  int? get userId;
+  @BuiltValueField(wireName: r'firstName')
+  String? get firstName;
 
-  @BuiltValueField(wireName: r'content')
-  String? get content;
+  @BuiltValueField(wireName: r'lastName')
+  String? get lastName;
 
-  @BuiltValueField(wireName: r'createdAt')
-  DateTime? get createdAt;
+  @BuiltValueField(wireName: r'passwordHash')
+  String? get passwordHash;
 
-  @BuiltValueField(wireName: r'imageUrl')
-  String? get imageUrl;
+  UserDto._();
 
-  SocialPostModel._();
-
-  factory SocialPostModel([void updates(SocialPostModelBuilder b)]) = _$SocialPostModel;
+  factory UserDto([void updates(UserDtoBuilder b)]) = _$UserDto;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(SocialPostModelBuilder b) => b;
+  static void _defaults(UserDtoBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<SocialPostModel> get serializer => _$SocialPostModelSerializer();
+  static Serializer<UserDto> get serializer => _$UserDtoSerializer();
 }
 
-class _$SocialPostModelSerializer implements PrimitiveSerializer<SocialPostModel> {
+class _$UserDtoSerializer implements PrimitiveSerializer<UserDto> {
   @override
-  final Iterable<Type> types = const [SocialPostModel, _$SocialPostModel];
+  final Iterable<Type> types = const [UserDto, _$UserDto];
 
   @override
-  final String wireName = r'SocialPostModel';
+  final String wireName = r'UserDto';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    SocialPostModel object, {
+    UserDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.id != null) {
-      yield r'id';
+    if (object.username != null) {
+      yield r'username';
       yield serializers.serialize(
-        object.id,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.userId != null) {
-      yield r'userId';
-      yield serializers.serialize(
-        object.userId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.content != null) {
-      yield r'content';
-      yield serializers.serialize(
-        object.content,
+        object.username,
         specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.createdAt != null) {
-      yield r'createdAt';
+    if (object.firstName != null) {
+      yield r'firstName';
       yield serializers.serialize(
-        object.createdAt,
-        specifiedType: const FullType(DateTime),
+        object.firstName,
+        specifiedType: const FullType.nullable(String),
       );
     }
-    if (object.imageUrl != null) {
-      yield r'imageUrl';
+    if (object.lastName != null) {
+      yield r'lastName';
       yield serializers.serialize(
-        object.imageUrl,
+        object.lastName,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.passwordHash != null) {
+      yield r'passwordHash';
+      yield serializers.serialize(
+        object.passwordHash,
         specifiedType: const FullType.nullable(String),
       );
     }
@@ -96,7 +85,7 @@ class _$SocialPostModelSerializer implements PrimitiveSerializer<SocialPostModel
   @override
   Object serialize(
     Serializers serializers,
-    SocialPostModel object, {
+    UserDto object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -107,49 +96,44 @@ class _$SocialPostModelSerializer implements PrimitiveSerializer<SocialPostModel
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required SocialPostModelBuilder result,
+    required UserDtoBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
-          break;
-        case r'userId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.userId = valueDes;
-          break;
-        case r'content':
+        case r'username':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.content = valueDes;
+          result.username = valueDes;
           break;
-        case r'createdAt':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.createdAt = valueDes;
-          break;
-        case r'imageUrl':
+        case r'firstName':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType.nullable(String),
           ) as String?;
           if (valueDes == null) continue;
-          result.imageUrl = valueDes;
+          result.firstName = valueDes;
+          break;
+        case r'lastName':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.lastName = valueDes;
+          break;
+        case r'passwordHash':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.passwordHash = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -160,12 +144,12 @@ class _$SocialPostModelSerializer implements PrimitiveSerializer<SocialPostModel
   }
 
   @override
-  SocialPostModel deserialize(
+  UserDto deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = SocialPostModelBuilder();
+    final result = UserDtoBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

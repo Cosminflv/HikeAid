@@ -8,14 +8,14 @@ part of 'login_dto.dart';
 
 class _$LoginDto extends LoginDto {
   @override
-  final String? password;
-  @override
   final String? username;
+  @override
+  final String? password;
 
   factory _$LoginDto([void Function(LoginDtoBuilder)? updates]) =>
       (new LoginDtoBuilder()..update(updates))._build();
 
-  _$LoginDto._({this.password, this.username}) : super._();
+  _$LoginDto._({this.username, this.password}) : super._();
 
   @override
   LoginDto rebuild(void Function(LoginDtoBuilder) updates) =>
@@ -28,15 +28,15 @@ class _$LoginDto extends LoginDto {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is LoginDto &&
-        password == other.password &&
-        username == other.username;
+        username == other.username &&
+        password == other.password;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, password.hashCode);
     _$hash = $jc(_$hash, username.hashCode);
+    _$hash = $jc(_$hash, password.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -44,8 +44,8 @@ class _$LoginDto extends LoginDto {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'LoginDto')
-          ..add('password', password)
-          ..add('username', username))
+          ..add('username', username)
+          ..add('password', password))
         .toString();
   }
 }
@@ -53,13 +53,13 @@ class _$LoginDto extends LoginDto {
 class LoginDtoBuilder implements Builder<LoginDto, LoginDtoBuilder> {
   _$LoginDto? _$v;
 
-  String? _password;
-  String? get password => _$this._password;
-  set password(String? password) => _$this._password = password;
-
   String? _username;
   String? get username => _$this._username;
   set username(String? username) => _$this._username = username;
+
+  String? _password;
+  String? get password => _$this._password;
+  set password(String? password) => _$this._password = password;
 
   LoginDtoBuilder() {
     LoginDto._defaults(this);
@@ -68,8 +68,8 @@ class LoginDtoBuilder implements Builder<LoginDto, LoginDtoBuilder> {
   LoginDtoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _password = $v.password;
       _username = $v.username;
+      _password = $v.password;
       _$v = null;
     }
     return this;
@@ -91,7 +91,7 @@ class LoginDtoBuilder implements Builder<LoginDto, LoginDtoBuilder> {
 
   _$LoginDto _build() {
     final _$result =
-        _$v ?? new _$LoginDto._(password: password, username: username);
+        _$v ?? new _$LoginDto._(username: username, password: password);
     replace(_$result);
     return _$result;
   }

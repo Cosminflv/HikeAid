@@ -170,7 +170,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/json, text/plain
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -255,7 +255,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/json, text/plain
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -298,7 +298,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/*+json, application/json, text/json
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -338,13 +338,13 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/*+json, application/json, text/json
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiUserPost**
-> apiUserPost(userModel)
+> apiUserPost(userDto)
 
 
 
@@ -353,10 +353,10 @@ No authorization required
 import 'package:openapi/api.dart';
 
 final api = Openapi().getUserApi();
-final UserModel userModel = ; // UserModel | 
+final UserDto userDto = ; // UserDto | 
 
 try {
-    api.apiUserPost(userModel);
+    api.apiUserPost(userDto);
 } catch on DioException (e) {
     print('Exception when calling UserApi->apiUserPost: $e\n');
 }
@@ -366,7 +366,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userModel** | [**UserModel**](UserModel.md)|  | [optional] 
+ **userDto** | [**UserDto**](UserDto.md)|  | [optional] 
 
 ### Return type
 
@@ -378,7 +378,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: application/*+json, application/json, text/json
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

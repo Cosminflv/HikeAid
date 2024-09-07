@@ -11,23 +11,23 @@ part 'track_dto.g.dart';
 /// TrackDto
 ///
 /// Properties:
-/// * [gpxData] 
 /// * [id] 
-/// * [logData] 
 /// * [userId] 
+/// * [gpxData] 
+/// * [logData] 
 @BuiltValue()
 abstract class TrackDto implements Built<TrackDto, TrackDtoBuilder> {
-  @BuiltValueField(wireName: r'gpxData')
-  String? get gpxData;
-
   @BuiltValueField(wireName: r'id')
   int? get id;
 
-  @BuiltValueField(wireName: r'logData')
-  String? get logData;
-
   @BuiltValueField(wireName: r'userId')
   int? get userId;
+
+  @BuiltValueField(wireName: r'gpxData')
+  String? get gpxData;
+
+  @BuiltValueField(wireName: r'logData')
+  String? get logData;
 
   TrackDto._();
 
@@ -52,13 +52,6 @@ class _$TrackDtoSerializer implements PrimitiveSerializer<TrackDto> {
     TrackDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.gpxData != null) {
-      yield r'gpxData';
-      yield serializers.serialize(
-        object.gpxData,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
     if (object.id != null) {
       yield r'id';
       yield serializers.serialize(
@@ -66,18 +59,25 @@ class _$TrackDtoSerializer implements PrimitiveSerializer<TrackDto> {
         specifiedType: const FullType(int),
       );
     }
-    if (object.logData != null) {
-      yield r'logData';
-      yield serializers.serialize(
-        object.logData,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
     if (object.userId != null) {
       yield r'userId';
       yield serializers.serialize(
         object.userId,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.gpxData != null) {
+      yield r'gpxData';
+      yield serializers.serialize(
+        object.gpxData,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.logData != null) {
+      yield r'logData';
+      yield serializers.serialize(
+        object.logData,
+        specifiedType: const FullType.nullable(String),
       );
     }
   }
@@ -103,6 +103,20 @@ class _$TrackDtoSerializer implements PrimitiveSerializer<TrackDto> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
+        case r'userId':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.userId = valueDes;
+          break;
         case r'gpxData':
           final valueDes = serializers.deserialize(
             value,
@@ -111,13 +125,6 @@ class _$TrackDtoSerializer implements PrimitiveSerializer<TrackDto> {
           if (valueDes == null) continue;
           result.gpxData = valueDes;
           break;
-        case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
-          break;
         case r'logData':
           final valueDes = serializers.deserialize(
             value,
@@ -125,13 +132,6 @@ class _$TrackDtoSerializer implements PrimitiveSerializer<TrackDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.logData = valueDes;
-          break;
-        case r'userId':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.userId = valueDes;
           break;
         default:
           unhandled.add(key);

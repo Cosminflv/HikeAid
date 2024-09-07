@@ -8,18 +8,18 @@ part of 'comment_dto.dart';
 
 class _$CommentDto extends CommentDto {
   @override
-  final String? content;
-  @override
   final int? postId;
   @override
-  final DateTime? timeStamp;
-  @override
   final int? userId;
+  @override
+  final String? content;
+  @override
+  final DateTime? timeStamp;
 
   factory _$CommentDto([void Function(CommentDtoBuilder)? updates]) =>
       (new CommentDtoBuilder()..update(updates))._build();
 
-  _$CommentDto._({this.content, this.postId, this.timeStamp, this.userId})
+  _$CommentDto._({this.postId, this.userId, this.content, this.timeStamp})
       : super._();
 
   @override
@@ -33,19 +33,19 @@ class _$CommentDto extends CommentDto {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CommentDto &&
-        content == other.content &&
         postId == other.postId &&
-        timeStamp == other.timeStamp &&
-        userId == other.userId;
+        userId == other.userId &&
+        content == other.content &&
+        timeStamp == other.timeStamp;
   }
 
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, content.hashCode);
     _$hash = $jc(_$hash, postId.hashCode);
-    _$hash = $jc(_$hash, timeStamp.hashCode);
     _$hash = $jc(_$hash, userId.hashCode);
+    _$hash = $jc(_$hash, content.hashCode);
+    _$hash = $jc(_$hash, timeStamp.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -53,10 +53,10 @@ class _$CommentDto extends CommentDto {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'CommentDto')
-          ..add('content', content)
           ..add('postId', postId)
-          ..add('timeStamp', timeStamp)
-          ..add('userId', userId))
+          ..add('userId', userId)
+          ..add('content', content)
+          ..add('timeStamp', timeStamp))
         .toString();
   }
 }
@@ -64,21 +64,21 @@ class _$CommentDto extends CommentDto {
 class CommentDtoBuilder implements Builder<CommentDto, CommentDtoBuilder> {
   _$CommentDto? _$v;
 
-  String? _content;
-  String? get content => _$this._content;
-  set content(String? content) => _$this._content = content;
-
   int? _postId;
   int? get postId => _$this._postId;
   set postId(int? postId) => _$this._postId = postId;
 
-  DateTime? _timeStamp;
-  DateTime? get timeStamp => _$this._timeStamp;
-  set timeStamp(DateTime? timeStamp) => _$this._timeStamp = timeStamp;
-
   int? _userId;
   int? get userId => _$this._userId;
   set userId(int? userId) => _$this._userId = userId;
+
+  String? _content;
+  String? get content => _$this._content;
+  set content(String? content) => _$this._content = content;
+
+  DateTime? _timeStamp;
+  DateTime? get timeStamp => _$this._timeStamp;
+  set timeStamp(DateTime? timeStamp) => _$this._timeStamp = timeStamp;
 
   CommentDtoBuilder() {
     CommentDto._defaults(this);
@@ -87,10 +87,10 @@ class CommentDtoBuilder implements Builder<CommentDto, CommentDtoBuilder> {
   CommentDtoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _content = $v.content;
       _postId = $v.postId;
-      _timeStamp = $v.timeStamp;
       _userId = $v.userId;
+      _content = $v.content;
+      _timeStamp = $v.timeStamp;
       _$v = null;
     }
     return this;
@@ -113,10 +113,10 @@ class CommentDtoBuilder implements Builder<CommentDto, CommentDtoBuilder> {
   _$CommentDto _build() {
     final _$result = _$v ??
         new _$CommentDto._(
-            content: content,
             postId: postId,
-            timeStamp: timeStamp,
-            userId: userId);
+            userId: userId,
+            content: content,
+            timeStamp: timeStamp);
     replace(_$result);
     return _$result;
   }
