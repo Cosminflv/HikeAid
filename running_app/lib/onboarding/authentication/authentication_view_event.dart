@@ -9,6 +9,8 @@ class AuthenticationLoadingEvent extends AuthenticationViewEvent {}
 
 class AuthResetEvent extends AuthenticationViewEvent {}
 
+class AuthClearEvent extends AuthenticationViewEvent {}
+
 class AuthenticationSuccesfulEvent extends AuthenticationViewEvent {
   final AuthSessionEntity session;
 

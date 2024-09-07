@@ -1,3 +1,5 @@
+import 'package:data/models/auth_session_entity_impl.dart';
+import 'package:data/models/user_entity_impl.dart';
 import 'package:domain/entities/authrntication_status.dart';
 import 'package:domain/repositories/authentication_repository.dart';
 import 'package:openapi/openapi.dart';
@@ -25,7 +27,14 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
         ),
       );
       if (result.statusCode == 200) {
-        print("Login successful");
+        final data = result.data as Map<String, dynamic>;
+        onAuthProgressUpdated(AuthenticationSuccesful(
+            AuthSessionEntityImpl(user: UserEntityImpl(id: data['id']!, username: data['username']!))));
+        return;
+      }
+
+      if (result.statusCode == 400) {
+        onAuthProgressUpdated(AuthenticationFailed(reason: AuthenticationFailType.invalidCredentials));
       }
     } catch (e) {
       print("$e");

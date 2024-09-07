@@ -13,7 +13,7 @@ class AuthenticationUseCase {
       return;
     }
 
-    _authRepository.authenticate(
+    await _authRepository.authenticate(
         username: username, password: password, onAuthProgressUpdated: (status) => onProgress(status));
   }
 }

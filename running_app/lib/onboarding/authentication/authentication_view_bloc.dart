@@ -19,6 +19,7 @@ class AuthenticationViewBloc extends Bloc<AuthenticationViewEvent, Authenticatio
     on<UpdateLoginPasswordValueEvent>(_handleUpdateLoginPasswordValue);
 
     on<AuthResetEvent>(_authResetEventHandler);
+    on<AuthClearEvent>(_authClearEventHandler);
   }
 
   _authenticateEventHandler(PerformAuthenticationEvent event, Emitter<AuthenticationViewState> emit) async {
@@ -41,14 +42,16 @@ class AuthenticationViewBloc extends Bloc<AuthenticationViewEvent, Authenticatio
       username: state.username,
       password: state.password,
     ));
+  }
 
+  _authResetEventHandler(AuthResetEvent event, Emitter<AuthenticationViewState> emit) {
     emit(InitialAuthenticationState(
       username: state.username,
       password: state.password,
     ));
   }
 
-  _authResetEventHandler(AuthResetEvent event, Emitter<AuthenticationViewState> emit) {
+  _authClearEventHandler(AuthClearEvent event, Emitter<AuthenticationViewState> emit) {
     emit(const InitialAuthenticationState());
   }
 
@@ -66,17 +69,17 @@ class AuthenticationViewBloc extends Bloc<AuthenticationViewEvent, Authenticatio
 
   _onAuthProgress({required AuthenticationStatus authStatus}) async {
     switch (authStatus.runtimeType) {
-      case AuthenticationStarted _:
+      case const (AuthenticationStarted):
         return;
-      case AuthenticationSuccesful _:
+      case const (AuthenticationSuccesful):
         authStatus as AuthenticationSuccesful;
         add(AuthenticationSuccesfulEvent(session: authStatus.session));
         return;
-      case AuthenticationInProgress _:
+      case const (AuthenticationInProgress):
         add(AuthenticationLoadingEvent());
 
         return;
-      case AuthenticationFailed _:
+      case const (AuthenticationFailed):
         authStatus as AuthenticationFailed;
 
         add(AuthenticationFailedEvent(

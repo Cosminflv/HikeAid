@@ -14,7 +14,7 @@ import 'package:openapi/src/api/track_api.dart';
 import 'package:openapi/src/api/user_api.dart';
 
 class Openapi {
-  static const String basePath = r'https://192.168.1.5:7011/';
+  static const String basePath = r'https://192.168.1.6:7011/';
 
   final Dio dio;
   final Serializers serializers;
