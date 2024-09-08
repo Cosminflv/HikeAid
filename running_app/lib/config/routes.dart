@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/onboarding/authentication/authentication_page.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/onboarding_menu_page.dart';
@@ -14,6 +15,9 @@ class RouteNames {
   static const onboardingMenuPage = '$defaultPage/onboarding_menu_page';
   static const authenticationPage = '$defaultPage/authentication_page';
   static const registrationPage = '$defaultPage/registration_page';
+
+  @pragma('Maps & Navigation')
+  static const mapPage = '$defaultPage/map_page';
 }
 
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -31,6 +35,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       page = const RegistrationPage();
     case RouteNames.onboardingMenuPage:
       page = const OnboardingMenuPage();
+
+    // Maps & Navigation
+    case RouteNames.mapPage:
+      page = const MapViewPage();
   }
 
   return page != null ? PageTransition(child: page, type: PageTransitionType.leftToRight) : null;

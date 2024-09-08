@@ -1,6 +1,7 @@
 import 'package:core/di/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_event.dart';
@@ -31,6 +32,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
       providers: [
         BlocProvider(create: (context) => sl.get<AuthenticationViewBloc>()),
         BlocProvider(create: (context) => sl.get<RegistrationViewBloc>()),
+        BlocProvider(create: (context) => sl.get<AppBloc>()),
       ],
       child: MaterialApp(
         title: "Running App",

@@ -94,9 +94,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                           content: Text("Login successful"),
                         ),
                       );
-                      // TODO: Navigate to MapPage
-
                       BlocProviders.authentication(context).add(AuthResetEvent());
+
+                      Navigator.of(context).pushReplacementNamed(RouteNames.mapPage);
                     });
                   }
 

@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:data/extensions.dart';
 import 'package:data/models/coordinates_entity_impl.dart';
-import 'package:data/repositories_impl/extensions.dart';
 
 import 'package:domain/entities/landmark_entity.dart';
 

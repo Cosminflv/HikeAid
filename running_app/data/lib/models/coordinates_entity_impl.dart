@@ -1,4 +1,4 @@
-import 'package:data/repositories_impl/extensions.dart';
+import 'package:data/extensions.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:gem_kit/core.dart';
 
