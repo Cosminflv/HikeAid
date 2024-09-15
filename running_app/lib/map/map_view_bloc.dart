@@ -1,24 +1,27 @@
-import 'dart:async';
-
 import 'package:core/di/injection_container.dart';
 import 'package:domain/repositories/camera_repository.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
+import 'package:domain/entities/asset_bundle_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/map/map_view_state.dart';
 
 import 'package:domain/entities/view_area_entity.dart';
 
+import 'dart:async';
+
 class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   late MapUseCase _mapUseCase;
   late LandmarkUseCase _landmarkUseCase;
+
+  final AssetBundleEntity _assetBundleEntity;
 
   Timer? _debounce;
 
   PointEntity<double> Function()? _getCenterOfVisibleArea;
 
-  MapViewBloc() : super(const MapViewState()) {
+  MapViewBloc(this._assetBundleEntity) : super(const MapViewState()) {
     on<InitMapViewEvent>(_initMapViewEventHandler);
 
     on<CompassAlignNorthEvent>(_handleAlignNorth);
@@ -40,6 +43,8 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     _getCenterOfVisibleArea = event.centerOfVisibleAreaFunction;
 
     _registerMapGestureCallbacks(event.isInteractive);
+
+    _setupPositionTracker(true);
   }
 
   _handleAlignNorth(CompassAlignNorthEvent event, Emitter<MapViewState> emit) {
@@ -114,6 +119,15 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
   _handleCameraStateUpdated(CameraStateUpdatedEvent event, Emitter<MapViewState> emit) =>
       emit(state.copyWith(cameraState: _mapUseCase.getCameraState()));
+
+  Future<void> _setupPositionTracker(bool isPositionTrackerVisible) async {
+    final String filePath;
+
+    isPositionTrackerVisible ? filePath = 'assets/positionTracker.png' : filePath = 'assets/empty.glb';
+
+    final bytes = await _assetBundleEntity.loadAsUint8List(filePath);
+    _mapUseCase.setPositionTrackerImage(bytes, scale: 0.5);
+  }
 
   void debounce(Function() action, {Duration duration = const Duration(milliseconds: 300)}) {
     if (_debounce != null && _debounce!.isActive) {

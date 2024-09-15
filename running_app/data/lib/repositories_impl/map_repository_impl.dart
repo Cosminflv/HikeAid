@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:data/models/camera_state_entity_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:domain/entities/camera_state_entity.dart';
@@ -38,6 +40,16 @@ class MapRepositoryImpl extends MapRepository {
     if (coordinates == null) return null;
 
     return MapCameraStateEntityImpl(coordinates: coordinates, zoom: _controller.zoomLevel);
+  }
+
+  @override
+  void setPositionTrackerImage(Uint8List imageData, {double scale = 1.0}) {
+    try {
+      MapSceneObject.customizeDefPositionTracker(imageData, SceneObjectFileFormat.tex);
+      final positionTracker = MapSceneObject.getDefPositionTracker();
+
+      positionTracker.scale = scale;
+    } catch (e) {}
   }
 
   @override

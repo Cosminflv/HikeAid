@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 
@@ -13,6 +15,7 @@ abstract class MapRepository {
   MapCameraStateEntity? getCameraState();
 
   // Miscellaneous
+  void setPositionTrackerImage(Uint8List imageData, {double scale = 1.0});
   void alignNorthUp();
 
   void setEnableTouchGestures(bool enable);

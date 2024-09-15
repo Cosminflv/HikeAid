@@ -6,6 +6,7 @@ import 'package:data/repositories_impl/position_repository_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:domain/map_widget_builder.dart';
 import 'package:domain/map_platform.dart';
+import 'package:data/models/asset_bundle_entity_impl.dart';
 import 'package:data/utils/map_platform_impl.dart';
 import 'package:domain/repositories/camera_repository.dart';
 import 'package:domain/repositories/landmark_repository.dart';
@@ -73,7 +74,7 @@ initEarlyDependencies() {
   //Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
   sl.registerLazySingleton<RegistrationViewBloc>(() => RegistrationViewBloc());
-  sl.registerLazySingleton<MapViewBloc>(() => MapViewBloc());
+  sl.registerLazySingleton<MapViewBloc>(() => MapViewBloc(AssetBundleEntityImpl()));
   sl.registerLazySingleton<LocationBloc>(() => LocationBloc());
   sl.registerLazySingleton<AppBloc>(() => AppBloc());
 

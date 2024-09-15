@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
 import 'package:domain/repositories/camera_repository.dart';
@@ -32,6 +34,9 @@ class MapUseCase {
   void setFollowPositionPreferences(
           {required DFollowPositionRotationMode mode, double angle = 0, bool objectFollowMap = false}) =>
       _cameraRepository.setFollowPositionPreferences(mode: mode, angle: angle, objectFollowMap: objectFollowMap);
+
+  void setPositionTrackerImage(Uint8List imageData, {double scale = 1.0}) =>
+      _mapRepository.setPositionTrackerImage(imageData, scale: scale);
 
   void alignCompassNorth() => _mapRepository.alignNorthUp();
 }
