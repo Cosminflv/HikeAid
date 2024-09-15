@@ -1,49 +1,140 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 ColorScheme lightColorScheme = const ColorScheme.light(
   surface: Colors.white,
   onSurface: Color.fromARGB(255, 0, 0, 0),
-  surfaceContainerHighest: Color.fromARGB(255, 240, 248, 240),
-  onSurfaceVariant: Color.fromARGB(255, 112, 128, 115),
-  primary: Color(0xFF96BE8C), // Main green color
-  inversePrimary: Color.fromARGB(255, 240, 255, 240),
+  surfaceContainerHighest: Color.fromARGB(255, 239, 239, 239),
+  onSurfaceVariant: Color.fromARGB(255, 139, 138, 143),
+  primary: Color.fromARGB(255, 21, 29, 85),
+  inversePrimary: Color.fromARGB(255, 0, 0, 0),
   onPrimary: Color.fromARGB(255, 255, 255, 255),
-  primaryContainer: Color.fromARGB(255, 213, 237, 209),
-  onPrimaryContainer: Color.fromARGB(255, 28, 55, 34),
-  secondary: Color.fromARGB(255, 119, 139, 118),
+  primaryContainer: Color.fromARGB(255, 223, 224, 255),
+  onPrimaryContainer: Color.fromARGB(255, 0, 0, 0),
+  secondary: Color.fromARGB(255, 85, 85, 85),
   onSecondary: Color.fromARGB(255, 255, 255, 255),
-  secondaryContainer: Color.fromARGB(255, 224, 231, 220),
-  onSecondaryContainer: Color.fromARGB(255, 35, 49, 39),
-  surfaceContainerLowest: Color.fromARGB(255, 245, 252, 245),
+  secondaryContainer: Color.fromARGB(255, 242, 242, 242),
+  onSecondaryContainer: Color.fromARGB(255, 255, 255, 255),
+  surfaceContainerLowest: Color.fromARGB(255, 243, 242, 248),
   outline: Colors.black38,
-  outlineVariant: Color.fromARGB(255, 215, 225, 215),
-  shadow: Color.fromARGB(255, 180, 190, 180),
-  surfaceTint: Color.fromARGB(255, 230, 240, 230),
-  tertiary: Color.fromARGB(255, 86, 117, 85),
+  outlineVariant: Color.fromARGB(255, 231, 231, 233),
+  shadow: Color.fromARGB(255, 150, 150, 150),
+  surfaceTint: Color.fromARGB(255, 243, 243, 243),
+  tertiary: Color.fromARGB(255, 59, 65, 108),
 );
 
 ColorScheme darkColorScheme = const ColorScheme.dark(
-  surface: Color.fromARGB(255, 28, 30, 28),
-  onSurface: Color.fromARGB(255, 240, 240, 240),
-  surfaceContainerHighest: Color.fromARGB(255, 38, 48, 38),
-  onSurfaceVariant: Color.fromARGB(255, 150, 160, 150),
-  primary: Color(0xFF96BE8C), // Main green color
-  inversePrimary: Color.fromARGB(255, 50, 75, 50),
-  onPrimary: Color.fromARGB(255, 28, 55, 34),
-  primaryContainer: Color.fromARGB(255, 75, 99, 74),
-  onPrimaryContainer: Color.fromARGB(255, 220, 240, 220),
-  secondary: Color.fromARGB(255, 100, 120, 100),
-  onSecondary: Color.fromARGB(255, 220, 240, 220),
-  secondaryContainer: Color.fromARGB(255, 60, 75, 60),
-  onSecondaryContainer: Color.fromARGB(255, 215, 225, 215),
-  surfaceContainerLowest: Color.fromARGB(255, 18, 20, 18),
+  surface: Color.fromARGB(255, 33, 33, 33),
+  onSurface: Color.fromARGB(255, 255, 255, 255),
+  surfaceContainerHighest: Color.fromARGB(255, 48, 48, 48),
+  onSurfaceVariant: Color.fromARGB(255, 201, 201, 201),
+  primary: Color.fromARGB(255, 58, 75, 185),
+  inversePrimary: Color.fromARGB(255, 255, 255, 255),
+  onPrimary: Color.fromARGB(255, 255, 255, 255),
+  primaryContainer: Color.fromARGB(255, 121, 134, 203),
+  onPrimaryContainer: Color.fromARGB(255, 0, 0, 0),
+  secondary: Color.fromARGB(255, 169, 169, 169),
+  onSecondary: Color.fromARGB(255, 0, 0, 0),
+  secondaryContainer: Color.fromARGB(255, 66, 66, 66),
+  onSecondaryContainer: Color.fromARGB(255, 255, 255, 255),
+  surfaceContainerLowest: Color.fromARGB(255, 28, 28, 30),
   outline: Colors.white38,
-  outlineVariant: Color.fromARGB(255, 75, 90, 75),
+  outlineVariant: Color.fromARGB(255, 58, 58, 60),
   shadow: Color.fromARGB(255, 0, 0, 0),
-  surfaceTint: Color.fromARGB(255, 15, 25, 15),
-  tertiary: Color.fromARGB(255, 70, 105, 70),
+  surfaceTint: Color.fromARGB(255, 18, 18, 18),
+  tertiary: Color.fromARGB(255, 64, 71, 130),
 );
+
+// ColorScheme darkColorScheme = const ColorScheme.dark(
+//   surface: Color.fromARGB(255, 0, 0, 0),
+//   onSurface: Color.fromARGB(255, 255, 255, 255),
+//   surfaceContainerHighest: Color.fromARGB(255, 30, 30, 30),
+//   onSurfaceVariant: Color.fromARGB(255, 145, 145, 153),
+//   primary: Color.fromARGB(255, 135, 145, 255),
+//   inversePrimary: Color.fromARGB(255, 255, 255, 255),
+//   onPrimary: Color.fromARGB(255, 0, 0, 0),
+//   primaryContainer: Color.fromARGB(255, 227, 202, 254),
+//   onPrimaryContainer: Color.fromARGB(255, 255, 255, 255),
+//   secondary: Color.fromARGB(255, 77, 77, 77),
+//   onSecondary: Color.fromARGB(255, 0, 0, 0),
+//   secondaryContainer: Color.fromARGB(255, 45, 45, 46),
+//   onSecondaryContainer: Color.fromARGB(255, 0, 0, 0),
+//   surfaceContainerLowest: Color.fromARGB(255, 0, 0, 0),
+//   outline: Colors.white38,
+//   outlineVariant: Color.fromARGB(255, 54, 54, 57),
+// );
+
+CupertinoThemeData getCupertinoTheme() {
+  return const CupertinoThemeData(
+    primaryContrastingColor: Color.fromARGB(255, 228, 227, 234),
+    primaryColor: Colors.blueAccent,
+    barBackgroundColor: Colors.white,
+    textTheme: CupertinoTextThemeData(),
+  );
+}
+
+// This color is used for button background(such as transport mode buttons for location details panel)
+const Color highlightColor = Color.fromARGB(255, 242, 242, 242);
+
+// This color is used for go button background
+const Color goColor = Color.fromARGB(255, 93, 201, 82);
+
+// This color is used for end button background
+const Color errorColor = Color.fromARGB(255, 238, 56, 49);
+
+// This color is used for warning button background
+const Color warningColor = Color.fromARGB(255, 242, 149, 0);
+
+// This color is used for favorites button
+const Color favoritesColor = Color.fromARGB(255, 255, 204, 0);
+
+// This color is used for content inside buttons with background color not from the theme
+const Color buttonContentColor = Color.fromARGB(255, 255, 255, 255);
+
+// This color is used for transparent items
+const Color transparentColor = Colors.transparent;
+
+Color getThemedItemBackgroundColor(BuildContext context) {
+  return (Theme.of(context).brightness == Brightness.light)
+      ? Theme.of(context).colorScheme.surface
+      : Theme.of(context).colorScheme.surfaceContainerHighest;
+}
+
+Color getContainerColor(BuildContext context) {
+  return (Theme.of(context).brightness == Brightness.light)
+      ? Theme.of(context).colorScheme.surface
+      : Theme.of(context).colorScheme.surfaceContainerHighest;
+}
+
+Color getAppbarColor(BuildContext context) {
+  return (Theme.of(context).brightness == Brightness.light)
+      ? Theme.of(context).colorScheme.surface
+      : Theme.of(context).colorScheme.surfaceTint;
+}
+
+Color getBackgroundColor(BuildContext context) {
+  return (Theme.of(context).brightness == Brightness.light)
+      ? Theme.of(context).colorScheme.surfaceTint
+      : Theme.of(context).colorScheme.surface;
+}
+
+// Used for all TextFields by default
+InputDecorationTheme inputDecorationTheme(ColorScheme colorScheme) {
+  const double width = 1.0;
+  const BorderRadius radius = BorderRadius.all(Radius.circular(15.0));
+
+  return InputDecorationTheme(
+    enabledBorder: OutlineInputBorder(
+      borderRadius: radius,
+      borderSide: BorderSide(width: width, color: colorScheme.onSurface),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: radius,
+      borderSide: BorderSide(width: width, color: colorScheme.onSurface),
+    ),
+  );
+}
 
 ThemeData lightThemeData = ThemeData(
   colorScheme: lightColorScheme,
@@ -95,20 +186,3 @@ ThemeData darkThemeData = ThemeData(
   //           textStyle: TextStyle(fontWeight: FontWeight.w300, color: darkColorScheme.onSurface))),
   // ],
 );
-
-// Used for all TextFields by default
-InputDecorationTheme inputDecorationTheme(ColorScheme colorScheme) {
-  const double width = 1.0;
-  const BorderRadius radius = BorderRadius.all(Radius.circular(15.0));
-
-  return InputDecorationTheme(
-    enabledBorder: OutlineInputBorder(
-      borderRadius: radius,
-      borderSide: BorderSide(width: width, color: colorScheme.onSurface),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderRadius: radius,
-      borderSide: BorderSide(width: width, color: colorScheme.onSurface),
-    ),
-  );
-}

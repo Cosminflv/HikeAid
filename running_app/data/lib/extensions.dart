@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:data/models/coordinates_entity_impl.dart';
+import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/models/position_entity_impl.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:gem_kit/core.dart';
@@ -31,5 +34,19 @@ extension AddressInfoExtension on AddressInfo {
     final city = getField(AddressField.city);
     final street = getField(AddressField.streetName);
     return '$street $city $country';
+  }
+}
+
+extension GemLandmarkExtension on Landmark {
+  LandmarkEntityImpl toEntityImpl({int width = 48, int height = 48, Uint8List? image, bool isPositionBased = false}) {
+    final landmarkImage = image ?? getImage();
+
+    setExtraImage(imageData: landmarkImage, format: ImageFileFormat.png);
+
+    return LandmarkEntityImpl(
+      ref: this,
+      icon: landmarkImage,
+      isPositionBased: isPositionBased,
+    );
   }
 }

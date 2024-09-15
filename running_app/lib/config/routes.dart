@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:running_app/map/map_view_page.dart';
+import 'package:running_app/map/widgets/ask_permission_popup.dart';
 import 'package:running_app/onboarding/authentication/authentication_page.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/onboarding_menu_page.dart';
@@ -18,6 +19,7 @@ class RouteNames {
 
   @pragma('Maps & Navigation')
   static const mapPage = '$defaultPage/map_page';
+  static const askPermissionPage = '$defaultPage/ask_permission_popup';
 }
 
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -39,6 +41,9 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     // Maps & Navigation
     case RouteNames.mapPage:
       page = const MapViewPage();
+
+    case RouteNames.askPermissionPage:
+      return FadeRoute(page: const AskPermissionPopup());
   }
 
   return page != null ? PageTransition(child: page, type: PageTransitionType.leftToRight) : null;

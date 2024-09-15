@@ -1,0 +1,753 @@
+{
+    "@@locale": "en",
+    "logoutFail": "Logout failed",
+    "@logoutFail": {
+        "description": "Message when logging out operation failed"
+    },
+    "noInternetConnection": "No internet connection",
+    "@noInternetConnection": {
+        "description": "Message when the user has no internet connection"
+    },
+    "connectionError": "Connection Error",
+    "@connectionError": {
+        "description": "Title when the user has no internet connection"
+    },
+    "checkInternetConnection": "Check your internet connection",
+    "@checkInternetConnection": {
+        "description": "Message when the user has no internet connection"
+    },
+    "authenticationCanceled": "Authentication was canceled by the user.",
+    "@authenticationCanceled": {
+        "description": "Message when the authentication was cancelled by the user"
+    },
+    "invalidCredentials": "Invalid credentials",
+    "@invalidCredentials": {
+        "description": "Message when the credentials are invalid"
+    },
+    "unconfirmedEmail": "Unconfirmed email",
+    "@unconfirmedEmail": {
+        "description": "Message when the email is unconfirmed"
+    },
+    "invalidToken": "Code is invalid",
+    "@invalidToken": {
+        "description": "Message when the token has expired or is invalid"
+    },
+    "rateLimit": "For security purposes, you can only request this once in a while",
+    "@rateLimit": {
+        "description": "Message when the request was made too fast"
+    },
+    "noPasskeyAccount": "You don't have any passkey created in your account. Please sign in using other method and add a passkey in Security section of your account",
+    "@noPasskeyAccount": {
+        "description": "Message when there aren't any passkeys linked to the account"
+    },
+    "noPasskeyDevice": "You don't have any passkey for this account on this device. Please sign in using other method and add a passkey in Security section of your account",
+    "@noPasskeyDevice": {
+        "description": "Message when there aren't any passkeys linked to the device"
+    },
+    "loginFail": "An error occured while trying to log you in",
+    "@loginFail": {
+        "description": "Message when the login failed for an unknown reason"
+    },
+    "or": "or",
+    "@or": {
+        "description": "Divider between options"
+    },
+    "welcome": "Welcome",
+    "@welcome": {
+        "description": "Greeting when trying to login"
+    },
+    "enterPassword": "Please enter your password",
+    "@enterPassword": {
+        "description": "Placeholder in password textfield"
+    },
+    "forgotPassword": "I've forgotten my password",
+    "@forgotPassword": {
+        "description": "Text on forgot password button"
+    },
+    "moreOptions": "More options",
+    "@moreOptions": {
+        "description": "Text on more options button"
+    },
+    "enterEmail": "Please enter your email address",
+    "@enterEmail": {
+        "description": "Placeholder in email textfield"
+    },
+    "continue_": "Continue",
+    "@continue_": {
+        "description": "Text to continue to next step"
+    },
+    "signInFail": "Couldn't sign in",
+    "@signInFail": {
+        "description": "Title when there was a failure while signing in"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Text on cancel button"
+    },
+    "delete": "Delete",
+    "@delete": {
+        "description": "Text on delete button"
+    },
+    "continueWithProvider": "Continue with {provider}",
+    "@continue": {
+        "description": "Text on continue with provider button",
+        "placeholders": {
+            "provider": {
+                "type": "String",
+                "example": "Google"
+            }
+        }
+    },
+    "failure": "Something went wrong",
+    "@failure": {
+        "description": "Message when there is a failure"
+    },
+    "tryAgain": "Try again",
+    "@tryAgain": {
+        "description": "Message in case you have no internet connection on the starting page"
+    },
+    "magicLaneApp": "MagicLane Bike App",
+    "@magicLaneApp": {
+        "description": "Application name"
+    },
+    "getStarted": "Get started",
+    "@getStarted": {
+        "description": "Text on enter app button"
+    },
+    "checkEmail": "Check your email",
+    "@checkEmail": {
+        "description": "Message when the user has to input a code send to the email address"
+    },
+    "choosePasswordTitle": "{isNew, select, true{Choose a new password} other{Choose a password}}",
+    "@choosePasswordTitle": {
+        "description": "Title in pages where the user has to set the password, optionally including 'new'",
+        "placeholders": {
+            "isNew": {
+                "type": "String",
+                "example": "true"
+            }
+        }
+    },
+    "choosePassword": "Choose a password that you will use to log in into your account",
+    "@choosePassword": {
+        "description": "Text when the user has to set the password of the account"
+    },
+    "password": "Password",
+    "@password": {
+        "description": "Text when there is a password text field"
+    },
+    "confirmPassword": "Confirm password",
+    "@confirmPassword": {
+        "description": "Text when there is a confirm password text field"
+    },
+    "registerFail": "An error occured while trying to register you",
+    "@registerFail": {
+        "description": "Message when the register failed for an unknown reason"
+    },
+    "passkeyRegisterFail": "An error occured while trying to create a passkey.",
+    "@passkeyRegisterFail": {
+        "description": "Message when passkey register failed"
+    },
+    "unvalidatedEmail": "Unable to validate email address",
+    "@unvalidatedEmail": {
+        "description": "Message when email can't be validated"
+    },
+    "nameRegisterTitle": "What's your name?",
+    "@nameRegisterTitle": {
+        "description": "Title of the page when the user sets the name for a new account"
+    },
+    "nameRegisterSubtitle": "Let us know how to properly address you",
+    "@nameRegisterSubtitle": {
+        "description": "Subtitle of the page when the user sets the name for a new account"
+    },
+    "firstName": "First name",
+    "@firstName": {
+        "description": "Message to indicate first name"
+    },
+    "lastName": "Last name",
+    "@lastName": {
+        "description": "Message to indicate last name"
+    },
+    "firstNamePlaceholder": "Please enter your first name",
+    "@firstNamePlaceholder": {
+        "description": "Placeholder of textfield where the user has to input their first name"
+    },
+    "lastNamePlaceholder": "Please enter your last name",
+    "@lastNamePlaceholder": {
+        "description": "Placeholder of textfield where the user has to input their last name"
+    },
+    "enterEmailCode": "Enter the 6-digit code sent to you at {email}",
+    "@enterEmailCode": {
+        "description": "Subtitle in pages with a verification code",
+        "placeholders": {
+            "email": {
+                "type": "String",
+                "example": "email@email.com"
+            }
+        }
+    },
+    "emailCodeTip": "Tip: Be sure to check your inbox and spam folders",
+    "@emailCodeTip": {
+        "description": "Tip in pages with a verification code"
+    },
+    "resend": "Resend",
+    "@resend": {
+        "description": "Text on resend email code button"
+    },
+    "resendIn": "Resend in {number} seconds",
+    "@resendIn": {
+        "description": "Text on resend email code button when the operation is not available",
+        "placeholders": {
+            "number": {
+                "type": "int",
+                "example": "60"
+            }
+        }
+    },
+    "chooseAnotherVerifyWay": "Choose another way to verify",
+    "@chooseAnotherVerifyWay": {
+        "description": "Title on more verify options panel"
+    },
+    "validEmailError": "Please enter a valid email address (e.g. john@gmail.com).",
+    "@validEmailError": {
+        "description": "Error message in case the email is not valid"
+    },
+    "noMatchPassword": "Passwords do not match",
+    "@noMatchPassword": {
+        "description": "Error message in case the password doesn't match the password confirmation"
+    },
+    "createPasskeyTitle": "Create a passkey",
+    "@createPasskeyTitle": {
+        "description": "Title on create a passkey page"
+    },
+    "passkeyAdvantages": "Use a passkey instead of a password. It's faster and eliminates the risk of phishing",
+    "@passkeyAdvantages": {
+        "description": "Message with the advantages of using passkey"
+    },
+    "passkeyOptions": "With passkey, you can log in with",
+    "@passkeyOptions": {
+        "description": "Message to start enumeration of possible ways to log in with passkey"
+    },
+    "faceRecognition": "Face Recognition",
+    "@faceRecognition": {
+        "description": "Face recognition text"
+    },
+    "fingerprint": "Fingerprint",
+    "@fingerprint": {
+        "description": "Fingerprint text"
+    },
+    "passcode": "Passcode",
+    "@passcode": {
+        "description": "Passcode text"
+    },
+    "createPasskey": "Create Passkey",
+    "@createPasskey": {
+        "description": "Text on create passkey button"
+    },
+    "notNow": "Not now",
+    "@notNow": {
+        "description": "Text on continue without performing operation button"
+    },
+    "passkeyRegisteredTitle": "Passkey Registered",
+    "@passkeyRegisteredTitle": {
+        "description": "Title on the panel shown when a passkey was registered succesfully"
+    },
+    "passkeyRegistered": "Passkey registered successfully. Next time you can login without password by simply tapping Sign In with Passkeys",
+    "@passkeyRegistered": {
+        "description": "Message on the panel shown when a passkey was registered succesfully"
+    },
+    "ok": "Ok",
+    "@ok": {
+        "description": "Text on ok button"
+    },
+    "logoutTitle": "Logout",
+    "@logoutTitle": {
+        "description": "Title of logout panel"
+    },
+    "logout": "Are you sure you want to logout?",
+    "@logout": {
+        "description": "Message on logout panel"
+    },
+    "next": "Next",
+    "@next": {
+        "description": "Text on next button"
+    },
+    "changePasswordError": "An error occured while trying to change your password. Please try again",
+    "@changePasswordError": {
+        "description": "Message that appears in case changing password failed for an unknown reason"
+    },
+    "sameAsOldPassword": "New password should be different from the old password.",
+    "@sameAsOldPassword": {
+        "description": "Message that appears in case the new password is the same as the old one"
+    },
+    "routes": "Routes",
+    "@routes": {
+        "description": "Routes tab name"
+    },
+    "profile": "Profile",
+    "@profile": {
+        "description": "Profile tab name"
+    },
+    "enableLocationTitle": "Enable Location Access",
+    "@enableLocationTitle": {
+        "description": "Title on ask location permission popup"
+    },
+    "enableLocationSubtitle": "To enhance your experience with the MagicLane Bike App, we need access to your precise location. This will help us show you where you are on the map.",
+    "@enableLocationSubtitle": {
+        "description": "Subtitle on ask location permission popup"
+    },
+    "enableLocationSteps": "For the best experience, please follow these steps:\n1. Enable location services from your device's settings.\n2. Allow the app to use your location while you are using the app.",
+    "@enableLocationSteps": {
+        "description": "Subtitle on ask location permission popup"
+    },
+    "enableLocationButton": "Allow location access",
+    "@enableLocationButton": {
+        "description": "Text on ask location permission popup button"
+    },
+    "mapStyles": "Map Styles",
+    "@mapStyles": {
+        "description": "Title above map styles"
+    },
+    "mapSettings": "Map Settings",
+    "@mapSettings": {
+        "description": "Title on map settings panel"
+    },
+    "accountDetails": "Account Details",
+    "@accountDetails": {
+        "description": "Title of panel after account details are updated succesfully"
+    },
+    "changedDetailsSuccesfully": "Your account has been updated succesfully!",
+    "@changedDetailsSuccesfully": {
+        "description": "Message of panel after account details are updated succesfully"
+    },
+    "changeAccountDetailsTitle": "Change Account Details",
+    "@changeAccountDetailsTitle": {
+        "description": "Title of change account details page"
+    },
+    "save": "Save",
+    "@save": {
+        "description": "Save button text"
+    },
+    "username": "Username",
+    "@username": {
+        "description": "Message to indicate username"
+    },
+    "accountDisplayName": "The account display name",
+    "@accountDisplayName": {
+        "description": "Explanation of changing the username of the account"
+    },
+    "keyId": "Key Id",
+    "@keyId": {
+        "description": "Message to indicate key id"
+    },
+    "lastUsedLocation": "Last used location",
+    "@lastUsedLocation": {
+        "description": "Message to indicate the last used location"
+    },
+    "map": "Map",
+    "@map": {
+        "description": "Message to indicate map page"
+    },
+    "userProfileFail": "Error loading user profile",
+    "@userProfileFail": {
+        "description": "Title when there was a failure while trying to access the user profile"
+    },
+    "user": "User",
+    "@user": {
+        "description": "Text in case the user profile has no name set"
+    },
+    "personalInformation": "Personal Information",
+    "@personalInformation": {
+        "description": "Title of personal information category"
+    },
+    "updateAccountDetails": "Update display name, avatar",
+    "@updateAccountDetails": {
+        "description": "Explanation of what is account details page is used for"
+    },
+    "security": "Security",
+    "@security": {
+        "description": "Title of personal information category"
+    },
+    "managePasskeys": "Manage passkeys",
+    "@managePasskeys": {
+        "description": "Explanation of what is passkeys page is used for"
+    },
+    "passkeys": "Passkeys",
+    "@passkeys": {
+        "description": "Passkeys page title"
+    },
+    "changeAccountPassword": "Change account password",
+    "@changeAccountPassword": {
+        "description": "Explanation of what is password page is used for"
+    },
+    "invalidLoginSession": "Invalid login session",
+    "@invalidLoginSession": {
+        "description": "Message if the current login session is invalid"
+    },
+    "create": "Create",
+    "@create": {
+        "description": "Button to create a new entity"
+    },
+    "deletePasskeyTitle": "Delete Passkey",
+    "@deletePasskeyTitle": {
+        "description": "Title of delete passkey panel"
+    },
+    "deletePasskey": "Are you sure you want to delete this passkey? This will remove the passkey only from you account. To delete from your device follow device-specific instructions.",
+    "@deletePasskey": {
+        "description": "Message on delete passkey panel"
+    },
+    "noPasskeyRegistered": "You don't have any registered passkeys.",
+    "@noPasskeyRegistered": {
+        "description": "Message in case there are no passkeys to manage in user profile page"
+    },
+    "passwordUpdatedSuccesfully": "Your password has been updated succesfully!",
+    "@passwordUpdatedSuccesfully": {
+        "description": "Message if the password was updated succesfully from user profile page"
+    },
+    "changePassword": "Change Password",
+    "@changePassword": {
+        "description": "Title of change password page"
+    },
+    "newPassword": "New Password",
+    "@newPassword": {
+        "description": "Text when there is a new password text field"
+    },
+    "invalidSession": "Invalid session",
+    "@invalidSession": {
+        "description": "Message when the session is invalid"
+    },
+    "fetchKeysError": "User keys couldn't not be fetched",
+    "@fetchKeysError": {
+        "description": "Message when the passkeys couldn't be fetched"
+    },
+    "deleteKeyError": "An error occured while deleting your key. Please try again.",
+    "@deleteKeyError": {
+        "description": "Message when a passkey couldn't be deleted"
+    },
+    "accountManagementFail": "An error occured while updating account information. Please try again.",
+    "@accountManagementFail": {
+        "description": "Message when the account informations weren't updated succesfully"
+    },
+    "minimumNumberOfCharacters": "{count, plural, =1{At least 1 character} other{At least {count} characters}}",
+    "@minimumNumberOfCharacters": {
+        "description": "Password validation",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "uppercaseLetters": "{count, plural, =1{1 uppercase letter} other{{count} uppercase letters}}",
+    "@uppercaseLetters": {
+        "description": "Password validation",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "lowercaseLetters": "{count, plural, =1{1 lowercase letter} other{{count} lowercase letters}}",
+    "@lowerrcaseLetters": {
+        "description": "Password validation",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "numericCharacters": "{count, plural, =1{1 numeric character} other{{count} numeric characters}}",
+    "@numericCharacters": {
+        "description": "Password validation",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "specialCharacters": "{count, plural, =1{1 special character} other{{count} special characters}}",
+    "@specialCharacters": {
+        "description": "Password validation",
+        "placeholders": {
+            "count": {
+                "type": "num",
+                "format": "compact"
+            }
+        }
+    },
+    "photosAccess": "Photos Access",
+    "@photosAccess": {
+        "description": "Photos access title panel"
+    },
+    "photosAccessDenied": "The app needs access to your photos in order to setup profile image. Please enable photos access in the app settings.",
+    "@photosAccessDenied": {
+        "description": "Message in case photos access was denied"
+    },
+    "startHere": "Start Here",
+    "@startHere": {
+        "description": "Text on setting landmark as the start of the route button"
+    },
+    "setDestination": "Set as Destination",
+    "@setDestination": {
+        "description": "Text on setting landmark as the destination of the route button"
+    },
+    "setEndPoint": "Set as new End Point",
+    "@setEndPoint": {
+        "description": "Text on setting landmark as the new end point of the route button"
+    },
+    "addToRoute": "Add to Route",
+    "@addToRoute": {
+        "description": "Text on adding landmark to route button"
+    },
+    "address": "Address",
+    "@address": {
+        "description": "Message to indicate an address"
+    },
+    "bookmark": "{isBookmarked, select, true{Bookmarked} other{Bookmark}}",
+    "@bookmark": {
+        "description": "Message to indicate if a landmark is bookmarked or not",
+        "placeholders": {
+            "isBookmarked": {
+                "type": "String",
+                "example": "true"
+            }
+        }
+    },
+    "search": "Search",
+    "@search": {
+        "description": "Message to indicate search"
+    },
+    "planNewRoute": "Plan New Route",
+    "@planNewRoute": {
+        "description": "Text on plan new route button"
+    },
+    "buildingRoute": "Building Route",
+    "@buildingRoute": {
+        "description": "Message to indicate a route is being build"
+    },
+    "reverseRoute": "Reverse Route Direction",
+    "@reverseRoute": {
+        "description": "Text on reverse route button"
+    },
+    "removeRoute": "Remove Route",
+    "@removeRoute": {
+        "description": "Text on remove route button"
+    },
+    "cycling": "Cycling",
+    "@cycling": {
+        "description": "Message to indicate cycling styles"
+    },
+    "addWaypoint": "Add Waypoint",
+    "@addWaypoint": {
+        "description": "Text on add waypoint button"
+    },
+    "chooseStartingPoint": "Choose starting point",
+    "@chooseStartingPoint": {
+        "description": "Placeholder in set starting point textfield"
+    },
+    "chooseWaypoint": "Choose waypoint",
+    "@chooseWaypoint": {
+        "description": "Placeholder in set waypoint textfield"
+    },
+    "chooseDestination": "Choose destination",
+    "@chooseDestination": {
+        "description": "Placeholder in set destination textfield"
+    },
+    "removeFromRoute": "Remove from Route",
+    "@removeFromRoute": {
+        "description": "Text on remove landmark from route button"
+    },
+    "savedPlaces": "Saved Places",
+    "@savedPlaces": {
+        "description": "Title of saved places page"
+    },
+    "noSavedPlaces": "No saved places",
+    "@noSavedPlaces": {
+        "description": "Text on saved places page in case the user has no saved places"
+    },
+    "useCurrentLocation": "Use Current Location",
+    "@useCurrentLocation": {
+        "description": "Text on use current location button"
+    },
+    "chooseOnMap": "Choose on Map",
+    "@chooseOnMap": {
+        "description": "Text on choose on map button"
+    },
+    "selectFromSavedPlaces": "Select from Saved Places",
+    "@selectFromSavedPlaces": {
+        "description": "Text on select from saved places button"
+    },
+    "deleteWaypoint": "Delete Waypoint",
+    "@deleteWaypoint": {
+        "description": "Text on delete waypoint button"
+    },
+    "loadingSearch": "Search for a city, town, street - or enter a specific place name",
+    "@loadingSearch": {
+        "description": "Message on search page while the search is loading"
+    },
+    "recent": "Recent",
+    "@recent": {
+        "description": "Title to indicate history section on search page"
+    },
+    "moreFromHistory": "More from recent history",
+    "@moreFromHistory": {
+        "description": "Message on go to history panel button"
+    },
+    "showPlaces": "Show places on map",
+    "@showPlaces": {
+        "description": "Title to indicate POIs section on search page"
+    },
+    "allCategories": "All Categories",
+    "@allCategories": {
+        "description": "Text on set visibility of all POIs toggle"
+    },
+    "noResultsFound": "No results have been found.\nPlease try again.",
+    "@noResultsFound": {
+        "description": "Message on search page if there are no results found"
+    },
+    "roadBike": "Road Bike",
+    "@roadBike": {
+        "description": "Value in types of bike enum"
+    },
+    "crossBike": "Cross Bike",
+    "@crossBike": {
+        "description": "Value in types of bike enum"
+    },
+    "cityBike": "City Bike",
+    "@cityBike": {
+        "description": "Value in types of bike enum"
+    },
+    "mountainBike": "Mountain Bike",
+    "@mountainBike": {
+        "description": "Value in types of bike enum"
+    },
+    "oneWay": "One Way",
+    "@oneWay": {
+        "description": "Value in types of routes enum"
+    },
+    "roundTrip": "Round Trip",
+    "@oneWroundTripay": {
+        "description": "Value in types of routes enum"
+    },
+    "whereTo": "Where to",
+    "@whereTo": {
+        "description": "Placeholder in search landmark textfield"
+    },
+    "searchHistory": "Search History",
+    "@searchHistory": {
+        "description": "Title on search history page"
+    },
+    "clear": "Clear",
+    "@clear": {
+        "description": "Text on clear button"
+    },
+    "cycle": "Cycle",
+    "@cycle": {
+        "description": "Value in map styles enum"
+    },
+    "satellite": "{isElevated, select, true{Satellite with Elevation} other{Satellite}}",
+    "@satellite": {
+        "description": "Value in map styles enum",
+        "placeholders": {
+            "isElevated": {
+                "type": "String",
+                "example": "true"
+            }
+        }
+    },
+    "elevation": "Elevation",
+    "@elevation": {
+        "description": "Value in map styles enum"
+    },
+    "magicDay": "Magic Day",
+    "@magicDay": {
+        "description": "Value in map styles enum"
+    },
+    "magicNight": "Magic Night",
+    "@magicNight": {
+        "description": "Value in map styles enum"
+    },
+    "myPosition": "My Position",
+    "@myPosition": {
+        "description": "Text on my position button"
+    },
+    "mapSelection": "Map Selection",
+    "@mapSelection": {
+        "description": "Text on map selection button"
+    },
+    "replace": "Replace",
+    "@replace": {
+        "description": "Text on replace button"
+    },
+    "routeFailed": "Route Build Failed",
+    "@routeFailed": {
+        "description": "Message when route build failed"
+    },
+    "tapMap": "Tap the map to add a point",
+    "@tapMap": {
+        "description": "Indication on map top panel"
+    },
+    "currentSpeed": "Current speed",
+    "@currentSpeed": {
+        "description": "Text in current speed field"
+    },
+    "averageSpeed": "Average speed",
+    "@averageSpeed": {
+        "description": "Text in average speed field"
+    },
+    "gpsDisabled": "GPS disabled",
+    "@gpsDisabled": {
+        "description": "Title in case the gps is disabled while navigating"
+    },
+    "enableGps": "Enable GPS in your phone settings",
+    "@enableGps": {
+        "description": "Text in case the gps is disabled while navigating"
+    },
+    "inKm": "In",
+    "@inKm": {
+        "description": "Text before the number of kilometers remaining"
+    },
+    "recenter": "Recenter",
+    "@recenter": {
+        "description": "Text on center on current location while in navigation button"
+    },
+    "controls": "Controls",
+    "@controls": {
+        "description": "Text on open navigation actions button"
+    },
+    "adjustRoute": "Adjust Route",
+    "@adjustRoute": {
+        "description": "Text on adjust route button"
+    },
+    "simulation": "Simulation",
+    "@simulation": {
+        "description": "Text before simulation toggle button"
+    },
+    "navigate": "Navigate",
+    "@navigate": {
+        "description": "Text on start navigation button"
+    },
+    "noGpsPosition": "No GPS Position",
+    "@noGpsPosition": {
+        "description": "Text in case GPS position is not available"
+    },
+    "finish": "Finish",
+    "@finish": {
+        "description": "Label of finish navigation button"
+    },
+    "mute": "Mute",
+    "@mute": {
+        "description": "Label of mute navigation button"
+    },
+    "unmute": "Unmute",
+    "@unmute": {
+        "description": "Label of unmute navigation button"
+    },
+    "overview": "Overview",
+    "@overview": {
+        "description": "Label of overview of route while in navigation button"
+    }
+}
