@@ -5,6 +5,8 @@ import 'package:data/repositories_impl/permission_repository_impl.dart';
 import 'package:data/repositories_impl/position_repository_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:domain/map_widget_builder.dart';
+import 'package:domain/map_platform.dart';
+import 'package:data/utils/map_platform_impl.dart';
 import 'package:domain/repositories/camera_repository.dart';
 import 'package:domain/repositories/landmark_repository.dart';
 import 'package:domain/repositories/map_repository.dart';
@@ -74,6 +76,8 @@ initEarlyDependencies() {
   sl.registerLazySingleton<MapViewBloc>(() => MapViewBloc());
   sl.registerLazySingleton<LocationBloc>(() => LocationBloc());
   sl.registerLazySingleton<AppBloc>(() => AppBloc());
+
+  sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 }
 
 initMapDependecies(MapController controller, {String? instanceName}) async {

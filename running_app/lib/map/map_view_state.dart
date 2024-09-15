@@ -9,6 +9,8 @@ class MapViewState extends Equatable {
   final bool isFollowingPosition;
   final bool isFollowPositionFixed;
 
+  final double compassAngle;
+
   final LandmarkEntity? mapSelectedLandmark;
 
   final MapCameraStateEntity cameraState;
@@ -17,6 +19,7 @@ class MapViewState extends Equatable {
     this.isMapCreated = false,
     this.isFollowPositionFixed = false,
     this.isFollowingPosition = false,
+    this.compassAngle = 0.0,
     this.cameraState = const MapCameraStateEntity(coordinates: CoordinatesImpl(latitude: 45, longitude: 25), zoom: 60),
     this.mapSelectedLandmark,
   });
@@ -25,6 +28,7 @@ class MapViewState extends Equatable {
     bool? isMapCreated,
     bool? isFollowPositionFixed,
     bool? isFollowingPosition,
+    double? compassAngle,
     MapCameraStateEntity? cameraState,
     LandmarkEntity? mapSelectedLandmark,
   }) =>
@@ -33,6 +37,7 @@ class MapViewState extends Equatable {
         isFollowPositionFixed: isFollowPositionFixed ?? this.isFollowPositionFixed,
         isFollowingPosition: isFollowingPosition ?? this.isFollowPositionFixed,
         cameraState: cameraState ?? this.cameraState,
+        compassAngle: compassAngle ?? this.compassAngle,
         mapSelectedLandmark: mapSelectedLandmark ?? this.mapSelectedLandmark,
       );
 
@@ -40,6 +45,7 @@ class MapViewState extends Equatable {
         isMapCreated: isMapCreated,
         isFollowingPosition: isFollowingPosition,
         isFollowPositionFixed: isFollowPositionFixed,
+        compassAngle: compassAngle,
         mapSelectedLandmark: null,
         cameraState: cameraState,
       );
@@ -49,5 +55,8 @@ class MapViewState extends Equatable {
         isMapCreated,
         isFollowPositionFixed,
         isFollowingPosition,
+        compassAngle,
+        cameraState,
+        mapSelectedLandmark,
       ];
 }

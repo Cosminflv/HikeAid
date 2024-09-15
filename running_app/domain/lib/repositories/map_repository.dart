@@ -5,11 +5,15 @@ abstract class MapRepository {
   // Gestures
   void registerMapGesturesCallbacks({
     required Function() onMapMove,
+    required Function(double) onMapAngleUpdated,
   });
 
   // Center and Distance
   CoordinatesEntity? getCenterCoordinates();
   MapCameraStateEntity? getCameraState();
+
+  // Miscellaneous
+  void alignNorthUp();
 
   void setEnableTouchGestures(bool enable);
 }

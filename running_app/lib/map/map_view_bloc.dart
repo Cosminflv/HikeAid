@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:core/di/injection_container.dart';
+import 'package:domain/repositories/camera_repository.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,11 +14,19 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   late MapUseCase _mapUseCase;
   late LandmarkUseCase _landmarkUseCase;
 
+  Timer? _debounce;
+
   PointEntity<double> Function()? _getCenterOfVisibleArea;
 
   MapViewBloc() : super(const MapViewState()) {
     on<InitMapViewEvent>(_initMapViewEventHandler);
+
+    on<CompassAlignNorthEvent>(_handleAlignNorth);
+    on<CompassAngleUpdatedEvent>(_handleCompassAngleUpdated);
+    on<CompassLockCameraEvent>(_handleCompassLockCamera);
+
     on<FollowPositionEvent>(_followPositionEventHandler);
+    on<ResetCameraEvent>(_handleResetCamera);
 
     on<SelectedLandmarkUpdatedEvent>(_selectedLandmarkUpdatedEventHandler);
 
@@ -29,6 +40,23 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     _getCenterOfVisibleArea = event.centerOfVisibleAreaFunction;
 
     _registerMapGestureCallbacks(event.isInteractive);
+  }
+
+  _handleAlignNorth(CompassAlignNorthEvent event, Emitter<MapViewState> emit) {
+    _mapUseCase.alignCompassNorth();
+    emit(state.copyWith(isFollowPositionFixed: false, isFollowingPosition: false));
+  }
+
+  _handleCompassAngleUpdated(CompassAngleUpdatedEvent event, Emitter<MapViewState> emit) {
+    emit(state.copyWith(compassAngle: event.angle));
+  }
+
+  _handleCompassLockCamera(CompassLockCameraEvent event, Emitter<MapViewState> emit) {
+    _mapUseCase.setFollowPositionPreferences(
+        mode: state.isFollowPositionFixed
+            ? DFollowPositionRotationMode.fixed
+            : DFollowPositionRotationMode.positionHeading);
+    emit(state.copyWith(isFollowPositionFixed: !state.isFollowPositionFixed));
   }
 
   _followPositionEventHandler(FollowPositionEvent event, Emitter<MapViewState> emit) async {
@@ -48,6 +76,9 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     );
   }
 
+  _handleResetCamera(ResetCameraEvent event, Emitter<MapViewState> emit) =>
+      emit(state.copyWith(isFollowingPosition: false, isFollowPositionFixed: false));
+
   _selectedLandmarkUpdatedEventHandler(SelectedLandmarkUpdatedEvent event, Emitter<MapViewState> emit) async {
     if (event.landmark == null) {
       emit(state.copyWithNullLandmark());
@@ -66,8 +97,28 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   _registerMapGestureCallbacks(bool isInteractive) {
     _mapUseCase.setEnableTouchGestures(isInteractive);
     if (!isInteractive) return;
+
+    _mapUseCase.registerMapGestureCallbacks(onMapAngleUpdated: (angle) {
+      if (isClosed) return;
+      add(CompassAngleUpdatedEvent(angle));
+    }, onMapMove: () {
+      if (isClosed) return;
+      add(ResetCameraEvent());
+
+      debounce(() {
+        if (isClosed) return;
+        add(CameraStateUpdatedEvent());
+      }, duration: const Duration(milliseconds: 500));
+    });
   }
 
   _handleCameraStateUpdated(CameraStateUpdatedEvent event, Emitter<MapViewState> emit) =>
       emit(state.copyWith(cameraState: _mapUseCase.getCameraState()));
+
+  void debounce(Function() action, {Duration duration = const Duration(milliseconds: 300)}) {
+    if (_debounce != null && _debounce!.isActive) {
+      _debounce!.cancel();
+    }
+    _debounce = Timer(duration, action);
+  }
 }

@@ -36,3 +36,16 @@ class FollowPositionEvent extends MapViewEvent {
 }
 
 class CameraStateUpdatedEvent extends MapViewEvent {}
+
+class CompassAlignNorthEvent extends MapViewEvent {}
+
+class CompassAngleUpdatedEvent extends MapViewEvent {
+  final double angle;
+  CompassAngleUpdatedEvent(this.angle);
+}
+
+class CompassLockCameraEvent extends MapViewEvent {}
+
+class ResetCameraEvent extends MapViewEvent {
+  ResetCameraEvent();
+}

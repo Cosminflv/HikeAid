@@ -24,8 +24,14 @@ class MapUseCase {
 
   void setEnableTouchGestures(bool enable) => _mapRepository.setEnableTouchGestures(enable);
 
-  void registerMapgestureCallbacks({required Function() onMapMove}) =>
-      _mapRepository.registerMapGesturesCallbacks(onMapMove: onMapMove);
+  void registerMapGestureCallbacks({required Function(double) onMapAngleUpdated, required Function() onMapMove}) =>
+      _mapRepository.registerMapGesturesCallbacks(onMapAngleUpdated: onMapAngleUpdated, onMapMove: onMapMove);
 
   MapCameraStateEntity? getCameraState() => _mapRepository.getCameraState();
+
+  void setFollowPositionPreferences(
+          {required DFollowPositionRotationMode mode, double angle = 0, bool objectFollowMap = false}) =>
+      _cameraRepository.setFollowPositionPreferences(mode: mode, angle: angle, objectFollowMap: objectFollowMap);
+
+  void alignCompassNorth() => _mapRepository.alignNorthUp();
 }

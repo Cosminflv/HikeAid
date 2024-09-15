@@ -15,7 +15,11 @@ class MapRepositoryImpl extends MapRepository {
   MapRepositoryImpl(MapController mapController) : _controller = (mapController as MapControllerImpl).ref;
 
   @override
-  void registerMapGesturesCallbacks({required Function() onMapMove}) {
+  void registerMapGesturesCallbacks({
+    required Function() onMapMove,
+    required Function(double) onMapAngleUpdated,
+  }) {
+    _controller.registerOnMapAngleUpdate(onMapAngleUpdated);
     _controller.registerMoveCallback((p1, p2) => onMapMove());
   }
 
@@ -35,6 +39,9 @@ class MapRepositoryImpl extends MapRepository {
 
     return MapCameraStateEntityImpl(coordinates: coordinates, zoom: _controller.zoomLevel);
   }
+
+  @override
+  void alignNorthUp() => _controller.alignNorthUp();
 
   @override
   void setEnableTouchGestures(bool enable) {
