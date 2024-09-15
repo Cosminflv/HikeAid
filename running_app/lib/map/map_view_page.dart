@@ -5,7 +5,7 @@ import 'package:running_app/app/app_events.dart';
 import 'package:running_app/app/app_state.dart';
 import 'package:running_app/bloc_listeners/map_page_bloc_listeners.dart';
 import 'package:running_app/location/location_event.dart';
-import 'package:running_app/map/widgets/follow_position_button.dart';
+import 'package:running_app/map/widgets/map_actions_buttons.dart';
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/utils/map_blocs_provider.dart';
 
@@ -42,7 +42,7 @@ class _MapViewPageState extends State<MapViewPage> {
                   },
                 );
               }),
-              const FollowPositionButton(),
+              const MapActionsButtons(),
             ],
           ),
         ),

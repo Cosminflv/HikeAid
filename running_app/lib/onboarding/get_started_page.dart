@@ -51,7 +51,7 @@ class GetStartedPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.onPrimary),
                 onPressed: () {
                   //Navigator.of(context).pushReplacementNamed(RouteNames.onboardingMenuPage);
-                  Navigator.of(context).pushReplacementNamed(RouteNames.mapPage);
+                  Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
                 },
                 child: const Text('Get Started'),
               ),
