@@ -43,7 +43,7 @@ discardBlocsIfRegistered() {
 }
 
 initEarlyDependencies() {
-  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.2:7011/"));
+  Dio dio = Dio(BaseOptions(baseUrl: "https://127.0.0.1:52956/"));
   // ignore: deprecated_member_use
   (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
     client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;

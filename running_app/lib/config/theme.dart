@@ -7,21 +7,21 @@ ColorScheme lightColorScheme = const ColorScheme.light(
   onSurface: Color.fromARGB(255, 0, 0, 0),
   surfaceContainerHighest: Color.fromARGB(255, 239, 239, 239),
   onSurfaceVariant: Color.fromARGB(255, 139, 138, 143),
-  primary: Color.fromARGB(255, 21, 29, 85),
+  primary: Color.fromARGB(255, 92, 150, 68), // Matches your primary color
   inversePrimary: Color.fromARGB(255, 0, 0, 0),
   onPrimary: Color.fromARGB(255, 255, 255, 255),
-  primaryContainer: Color.fromARGB(255, 223, 224, 255),
+  primaryContainer: Color.fromARGB(255, 205, 233, 200), // Soft green
   onPrimaryContainer: Color.fromARGB(255, 0, 0, 0),
-  secondary: Color.fromARGB(255, 85, 85, 85),
+  secondary: Color.fromARGB(255, 119, 105, 95), // Earthy contrast to green
   onSecondary: Color.fromARGB(255, 255, 255, 255),
-  secondaryContainer: Color.fromARGB(255, 242, 242, 242),
-  onSecondaryContainer: Color.fromARGB(255, 255, 255, 255),
+  secondaryContainer: Color.fromARGB(255, 238, 230, 220),
+  onSecondaryContainer: Color.fromARGB(255, 0, 0, 0),
   surfaceContainerLowest: Color.fromARGB(255, 243, 242, 248),
   outline: Colors.black38,
   outlineVariant: Color.fromARGB(255, 231, 231, 233),
   shadow: Color.fromARGB(255, 150, 150, 150),
   surfaceTint: Color.fromARGB(255, 243, 243, 243),
-  tertiary: Color.fromARGB(255, 59, 65, 108),
+  tertiary: Color.fromARGB(255, 86, 126, 109), // Muted teal for balance
 );
 
 ColorScheme darkColorScheme = const ColorScheme.dark(
@@ -29,21 +29,21 @@ ColorScheme darkColorScheme = const ColorScheme.dark(
   onSurface: Color.fromARGB(255, 255, 255, 255),
   surfaceContainerHighest: Color.fromARGB(255, 48, 48, 48),
   onSurfaceVariant: Color.fromARGB(255, 201, 201, 201),
-  primary: Color.fromARGB(255, 58, 75, 185),
+  primary: Color.fromARGB(255, 92, 150, 68), // Matches your primary color
   inversePrimary: Color.fromARGB(255, 255, 255, 255),
   onPrimary: Color.fromARGB(255, 255, 255, 255),
-  primaryContainer: Color.fromARGB(255, 121, 134, 203),
-  onPrimaryContainer: Color.fromARGB(255, 0, 0, 0),
-  secondary: Color.fromARGB(255, 169, 169, 169),
+  primaryContainer: Color.fromARGB(255, 74, 119, 55), // Dark green for contrast
+  onPrimaryContainer: Color.fromARGB(255, 255, 255, 255),
+  secondary: Color.fromARGB(255, 139, 125, 110), // Muted earthy tone for contrast
   onSecondary: Color.fromARGB(255, 0, 0, 0),
-  secondaryContainer: Color.fromARGB(255, 66, 66, 66),
+  secondaryContainer: Color.fromARGB(255, 58, 53, 48),
   onSecondaryContainer: Color.fromARGB(255, 255, 255, 255),
   surfaceContainerLowest: Color.fromARGB(255, 28, 28, 30),
   outline: Colors.white38,
   outlineVariant: Color.fromARGB(255, 58, 58, 60),
   shadow: Color.fromARGB(255, 0, 0, 0),
   surfaceTint: Color.fromARGB(255, 18, 18, 18),
-  tertiary: Color.fromARGB(255, 64, 71, 130),
+  tertiary: Color.fromARGB(255, 66, 94, 87), // Dark teal for variety
 );
 
 // ColorScheme darkColorScheme = const ColorScheme.dark(
