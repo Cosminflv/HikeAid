@@ -106,8 +106,8 @@
     "@tryAgain": {
         "description": "Message in case you have no internet connection on the starting page"
     },
-    "magicLaneApp": "MagicLane Bike App",
-    "@magicLaneApp": {
+    "swiftStrideApp": "SwiftStride Running App",
+    "@swiftStrideApp": {
         "description": "Application name"
     },
     "getStarted": "Get started",
@@ -292,7 +292,7 @@
     "@enableLocationTitle": {
         "description": "Title on ask location permission popup"
     },
-    "enableLocationSubtitle": "To enhance your experience with the MagicLane Bike App, we need access to your precise location. This will help us show you where you are on the map.",
+    "enableLocationSubtitle": "To enhance your experience with the SwiftStride Running App, we need access to your precise location. This will help us show you where you are on the map.",
     "@enableLocationSubtitle": {
         "description": "Subtitle on ask location permission popup"
     },
@@ -749,5 +749,29 @@
     "overview": "Overview",
     "@overview": {
         "description": "Label of overview of route while in navigation button"
+    },
+    "requestTimeout": "Request timed out",
+    "@requestTimeout": {
+        "description": "Text on snackbar status"
+    },
+    "register": "Register",
+    "@register": {
+        "description": "Text on button"
+    },
+    "login": "Login",
+    "@register": {
+        "description": "Text on button"
+    },
+    "fillAllFields": "Please fill all fields",
+    "@register": {
+        "description": "Text on snackbar"
+    },
+    "loginSuccess": "Login successful",
+    "@register": {
+        "description": "Text on snackbar"
+    },
+    "registerSuccess": "Register successful",
+    "@register": {
+        "description": "Text on snackbar"
     }
 }

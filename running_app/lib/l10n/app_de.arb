@@ -25,7 +25,7 @@
     "continueWithProvider": "Weiter mit {provider}",
     "failure": "Etwas ist schief gelaufen",
     "tryAgain": "Erneut versuchen",
-    "magicLaneApp": "MagicLane Bike App",
+    "swiftStrideApp": "SwiftStride Lauf App",
     "getStarted": "Loslegen",
     "checkEmail": "Überprüfen Sie Ihre E-Mail",
     "choosePasswordTitle": "{isNew, select, true{Wählen Sie ein neues Passwort} other{Wählen Sie ein Passwort}}",
@@ -67,7 +67,7 @@
     "routes": "Routen",
     "profile": "Profil",
     "enableLocationTitle": "Standortzugriff aktivieren",
-    "enableLocationSubtitle": "Um Ihr Erlebnis mit der MagicLane Bike App zu verbessern, benötigen wir Zugriff auf Ihren genauen Standort. Dies hilft uns, Ihnen Ihren Standort auf der Karte anzuzeigen.",
+    "enableLocationSubtitle": "Um Ihr Erlebnis mit der SwiftStride Lauf App zu verbessern, benötigen wir Zugriff auf Ihren genauen Standort. Dies hilft uns, Ihnen Ihren Standort auf der Karte anzuzeigen.",
     "enableLocationSteps": "Für das beste Erlebnis befolgen Sie bitte diese Schritte:\n1. Aktivieren Sie die Standortdienste in den Einstellungen Ihres Geräts.\n2. Erlauben Sie der App, Ihren Standort zu verwenden, während Sie die App nutzen.",
     "enableLocationButton": "Standortzugriff erlauben",
     "mapStyles": "Kartenstile",
@@ -170,5 +170,11 @@
     "finish": "Beenden",
     "mute": "Stummschalten",
     "unmute": "Ton einschalten",
-    "overview": "Übersicht"
+    "overview": "Übersicht",
+    "requestTimeout": "Die Anfrage ist abgelaufen",
+    "register": "Registrieren",
+    "login": "Anmelden",
+    "fillAllFields": "Bitte füllen Sie alle Felder aus",
+    "loginSuccess": "Anmeldung erfolgreich",
+    "registerSuccess": "Registrierung erfolgreich"
 }

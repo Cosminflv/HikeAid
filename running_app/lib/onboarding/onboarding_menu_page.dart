@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:running_app/config/routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnboardingMenuPage extends StatelessWidget {
   const OnboardingMenuPage({super.key});
@@ -28,7 +29,7 @@ class OnboardingMenuPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pushReplacementNamed(RouteNames.authenticationPage);
                   },
-                  child: const Text('Log in'),
+                  child: Text(AppLocalizations.of(context)!.login),
                 ),
               ),
             ),
@@ -42,7 +43,9 @@ class OnboardingMenuPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pushReplacementNamed(RouteNames.registrationPage);
                   },
-                  child: const Text('Register'),
+                  child: Text(
+                    AppLocalizations.of(context)!.register,
+                  ),
                 ),
               ),
             ),

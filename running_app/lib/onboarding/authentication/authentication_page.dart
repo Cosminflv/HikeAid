@@ -6,7 +6,10 @@ import 'package:running_app/onboarding/authentication/authentication_view_bloc.d
 import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
+import 'package:running_app/utils/converters.dart';
 import 'package:running_app/utils/debouncer.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({super.key});
@@ -39,9 +42,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
             TextFormField(
               onChanged: (value) => BlocProviders.authentication(context).add(UpdateUsernameValueEvent(value: value)),
               controller: usernameController,
-              decoration: const InputDecoration(
-                labelText: 'Username',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.username,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 20.0), // Spacing between fields
@@ -51,9 +54,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               onChanged: (value) => BlocProviders.authentication(context).add(UpdatePasswordValueEvent(value: value)),
               controller: passwordController,
               obscureText: true,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.password,
+                border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 30.0), // Spacing before button
@@ -73,7 +76,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     onPressed: () {
                       debouncer.run(() => BlocProviders.authentication(context).add(PerformAuthenticationEvent()));
                     },
-                    child: const Text('Login'),
+                    child: Text(
+                      AppLocalizations.of(context)!.login,
+                    ),
                   ),
                 ),
               ],
@@ -90,8 +95,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     // Schedule the snackbar to be shown after the current frame
                     SchedulerBinding.instance.addPostFrameCallback((_) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Login successful"),
+                        SnackBar(
+                          content: Text(AppLocalizations.of(context)!.loginSuccess),
                         ),
                       );
                       BlocProviders.authentication(context).add(AuthResetEvent());
@@ -108,8 +113,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     // Schedule the snackbar to be shown after the current frame
                     SchedulerBinding.instance.addPostFrameCallback((_) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Invalid username or password"),
+                        SnackBar(
+                          content: Text(convertFailTypeToString(context, state.reason)),
                         ),
                       );
                     });

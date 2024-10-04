@@ -1,6 +1,11 @@
 import 'package:domain/entities/auth_session_entity.dart';
 
-enum AuthenticationFailType { invalidCredentials, noConnection, other }
+enum AuthenticationFailType {
+  invalidCredentials,
+  timeout,
+  noConnection,
+  other;
+}
 
 abstract class AuthenticationStatus {}
 
@@ -14,9 +19,8 @@ class AuthenticationSuccesful extends AuthenticationStatus {
   AuthenticationSuccesful(this.session);
 }
 
-class AuthenticationFailed extends AuthenticationStatus{
+class AuthenticationFailed extends AuthenticationStatus {
   final AuthenticationFailType reason;
 
   AuthenticationFailed({required this.reason});
 }
-

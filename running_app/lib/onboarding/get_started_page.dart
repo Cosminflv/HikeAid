@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:running_app/config/routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({super.key});
@@ -50,10 +51,10 @@ class GetStartedPage extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.onPrimary),
                 onPressed: () {
-                  //Navigator.of(context).pushReplacementNamed(RouteNames.onboardingMenuPage);
-                  Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
+                  Navigator.of(context).pushReplacementNamed(RouteNames.onboardingMenuPage);
+                  //Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
                 },
-                child: const Text('Get Started'),
+                child: Text(AppLocalizations.of(context)!.getStarted),
               ),
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:data/models/auth_session_entity_impl.dart';
 import 'package:data/models/user_entity_impl.dart';
+import 'package:dio/dio.dart';
 import 'package:domain/entities/authentication_status.dart';
 import 'package:domain/entities/registration_status.dart';
 import 'package:domain/repositories/onboarding_repository.dart';
@@ -37,8 +38,14 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
       if (result.statusCode == 400) {
         onAuthProgressUpdated(AuthenticationFailed(reason: AuthenticationFailType.invalidCredentials));
       }
-    } catch (e) {
-      print("$e");
+    } on DioException catch (e) {
+      if (e.type == DioExceptionType.connectionTimeout) {
+        // Handle connection timeout and return an appropriate authentication failure status
+        onAuthProgressUpdated(AuthenticationFailed(reason: AuthenticationFailType.timeout));
+      } else {
+        // Handle other Dio errors (such as network issues)
+        onAuthProgressUpdated(AuthenticationFailed(reason: AuthenticationFailType.other));
+      }
     }
   }
 

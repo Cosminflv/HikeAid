@@ -9,6 +9,7 @@ import 'package:running_app/utils/debouncer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -62,18 +63,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     usernameController.clear();
                     BlocProviders.registration(context).add(UpdateUsernameValueEvent(value: ""));
                   },
-                  child: const Text(
-                    "Clear",
-                    style: TextStyle(color: Colors.blue, fontSize: 16.0),
+                  child: Text(
+                    AppLocalizations.of(context)!.clear,
+                    style: const TextStyle(color: Colors.blue, fontSize: 16.0),
                   ),
                 ),
               ),
               TextFormField(
                 onChanged: (value) => BlocProviders.registration(context).add(UpdateUsernameValueEvent(value: value)),
                 controller: usernameController,
-                decoration: const InputDecoration(
-                  labelText: 'Username',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.username,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20.0), // Spacing between fields
@@ -86,18 +87,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     firstNameController.clear();
                     BlocProviders.registration(context).add(UpdateFirstNameValueEvent(value: ""));
                   },
-                  child: const Text(
-                    "Clear",
-                    style: TextStyle(color: Colors.blue, fontSize: 16.0),
+                  child: Text(
+                    AppLocalizations.of(context)!.clear,
+                    style: const TextStyle(color: Colors.blue, fontSize: 16.0),
                   ),
                 ),
               ),
               TextFormField(
                 onChanged: (value) => BlocProviders.registration(context).add(UpdateFirstNameValueEvent(value: value)),
                 controller: firstNameController,
-                decoration: const InputDecoration(
-                  labelText: 'First Name',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.firstName,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20.0), // Spacing between fields
@@ -110,18 +111,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     lastNameController.clear();
                     BlocProviders.registration(context).add(UpdateLastNameValueEvent(value: ""));
                   },
-                  child: const Text(
-                    "Clear",
-                    style: TextStyle(color: Colors.blue, fontSize: 16.0),
+                  child: Text(
+                    AppLocalizations.of(context)!.clear,
+                    style: const TextStyle(color: Colors.blue, fontSize: 16.0),
                   ),
                 ),
               ),
               TextFormField(
                 onChanged: (value) => BlocProviders.registration(context).add(UpdateLastNameValueEvent(value: value)),
                 controller: lastNameController,
-                decoration: const InputDecoration(
-                  labelText: 'Last Name',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.lastName,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20.0), // Spacing between fields
@@ -134,9 +135,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     passwordController.clear();
                     BlocProviders.registration(context).add(UpdatePasswordValueEvent(value: ""));
                   },
-                  child: const Text(
-                    "Clear",
-                    style: TextStyle(color: Colors.blue, fontSize: 16.0),
+                  child: Text(
+                    AppLocalizations.of(context)!.clear,
+                    style: const TextStyle(color: Colors.blue, fontSize: 16.0),
                   ),
                 ),
               ),
@@ -144,9 +145,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 onChanged: (value) => BlocProviders.registration(context).add(UpdatePasswordValueEvent(value: value)),
                 controller: passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.password,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 20.0), // Spacing between fields
@@ -158,9 +159,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   onTap: () {
                     confirmPasswordController.clear();
                   },
-                  child: const Text(
-                    "Clear",
-                    style: TextStyle(color: Colors.blue, fontSize: 16.0),
+                  child: Text(
+                    AppLocalizations.of(context)!.clear,
+                    style: const TextStyle(color: Colors.blue, fontSize: 16.0),
                   ),
                 ),
               ),
@@ -168,9 +169,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 onChanged: (value) {},
                 controller: confirmPasswordController,
                 obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Confirm Password',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.confirmPassword,
+                  border: const OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 30.0), // Spacing before button
@@ -193,20 +194,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             debouncer.run(() => BlocProviders.registration(context).add(PerformRegistrationEvent()));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Passwords do not match"),
+                              SnackBar(
+                                content: Text(AppLocalizations.of(context)!.noMatchPassword),
                               ),
                             );
                           }
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Please fill in all fields"),
+                            SnackBar(
+                              content: Text(AppLocalizations.of(context)!.fillAllFields),
                             ),
                           );
                         }
                       },
-                      child: const Text('Register'),
+                      child: Text(AppLocalizations.of(context)!.register),
                     ),
                   ),
                 ],
@@ -223,8 +224,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       // Schedule the snackbar to be shown after the current frame
                       SchedulerBinding.instance.addPostFrameCallback((_) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Registration successful"),
+                          SnackBar(
+                            content: Text(AppLocalizations.of(context)!.registerSuccess),
                           ),
                         );
                         // TODO: Navigate to LoginPage or another relevant page

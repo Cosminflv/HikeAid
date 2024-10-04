@@ -25,7 +25,7 @@
     "continueWithProvider": "Continuar con {provider}",
     "failure": "Algo salió mal",
     "tryAgain": "Intentar de nuevo",
-    "magicLaneApp": "MagicLane Bike App",
+    "swiftStrideApp": "SwiftStride App de Carrera",
     "getStarted": "Comenzar",
     "checkEmail": "Revise su correo electrónico",
     "choosePasswordTitle": "{isNew, select, true{Elija una nueva contraseña} other{Elija una contraseña}}",
@@ -67,7 +67,7 @@
     "routes": "Rutas",
     "profile": "Perfil",
     "enableLocationTitle": "Habilitar acceso a la ubicación",
-    "enableLocationSubtitle": "Para mejorar su experiencia con la aplicación MagicLane Bike, necesitamos acceder a su ubicación precisa. Esto nos ayudará a mostrarle dónde se encuentra en el mapa.",
+    "enableLocationSubtitle": "Para mejorar su experiencia con la aplicación SwiftStride, necesitamos acceder a su ubicación precisa. Esto nos ayudará a mostrarle dónde se encuentra en el mapa.",
     "enableLocationSteps": "Para obtener la mejor experiencia, siga estos pasos:\n1. Habilite los servicios de ubicación desde la configuración de su dispositivo.\n2. Permita que la aplicación use su ubicación mientras la usa.",
     "enableLocationButton": "Permitir acceso a la ubicación",
     "mapStyles": "Estilos de mapa",
@@ -170,5 +170,9 @@
     "finish": "Finalizar",
     "mute": "Silenciar",
     "unmute": "Activar sonido",
-    "overview": "Visión general"
+    "overview": "Visión general",
+    "requestTimeout": "La solicitud ha caducados",
+    "register": "Registrarse",
+    "login": "Iniciar sesión",
+    "fillAllFields": "Por favor, complete todos los campos"
 }
