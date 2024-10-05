@@ -179,5 +179,6 @@
     "registerSuccess": "Registrierung erfolgreich",
     "pleaseEnterYourDetails": "Bitte geben Sie Ihre Daten ein",
     "dontHaveAnAccount": "Haben Sie kein Konto?",
-    "signUp": "Registrieren"
+    "signUp": "Registrieren",
+    "edit": "Bearbeiten"
 }

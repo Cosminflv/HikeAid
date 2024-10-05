@@ -179,5 +179,6 @@
     "loginSuccess": "Inicio de sesión exitoso",
     "pleaseEnterYourDetails": "Por favor ingrese sus datos",
     "dontHaveAnAccount": "¿No tienes una cuenta?",
-    "signUp": "Regístrate"
+    "signUp": "Regístrate",
+    "edit": "Editar"
 }

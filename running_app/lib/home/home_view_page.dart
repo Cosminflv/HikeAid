@@ -46,7 +46,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
                       _currentIndex == 0 ? FontAwesomeIcons.solidMap : FontAwesomeIcons.map,
                       weight: 20,
                     ),
-                    label: AppLocalizations.of(context)!.routes),
+                    label: AppLocalizations.of(context)!.map),
                 BottomNavigationBarItem(
                     icon: Icon(_currentIndex == 1 ? FontAwesomeIcons.solidUser : FontAwesomeIcons.user),
                     label: AppLocalizations.of(context)!.profile),

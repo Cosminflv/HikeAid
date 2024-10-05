@@ -785,5 +785,9 @@
     "signUp": "Sign up",
   "@signUp": {
     "description": "Text for the sign-up button"
+  },
+    "edit": "Edit",
+  "@edit": {
+    "description": "Text for the edit button"
   }
 }
