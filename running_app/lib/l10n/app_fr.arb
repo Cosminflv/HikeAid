@@ -178,5 +178,8 @@
     "loginSuccess": "Connexion réussie",
     "registerSuccess": "Inscription réussie",
     "loginSuccess": "Inicio de sesión exitoso",
-    "registerSuccess": "Registro exitoso"
+    "registerSuccess": "Registro exitoso",
+    "pleaseEnterYourDetails": "Veuillez entrer vos informations",
+    "dontHaveAnAccount": "Vous n'avez pas de compte ?",
+    "signUp": "S'inscrire"
 }

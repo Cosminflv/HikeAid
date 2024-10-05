@@ -773,5 +773,17 @@
     "registerSuccess": "Register successful",
     "@register": {
         "description": "Text on snackbar"
-    }
+    },
+    "pleaseEnterYourDetails": "Please enter your details",
+    "@pleaseEnterYourDetails": {
+    "description": "Prompt asking the user to input their details"
+  },
+    "dontHaveAnAccount": "Don't have an account?",
+  "@dontHaveAnAccount": {
+    "description": "Text asking if the user doesn't have an account"
+  },
+    "signUp": "Sign up",
+  "@signUp": {
+    "description": "Text for the sign-up button"
+  }
 }

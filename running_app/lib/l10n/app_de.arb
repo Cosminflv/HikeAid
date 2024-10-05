@@ -176,5 +176,8 @@
     "login": "Anmelden",
     "fillAllFields": "Bitte füllen Sie alle Felder aus",
     "loginSuccess": "Anmeldung erfolgreich",
-    "registerSuccess": "Registrierung erfolgreich"
+    "registerSuccess": "Registrierung erfolgreich",
+    "pleaseEnterYourDetails": "Bitte geben Sie Ihre Daten ein",
+    "dontHaveAnAccount": "Haben Sie kein Konto?",
+    "signUp": "Registrieren"
 }

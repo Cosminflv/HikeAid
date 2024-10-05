@@ -5,7 +5,6 @@ import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/map/widgets/ask_permission_popup.dart';
 import 'package:running_app/onboarding/authentication/authentication_page.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
-import 'package:running_app/onboarding/onboarding_menu_page.dart';
 import 'package:running_app/onboarding/registration/registration_page.dart';
 
 class RouteNames {
@@ -14,7 +13,6 @@ class RouteNames {
   static const getStartedPage = '$defaultPage/get_started_page';
 
   @pragma('Onboarding')
-  static const onboardingMenuPage = '$defaultPage/onboarding_menu_page';
   static const authenticationPage = '$defaultPage/authentication_page';
   static const registrationPage = '$defaultPage/registration_page';
 
@@ -39,8 +37,6 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       page = const AuthenticationPage();
     case RouteNames.registrationPage:
       page = const RegistrationPage();
-    case RouteNames.onboardingMenuPage:
-      page = const OnboardingMenuPage();
 
     // Maps & Navigation
     case RouteNames.mapPage:

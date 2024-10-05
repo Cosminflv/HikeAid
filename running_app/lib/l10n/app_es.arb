@@ -174,5 +174,10 @@
     "requestTimeout": "La solicitud ha caducados",
     "register": "Registrarse",
     "login": "Iniciar sesión",
-    "fillAllFields": "Por favor, complete todos los campos"
+    "fillAllFields": "Por favor, complete todos los campos",
+    "registerSuccess": "Registro exitoso",
+    "loginSuccess": "Inicio de sesión exitoso",
+    "pleaseEnterYourDetails": "Por favor ingrese sus datos",
+    "dontHaveAnAccount": "¿No tienes una cuenta?",
+    "signUp": "Regístrate"
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/shared_widgets/app_logo.dart';
+import 'package:running_app/shared_widgets/custom_text_button.dart';
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({super.key});
@@ -19,23 +22,12 @@ class GetStartedPage extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(16.0),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black26,
-                    offset: Offset(0, 4),
-                    blurRadius: 4.0,
-                  ),
-                ],
               ),
-              child: const Text(
-                'Welcome to the App!',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
+              child: SizedBox.square(
+                dimension: MediaQuery.of(context).size.width / 2,
+                child: Container(color: Colors.transparent, child: const AppLogo()),
               ),
             ),
           ),
@@ -47,16 +39,18 @@ class GetStartedPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.7,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.onPrimary),
-                onPressed: () {
-                  Navigator.of(context).pushReplacementNamed(RouteNames.onboardingMenuPage);
-                  //Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
-                },
-                child: Text(AppLocalizations.of(context)!.getStarted),
-              ),
-            ),
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: CustomElevatedButton(
+                  backgroundColor: Theme.of(context).brightness == Brightness.light
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.onSurface,
+                  text: AppLocalizations.of(context)!.getStarted,
+                  textColor: Theme.of(context).brightness == Brightness.light
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : const Color.fromARGB(255, 44, 43, 50),
+                  trailing: Icon(FontAwesomeIcons.arrowRight, color: Theme.of(context).colorScheme.surface),
+                  onTap: () => Navigator.of(context).pushNamed(RouteNames.authenticationPage),
+                )),
           ),
         ],
       ),

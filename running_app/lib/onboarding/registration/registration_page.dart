@@ -1,9 +1,11 @@
 import 'package:domain/entities/registration_status.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_event.dart';
 import 'package:running_app/onboarding/registration/registration_view_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
+import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/utils/debouncer.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -180,36 +182,45 @@ class _RegistrationPageState extends State<RegistrationPage> {
               Row(
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.of(context).pushReplacementNamed(RouteNames.onboardingMenuPage),
-                      child: const Icon(Icons.arrow_back),
-                    ),
+                      child: CustomElevatedButton(
+                    backgroundColor: Theme.of(context).brightness == Brightness.light
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.onSurface,
+                    trailing: Icon(FontAwesomeIcons.arrowLeft, color: Theme.of(context).colorScheme.surface),
+                    onTap: () => Navigator.of(context).pushReplacementNamed(RouteNames.getStartedPage),
+                  )),
+                  const SizedBox(
+                    width: 5,
                   ),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_areFieldsFilled()) {
-                          if (passwordController.text == confirmPasswordController.text) {
-                            debouncer.run(() => BlocProviders.registration(context).add(PerformRegistrationEvent()));
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(AppLocalizations.of(context)!.noMatchPassword),
-                              ),
-                            );
-                          }
+                      child: CustomElevatedButton(
+                    backgroundColor: Theme.of(context).brightness == Brightness.light
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.onSurface,
+                    text: AppLocalizations.of(context)!.signUp,
+                    textColor: Theme.of(context).brightness == Brightness.light
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : const Color.fromARGB(255, 44, 43, 50),
+                    onTap: () {
+                      if (_areFieldsFilled()) {
+                        if (passwordController.text == confirmPasswordController.text) {
+                          debouncer.run(() => BlocProviders.registration(context).add(PerformRegistrationEvent()));
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(AppLocalizations.of(context)!.fillAllFields),
+                              content: Text(AppLocalizations.of(context)!.noMatchPassword),
                             ),
                           );
                         }
-                      },
-                      child: Text(AppLocalizations.of(context)!.register),
-                    ),
-                  ),
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(AppLocalizations.of(context)!.fillAllFields),
+                          ),
+                        );
+                      }
+                    },
+                  )),
                 ],
               ),
 

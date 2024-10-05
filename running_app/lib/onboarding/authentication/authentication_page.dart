@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
+import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/utils/converters.dart';
 import 'package:running_app/utils/debouncer.dart';
 
@@ -38,6 +40,23 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Text(
+              AppLocalizations.of(context)!.welcome,
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
+
+            const SizedBox(
+              height: 15,
+            ),
+
+            Text(
+              AppLocalizations.of(context)!.pleaseEnterYourDetails,
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+
             // Username TextField
             TextFormField(
               onChanged: (value) => BlocProviders.authentication(context).add(UpdateUsernameValueEvent(value: value)),
@@ -65,22 +84,44 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
             Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.of(context).pushReplacementNamed(RouteNames.onboardingMenuPage),
-                    child: const Icon(Icons.arrow_back),
-                  ),
+                    child: CustomElevatedButton(
+                  backgroundColor: Theme.of(context).brightness == Brightness.light
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.onSurface,
+                  trailing: Icon(FontAwesomeIcons.arrowLeft, color: Theme.of(context).colorScheme.surface),
+                  onTap: () => Navigator.of(context).pushReplacementNamed(RouteNames.getStartedPage),
+                )),
+                const SizedBox(
+                  width: 5,
                 ),
                 Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      debouncer.run(() => BlocProviders.authentication(context).add(PerformAuthenticationEvent()));
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.login,
-                    ),
-                  ),
+                    child: CustomElevatedButton(
+                  backgroundColor: Theme.of(context).brightness == Brightness.light
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.onSurface,
+                  text: AppLocalizations.of(context)!.login,
+                  textColor: Theme.of(context).brightness == Brightness.light
+                      ? Theme.of(context).colorScheme.onPrimary
+                      : const Color.fromARGB(255, 44, 43, 50),
+                  onTap: () => BlocProviders.authentication(context).add(PerformAuthenticationEvent()),
+                )),
+              ],
+            ),
+
+            const SizedBox(height: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.dontHaveAnAccount,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
+                TextButton(
+                    onPressed: () => Navigator.of(context).pushReplacementNamed(RouteNames.registrationPage),
+                    child: Text(
+                      AppLocalizations.of(context)!.signUp,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.blue),
+                    ))
               ],
             ),
 
