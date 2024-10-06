@@ -2,6 +2,7 @@ import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/app/app_state.dart';
 import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
+import 'package:running_app/utils/session_utils.dart';
 import 'package:running_app/utils/sizes.dart';
 
 import 'package:flutter/material.dart';
@@ -57,9 +58,11 @@ class _HomeViewPageState extends State<HomeViewPage> {
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children: const [
-          MapViewPage(),
-          UserProfileViewPage(),
+        children: [
+          const MapViewPage(),
+          UserProfileViewPage(
+            session: getSession(context),
+          ),
         ],
       ),
     );

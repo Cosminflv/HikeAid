@@ -3,6 +3,7 @@ import 'package:data/repositories_impl/camera_repository_impl.dart';
 import 'package:data/repositories_impl/map_repository_impl.dart';
 import 'package:data/repositories_impl/permission_repository_impl.dart';
 import 'package:data/repositories_impl/position_repository_impl.dart';
+import 'package:data/repositories_impl/user_profile_repository_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:domain/map_widget_builder.dart';
 import 'package:domain/map_platform.dart';
@@ -15,10 +16,13 @@ import 'package:domain/repositories/onboarding_repository.dart';
 import 'package:domain/repositories/permission_repository.dart';
 import 'package:data/repositories_impl/landmark_repository_impl.dart';
 import 'package:domain/repositories/position_repository.dart';
+import 'package:domain/repositories/user_profile_repository.dart';
 import 'package:domain/use_cases/authentication_usecase.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/location_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
+import 'package:domain/use_cases/user_profile_use_case.dart';
+import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 import 'package:running_app/location/location_bloc.dart';
@@ -31,6 +35,8 @@ import 'package:get_it/get_it.dart';
 import 'package:dio/io.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
+
+import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -63,6 +69,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<PermissionRepository>(() => PermissionRepositoryImpl());
   sl.registerLazySingleton<OnboardingRepository>(() => OnboardingRepositoryImpl(openApi.getUserApi()));
   sl.registerLazySingleton<LandmarkRepository>(() => LandmarkRepositoryImpl());
+  sl.registerLazySingleton<UserProfileRepository>(() => UserProfileRepositoryImpl(openApi.getUserApi()));
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
   //Usecases
@@ -70,6 +77,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<LocationUseCase>(
       () => LocationUseCase(sl.get<PermissionRepository>(), sl.get<PositionRepository>()));
   sl.registerLazySingleton<LandmarkUseCase>(() => LandmarkUseCase(sl.get<LandmarkRepository>()));
+  sl.registerLazySingleton<UserProfileUseCase>(() => UserProfileUseCase(sl.get<UserProfileRepository>()));
 
   //Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
@@ -77,6 +85,8 @@ initEarlyDependencies() {
   sl.registerLazySingleton<MapViewBloc>(() => MapViewBloc(AssetBundleEntityImpl()));
   sl.registerLazySingleton<LocationBloc>(() => LocationBloc());
   sl.registerLazySingleton<AppBloc>(() => AppBloc());
+  sl.registerLazySingleton<UserProfileViewBloc>(() => UserProfileViewBloc());
+  sl.registerLazySingleton<AuthSessionBloc>(() => AuthSessionBloc());
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 }

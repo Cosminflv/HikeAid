@@ -36,4 +36,8 @@ class OnboardingUseCase {
         lastName: lastName,
         onRegistrationProgressUpdated: (status) => onProgress(status));
   }
+
+  Future<AuthenticationFailed?> logout() {
+    throw UnimplementedError();
+  }
 }

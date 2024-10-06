@@ -7,11 +7,13 @@ import 'package:running_app/config/routes.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_event.dart';
 import 'package:running_app/config/theme.dart';
+import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 
 class RunningApp extends StatefulWidget {
   const RunningApp({super.key});
@@ -33,9 +35,11 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => sl.get<AuthSessionBloc>()),
         BlocProvider(create: (context) => sl.get<AuthenticationViewBloc>()),
         BlocProvider(create: (context) => sl.get<RegistrationViewBloc>()),
         BlocProvider(create: (context) => sl.get<LocationBloc>()),
+        BlocProvider(create: (context) => sl.get<UserProfileViewBloc>()),
         BlocProvider(create: (context) => sl.get<AppBloc>()),
       ],
       child: MaterialApp(
