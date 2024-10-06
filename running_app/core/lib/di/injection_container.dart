@@ -42,10 +42,14 @@ final sl = GetIt.instance;
 
 initBlocs() {
   sl.registerLazySingleton<LocationBloc>(() => LocationBloc());
+  sl.registerLazySingleton<MapViewBloc>(() => MapViewBloc(AssetBundleEntityImpl()));
 }
 
 discardBlocsIfRegistered() {
-  sl.get<LocationBloc>().close();
+  sl.get<MapViewBloc>().close();
+
+  sl.unregister<MapViewBloc>();
+
 }
 
 initEarlyDependencies() {

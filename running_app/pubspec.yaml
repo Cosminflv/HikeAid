@@ -28,6 +28,8 @@ dependencies:
     sdk: flutter
   intl: any
   flutter_platform_widgets: ^7.0.1
+  modal_bottom_sheet: ^3.0.0
+  fluttertoast: ^8.2.8
 
 dev_dependencies:
   flutter_test:

@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
+import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
+import 'package:running_app/shared_widgets/dialogs/logout_confirm_dialog.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_state.dart';
 
@@ -19,9 +22,17 @@ class UserProfileViewPage extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).highlightColor,
-          title: Text(
-            AppLocalizations.of(context)!.profile,
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+          title: TextButton(
+            onPressed: () {
+              showLogoutConfirmation(context).then((hasConfirmed) {
+                if (hasConfirmed) {
+                  BlocProvider.of<AuthSessionBloc>(context).add(LogoutEvent());
+                }
+              });
+            },
+            child: Text(AppLocalizations.of(context)!.logoutTitle,
+                style:
+                    Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface)),
           ),
           actions: [
             IconButton(
@@ -79,15 +90,24 @@ class UserProfileViewPage extends StatelessWidget {
                             const SizedBox(
                               width: 20,
                             ),
-                            Text(
-                              state.profile.username!,
-                              style: Theme.of(context).textTheme.titleMedium,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${state.profile.firstName} ${state.profile.lastName}",
+                                  style: Theme.of(context).textTheme.titleMedium,
+                                ),
+                                Text(
+                                  state.profile.username!,
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ],
                             )
                           ],
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          "this is my bio",
+                          state.profile.bio!,
                           style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20.0),
                         ),
                         const SizedBox(height: 10),

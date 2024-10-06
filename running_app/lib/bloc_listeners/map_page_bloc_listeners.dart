@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:running_app/bloc_listeners/app_bloc_listener.dart';
+import 'package:running_app/bloc_listeners/auth_session_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/location_bloc_listener.dart';
 
 class MapPageBlocListeners extends StatelessWidget {
@@ -9,7 +10,9 @@ class MapPageBlocListeners extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBlocListener(
-      child: LocationBlocListener(child: child),
+      child: AuthSessionBlocListener(
+        child: LocationBlocListener(child: child),
+      ),
     );
   }
 }
