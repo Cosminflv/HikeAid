@@ -108,6 +108,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               // Last Name TextField
               Align(
                 alignment: Alignment.centerRight,
+                
                 child: GestureDetector(
                   onTap: () {
                     lastNameController.clear();
@@ -168,7 +169,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
               ),
               TextFormField(
-                onChanged: (value) {},
+                onChanged: (value) => {},
                 controller: confirmPasswordController,
                 obscureText: true,
                 decoration: InputDecoration(

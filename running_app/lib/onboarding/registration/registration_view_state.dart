@@ -22,7 +22,12 @@ class InitialRegistrationState extends RegistrationViewState {
     String? firstName,
     String? lastName,
   }) =>
-      InitialRegistrationState(username: username ?? this.username, password: password ?? this.password);
+      InitialRegistrationState(
+        username: username ?? this.username,
+        password: password ?? this.password,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+      );
 
   @override
   List<Object?> get props => [

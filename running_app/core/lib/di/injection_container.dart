@@ -1,4 +1,4 @@
-import 'package:data/repositories_impl/authentication_repository_impl.dart';
+import 'package:data/repositories_impl/onboarding_repository_impl.dart';
 import 'package:data/repositories_impl/camera_repository_impl.dart';
 import 'package:data/repositories_impl/map_repository_impl.dart';
 import 'package:data/repositories_impl/permission_repository_impl.dart';
@@ -49,7 +49,6 @@ discardBlocsIfRegistered() {
   sl.get<MapViewBloc>().close();
 
   sl.unregister<MapViewBloc>();
-
 }
 
 initEarlyDependencies() {
