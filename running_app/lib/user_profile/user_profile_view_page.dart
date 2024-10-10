@@ -84,7 +84,7 @@ class UserProfileViewPage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                             CircleAvatar(
+                            CircleAvatar(
                               backgroundImage: MemoryImage(state.profile.imageData!),
                               radius: 30.0,
                             ),
@@ -115,36 +115,17 @@ class UserProfileViewPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Following",
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    Text(
-                                      "6",
-                                      style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20.0),
-                                    )
-                                  ],
+                                Text(
+                                  "Friends",
+                                  style: Theme.of(context).textTheme.bodySmall,
                                 ),
-                                const SizedBox(width: 15),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Followers",
-                                      style: Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    Text(
-                                      "6",
-                                      style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20.0),
-                                    )
-                                  ],
-                                ),
+                                Text(
+                                  state.profile.friendsCount!.toString(),
+                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20.0),
+                                )
                               ],
                             ),
                             SizedBox(

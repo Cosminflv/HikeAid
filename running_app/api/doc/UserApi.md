@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**apiUserGet**](UserApi.md#apiuserget) | **GET** /api/User | 
 [**apiUserGetFriendRequestsGet**](UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
 [**apiUserIdDeleteProfilePicturePost**](UserApi.md#apiuseriddeleteprofilepicturepost) | **POST** /api/User/{id}/deleteProfilePicture | 
+[**apiUserIdFriendsNumberGet**](UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [**apiUserIdGetProfilePictureGet**](UserApi.md#apiuseridgetprofilepictureget) | **GET** /api/User/{id}/getProfilePicture | 
 [**apiUserIdGetUserGet**](UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
 [**apiUserIdUploadProfilePictureBase64Post**](UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
@@ -214,6 +215,49 @@ No authorization required
 
  - **Content-Type**: Not defined
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserIdFriendsNumberGet**
+> int apiUserIdFriendsNumberGet(id, userId)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+final String id = id_example; // String | 
+final int userId = 56; // int | 
+
+try {
+    final response = api.apiUserIdFriendsNumberGet(id, userId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserIdFriendsNumberGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **userId** | **int**|  | [optional] 
+
+### Return type
+
+**int**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

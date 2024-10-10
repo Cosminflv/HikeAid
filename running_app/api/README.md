@@ -82,6 +82,7 @@ Class | Method | HTTP request | Description
 [*UserApi*](doc/UserApi.md) | [**apiUserGet**](doc/UserApi.md#apiuserget) | **GET** /api/User | 
 [*UserApi*](doc/UserApi.md) | [**apiUserGetFriendRequestsGet**](doc/UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdDeleteProfilePicturePost**](doc/UserApi.md#apiuseriddeleteprofilepicturepost) | **POST** /api/User/{id}/deleteProfilePicture | 
+[*UserApi*](doc/UserApi.md) | [**apiUserIdFriendsNumberGet**](doc/UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetProfilePictureGet**](doc/UserApi.md#apiuseridgetprofilepictureget) | **GET** /api/User/{id}/getProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetUserGet**](doc/UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdUploadProfilePictureBase64Post**](doc/UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 

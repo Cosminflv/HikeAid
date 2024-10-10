@@ -19,8 +19,10 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
 
       if (result.statusCode == 200) {
         final data = result.data as Map<String, dynamic>;
+        final userId = data['id'];
 
-        final imageData = await _getUserImageData(data['id']!);
+        final imageData = await _getUserImageData(userId);
+        final friendsNumber = await _getUserFriendsNumber(userId);
 
         return UserProfileEntityImpl(
             id: data['id']!,
@@ -28,7 +30,8 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
             firstName: data['firstName'],
             lastName: data['lastName'],
             bio: data['bio'],
-            imageData: imageData ?? Uint8List(3));
+            imageData: imageData ?? Uint8List(3),
+            friendsCount: friendsNumber);
       }
       return null;
     } catch (e) {
@@ -39,12 +42,28 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
 
   Future<Uint8List?> _getUserImageData(int userId) async {
     try {
-      final result = await _userApi.apiUserIdGetProfilePictureGet(id: userId.toString());
+      final result = await _userApi.apiUserIdGetProfilePictureGet(id: userId.toString(), userId: userId);
 
       if (result.statusCode == 200) {
         final data = result.data;
 
         return data == null ? null : base64.decode(data);
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<int?> _getUserFriendsNumber(int userId) async {
+    try {
+      final result = await _userApi.apiUserIdFriendsNumberGet(id: userId.toString(), userId: userId);
+
+      if (result.statusCode == 200) {
+        final data = result.data;
+
+        return data;
       }
       return null;
     } catch (e) {
