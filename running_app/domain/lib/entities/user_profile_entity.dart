@@ -8,10 +8,10 @@ abstract class UserProfileEntity extends Equatable {
   final String? firstName;
   final String? lastName;
   final String? bio;
-  final Uint8List? profilePicture;
+  final Uint8List? imageData;
 
-  UserProfileEntity({required this.id, this.username, this.firstName, this.lastName, this.bio, this.profilePicture});
+  UserProfileEntity({required this.id, this.username, this.firstName, this.lastName, this.bio, this.imageData});
 
   @override
-  List<Object?> get props => [id, username, firstName, lastName, bio, profilePicture];  
+  List<Object?> get props => [id, username, firstName, lastName, bio, imageData];
 }

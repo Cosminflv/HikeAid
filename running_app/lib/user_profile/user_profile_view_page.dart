@@ -84,7 +84,8 @@ class UserProfileViewPage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const CircleAvatar(
+                             CircleAvatar(
+                              backgroundImage: MemoryImage(state.profile.imageData!),
                               radius: 30.0,
                             ),
                             const SizedBox(
