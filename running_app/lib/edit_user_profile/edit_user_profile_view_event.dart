@@ -4,14 +4,13 @@ import 'package:domain/entities/edit_user_profile_status.dart';
 
 abstract class EditUserProfileViewEvent {}
 
-enum UserDetailType { firstName, lastName, bio, profilePicture }
+enum UserDetailType { firstName, lastName, bio }
 
 class UpdateUserDetailEvent extends EditUserProfileViewEvent {
   UserDetailType type;
-  Uint8List? imageData;
   String value;
 
-  UpdateUserDetailEvent({required this.type, required this.value, this.imageData});
+  UpdateUserDetailEvent({required this.type, required this.value});
 }
 
 class UpdateProfilePictureEvent extends EditUserProfileViewEvent {

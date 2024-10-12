@@ -53,9 +53,6 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
       case UserDetailType.bio:
         emit(editState.copyWith(bio: event.value));
         break;
-      case UserDetailType.profilePicture:
-        emit(editState.copyWith(imageData: event.imageData));
-        break;
     }
   }
 

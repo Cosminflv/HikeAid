@@ -20,8 +20,6 @@ Future<void> showEditImageActions(BuildContext context) async {
         File image = File(pickedFile.path); // Get the image file
         final imageData = await image.readAsBytes();
         bloc.add(UpdateProfilePictureEvent(imageData: imageData));
-        // You can now upload the image or pass it to your Bloc or any other logic
-        print("Image selected: ${image.path}");
       }
     } catch (e) {
       print("Error picking image: $e");
