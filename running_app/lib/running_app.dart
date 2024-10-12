@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/config/routes.dart';
+import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_event.dart';
 import 'package:running_app/config/theme.dart';
@@ -41,6 +42,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
         BlocProvider(create: (context) => sl.get<LocationBloc>()),
         BlocProvider(create: (context) => sl.get<UserProfileViewBloc>()),
         BlocProvider(create: (context) => sl.get<AppBloc>()),
+        BlocProvider(create: (context) => sl.get<EditUserProfileViewBloc>())
       ],
       child: MaterialApp(
         title: "Running App",

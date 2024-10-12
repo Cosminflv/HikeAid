@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:running_app/config/routes.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
+import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
+import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/shared_widgets/dialogs/logout_confirm_dialog.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
@@ -27,6 +30,7 @@ class UserProfileViewPage extends StatelessWidget {
               showLogoutConfirmation(context).then((hasConfirmed) {
                 if (hasConfirmed) {
                   BlocProvider.of<AuthSessionBloc>(context).add(LogoutEvent());
+                  BlocProviders.authentication(context).add(AuthResetEvent());
                 }
               });
             },
@@ -133,7 +137,7 @@ class UserProfileViewPage extends StatelessWidget {
                               width: 100,
                               child: CustomElevatedButton(
                                 backgroundColor: Theme.of(context).brightness == Brightness.light
-                                    ? Theme.of(context).colorScheme.primary
+                                    ? Theme.of(context).colorScheme.tertiary
                                     : Theme.of(context).colorScheme.onSurface,
                                 text: AppLocalizations.of(context)!.edit,
                                 textColor: Theme.of(context).colorScheme.surface,
@@ -143,7 +147,8 @@ class UserProfileViewPage extends StatelessWidget {
                                   size: 15,
                                 ),
                                 onTap: () {
-                                  //TODO Add navigation to edit profile page
+                                  Navigator.of(context)
+                                      .pushNamed(RouteNames.editProfilePage, arguments: state.profile);
                                 },
                               ),
                             )

@@ -11,6 +11,7 @@ doc/SocialPostDto.md
 doc/SocialPostModel.md
 doc/TrackApi.md
 doc/TrackDto.md
+doc/UpdateUserDto.md
 doc/UserApi.md
 doc/UserDto.md
 doc/UserModel.md
@@ -35,6 +36,7 @@ lib/src/model/login_dto.dart
 lib/src/model/social_post_dto.dart
 lib/src/model/social_post_model.dart
 lib/src/model/track_dto.dart
+lib/src/model/update_user_dto.dart
 lib/src/model/user_dto.dart
 lib/src/model/user_model.dart
 lib/src/serializers.dart

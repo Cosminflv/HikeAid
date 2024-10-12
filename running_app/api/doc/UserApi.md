@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**apiUserIdFriendsNumberGet**](UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [**apiUserIdGetProfilePictureGet**](UserApi.md#apiuseridgetprofilepictureget) | **GET** /api/User/{id}/getProfilePicture | 
 [**apiUserIdGetUserGet**](UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
+[**apiUserIdPut**](UserApi.md#apiuseridput) | **PUT** /api/User/{id} | 
 [**apiUserIdUploadProfilePictureBase64Post**](UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
 [**apiUserLoginPost**](UserApi.md#apiuserloginpost) | **POST** /api/User/login | 
 [**apiUserPost**](UserApi.md#apiuserpost) | **POST** /api/User | 
@@ -340,6 +341,48 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserIdPut**
+> apiUserIdPut(id, updateUserDto)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+final String id = id_example; // String | 
+final UpdateUserDto updateUserDto = ; // UpdateUserDto | 
+
+try {
+    api.apiUserIdPut(id, updateUserDto);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserIdPut: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**|  | 
+ **updateUserDto** | [**UpdateUserDto**](UpdateUserDto.md)|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

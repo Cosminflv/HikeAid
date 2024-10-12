@@ -62,6 +62,7 @@ class AuthenticationViewBloc extends Bloc<AuthenticationViewEvent, Authenticatio
   }
 
   _handleUpdateLoginPasswordValue(UpdatePasswordValueEvent event, Emitter<AuthenticationViewState> emit) {
+    if (state is! InitialAuthenticationState) return;
     final initialState = state as InitialAuthenticationState;
 
     emit(initialState.copyWith(password: event.value));

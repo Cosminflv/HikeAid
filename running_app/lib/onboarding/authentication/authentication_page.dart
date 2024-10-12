@@ -48,11 +48,11 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 AppLocalizations.of(context)!.welcome,
                 style: Theme.of(context).textTheme.displayMedium,
               ),
-        
+
               const SizedBox(
                 height: 15,
               ),
-        
+
               Text(
                 AppLocalizations.of(context)!.pleaseEnterYourDetails,
                 style: Theme.of(context).textTheme.bodySmall,
@@ -60,7 +60,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               const SizedBox(
                 height: 15,
               ),
-        
+
               // Username TextField
               TextFormField(
                 onChanged: (value) => BlocProviders.authentication(context).add(UpdateUsernameValueEvent(value: value)),
@@ -71,7 +71,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 ),
               ),
               const SizedBox(height: 20.0), // Spacing between fields
-        
+
               // Password TextField
               TextFormField(
                 onChanged: (value) => BlocProviders.authentication(context).add(UpdatePasswordValueEvent(value: value)),
@@ -83,7 +83,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 ),
               ),
               const SizedBox(height: 30.0), // Spacing before button
-        
+
               // Login Button
               Row(
                 children: [
@@ -111,7 +111,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                   )),
                 ],
               ),
-        
+
               const SizedBox(height: 20.0),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -128,9 +128,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                       ))
                 ],
               ),
-        
+
               const SizedBox(height: 30.0),
-        
+
               SizedBox(
                 width: 20,
                 child: BlocBuilder<AuthenticationViewBloc, AuthenticationViewState>(
@@ -145,16 +145,16 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                             content: Text(AppLocalizations.of(context)!.loginSuccess),
                           ),
                         );
-                        BlocProviders.authentication(context).add(AuthResetEvent());
-        
+                        //BlocProviders.authentication(context).add(AuthResetEvent());
+
                         Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
                       });
                     }
-        
+
                     if (state is AuthenticationLoadingState) {
                       return const CircularProgressIndicator();
                     }
-        
+
                     if (state is AuthenticationFailedState) {
                       // Schedule the snackbar to be shown after the current frame
                       SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -164,10 +164,10 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                           ),
                         );
                       });
-        
+
                       BlocProviders.authentication(context).add(AuthResetEvent());
                     }
-        
+
                     return Container();
                   },
                 ),

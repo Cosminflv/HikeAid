@@ -1,5 +1,7 @@
+import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:running_app/edit_user_profile/edit_user_profile_view_page.dart';
 import 'package:running_app/home/home_view_page.dart';
 import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/map/widgets/ask_permission_popup.dart';
@@ -19,6 +21,9 @@ class RouteNames {
   @pragma('Maps & Navigation')
   static const mapPage = '$defaultPage/map_page';
   static const askPermissionPage = '$defaultPage/ask_permission_popup';
+
+  @pragma('Personal')
+  static const editProfilePage = '$defaultPage/edit_user_profile_view_page';
 
   @pragma('MISC')
   static const homePage = '${defaultPage}home_page';
@@ -44,6 +49,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
 
     case RouteNames.askPermissionPage:
       return FadeRoute(page: const AskPermissionPopup());
+
+    // Personal
+    case RouteNames.editProfilePage:
+      final profile = settings.arguments as UserProfileEntity;
+      page = EditUserProfileViewPage(profile: profile);
 
     // MISC
     case RouteNames.homePage:

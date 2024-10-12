@@ -22,6 +22,7 @@ import 'package:openapi/src/model/login_dto.dart';
 import 'package:openapi/src/model/social_post_dto.dart';
 import 'package:openapi/src/model/social_post_model.dart';
 import 'package:openapi/src/model/track_dto.dart';
+import 'package:openapi/src/model/update_user_dto.dart';
 import 'package:openapi/src/model/user_dto.dart';
 import 'package:openapi/src/model/user_model.dart';
 
@@ -36,6 +37,7 @@ part 'serializers.g.dart';
   SocialPostDto,
   SocialPostModel,
   TrackDto,
+  UpdateUserDto,
   UserDto,
   UserModel,
 ])

@@ -22,6 +22,7 @@ import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/location_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
 import 'package:domain/use_cases/user_profile_use_case.dart';
+import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
@@ -90,6 +91,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<AppBloc>(() => AppBloc());
   sl.registerLazySingleton<UserProfileViewBloc>(() => UserProfileViewBloc());
   sl.registerLazySingleton<AuthSessionBloc>(() => AuthSessionBloc());
+  sl.registerLazySingleton<EditUserProfileViewBloc>(() => EditUserProfileViewBloc());
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 }

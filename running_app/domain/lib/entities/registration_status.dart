@@ -4,8 +4,6 @@ enum RegistrationFailType { usernameExists, noConnection, invalidCredentials, ot
 
 class RegistrationStarted extends RegistrationStatus {}
 
-class InitialRegistrationStatus extends RegistrationStatus {}
-
 class RegistrationInProgress extends RegistrationStatus {}
 
 class RegistrationSuccesfulStatus extends RegistrationStatus {}

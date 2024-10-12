@@ -85,6 +85,7 @@ Class | Method | HTTP request | Description
 [*UserApi*](doc/UserApi.md) | [**apiUserIdFriendsNumberGet**](doc/UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetProfilePictureGet**](doc/UserApi.md#apiuseridgetprofilepictureget) | **GET** /api/User/{id}/getProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetUserGet**](doc/UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
+[*UserApi*](doc/UserApi.md) | [**apiUserIdPut**](doc/UserApi.md#apiuseridput) | **PUT** /api/User/{id} | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdUploadProfilePictureBase64Post**](doc/UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
 [*UserApi*](doc/UserApi.md) | [**apiUserLoginPost**](doc/UserApi.md#apiuserloginpost) | **POST** /api/User/login | 
 [*UserApi*](doc/UserApi.md) | [**apiUserPost**](doc/UserApi.md#apiuserpost) | **POST** /api/User | 
@@ -101,6 +102,7 @@ Class | Method | HTTP request | Description
  - [SocialPostDto](doc/SocialPostDto.md)
  - [SocialPostModel](doc/SocialPostModel.md)
  - [TrackDto](doc/TrackDto.md)
+ - [UpdateUserDto](doc/UpdateUserDto.md)
  - [UserDto](doc/UserDto.md)
  - [UserModel](doc/UserModel.md)
 
