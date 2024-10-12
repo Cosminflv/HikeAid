@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/config/routes.dart';
+import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
@@ -147,8 +148,14 @@ class UserProfileViewPage extends StatelessWidget {
                                   size: 15,
                                 ),
                                 onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(RouteNames.editProfilePage, arguments: state.profile);
+                                  BlocProviders.editProfile(context).add(InitializeEditUserProfileEvent(
+                                    id: state.profile.id,
+                                    firstName: state.profile.firstName!,
+                                    lastName: state.profile.lastName!,
+                                    bio: state.profile.bio!,
+                                    imageData: state.profile.imageData!,
+                                  ));
+                                  Navigator.of(context).pushNamed(RouteNames.editProfilePage, arguments: state.profile);
                                 },
                               ),
                             )

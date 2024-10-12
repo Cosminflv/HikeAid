@@ -27,13 +27,6 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
   @override
   void initState() {
     super.initState();
-    BlocProviders.editProfile(context).add(InitializeEditUserProfileEvent(
-      id: widget.profile.id,
-      firstName: widget.profile.firstName!,
-      lastName: widget.profile.lastName!,
-      bio: widget.profile.bio!,
-      imageData: widget.profile.imageData!,
-    ));
 
     // Initialize the text controllers with the profile data
     firstNameController = TextEditingController(text: widget.profile.firstName ?? '');
@@ -109,22 +102,18 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                 Padding(
                   padding: const EdgeInsets.only(right: 15.0),
                   child: BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
+                    buildWhen: (previous, current) => previous != current && current is UserProfileEditing,
                     builder: (context, state) {
                       if (state is UserProfileEditing) {
                         return GestureDetector(
                           onTap: () => showEditImageActions(context),
                           child: CircleAvatar(
                             backgroundImage: MemoryImage(state.imageData),
-                            radius: 30.0,
+                            radius: 35.0,
                           ),
                         );
-                      } else if (state is UserProfileInitial) {
-                        return const CircleAvatar(
-                          radius: 30.0,
-                        );
-                      } else {
-                        return const CircularProgressIndicator();
                       }
+                      return const SizedBox.shrink();
                     },
                   ),
                 ),
