@@ -182,5 +182,8 @@
     "pleaseEnterYourDetails": "Veuillez entrer vos informations",
     "dontHaveAnAccount": "Vous n'avez pas de compte ?",
     "signUp": "S'inscrire",
-    "edit": "Modifier"
+    "edit": "Modifier",
+    "updatePhoto": "Mettre à jour la photo",
+    "deletePhoto": "Supprimer la photo",
+    "updateFailed": "Échec de la mise à jour"
 }

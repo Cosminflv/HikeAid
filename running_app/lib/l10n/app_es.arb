@@ -180,5 +180,8 @@
     "pleaseEnterYourDetails": "Por favor ingrese sus datos",
     "dontHaveAnAccount": "¿No tienes una cuenta?",
     "signUp": "Regístrate",
-    "edit": "Editar"
+    "edit": "Editar",
+    "updatePhoto": "Actualizar foto",
+    "deletePhoto": "Eliminar foto",
+    "updateFailed": "Actualización fallida"
 }

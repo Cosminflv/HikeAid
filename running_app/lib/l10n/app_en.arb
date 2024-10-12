@@ -789,5 +789,17 @@
     "edit": "Edit",
   "@edit": {
     "description": "Text for the edit button"
+  },
+  "updatePhoto": "Update Photo",
+  "@updatePhoto": {
+    "description": "Text for the update photo button"
+  },
+  "deletePhoto": "Delete Photo",
+  "@deletePhoto": {
+    "description": "Text for the delete photo button"
+  },
+    "updateFailed": "Update failed",
+  "@updateFailed": {
+    "description": "Message indicating that the update process failed"
   }
 }

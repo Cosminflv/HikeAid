@@ -63,7 +63,13 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                 }
 
                 if (state is UserProfileEditFailed) {
-                  //TODO TELL USER UPDATE FAILED
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(AppLocalizations.of(context)!.updateFailed),
+                      backgroundColor: Colors.red, // Red background for error
+                      duration: const Duration(seconds: 2), // Duration the snackbar will be visible
+                    ),
+                  );
                 }
 
                 if (state is UserProfileEditing) {
@@ -133,7 +139,7 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                               errorBorder: InputBorder.none,
                               disabledBorder: InputBorder.none,
                               hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
-                              hintText: "First Name"),
+                              hintText: AppLocalizations.of(context)!.firstName),
                         ),
                         Divider(
                           color: Theme.of(context).hoverColor,
@@ -149,7 +155,7 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                               errorBorder: InputBorder.none,
                               disabledBorder: InputBorder.none,
                               hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
-                              hintText: "Last Name"),
+                              hintText: AppLocalizations.of(context)!.lastName),
                         )
                       ],
                     ),
