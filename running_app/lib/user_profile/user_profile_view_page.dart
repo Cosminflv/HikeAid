@@ -90,7 +90,7 @@ class UserProfileViewPage extends StatelessWidget {
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundImage: MemoryImage(state.profile.imageData!),
+                              backgroundImage: MemoryImage(state.profile.imageData),
                               radius: 30.0,
                             ),
                             const SizedBox(
@@ -104,7 +104,7 @@ class UserProfileViewPage extends StatelessWidget {
                                   style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 Text(
-                                  state.profile.username!,
+                                  state.profile.username,
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                               ],
@@ -113,7 +113,7 @@ class UserProfileViewPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          state.profile.bio!,
+                          state.profile.bio,
                           style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20.0),
                         ),
                         const SizedBox(height: 10),
@@ -128,7 +128,7 @@ class UserProfileViewPage extends StatelessWidget {
                                   style: Theme.of(context).textTheme.bodySmall,
                                 ),
                                 Text(
-                                  state.profile.friendsCount!.toString(),
+                                  state.profile.friendsCount.toString(),
                                   style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20.0),
                                 )
                               ],
@@ -150,10 +150,10 @@ class UserProfileViewPage extends StatelessWidget {
                                 onTap: () {
                                   BlocProviders.editProfile(context).add(InitializeEditUserProfileEvent(
                                     id: state.profile.id,
-                                    firstName: state.profile.firstName!,
-                                    lastName: state.profile.lastName!,
-                                    bio: state.profile.bio!,
-                                    imageData: state.profile.imageData!,
+                                    firstName: state.profile.firstName,
+                                    lastName: state.profile.lastName,
+                                    bio: state.profile.bio,
+                                    imageData: state.profile.imageData,
                                   ));
                                   Navigator.of(context).pushNamed(RouteNames.editProfilePage, arguments: state.profile);
                                 },

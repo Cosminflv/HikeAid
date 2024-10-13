@@ -29,9 +29,9 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
     super.initState();
 
     // Initialize the text controllers with the profile data
-    firstNameController = TextEditingController(text: widget.profile.firstName ?? '');
-    lastNameController = TextEditingController(text: widget.profile.lastName ?? '');
-    bioController = TextEditingController(text: widget.profile.bio ?? '');
+    firstNameController = TextEditingController(text: widget.profile.firstName);
+    lastNameController = TextEditingController(text: widget.profile.lastName);
+    bioController = TextEditingController(text: widget.profile.bio);
   }
 
   @override

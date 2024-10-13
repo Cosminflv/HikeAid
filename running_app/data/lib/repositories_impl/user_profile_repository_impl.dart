@@ -32,7 +32,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
             lastName: data['lastName'],
             bio: data['bio'],
             imageData: imageData ?? Uint8List(3),
-            friendsCount: friendsNumber);
+            friendsCount: friendsNumber ?? 0);
       }
       return null;
     } catch (e) {
