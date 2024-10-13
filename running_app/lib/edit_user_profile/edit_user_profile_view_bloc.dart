@@ -69,9 +69,9 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
     emit(UserProfileEditSuccess());
   }
 
-  _handleDeleteProfilePicture(DeleteProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) {
+  _handleDeleteProfilePicture(DeleteProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {
     final editState = state as UserProfileEditing;
-    _userProfileUseCase.deleteProfilePicture(editState.id);
+    await _userProfileUseCase.deleteProfilePicture(editState.id);
     add(FetchProfilePictureEvent());
   }
 
