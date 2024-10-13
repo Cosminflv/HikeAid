@@ -126,38 +126,44 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                 Expanded(
                   child: Container(
                     color: Theme.of(context).highlightColor,
-                    child: Column(
-                      children: [
-                        TextField(
-                          onChanged: (value) => BlocProviders.editProfile(context)
-                              .add(UpdateUserDetailEvent(type: UserDetailType.firstName, value: value)),
-                          controller: firstNameController,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
-                              hintText: AppLocalizations.of(context)!.firstName),
-                        ),
-                        Divider(
-                          color: Theme.of(context).hoverColor,
-                        ),
-                        TextField(
-                          onChanged: (value) => BlocProviders.editProfile(context)
-                              .add(UpdateUserDetailEvent(type: UserDetailType.lastName, value: value)),
-                          controller: lastNameController,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
-                              hintText: AppLocalizations.of(context)!.lastName),
-                        )
-                      ],
+                    child: IntrinsicHeight(
+                      child: Column(
+                        children: [
+                          TextField(
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            onChanged: (value) => BlocProviders.editProfile(context)
+                                .add(UpdateUserDetailEvent(type: UserDetailType.firstName, value: value)),
+                            controller: firstNameController,
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
+                                hintText: AppLocalizations.of(context)!.firstName),
+                          ),
+                          Divider(
+                            color: Theme.of(context).hoverColor,
+                          ),
+                          TextField(
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            onChanged: (value) => BlocProviders.editProfile(context)
+                                .add(UpdateUserDetailEvent(type: UserDetailType.lastName, value: value)),
+                            controller: lastNameController,
+                            decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
+                                hintText: AppLocalizations.of(context)!.lastName),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 )
@@ -170,10 +176,12 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
               child: Column(
                 children: [
                   TextField(
+                    style: Theme.of(context).textTheme.bodyMedium,
                     onChanged: (value) => BlocProviders.editProfile(context)
                         .add(UpdateUserDetailEvent(type: UserDetailType.bio, value: value)),
                     controller: bioController,
                     decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,

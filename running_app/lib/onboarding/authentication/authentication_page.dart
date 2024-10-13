@@ -63,6 +63,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
               // Username TextField
               TextFormField(
+                style: Theme.of(context).textTheme.bodyMedium,
                 onChanged: (value) => BlocProviders.authentication(context).add(UpdateUsernameValueEvent(value: value)),
                 controller: usernameController,
                 decoration: InputDecoration(
@@ -73,14 +74,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               const SizedBox(height: 20.0), // Spacing between fields
 
               // Password TextField
-              TextFormField(
-                onChanged: (value) => BlocProviders.authentication(context).add(UpdatePasswordValueEvent(value: value)),
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: AppLocalizations.of(context)!.password,
-                  border: const OutlineInputBorder(),
-                ),
+              PasswordField(
+                passwordController: passwordController,
               ),
               const SizedBox(height: 30.0), // Spacing before button
 
@@ -174,6 +169,45 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class PasswordField extends StatefulWidget {
+  final TextEditingController passwordController;
+  const PasswordField({super.key, required this.passwordController});
+
+  @override
+  _PasswordFieldState createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<PasswordField> {
+  // State variable to toggle password visibility
+  bool _isPasswordVisible = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      style: Theme.of(context).textTheme.bodyMedium,
+      onChanged: (value) => BlocProviders.authentication(context).add(UpdatePasswordValueEvent(value: value)),
+      controller: widget.passwordController,
+      obscureText: !_isPasswordVisible, // Hide or show the password
+      decoration: InputDecoration(
+        labelText: AppLocalizations.of(context)!.password,
+        border: const OutlineInputBorder(),
+        suffixIcon: IconButton(
+          icon: Icon(
+            // Toggle icon based on password visibility
+            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: () {
+            // Toggle the state to show/hide password
+            setState(() {
+              _isPasswordVisible = !_isPasswordVisible;
+            });
+          },
         ),
       ),
     );
