@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:domain/entities/auth_session_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,9 +37,10 @@ class UserProfileViewPage extends StatelessWidget {
                 }
               });
             },
-            child: Text(AppLocalizations.of(context)!.logoutTitle,
-                style:
-                    Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+            child: Text(
+              AppLocalizations.of(context)!.logoutTitle,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+            ),
           ),
           actions: [
             IconButton(
@@ -89,9 +92,14 @@ class UserProfileViewPage extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            CircleAvatar(
-                              backgroundImage: MemoryImage(state.profile.imageData),
-                              radius: 30.0,
+                            GestureDetector(
+                              onTap: () {
+                                profileImageDialog(context, state.profile.imageData);
+                              },
+                              child: CircleAvatar(
+                                backgroundImage: MemoryImage(state.profile.imageData),
+                                radius: 30.0,
+                              ),
                             ),
                             const SizedBox(
                               width: 20,
@@ -170,6 +178,38 @@ class UserProfileViewPage extends StatelessWidget {
           );
         }),
       ),
+    );
+  }
+
+  Future<dynamic> profileImageDialog(BuildContext context, Uint8List imageData) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Stack(
+            children: [
+              Center(
+                child: Image.memory(imageData),
+              ),
+              Positioned(
+                top: 1,
+                right: 1,
+                child: IconButton(
+                  icon: Icon(
+                    FontAwesomeIcons.x,
+                    color: Theme.of(context).colorScheme.onSecondary,
+                    size: 20.0,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
