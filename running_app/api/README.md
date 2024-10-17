@@ -90,6 +90,7 @@ Class | Method | HTTP request | Description
 [*UserApi*](doc/UserApi.md) | [**apiUserLoginPost**](doc/UserApi.md#apiuserloginpost) | **POST** /api/User/login | 
 [*UserApi*](doc/UserApi.md) | [**apiUserPost**](doc/UserApi.md#apiuserpost) | **POST** /api/User | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSendFriendRequestPost**](doc/UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
+[*UserApi*](doc/UserApi.md) | [**getDefaultProfilePictureGet**](doc/UserApi.md#getdefaultprofilepictureget) | **GET** /getDefaultProfilePicture | 
 
 
 ## Documentation For Models

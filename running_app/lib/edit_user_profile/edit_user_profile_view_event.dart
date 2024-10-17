@@ -31,7 +31,7 @@ class UpdateProfileFailedEvent extends EditUserProfileViewEvent {
 
 class UpdateProfileSuccessEvent extends EditUserProfileViewEvent {}
 
-class FetchProfilePictureEvent extends EditUserProfileViewEvent {}
+class FetchDefaultProfilePictureEvent extends EditUserProfileViewEvent {}
 
 class UserProfileSaveRequestedEvent extends EditUserProfileViewEvent {
   UserProfileSaveRequestedEvent();

@@ -18,7 +18,7 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
     on<UpdateUserDetailEvent>(_handleUpdateUserDetail);
     on<UpdateProfilePictureEvent>(_handleUpdateProfilePicture);
     on<DeleteProfilePictureEvent>(_handleDeleteProfilePicture);
-    on<FetchProfilePictureEvent>(_handleFetchProfilePicture);
+    on<FetchDefaultProfilePictureEvent>(_handleFetchDefaultProfilePicture);
   }
 
   _handleInitialize(InitializeEditUserProfileEvent event, Emitter<EditUserProfileViewState> emit) {
@@ -61,12 +61,13 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
 
   _handleUpdateProfilePicture(UpdateProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) {
     final editState = state as UserProfileEditing;
-    emit(editState.copyWith(imageData: event.imageData));
+    emit(editState.copyWith(imageData: event.imageData, hasDeletedImage: false));
   }
 
   _handleDeleteProfilePicture(DeleteProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {
     final editState = state as UserProfileEditing;
     emit(editState.copyWith(hasDeletedImage: true));
+    add(FetchDefaultProfilePictureEvent());
   }
 
   _handleUserProfileSaving(UserProfileSavingEvent event, Emitter<EditUserProfileViewState> emit) {
@@ -77,9 +78,9 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
     emit(UserProfileEditSuccess());
   }
 
-  _handleFetchProfilePicture(FetchProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {
+  _handleFetchDefaultProfilePicture(FetchDefaultProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {
     final editState = state as UserProfileEditing;
-    final imageData = await _userProfileUseCase.fetchUserProfilePicture(editState.id);
+    final imageData = await _userProfileUseCase.fetchDefaultUserProfilePicture(editState.id);
     emit(editState.copyWith(imageData: imageData));
   }
 

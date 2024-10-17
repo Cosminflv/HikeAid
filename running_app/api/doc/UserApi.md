@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**apiUserLoginPost**](UserApi.md#apiuserloginpost) | **POST** /api/User/login | 
 [**apiUserPost**](UserApi.md#apiuserpost) | **POST** /api/User | 
 [**apiUserSendFriendRequestPost**](UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
+[**getDefaultProfilePictureGet**](UserApi.md#getdefaultprofilepictureget) | **GET** /getDefaultProfilePicture | 
 
 
 # **apiUserAcceptFriendRequestPost**
@@ -537,6 +538,42 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **requesterId** | **int**|  | [optional] 
  **receiverId** | **int**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDefaultProfilePictureGet**
+> getDefaultProfilePictureGet()
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+
+try {
+    api.getDefaultProfilePictureGet();
+} catch on DioException (e) {
+    print('Exception when calling UserApi->getDefaultProfilePictureGet: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
 
 ### Return type
 

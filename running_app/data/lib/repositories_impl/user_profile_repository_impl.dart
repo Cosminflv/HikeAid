@@ -22,7 +22,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
         final data = result.data as Map<String, dynamic>;
         final userId = data['id'];
 
-        final imageData = await _getUserImageData(userId);
+        final imageData = await _getUserImageData(userId, false);
         final friendsNumber = await _getUserFriendsNumber(userId);
 
         return UserProfileEntityImpl(
@@ -86,17 +86,17 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
   }
 
   @override
-  Future<Uint8List> fetchUserProfileImage(int id) async {
-    final imageData = await _getUserImageData(id);
+  Future<Uint8List> fetchDefaultUserProfileImage(int id) async {
+    final imageData = await _getUserImageData(id, true);
     return imageData ?? Uint8List(3);
   }
 
-  Future<Uint8List?> _getUserImageData(int userId) async {
+  Future<Uint8List?> _getUserImageData(int userId, bool defaultImage) async {
     try {
-      final result = await _userApi.apiUserIdGetProfilePictureGet(id: userId.toString(), userId: userId);
+      final result = defaultImage ? await _userApi.getDefaultProfilePictureGet() : await _userApi.apiUserIdGetProfilePictureGet(id: userId.toString(), userId: userId);
 
       if (result.statusCode == 200) {
-        final data = result.data;
+        final data = result.data as String?;
 
         return data == null ? null : base64.decode(data);
       }

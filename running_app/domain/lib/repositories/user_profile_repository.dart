@@ -9,5 +9,5 @@ abstract class UserProfileRepository {
   Future<void> updateUserProfile(int id, String firstName, String lastName, String bio, Uint8List imageData,
       bool hasDeletedImage, Function(EditUserProfileStatus) onUpdateProgress);
   Future<void> deleteProfilePicture(int id);
-  Future<Uint8List> fetchUserProfileImage(int id);
+  Future<Uint8List> fetchDefaultUserProfileImage(int id);
 }

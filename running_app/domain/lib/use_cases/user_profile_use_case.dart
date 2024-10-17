@@ -32,8 +32,8 @@ class UserProfileUseCase {
     await _userProfileRepository.deleteProfilePicture(id);
   }
 
-  Future<Uint8List> fetchUserProfilePicture(int id) async {
-    final imageData = await _userProfileRepository.fetchUserProfileImage(id);
+  Future<Uint8List> fetchDefaultUserProfilePicture(int id) async {
+    final imageData = await _userProfileRepository.fetchDefaultUserProfileImage(id);
     return imageData;
   }
 }
