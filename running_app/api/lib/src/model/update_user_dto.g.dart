@@ -16,13 +16,20 @@ class _$UpdateUserDto extends UpdateUserDto {
   @override
   final String? bio;
   @override
+  final bool? hasDeletedImage;
+  @override
   final String? imageData;
 
   factory _$UpdateUserDto([void Function(UpdateUserDtoBuilder)? updates]) =>
       (new UpdateUserDtoBuilder()..update(updates))._build();
 
   _$UpdateUserDto._(
-      {this.id, this.firstName, this.lastName, this.bio, this.imageData})
+      {this.id,
+      this.firstName,
+      this.lastName,
+      this.bio,
+      this.hasDeletedImage,
+      this.imageData})
       : super._();
 
   @override
@@ -40,6 +47,7 @@ class _$UpdateUserDto extends UpdateUserDto {
         firstName == other.firstName &&
         lastName == other.lastName &&
         bio == other.bio &&
+        hasDeletedImage == other.hasDeletedImage &&
         imageData == other.imageData;
   }
 
@@ -50,6 +58,7 @@ class _$UpdateUserDto extends UpdateUserDto {
     _$hash = $jc(_$hash, firstName.hashCode);
     _$hash = $jc(_$hash, lastName.hashCode);
     _$hash = $jc(_$hash, bio.hashCode);
+    _$hash = $jc(_$hash, hasDeletedImage.hashCode);
     _$hash = $jc(_$hash, imageData.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -62,6 +71,7 @@ class _$UpdateUserDto extends UpdateUserDto {
           ..add('firstName', firstName)
           ..add('lastName', lastName)
           ..add('bio', bio)
+          ..add('hasDeletedImage', hasDeletedImage)
           ..add('imageData', imageData))
         .toString();
   }
@@ -87,6 +97,11 @@ class UpdateUserDtoBuilder
   String? get bio => _$this._bio;
   set bio(String? bio) => _$this._bio = bio;
 
+  bool? _hasDeletedImage;
+  bool? get hasDeletedImage => _$this._hasDeletedImage;
+  set hasDeletedImage(bool? hasDeletedImage) =>
+      _$this._hasDeletedImage = hasDeletedImage;
+
   String? _imageData;
   String? get imageData => _$this._imageData;
   set imageData(String? imageData) => _$this._imageData = imageData;
@@ -102,6 +117,7 @@ class UpdateUserDtoBuilder
       _firstName = $v.firstName;
       _lastName = $v.lastName;
       _bio = $v.bio;
+      _hasDeletedImage = $v.hasDeletedImage;
       _imageData = $v.imageData;
       _$v = null;
     }
@@ -129,6 +145,7 @@ class UpdateUserDtoBuilder
             firstName: firstName,
             lastName: lastName,
             bio: bio,
+            hasDeletedImage: hasDeletedImage,
             imageData: imageData);
     replace(_$result);
     return _$result;

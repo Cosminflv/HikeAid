@@ -1009,6 +1009,9 @@
             "type": "string",
             "nullable": true
           },
+          "hasDeletedImage": {
+            "type": "boolean"
+          },
           "imageData": {
             "type": "string",
             "nullable": true

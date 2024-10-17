@@ -7,7 +7,7 @@ import 'package:domain/entities/user_profile_entity.dart';
 abstract class UserProfileRepository {
   Future<UserProfileEntity?> getAuthenticatedUserProfile(AuthSessionEntity session);
   Future<void> updateUserProfile(int id, String firstName, String lastName, String bio, Uint8List imageData,
-      Function(EditUserProfileStatus) onUpdateProgress);
+      bool hasDeletedImage, Function(EditUserProfileStatus) onUpdateProgress);
   Future<void> deleteProfilePicture(int id);
   Future<Uint8List> fetchUserProfileImage(int id);
 }

@@ -15,6 +15,7 @@ part 'update_user_dto.g.dart';
 /// * [firstName] 
 /// * [lastName] 
 /// * [bio] 
+/// * [hasDeletedImage] 
 /// * [imageData] 
 @BuiltValue()
 abstract class UpdateUserDto implements Built<UpdateUserDto, UpdateUserDtoBuilder> {
@@ -29,6 +30,9 @@ abstract class UpdateUserDto implements Built<UpdateUserDto, UpdateUserDtoBuilde
 
   @BuiltValueField(wireName: r'bio')
   String? get bio;
+
+  @BuiltValueField(wireName: r'hasDeletedImage')
+  bool? get hasDeletedImage;
 
   @BuiltValueField(wireName: r'imageData')
   String? get imageData;
@@ -82,6 +86,13 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
       yield serializers.serialize(
         object.bio,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.hasDeletedImage != null) {
+      yield r'hasDeletedImage';
+      yield serializers.serialize(
+        object.hasDeletedImage,
+        specifiedType: const FullType(bool),
       );
     }
     if (object.imageData != null) {
@@ -144,6 +155,13 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.bio = valueDes;
+          break;
+        case r'hasDeletedImage':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.hasDeletedImage = valueDes;
           break;
         case r'imageData':
           final valueDes = serializers.deserialize(

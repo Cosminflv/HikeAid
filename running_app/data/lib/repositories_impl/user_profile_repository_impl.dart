@@ -43,7 +43,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
 
   @override
   Future<void> updateUserProfile(int id, String firstName, String lastName, String bio, Uint8List imageData,
-      Function(EditUserProfileStatus p1) onUpdateProgress) async {
+      bool hasDeletedImage, Function(EditUserProfileStatus p1) onUpdateProgress) async {
     onUpdateProgress(EditStarted());
     onUpdateProgress(EditInProgress());
 
@@ -54,6 +54,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
       final result = await _userApi.apiUserIdPut(
           id: id.toString(),
           updateUserDto: UpdateUserDto((builder) {
+            builder.hasDeletedImage = hasDeletedImage;
             builder.id = id;
             builder.firstName = firstName;
             builder.lastName = lastName;

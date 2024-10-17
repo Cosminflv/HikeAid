@@ -29,6 +29,7 @@ class UserProfileEditing extends EditUserProfileViewState {
   final String lastName;
   final String bio;
   final Uint8List imageData;
+  final bool hasDeletedImage;
 
   UserProfileEditing({
     required this.id,
@@ -36,6 +37,7 @@ class UserProfileEditing extends EditUserProfileViewState {
     required this.lastName,
     required this.bio,
     required this.imageData,
+    required this.hasDeletedImage,
   });
 
   UserProfileEditing copyWith({
@@ -43,6 +45,7 @@ class UserProfileEditing extends EditUserProfileViewState {
     String? lastName,
     String? bio,
     Uint8List? imageData,
+    bool? hasDeletedImage,
   }) {
     return UserProfileEditing(
       id: id,
@@ -50,11 +53,12 @@ class UserProfileEditing extends EditUserProfileViewState {
       lastName: lastName ?? this.lastName,
       bio: bio ?? this.bio,
       imageData: imageData ?? this.imageData,
+      hasDeletedImage: hasDeletedImage ?? this.hasDeletedImage,
     );
   }
 
   @override
-  List<Object?> get props => [firstName, lastName, bio, imageData];
+  List<Object?> get props => [firstName, lastName, bio, imageData, hasDeletedImage];
 }
 
 class UserProfileSaving extends EditUserProfileViewState {

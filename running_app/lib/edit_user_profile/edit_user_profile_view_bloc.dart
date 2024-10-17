@@ -23,11 +23,13 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
 
   _handleInitialize(InitializeEditUserProfileEvent event, Emitter<EditUserProfileViewState> emit) {
     emit(UserProfileEditing(
-        id: event.id,
-        firstName: event.firstName,
-        lastName: event.lastName,
-        bio: event.bio,
-        imageData: event.imageData));
+      id: event.id,
+      firstName: event.firstName,
+      lastName: event.lastName,
+      bio: event.bio,
+      imageData: event.imageData,
+      hasDeletedImage: false,
+    ));
   }
 
   _handleUserProfileSaveRequested(UserProfileSaveRequestedEvent event, Emitter<EditUserProfileViewState> emit) {
@@ -38,6 +40,7 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
         lastName: editState.lastName,
         bio: editState.bio,
         imageData: editState.imageData,
+        hasDeletedImage: editState.hasDeletedImage,
         onUpdateProgress: (status) => _handleOnUpdateProgress(status: status));
   }
 
@@ -61,18 +64,17 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
     emit(editState.copyWith(imageData: event.imageData));
   }
 
+  _handleDeleteProfilePicture(DeleteProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {
+    final editState = state as UserProfileEditing;
+    emit(editState.copyWith(hasDeletedImage: true));
+  }
+
   _handleUserProfileSaving(UserProfileSavingEvent event, Emitter<EditUserProfileViewState> emit) {
     emit(UserProfileSaving());
   }
 
   _handleUpdateUserProfileSuccess(UpdateProfileSuccessEvent event, Emitter<EditUserProfileViewState> emit) {
     emit(UserProfileEditSuccess());
-  }
-
-  _handleDeleteProfilePicture(DeleteProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {
-    final editState = state as UserProfileEditing;
-    await _userProfileUseCase.deleteProfilePicture(editState.id);
-    add(FetchProfilePictureEvent());
   }
 
   _handleFetchProfilePicture(FetchProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {

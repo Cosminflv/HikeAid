@@ -21,9 +21,11 @@ class UserProfileUseCase {
     required String lastName,
     required String bio,
     required Uint8List imageData,
+    required bool hasDeletedImage,
     required Function(EditUserProfileStatus) onUpdateProgress,
   }) async {
-    await _userProfileRepository.updateUserProfile(id, firstName, lastName, bio, imageData, onUpdateProgress);
+    await _userProfileRepository.updateUserProfile(
+        id, firstName, lastName, bio, imageData, hasDeletedImage, onUpdateProgress);
   }
 
   Future<void> deleteProfilePicture(int id) async {
