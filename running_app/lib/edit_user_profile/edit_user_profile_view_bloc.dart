@@ -14,6 +14,7 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
 
     on<UserProfileSavingEvent>(_handleUserProfileSaving);
     on<UpdateProfileSuccessEvent>(_handleUpdateUserProfileSuccess);
+    on<UpdateProfileFailedEvent>(_handleUpdateFailedEvent);
 
     on<UpdateUserDetailEvent>(_handleUpdateUserDetail);
     on<UpdateProfilePictureEvent>(_handleUpdateProfilePicture);
@@ -27,6 +28,12 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
       firstName: event.firstName,
       lastName: event.lastName,
       bio: event.bio,
+      city: event.city,
+      country: event.country,
+      age: event.age,
+      weight: event.weight,
+      gender: event.gender,
+      birthDate: event.birthDate,
       imageData: event.imageData,
       hasDeletedImage: false,
     ));
@@ -39,6 +46,12 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
         firstName: editState.firstName,
         lastName: editState.lastName,
         bio: editState.bio,
+        city: editState.city,
+        country: editState.country,
+        age: editState.age,
+        weight: editState.weight,
+        gender: editState.gender,
+        birthDate: editState.birthDate,
         imageData: editState.imageData,
         hasDeletedImage: editState.hasDeletedImage,
         onUpdateProgress: (status) => _handleOnUpdateProgress(status: status));
@@ -55,6 +68,12 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
         break;
       case UserDetailType.bio:
         emit(editState.copyWith(bio: event.value));
+        break;
+      case UserDetailType.city:
+        emit(editState.copyWith(city: event.value));
+        break;
+      case UserDetailType.country:
+        emit(editState.copyWith(country: event.value));
         break;
     }
   }
@@ -78,7 +97,12 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
     emit(UserProfileEditSuccess());
   }
 
-  _handleFetchDefaultProfilePicture(FetchDefaultProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {
+  _handleUpdateFailedEvent(UpdateProfileFailedEvent event, Emitter<EditUserProfileViewState> emit) {
+    emit(UserProfileEditFailed(event.reason));
+  }
+
+  _handleFetchDefaultProfilePicture(
+      FetchDefaultProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {
     final editState = state as UserProfileEditing;
     final imageData = await _userProfileUseCase.fetchDefaultUserProfilePicture(editState.id);
     emit(editState.copyWith(imageData: imageData));

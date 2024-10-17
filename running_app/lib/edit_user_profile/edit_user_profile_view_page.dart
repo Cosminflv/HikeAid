@@ -1,5 +1,6 @@
 import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
@@ -23,6 +24,8 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
   late TextEditingController bioController;
+  late TextEditingController cityController;
+  late TextEditingController countryController;
 
   @override
   void initState() {
@@ -32,6 +35,8 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
     firstNameController = TextEditingController(text: widget.profile.firstName);
     lastNameController = TextEditingController(text: widget.profile.lastName);
     bioController = TextEditingController(text: widget.profile.bio);
+    cityController = TextEditingController(text: widget.profile.city);
+    countryController = TextEditingController(text: widget.profile.country);
   }
 
   @override
@@ -63,15 +68,17 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                 }
 
                 if (state is UserProfileEditFailed) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(AppLocalizations.of(context)!.updateFailed),
-                      backgroundColor: Colors.red, // Red background for error
-                      duration: const Duration(seconds: 2), // Duration the snackbar will be visible
-                    ),
-                  );
+                  // Defer the showing of SnackBar until after the current frame
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(AppLocalizations.of(context)!.updateFailed),
+                        backgroundColor: Colors.red, // Red background for error
+                        duration: const Duration(seconds: 2), // Duration the snackbar will be visible
+                      ),
+                    );
+                  });
                 }
-
                 if (state is UserProfileEditing) {
                   return TextButton(
                     onPressed: () {
@@ -189,6 +196,36 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                         disabledBorder: InputBorder.none,
                         hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
                         hintText: "Bio"),
+                  ),
+                  TextField(
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    onChanged: (value) => BlocProviders.editProfile(context)
+                        .add(UpdateUserDetailEvent(type: UserDetailType.country, value: value)),
+                    controller: countryController,
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
+                        hintText: "Country"),
+                  ),
+                  TextField(
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    onChanged: (value) => BlocProviders.editProfile(context)
+                        .add(UpdateUserDetailEvent(type: UserDetailType.city, value: value)),
+                    controller: cityController,
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
+                        hintText: "City"),
                   ),
                 ],
               ),

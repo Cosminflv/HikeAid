@@ -1,10 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:domain/entities/edit_user_profile_status.dart';
+import 'package:domain/entities/user_profile_entity.dart';
 
 abstract class EditUserProfileViewEvent {}
 
-enum UserDetailType { firstName, lastName, bio }
+enum UserDetailType { firstName, lastName, bio, country, city }
 
 class UpdateUserDetailEvent extends EditUserProfileViewEvent {
   UserDetailType type;
@@ -42,6 +43,12 @@ class InitializeEditUserProfileEvent extends EditUserProfileViewEvent {
   final String firstName;
   final String lastName;
   final String bio;
+  final String country;
+  final String city;
+  final int age;
+  final int weight;
+  final EGenderEntity gender;
+  final DateTime birthDate;
   final Uint8List imageData;
 
   InitializeEditUserProfileEvent({
@@ -49,6 +56,12 @@ class InitializeEditUserProfileEvent extends EditUserProfileViewEvent {
     required this.firstName,
     required this.lastName,
     required this.bio,
+    required this.city,
+    required this.country,
+    required this.age,
+    required this.gender,
+    required this.weight,
+    required this.birthDate,
     required this.imageData,
   });
 }

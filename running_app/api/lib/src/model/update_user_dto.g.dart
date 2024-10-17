@@ -16,6 +16,18 @@ class _$UpdateUserDto extends UpdateUserDto {
   @override
   final String? bio;
   @override
+  final int? age;
+  @override
+  final String? country;
+  @override
+  final String? city;
+  @override
+  final EGender? gender;
+  @override
+  final DateTime? birthDate;
+  @override
+  final int? weight;
+  @override
   final bool? hasDeletedImage;
   @override
   final String? imageData;
@@ -28,6 +40,12 @@ class _$UpdateUserDto extends UpdateUserDto {
       this.firstName,
       this.lastName,
       this.bio,
+      this.age,
+      this.country,
+      this.city,
+      this.gender,
+      this.birthDate,
+      this.weight,
       this.hasDeletedImage,
       this.imageData})
       : super._();
@@ -47,6 +65,12 @@ class _$UpdateUserDto extends UpdateUserDto {
         firstName == other.firstName &&
         lastName == other.lastName &&
         bio == other.bio &&
+        age == other.age &&
+        country == other.country &&
+        city == other.city &&
+        gender == other.gender &&
+        birthDate == other.birthDate &&
+        weight == other.weight &&
         hasDeletedImage == other.hasDeletedImage &&
         imageData == other.imageData;
   }
@@ -58,6 +82,12 @@ class _$UpdateUserDto extends UpdateUserDto {
     _$hash = $jc(_$hash, firstName.hashCode);
     _$hash = $jc(_$hash, lastName.hashCode);
     _$hash = $jc(_$hash, bio.hashCode);
+    _$hash = $jc(_$hash, age.hashCode);
+    _$hash = $jc(_$hash, country.hashCode);
+    _$hash = $jc(_$hash, city.hashCode);
+    _$hash = $jc(_$hash, gender.hashCode);
+    _$hash = $jc(_$hash, birthDate.hashCode);
+    _$hash = $jc(_$hash, weight.hashCode);
     _$hash = $jc(_$hash, hasDeletedImage.hashCode);
     _$hash = $jc(_$hash, imageData.hashCode);
     _$hash = $jf(_$hash);
@@ -71,6 +101,12 @@ class _$UpdateUserDto extends UpdateUserDto {
           ..add('firstName', firstName)
           ..add('lastName', lastName)
           ..add('bio', bio)
+          ..add('age', age)
+          ..add('country', country)
+          ..add('city', city)
+          ..add('gender', gender)
+          ..add('birthDate', birthDate)
+          ..add('weight', weight)
           ..add('hasDeletedImage', hasDeletedImage)
           ..add('imageData', imageData))
         .toString();
@@ -97,6 +133,30 @@ class UpdateUserDtoBuilder
   String? get bio => _$this._bio;
   set bio(String? bio) => _$this._bio = bio;
 
+  int? _age;
+  int? get age => _$this._age;
+  set age(int? age) => _$this._age = age;
+
+  String? _country;
+  String? get country => _$this._country;
+  set country(String? country) => _$this._country = country;
+
+  String? _city;
+  String? get city => _$this._city;
+  set city(String? city) => _$this._city = city;
+
+  EGender? _gender;
+  EGender? get gender => _$this._gender;
+  set gender(EGender? gender) => _$this._gender = gender;
+
+  DateTime? _birthDate;
+  DateTime? get birthDate => _$this._birthDate;
+  set birthDate(DateTime? birthDate) => _$this._birthDate = birthDate;
+
+  int? _weight;
+  int? get weight => _$this._weight;
+  set weight(int? weight) => _$this._weight = weight;
+
   bool? _hasDeletedImage;
   bool? get hasDeletedImage => _$this._hasDeletedImage;
   set hasDeletedImage(bool? hasDeletedImage) =>
@@ -117,6 +177,12 @@ class UpdateUserDtoBuilder
       _firstName = $v.firstName;
       _lastName = $v.lastName;
       _bio = $v.bio;
+      _age = $v.age;
+      _country = $v.country;
+      _city = $v.city;
+      _gender = $v.gender;
+      _birthDate = $v.birthDate;
+      _weight = $v.weight;
       _hasDeletedImage = $v.hasDeletedImage;
       _imageData = $v.imageData;
       _$v = null;
@@ -145,6 +211,12 @@ class UpdateUserDtoBuilder
             firstName: firstName,
             lastName: lastName,
             bio: bio,
+            age: age,
+            country: country,
+            city: city,
+            gender: gender,
+            birthDate: birthDate,
+            weight: weight,
             hasDeletedImage: hasDeletedImage,
             imageData: imageData);
     replace(_$result);

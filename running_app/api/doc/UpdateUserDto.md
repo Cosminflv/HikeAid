@@ -12,6 +12,12 @@ Name | Type | Description | Notes
 **firstName** | **String** |  | [optional] 
 **lastName** | **String** |  | [optional] 
 **bio** | **String** |  | [optional] 
+**age** | **int** |  | [optional] 
+**country** | **String** |  | [optional] 
+**city** | **String** |  | [optional] 
+**gender** | [**EGender**](EGender.md) |  | [optional] 
+**birthDate** | [**DateTime**](DateTime.md) |  | [optional] 
+**weight** | **int** |  | [optional] 
 **hasDeletedImage** | **bool** |  | [optional] 
 **imageData** | **String** |  | [optional] 
 

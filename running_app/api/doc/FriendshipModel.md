@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **requesterId** | **int** |  | [optional] 
 **receiverId** | **int** |  | [optional] 
 **createdAt** | [**DateTime**](DateTime.md) |  | [optional] 
-**status** | [**FriendshipStatus**](FriendshipStatus.md) |  | [optional] 
+**status** | [**EFriendshipStatus**](EFriendshipStatus.md) |  | [optional] 
 **requester** | [**UserModel**](UserModel.md) |  | [optional] 
 **reciever** | [**UserModel**](UserModel.md) |  | [optional] 
 

@@ -8,8 +8,9 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CommentDto.serializer)
+      ..add(EFriendshipStatus.serializer)
+      ..add(EGender.serializer)
       ..add(FriendshipModel.serializer)
-      ..add(FriendshipStatus.serializer)
       ..add(LikeDto.serializer)
       ..add(LoginDto.serializer)
       ..add(SocialPostDto.serializer)

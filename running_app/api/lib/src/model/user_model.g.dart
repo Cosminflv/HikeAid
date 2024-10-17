@@ -20,6 +20,18 @@ class _$UserModel extends UserModel {
   @override
   final String? bio;
   @override
+  final int? age;
+  @override
+  final String? country;
+  @override
+  final String? city;
+  @override
+  final int? weight;
+  @override
+  final EGender? gender;
+  @override
+  final DateTime? birthDate;
+  @override
   final String? profilePictureUrl;
 
   factory _$UserModel([void Function(UserModelBuilder)? updates]) =>
@@ -32,6 +44,12 @@ class _$UserModel extends UserModel {
       this.lastName,
       this.passwordHash,
       this.bio,
+      this.age,
+      this.country,
+      this.city,
+      this.weight,
+      this.gender,
+      this.birthDate,
       this.profilePictureUrl})
       : super._();
 
@@ -52,6 +70,12 @@ class _$UserModel extends UserModel {
         lastName == other.lastName &&
         passwordHash == other.passwordHash &&
         bio == other.bio &&
+        age == other.age &&
+        country == other.country &&
+        city == other.city &&
+        weight == other.weight &&
+        gender == other.gender &&
+        birthDate == other.birthDate &&
         profilePictureUrl == other.profilePictureUrl;
   }
 
@@ -64,6 +88,12 @@ class _$UserModel extends UserModel {
     _$hash = $jc(_$hash, lastName.hashCode);
     _$hash = $jc(_$hash, passwordHash.hashCode);
     _$hash = $jc(_$hash, bio.hashCode);
+    _$hash = $jc(_$hash, age.hashCode);
+    _$hash = $jc(_$hash, country.hashCode);
+    _$hash = $jc(_$hash, city.hashCode);
+    _$hash = $jc(_$hash, weight.hashCode);
+    _$hash = $jc(_$hash, gender.hashCode);
+    _$hash = $jc(_$hash, birthDate.hashCode);
     _$hash = $jc(_$hash, profilePictureUrl.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -78,6 +108,12 @@ class _$UserModel extends UserModel {
           ..add('lastName', lastName)
           ..add('passwordHash', passwordHash)
           ..add('bio', bio)
+          ..add('age', age)
+          ..add('country', country)
+          ..add('city', city)
+          ..add('weight', weight)
+          ..add('gender', gender)
+          ..add('birthDate', birthDate)
           ..add('profilePictureUrl', profilePictureUrl))
         .toString();
   }
@@ -110,6 +146,30 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
   String? get bio => _$this._bio;
   set bio(String? bio) => _$this._bio = bio;
 
+  int? _age;
+  int? get age => _$this._age;
+  set age(int? age) => _$this._age = age;
+
+  String? _country;
+  String? get country => _$this._country;
+  set country(String? country) => _$this._country = country;
+
+  String? _city;
+  String? get city => _$this._city;
+  set city(String? city) => _$this._city = city;
+
+  int? _weight;
+  int? get weight => _$this._weight;
+  set weight(int? weight) => _$this._weight = weight;
+
+  EGender? _gender;
+  EGender? get gender => _$this._gender;
+  set gender(EGender? gender) => _$this._gender = gender;
+
+  DateTime? _birthDate;
+  DateTime? get birthDate => _$this._birthDate;
+  set birthDate(DateTime? birthDate) => _$this._birthDate = birthDate;
+
   String? _profilePictureUrl;
   String? get profilePictureUrl => _$this._profilePictureUrl;
   set profilePictureUrl(String? profilePictureUrl) =>
@@ -128,6 +188,12 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
       _lastName = $v.lastName;
       _passwordHash = $v.passwordHash;
       _bio = $v.bio;
+      _age = $v.age;
+      _country = $v.country;
+      _city = $v.city;
+      _weight = $v.weight;
+      _gender = $v.gender;
+      _birthDate = $v.birthDate;
       _profilePictureUrl = $v.profilePictureUrl;
       _$v = null;
     }
@@ -157,6 +223,12 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
             lastName: lastName,
             passwordHash: passwordHash,
             bio: bio,
+            age: age,
+            country: country,
+            city: city,
+            weight: weight,
+            gender: gender,
+            birthDate: birthDate,
             profilePictureUrl: profilePictureUrl);
     replace(_$result);
     return _$result;

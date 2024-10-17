@@ -866,6 +866,23 @@
         },
         "additionalProperties": false
       },
+      "EFriendshipStatus": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "EGender": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "FriendshipModel": {
         "type": "object",
         "properties": {
@@ -886,7 +903,7 @@
             "format": "date-time"
           },
           "status": {
-            "$ref": "#/components/schemas/FriendshipStatus"
+            "$ref": "#/components/schemas/EFriendshipStatus"
           },
           "requester": {
             "$ref": "#/components/schemas/UserModel"
@@ -896,15 +913,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "FriendshipStatus": {
-        "enum": [
-          0,
-          1,
-          2
-        ],
-        "type": "integer",
-        "format": "int32"
       },
       "LikeDto": {
         "type": "object",
@@ -1021,6 +1029,29 @@
             "type": "string",
             "nullable": true
           },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "$ref": "#/components/schemas/EGender"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "weight": {
+            "type": "integer",
+            "format": "int32"
+          },
           "hasDeletedImage": {
             "type": "boolean"
           },
@@ -1079,6 +1110,29 @@
           "bio": {
             "type": "string",
             "nullable": true
+          },
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "weight": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/EGender"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
           },
           "profilePictureUrl": {
             "type": "string",

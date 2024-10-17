@@ -15,8 +15,9 @@ export 'package:openapi/src/api/track_api.dart';
 export 'package:openapi/src/api/user_api.dart';
 
 export 'package:openapi/src/model/comment_dto.dart';
+export 'package:openapi/src/model/e_friendship_status.dart';
+export 'package:openapi/src/model/e_gender.dart';
 export 'package:openapi/src/model/friendship_model.dart';
-export 'package:openapi/src/model/friendship_status.dart';
 export 'package:openapi/src/model/like_dto.dart';
 export 'package:openapi/src/model/login_dto.dart';
 export 'package:openapi/src/model/social_post_dto.dart';

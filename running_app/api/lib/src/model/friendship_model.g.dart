@@ -16,7 +16,7 @@ class _$FriendshipModel extends FriendshipModel {
   @override
   final DateTime? createdAt;
   @override
-  final FriendshipStatus? status;
+  final EFriendshipStatus? status;
   @override
   final UserModel? requester;
   @override
@@ -104,9 +104,9 @@ class FriendshipModelBuilder
   DateTime? get createdAt => _$this._createdAt;
   set createdAt(DateTime? createdAt) => _$this._createdAt = createdAt;
 
-  FriendshipStatus? _status;
-  FriendshipStatus? get status => _$this._status;
-  set status(FriendshipStatus? status) => _$this._status = status;
+  EFriendshipStatus? _status;
+  EFriendshipStatus? get status => _$this._status;
+  set status(EFriendshipStatus? status) => _$this._status = status;
 
   UserModelBuilder? _requester;
   UserModelBuilder get requester =>

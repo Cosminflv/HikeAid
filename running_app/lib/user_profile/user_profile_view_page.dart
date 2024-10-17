@@ -161,6 +161,12 @@ class UserProfileViewPage extends StatelessWidget {
                                     firstName: state.profile.firstName,
                                     lastName: state.profile.lastName,
                                     bio: state.profile.bio,
+                                    city: state.profile.city,
+                                    age: state.profile.age,
+                                    weight: state.profile.weight,
+                                    country: state.profile.country,
+                                    gender: state.profile.gender,
+                                    birthDate: state.profile.birthDate,
                                     imageData: state.profile.imageData,
                                   ));
                                   Navigator.of(context).pushNamed(RouteNames.editProfilePage, arguments: state.profile);
