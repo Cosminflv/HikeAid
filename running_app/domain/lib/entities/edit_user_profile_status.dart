@@ -23,6 +23,8 @@ extension EditFailTypeExtension on EditUserFailType {
         return "No internet connection";
       case EditUserFailType.other:
         return "An unknown error occurred";
+      case EditUserFailType.userNotFound:
+        return "User not found";
       default:
         return "An unknown error occurred"; // This case should not occur, but it's good to have a fallback.
     }

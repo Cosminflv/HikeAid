@@ -62,9 +62,22 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
             builder.imageData = base64Image;
           }));
 
-      if (result.statusCode == 200) onUpdateProgress(EditSuccess());
-      if (result.statusCode == 404) onUpdateProgress(EditFailed(reason: EditUserFailType.userNotFound));
-      if (result.statusCode == 500) onUpdateProgress(EditFailed(reason: EditUserFailType.other));
+      switch (result.statusCode) {
+        case 200:
+          onUpdateProgress(EditSuccess());
+          break;
+        case 404:
+          onUpdateProgress(EditFailed(reason: EditUserFailType.userNotFound));
+          break;
+        case 408:
+          onUpdateProgress(EditFailed(reason: EditUserFailType.timeout));
+          break;
+        case 500:
+          onUpdateProgress(EditFailed(reason: EditUserFailType.other));
+
+        default:
+          onUpdateProgress(EditFailed(reason: EditUserFailType.other));
+      }
     } catch (e) {
       print(e);
     }
@@ -93,7 +106,9 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
 
   Future<Uint8List?> _getUserImageData(int userId, bool defaultImage) async {
     try {
-      final result = defaultImage ? await _userApi.getDefaultProfilePictureGet() : await _userApi.apiUserIdGetProfilePictureGet(id: userId.toString(), userId: userId);
+      final result = defaultImage
+          ? await _userApi.getDefaultProfilePictureGet()
+          : await _userApi.apiUserIdGetProfilePictureGet(id: userId.toString(), userId: userId);
 
       if (result.statusCode == 200) {
         final data = result.data as String?;
