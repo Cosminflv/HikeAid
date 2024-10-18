@@ -17,6 +17,9 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
     on<UpdateProfileFailedEvent>(_handleUpdateFailedEvent);
 
     on<UpdateUserDetailEvent>(_handleUpdateUserDetail);
+    on<UpdateUserBirthDateEvent>(_handleUpdateBirthDate);
+    on<UpdateUserGenderEvent>(_handleUpdateUserGender);
+    on<UpdateUserWeightEvent>(_handleUpdateUserWeight);
     on<UpdateProfilePictureEvent>(_handleUpdateProfilePicture);
     on<DeleteProfilePictureEvent>(_handleDeleteProfilePicture);
     on<FetchDefaultProfilePictureEvent>(_handleFetchDefaultProfilePicture);
@@ -76,6 +79,21 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
         emit(editState.copyWith(country: event.value));
         break;
     }
+  }
+
+  _handleUpdateBirthDate(UpdateUserBirthDateEvent event, Emitter<EditUserProfileViewState> emit) {
+    final editState = state as UserProfileEditing;
+    emit(editState.copyWith(birthDate: event.newDateTime));
+  }
+
+  _handleUpdateUserGender(UpdateUserGenderEvent event, Emitter<EditUserProfileViewState> emit) {
+    final editState = state as UserProfileEditing;
+    emit(editState.copyWith(gender: event.newGender));
+  }
+
+  _handleUpdateUserWeight(UpdateUserWeightEvent event, Emitter<EditUserProfileViewState> emit) {
+    final editState = state as UserProfileEditing;
+    emit(editState.copyWith(weight: event.newWeight));
   }
 
   _handleUpdateProfilePicture(UpdateProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) {

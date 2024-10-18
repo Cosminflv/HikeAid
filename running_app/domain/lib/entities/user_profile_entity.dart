@@ -4,6 +4,17 @@ import 'package:equatable/equatable.dart';
 
 enum EGenderEntity { man, woman }
 
+extension EGenderEntityExtension on EGenderEntity {
+  String toReadableString() {
+    switch (this) {
+      case EGenderEntity.man:
+        return "Man";
+      case EGenderEntity.woman:
+        return "Woman";
+    }
+  }
+}
+
 abstract class UserProfileEntity extends Equatable {
   final int id;
   final String username;

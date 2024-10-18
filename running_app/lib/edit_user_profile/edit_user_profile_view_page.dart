@@ -9,8 +9,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/shared_widgets/custom_text_field.dart';
+import 'package:running_app/shared_widgets/dialogs/date_picker_dialog.dart';
+import 'package:running_app/shared_widgets/dialogs/gender_date_picker.dart';
 import 'package:running_app/shared_widgets/dialogs/image_action_dialog.dart';
+import 'package:running_app/shared_widgets/dialogs/weight_picker_dialog.dart';
 import 'package:running_app/user_profile/user_profile_view_event.dart';
+import 'package:running_app/utils/converters.dart';
 import 'package:running_app/utils/session_utils.dart';
 
 class EditUserProfileViewPage extends StatefulWidget {
@@ -46,6 +50,8 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
     firstNameController.dispose();
     lastNameController.dispose();
     bioController.dispose();
+    cityController.dispose();
+    countryController.dispose();
     super.dispose();
   }
 
@@ -186,6 +192,87 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                 ],
               ),
             ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            //color: Theme.of(context).highlightColor,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Text(
+                "ATHLETE INFORMATION",
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
+            buildWhen: (previous, current) => current is UserProfileEditing,
+            builder: (context, state) {
+              state as UserProfileEditing;
+              return GestureDetector(
+                onTap: () => showCupertinoDatePickerDialog(context, state.birthDate),
+                child: Container(
+                    color: Theme.of(context).highlightColor,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Select Birthdate"),
+                          Text(
+                              "${state.birthDate.day} ${convertMonthToString(state.birthDate.month)} ${state.birthDate.year}"),
+                        ],
+                      ),
+                    )),
+              );
+            },
+          ),
+          BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
+            buildWhen: (previous, current) => current is UserProfileEditing,
+            builder: (context, state) {
+              state as UserProfileEditing;
+              return GestureDetector(
+                onTap: () => showCupertinoEnumPickerDialog(context, state.gender),
+                child: Container(
+                    color: Theme.of(context).highlightColor,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Gender"),
+                          Text(state.gender.toReadableString()),
+                        ],
+                      ),
+                    )),
+              );
+            },
+          ),
+          BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
+            buildWhen: (previous, current) => current is UserProfileEditing,
+            builder: (context, state) {
+              state as UserProfileEditing;
+              return GestureDetector(
+                onTap: () => showCupertinoWeightPickerDialog(context, state.weight),
+                child: Container(
+                    color: Theme.of(context).highlightColor,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Weight (kg)"),
+                          Text(state.weight.toString()),
+                        ],
+                      ),
+                    )),
+              );
+            },
           )
         ],
       ),

@@ -14,6 +14,24 @@ class UpdateUserDetailEvent extends EditUserProfileViewEvent {
   UpdateUserDetailEvent({required this.type, required this.value});
 }
 
+class UpdateUserBirthDateEvent extends EditUserProfileViewEvent {
+  DateTime newDateTime;
+
+  UpdateUserBirthDateEvent({required this.newDateTime});
+}
+
+class UpdateUserGenderEvent extends EditUserProfileViewEvent {
+  EGenderEntity newGender;
+
+  UpdateUserGenderEvent({required this.newGender});
+}
+
+class UpdateUserWeightEvent extends EditUserProfileViewEvent {
+  int newWeight;
+
+  UpdateUserWeightEvent({required this.newWeight});
+}
+
 class UpdateProfilePictureEvent extends EditUserProfileViewEvent {
   Uint8List imageData;
 
