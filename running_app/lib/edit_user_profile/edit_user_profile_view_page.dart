@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:running_app/edit_user_profile/edit_user_profile_view_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
+import 'package:running_app/shared_widgets/custom_text_field.dart';
 import 'package:running_app/shared_widgets/dialogs/image_action_dialog.dart';
 import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/utils/session_utils.dart';
@@ -136,39 +137,21 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                     child: IntrinsicHeight(
                       child: Column(
                         children: [
-                          TextField(
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          CustomTextField(
+                            textController: firstNameController,
                             onChanged: (value) => BlocProviders.editProfile(context)
                                 .add(UpdateUserDetailEvent(type: UserDetailType.firstName, value: value)),
-                            controller: firstNameController,
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
-                                hintText: AppLocalizations.of(context)!.firstName),
+                            hintText: "First Name",
                           ),
                           Divider(
                             color: Theme.of(context).hoverColor,
                           ),
-                          TextField(
-                            style: Theme.of(context).textTheme.bodyMedium,
+                          CustomTextField(
+                            textController: lastNameController,
                             onChanged: (value) => BlocProviders.editProfile(context)
                                 .add(UpdateUserDetailEvent(type: UserDetailType.lastName, value: value)),
-                            controller: lastNameController,
-                            decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                border: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                errorBorder: InputBorder.none,
-                                disabledBorder: InputBorder.none,
-                                hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
-                                hintText: AppLocalizations.of(context)!.lastName),
-                          )
+                            hintText: "Last Name",
+                          ),
                         ],
                       ),
                     ),
@@ -182,50 +165,23 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
             child: IntrinsicHeight(
               child: Column(
                 children: [
-                  TextField(
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  CustomTextField(
+                    textController: bioController,
                     onChanged: (value) => BlocProviders.editProfile(context)
                         .add(UpdateUserDetailEvent(type: UserDetailType.bio, value: value)),
-                    controller: bioController,
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
-                        hintText: "Bio"),
+                    hintText: "Bio",
                   ),
-                  TextField(
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  CustomTextField(
+                    textController: countryController,
                     onChanged: (value) => BlocProviders.editProfile(context)
                         .add(UpdateUserDetailEvent(type: UserDetailType.country, value: value)),
-                    controller: countryController,
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
-                        hintText: "Country"),
+                    hintText: "Country",
                   ),
-                  TextField(
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  CustomTextField(
+                    textController: cityController,
                     onChanged: (value) => BlocProviders.editProfile(context)
                         .add(UpdateUserDetailEvent(type: UserDetailType.city, value: value)),
-                    controller: cityController,
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
-                        hintText: "City"),
+                    hintText: "City",
                   ),
                 ],
               ),
