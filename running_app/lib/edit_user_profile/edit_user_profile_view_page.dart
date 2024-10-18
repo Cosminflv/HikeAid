@@ -1,7 +1,11 @@
 import 'package:domain/entities/user_profile_entity.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:running_app/edit_user_profile/dialogs/enum_picker_dialog.dart';
+import 'package:running_app/edit_user_profile/dialogs/profile_item_picker.dart';
+import 'package:running_app/edit_user_profile/dialogs/weight_picker_dialog.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -9,10 +13,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/shared_widgets/custom_text_field.dart';
-import 'package:running_app/shared_widgets/dialogs/date_picker_dialog.dart';
-import 'package:running_app/shared_widgets/dialogs/gender_date_picker.dart';
+import 'package:running_app/edit_user_profile/dialogs/date_picker_dialog.dart';
 import 'package:running_app/shared_widgets/dialogs/image_action_dialog.dart';
-import 'package:running_app/shared_widgets/dialogs/weight_picker_dialog.dart';
 import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/utils/converters.dart';
 import 'package:running_app/utils/session_utils.dart';
@@ -214,66 +216,38 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
             buildWhen: (previous, current) => current is UserProfileEditing,
             builder: (context, state) {
               state as UserProfileEditing;
-              return GestureDetector(
-                onTap: () => showCupertinoDatePickerDialog(context, state.birthDate),
-                child: Container(
-                    color: Theme.of(context).highlightColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Select Birthdate"),
-                          Text(
-                              "${state.birthDate.day} ${convertMonthToString(state.birthDate.month)} ${state.birthDate.year}"),
-                        ],
-                      ),
-                    )),
+
+              return Column(
+                children: [
+                  ProfileItemPicker<DateTime>(
+                    title: "Select Birthdate",
+                    value:
+                        "${state.birthDate.day} ${convertMonthToString(state.birthDate.month)} ${state.birthDate.year}",
+                    onTap: (context) => showCupertinoModalPopup(
+                      context: context,
+                      builder: (_) => CupertinoDatePickerDialog(currentBirthDate: state.birthDate),
+                    ),
+                  ),
+                  ProfileItemPicker<String>(
+                    title: "Gender",
+                    value: state.gender.toReadableString(),
+                    onTap: (context) => showCupertinoModalPopup(
+                      context: context,
+                      builder: (_) => CupertinoEnumPickerDialog(currentGender: state.gender),
+                    ),
+                  ),
+                  ProfileItemPicker<int>(
+                    title: "Weight (kg)",
+                    value: state.weight.toString(),
+                    onTap: (context) => showCupertinoModalPopup(
+                      context: context,
+                      builder: (_) => CupertinoWeightPickerDialog(currentWeight: state.weight),
+                    ),
+                  ),
+                ],
               );
             },
           ),
-          BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
-            buildWhen: (previous, current) => current is UserProfileEditing,
-            builder: (context, state) {
-              state as UserProfileEditing;
-              return GestureDetector(
-                onTap: () => showCupertinoEnumPickerDialog(context, state.gender),
-                child: Container(
-                    color: Theme.of(context).highlightColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Gender"),
-                          Text(state.gender.toReadableString()),
-                        ],
-                      ),
-                    )),
-              );
-            },
-          ),
-          BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
-            buildWhen: (previous, current) => current is UserProfileEditing,
-            builder: (context, state) {
-              state as UserProfileEditing;
-              return GestureDetector(
-                onTap: () => showCupertinoWeightPickerDialog(context, state.weight),
-                child: Container(
-                    color: Theme.of(context).highlightColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Weight (kg)"),
-                          Text(state.weight.toString()),
-                        ],
-                      ),
-                    )),
-              );
-            },
-          )
         ],
       ),
     );
