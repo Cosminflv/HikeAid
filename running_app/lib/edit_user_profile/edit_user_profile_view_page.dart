@@ -218,6 +218,7 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
               state as UserProfileEditing;
 
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ProfileItemPicker<DateTime>(
                     title: "Select Birthdate",
@@ -242,6 +243,13 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
                     onTap: (context) => showCupertinoModalPopup(
                       context: context,
                       builder: (_) => CupertinoWeightPickerDialog(currentWeight: state.weight),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Used to calculate calories, power and more",
+                      style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ),
                 ],
