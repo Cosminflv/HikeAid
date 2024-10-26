@@ -43,6 +43,9 @@ class AuthSessionBlocListener extends StatelessWidget {
               showErrorToast(AppLocalizations.of(context)!.logoutFail);
             }
           },
+          listenWhen: (previous, current) =>
+              (previous is AuthSessionNotExistingState && current is AuthSessionExistingState) ||
+              (previous is AuthSessionExistingState && current is AuthSessionNotExistingState),
         ),
       ],
       child: child,
