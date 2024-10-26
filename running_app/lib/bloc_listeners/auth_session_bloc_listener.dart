@@ -29,19 +29,21 @@ class AuthSessionBlocListener extends StatelessWidget {
           listenWhen: (prev, curr) => prev is AuthSessionExistingState && curr is AuthSessionNotExistingState,
         ),
         BlocListener<AuthSessionBloc, AuthSessionState>(
-            bloc: BlocProviders.authSession(context),
-            listener: (context, state) {
-              if (state is AuthSessionExistingState) {
-                BlocProvider.of<UserProfileViewBloc>(context).add(FetchUserProfileEvent(state.session));
-              }
-              if (state is AuthSessionNotExistingState) {
-                Navigator.of(context).pushReplacementNamed(RouteNames.getStartedPage);
-                discardBlocsIfRegistered();
-              }
-              if (state is AuthSessionFailureState) {
-                showErrorToast(AppLocalizations.of(context)!.logoutFail);
-              }
-            }),
+          bloc: BlocProviders.authSession(context),
+          listener: (context, state) {
+            if (state is AuthSessionExistingState) {
+              //Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
+              BlocProvider.of<UserProfileViewBloc>(context).add(FetchUserProfileEvent(state.session));
+            }
+            if (state is AuthSessionNotExistingState) {
+              Navigator.of(context).pushReplacementNamed(RouteNames.getStartedPage);
+              discardBlocsIfRegistered();
+            }
+            if (state is AuthSessionFailureState) {
+              showErrorToast(AppLocalizations.of(context)!.logoutFail);
+            }
+          },
+        ),
       ],
       child: child,
     );

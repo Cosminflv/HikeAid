@@ -9,6 +9,7 @@ import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_event.dart';
 import 'package:running_app/config/theme.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
+import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
@@ -24,6 +25,13 @@ class RunningApp extends StatefulWidget {
 }
 
 class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+
+    sl.get<AuthSessionBloc>().add(CheckForSessionEvent());
+  }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);

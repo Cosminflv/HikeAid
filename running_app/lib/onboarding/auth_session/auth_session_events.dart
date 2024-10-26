@@ -11,9 +11,3 @@ class AuthSessionUpdatedEvent extends AuthSessionEvent {
 class CheckForSessionEvent extends AuthSessionEvent {}
 
 class LogoutEvent extends AuthSessionEvent {}
-
-class UpdateSessionInfoEvent extends AuthSessionEvent {
-  final bool? hasCompletedProfile;
-
-  UpdateSessionInfoEvent({this.hasCompletedProfile});
-}

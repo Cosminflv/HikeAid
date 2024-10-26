@@ -1,6 +1,6 @@
 import 'package:core/di/injection_container.dart';
 import 'package:domain/entities/registration_status.dart';
-import 'package:domain/use_cases/authentication_usecase.dart';
+import 'package:domain/use_cases/authentication_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_event.dart';
 import 'package:running_app/onboarding/registration/registration_view_state.dart';

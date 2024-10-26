@@ -11,7 +11,7 @@ import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 
 class BlocProviders {
   static AuthenticationViewBloc authentication(BuildContext context) =>
-      BlocProvider.of<AuthenticationViewBloc>(context);
+    BlocProvider.of<AuthenticationViewBloc>(context);
 
   static RegistrationViewBloc registration(BuildContext context) => BlocProvider.of<RegistrationViewBloc>(context);
   static AuthSessionBloc authSession(BuildContext context) => BlocProvider.of<AuthSessionBloc>(context);

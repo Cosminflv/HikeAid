@@ -8,5 +8,5 @@ abstract class AuthSessionEntity extends Equatable {
   AuthSessionEntity({required this.user, required this.accessToken});
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [user, accessToken];
 }

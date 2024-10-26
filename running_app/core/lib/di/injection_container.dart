@@ -17,7 +17,8 @@ import 'package:domain/repositories/permission_repository.dart';
 import 'package:data/repositories_impl/landmark_repository_impl.dart';
 import 'package:domain/repositories/position_repository.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
-import 'package:domain/use_cases/authentication_usecase.dart';
+import 'package:domain/use_cases/authentication_session_use_case.dart';
+import 'package:domain/use_cases/authentication_use_case.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/location_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
@@ -38,6 +39,7 @@ import 'package:dio/dio.dart';
 import 'dart:io';
 
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final sl = GetIt.instance;
 
@@ -53,7 +55,7 @@ discardBlocsIfRegistered() {
 }
 
 initEarlyDependencies() {
-  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.3:7011/", connectTimeout: Duration(seconds: 10)));
+  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.2:7011/", connectTimeout: Duration(seconds: 10)));
   // ignore: deprecated_member_use
   (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
     client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
@@ -67,12 +69,16 @@ initEarlyDependencies() {
 
   final openApi = Openapi(dio: dio, interceptors: [BearerAuthInterceptor()]);
 
+  final storage = FlutterSecureStorage();
+
   sl.allowReassignment = true;
+
+  sl.registerLazySingleton<FlutterSecureStorage>(() => storage);
 
   //Repositories
   sl.registerLazySingleton<PositionRepository>(() => PositionRepositoryImpl());
   sl.registerLazySingleton<PermissionRepository>(() => PermissionRepositoryImpl());
-  sl.registerLazySingleton<OnboardingRepository>(() => OnboardingRepositoryImpl(openApi));
+  sl.registerLazySingleton<OnboardingRepository>(() => OnboardingRepositoryImpl(openApi, storage));
   sl.registerLazySingleton<LandmarkRepository>(() => LandmarkRepositoryImpl());
   sl.registerLazySingleton<UserProfileRepository>(() => UserProfileRepositoryImpl(openApi));
 
@@ -83,6 +89,8 @@ initEarlyDependencies() {
       () => LocationUseCase(sl.get<PermissionRepository>(), sl.get<PositionRepository>()));
   sl.registerLazySingleton<LandmarkUseCase>(() => LandmarkUseCase(sl.get<LandmarkRepository>()));
   sl.registerLazySingleton<UserProfileUseCase>(() => UserProfileUseCase(sl.get<UserProfileRepository>()));
+  sl.registerLazySingleton<AuthenticationSessionUseCase>(
+      () => AuthenticationSessionUseCase(sl.get<OnboardingRepository>()));
 
   //Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());

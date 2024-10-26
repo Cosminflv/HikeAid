@@ -1,3 +1,4 @@
+import 'package:domain/entities/auth_session_entity.dart';
 import 'package:domain/entities/authentication_status.dart';
 import 'package:domain/entities/registration_status.dart';
 import 'package:domain/repositories/onboarding_repository.dart';
@@ -35,6 +36,11 @@ class OnboardingUseCase {
         firstName: firstName,
         lastName: lastName,
         onRegistrationProgressUpdated: (status) => onProgress(status));
+  }
+
+  Future<AuthSessionEntity?> checkSignIn() async {
+    final result = await _onboardingRepository.checkForSession();
+    return result;
   }
 
   Future<AuthenticationFailed?> logout() {

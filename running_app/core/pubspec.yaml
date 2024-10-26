@@ -25,6 +25,7 @@ dependencies:
 
   dio: '^5.2.0'
   get_it: ^7.6.4
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   lints: ^4.0.0

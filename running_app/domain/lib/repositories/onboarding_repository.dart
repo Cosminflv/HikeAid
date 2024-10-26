@@ -1,3 +1,4 @@
+import 'package:domain/entities/auth_session_entity.dart';
 import 'package:domain/entities/authentication_status.dart';
 import 'package:domain/entities/registration_status.dart';
 
@@ -15,4 +16,6 @@ abstract class OnboardingRepository {
       required Function(RegistrationStatus status) onRegistrationProgressUpdated});
 
   Future<AuthenticationFailed?> signOut();
+
+  Future<AuthSessionEntity?> checkForSession();
 }
