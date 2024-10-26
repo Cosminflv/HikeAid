@@ -7,9 +7,9 @@ import 'package:domain/repositories/onboarding_repository.dart';
 import 'package:openapi/openapi.dart';
 
 class OnboardingRepositoryImpl extends OnboardingRepository {
-  final UserApi _userApi;
+  final Openapi _openapi;
 
-  OnboardingRepositoryImpl(this._userApi);
+  OnboardingRepositoryImpl(this._openapi);
 
   @override
   Future<void> authenticate(
@@ -20,7 +20,7 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
       onAuthProgressUpdated(AuthenticationStarted());
       onAuthProgressUpdated(AuthenticationInProgress());
 
-      final result = await _userApi.apiUserLoginPost(
+      final result = await _openapi.getLoginApi().apiLoginLoginPost(
         loginDto: LoginDto(
           (builder) {
             builder.username = username;
@@ -30,8 +30,12 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
       );
       if (result.statusCode == 200) {
         final data = result.data as Map<String, dynamic>;
-        onAuthProgressUpdated(AuthenticationSuccesful(
-            AuthSessionEntityImpl(user: UserEntityImpl(id: data['id']!, username: data['username']!))));
+        final jwtToken = data["token"];
+        final userData = data["user"];
+        _openapi.setBearerAuth("Bearer", jwtToken);
+
+        onAuthProgressUpdated(AuthenticationSuccesful(AuthSessionEntityImpl(
+            accessToken: jwtToken, user: UserEntityImpl(id: userData["id"], username: userData["username"]))));
         return;
       }
 
@@ -60,7 +64,7 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
       onRegistrationProgressUpdated(RegistrationStarted());
       onRegistrationProgressUpdated(RegistrationInProgress());
 
-      final result = await _userApi.apiUserPost(
+      final result = await _openapi.getUserApi().apiUserPost(
         userDto: UserDto(
           (builder) {
             builder.username = username;

@@ -53,7 +53,7 @@ discardBlocsIfRegistered() {
 }
 
 initEarlyDependencies() {
-  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.2:7011/", connectTimeout: Duration(seconds: 10)));
+  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.3:7011/", connectTimeout: Duration(seconds: 10)));
   // ignore: deprecated_member_use
   (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
     client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
@@ -64,16 +64,17 @@ initEarlyDependencies() {
     // Allow all status codes from 200 to 499 as valid
     return status != null && status >= 200 && status < 500;
   };
-  final openApi = Openapi(dio: dio);
+
+  final openApi = Openapi(dio: dio, interceptors: [BearerAuthInterceptor()]);
 
   sl.allowReassignment = true;
 
   //Repositories
   sl.registerLazySingleton<PositionRepository>(() => PositionRepositoryImpl());
   sl.registerLazySingleton<PermissionRepository>(() => PermissionRepositoryImpl());
-  sl.registerLazySingleton<OnboardingRepository>(() => OnboardingRepositoryImpl(openApi.getUserApi()));
+  sl.registerLazySingleton<OnboardingRepository>(() => OnboardingRepositoryImpl(openApi));
   sl.registerLazySingleton<LandmarkRepository>(() => LandmarkRepositoryImpl());
-  sl.registerLazySingleton<UserProfileRepository>(() => UserProfileRepositoryImpl(openApi.getUserApi()));
+  sl.registerLazySingleton<UserProfileRepository>(() => UserProfileRepositoryImpl(openApi));
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
   //Usecases

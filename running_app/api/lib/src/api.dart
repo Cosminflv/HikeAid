@@ -9,6 +9,7 @@ import 'package:openapi/src/auth/api_key_auth.dart';
 import 'package:openapi/src/auth/basic_auth.dart';
 import 'package:openapi/src/auth/bearer_auth.dart';
 import 'package:openapi/src/auth/oauth.dart';
+import 'package:openapi/src/api/login_api.dart';
 import 'package:openapi/src/api/social_post_api.dart';
 import 'package:openapi/src/api/track_api.dart';
 import 'package:openapi/src/api/user_api.dart';
@@ -65,6 +66,12 @@ class Openapi {
     if (this.dio.interceptors.any((i) => i is ApiKeyAuthInterceptor)) {
       (this.dio.interceptors.firstWhere((element) => element is ApiKeyAuthInterceptor) as ApiKeyAuthInterceptor).apiKeys[name] = apiKey;
     }
+  }
+
+  /// Get LoginApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  LoginApi getLoginApi() {
+    return LoginApi(dio, serializers);
   }
 
   /// Get SocialPostApi instance, base route and serializer can be overridden by a given but be careful,

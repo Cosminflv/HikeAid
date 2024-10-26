@@ -10,14 +10,14 @@ import 'package:openapi/openapi.dart';
 import 'dart:typed_data';
 
 class UserProfileRepositoryImpl extends UserProfileRepository {
-  final UserApi _userApi;
+  final Openapi _openapi;
 
-  UserProfileRepositoryImpl(this._userApi);
+  UserProfileRepositoryImpl(this._openapi);
 
   @override
   Future<UserProfileEntityImpl?> getAuthenticatedUserProfile(AuthSessionEntity session) async {
     try {
-      final result = await _userApi.apiUserIdGetUserGet(id: session.user.id);
+      final result = await _openapi.getUserApi().apiUserIdGetUserGet(id: session.user.id);
 
       if (result.statusCode == 200) {
         final data = result.data as Map<String, dynamic>;
@@ -51,7 +51,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
   @override
   Future<bool> deleteProfilePicture(int id) async {
     try {
-      final result = await _userApi.apiUserIdDeleteProfilePicturePost(id: id.toString(), userId: id);
+      final result = await _openapi.getUserApi().apiUserIdDeleteProfilePicturePost(id: id.toString(), userId: id);
       if (result.statusCode == 200) {
         final response = result.data as bool;
         return response;
@@ -72,8 +72,8 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
   Future<Uint8List?> _getUserImageData(int userId, bool defaultImage) async {
     try {
       final result = defaultImage
-          ? await _userApi.getDefaultProfilePictureGet()
-          : await _userApi.apiUserIdGetProfilePictureGet(id: userId.toString(), userId: userId);
+          ? await _openapi.getUserApi().getDefaultProfilePictureGet()
+          : await _openapi.getUserApi().apiUserIdGetProfilePictureGet(id: userId.toString(), userId: userId);
 
       if (result.statusCode == 200) {
         final data = result.data as String?;
@@ -89,7 +89,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
 
   Future<int?> _getUserFriendsNumber(int userId) async {
     try {
-      final result = await _userApi.apiUserIdFriendsNumberGet(id: userId.toString(), userId: userId);
+      final result = await _openapi.getUserApi().apiUserIdFriendsNumberGet(id: userId.toString(), userId: userId);
 
       if (result.statusCode == 200) {
         final data = result.data;
@@ -126,7 +126,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
     String base64Image = base64Encode(imageData);
 
     try {
-      final result = await _userApi.apiUserIdPut(
+      final result = await _openapi.getUserApi().apiUserIdPut(
           id: id.toString(),
           updateUserDto: UpdateUserDto((builder) {
             builder.hasDeletedImage = hasDeletedImage;

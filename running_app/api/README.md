@@ -47,13 +47,13 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:openapi/openapi.dart';
 
 
-final api = Openapi().getSocialPostApi();
-final int id = 56; // int | 
+final api = Openapi().getLoginApi();
+final LoginDto loginDto = ; // LoginDto | 
 
 try {
-    api.apiSocialPostCommentsIdDelete(id);
+    api.apiLoginLoginPost(loginDto);
 } catch on DioException (e) {
-    print("Exception when calling SocialPostApi->apiSocialPostCommentsIdDelete: $e\n");
+    print("Exception when calling LoginApi->apiLoginLoginPost: $e\n");
 }
 
 ```
@@ -64,6 +64,7 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*LoginApi*](doc/LoginApi.md) | [**apiLoginLoginPost**](doc/LoginApi.md#apiloginloginpost) | **POST** /api/Login/login | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostCommentsIdDelete**](doc/SocialPostApi.md#apisocialpostcommentsiddelete) | **DELETE** /api/SocialPost/comments/{id} | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostGet**](doc/SocialPostApi.md#apisocialpostget) | **GET** /api/SocialPost | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostIdDelete**](doc/SocialPostApi.md#apisocialpostiddelete) | **DELETE** /api/SocialPost/{id} | 
@@ -87,7 +88,6 @@ Class | Method | HTTP request | Description
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetUserGet**](doc/UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdPut**](doc/UserApi.md#apiuseridput) | **PUT** /api/User/{id} | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdUploadProfilePictureBase64Post**](doc/UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
-[*UserApi*](doc/UserApi.md) | [**apiUserLoginPost**](doc/UserApi.md#apiuserloginpost) | **POST** /api/User/login | 
 [*UserApi*](doc/UserApi.md) | [**apiUserPost**](doc/UserApi.md#apiuserpost) | **POST** /api/User | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSendFriendRequestPost**](doc/UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [*UserApi*](doc/UserApi.md) | [**getDefaultProfilePictureGet**](doc/UserApi.md#getdefaultprofilepictureget) | **GET** /getDefaultProfilePicture | 
@@ -111,7 +111,11 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+### Bearer
+
+- **Type**: HTTP Bearer Token authentication
 
 
 ## Author
