@@ -41,8 +41,8 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
         await _storage.write(key: 'jwt', value: data['token']);
         await _storage.write(key: 'userId', value: userData['id'].toString());
 
-        onAuthProgressUpdated(AuthenticationSuccesful(AuthSessionEntityImpl(
-            accessToken: jwtToken, user: UserEntityImpl(id: userData["id"], username: userData["username"]))));
+        onAuthProgressUpdated(AuthenticationSuccesful(
+            AuthSessionEntityImpl(accessToken: jwtToken, user: UserEntityImpl(id: userData["id"]))));
         return;
       }
 
@@ -107,19 +107,9 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
 
     if (!await _isTokenValid(token)) return null;
 
-    try {
-      _openapi.setBearerAuth("Bearer", token);
-      final response = await _openapi.getUserApi().apiUserIdGetUserGet(id: int.parse(userId));
+    _openapi.setBearerAuth("Bearer", token);
 
-      if (response.statusCode == 200) {
-        final userData = response.data as Map<String, dynamic>;
-        return AuthSessionEntityImpl(
-            user: UserEntityImpl(id: int.parse(userId), username: userData["username"]), accessToken: token);
-      }
-    } catch (e) {
-      print(e);
-    }
-    return null;
+    return AuthSessionEntityImpl(user: UserEntityImpl(id: int.parse(userId)), accessToken: token);
   }
 
   // Function to validate token expiration (optional)
