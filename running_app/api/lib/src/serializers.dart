@@ -20,6 +20,7 @@ import 'package:openapi/src/model/e_gender.dart';
 import 'package:openapi/src/model/friendship_model.dart';
 import 'package:openapi/src/model/like_dto.dart';
 import 'package:openapi/src/model/login_dto.dart';
+import 'package:openapi/src/model/search_user_dto.dart';
 import 'package:openapi/src/model/social_post_dto.dart';
 import 'package:openapi/src/model/social_post_model.dart';
 import 'package:openapi/src/model/track_dto.dart';
@@ -36,6 +37,7 @@ part 'serializers.g.dart';
   FriendshipModel,
   LikeDto,
   LoginDto,
+  SearchUserDto,
   SocialPostDto,
   SocialPostModel,
   TrackDto,
@@ -47,6 +49,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(FriendshipModel)]),
         () => ListBuilder<FriendshipModel>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(SearchUserDto)]),
+        () => ListBuilder<SearchUserDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TrackDto)]),

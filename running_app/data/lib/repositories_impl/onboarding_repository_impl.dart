@@ -114,7 +114,7 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
 
   // Function to validate token expiration (optional)
   Future<bool> _isTokenValid(String token) async {
-    // Decode the token and check the expiration time (this could be done using a library)
+    // Decode the token and check the expiration time
     final List<String> parts = token.split('.');
     if (parts.length != 3) return false; // Not a valid JWT
 

@@ -8,6 +8,7 @@ doc/FriendshipModel.md
 doc/LikeDto.md
 doc/LoginApi.md
 doc/LoginDto.md
+doc/SearchUserDto.md
 doc/SocialPostApi.md
 doc/SocialPostDto.md
 doc/SocialPostModel.md
@@ -37,6 +38,7 @@ lib/src/model/e_gender.dart
 lib/src/model/friendship_model.dart
 lib/src/model/like_dto.dart
 lib/src/model/login_dto.dart
+lib/src/model/search_user_dto.dart
 lib/src/model/social_post_dto.dart
 lib/src/model/social_post_model.dart
 lib/src/model/track_dto.dart
@@ -45,3 +47,4 @@ lib/src/model/user_dto.dart
 lib/src/model/user_model.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/search_user_dto_test.dart

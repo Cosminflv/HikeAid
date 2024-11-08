@@ -19,7 +19,7 @@ part 'friendship_model.g.dart';
 /// * [createdAt] 
 /// * [status] 
 /// * [requester] 
-/// * [reciever] 
+/// * [receiver] 
 @BuiltValue()
 abstract class FriendshipModel implements Built<FriendshipModel, FriendshipModelBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -41,8 +41,8 @@ abstract class FriendshipModel implements Built<FriendshipModel, FriendshipModel
   @BuiltValueField(wireName: r'requester')
   UserModel? get requester;
 
-  @BuiltValueField(wireName: r'reciever')
-  UserModel? get reciever;
+  @BuiltValueField(wireName: r'receiver')
+  UserModel? get receiver;
 
   FriendshipModel._();
 
@@ -109,10 +109,10 @@ class _$FriendshipModelSerializer implements PrimitiveSerializer<FriendshipModel
         specifiedType: const FullType(UserModel),
       );
     }
-    if (object.reciever != null) {
-      yield r'reciever';
+    if (object.receiver != null) {
+      yield r'receiver';
       yield serializers.serialize(
-        object.reciever,
+        object.receiver,
         specifiedType: const FullType(UserModel),
       );
     }
@@ -181,12 +181,12 @@ class _$FriendshipModelSerializer implements PrimitiveSerializer<FriendshipModel
           ) as UserModel;
           result.requester.replace(valueDes);
           break;
-        case r'reciever':
+        case r'receiver':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(UserModel),
           ) as UserModel;
-          result.reciever.replace(valueDes);
+          result.receiver.replace(valueDes);
           break;
         default:
           unhandled.add(key);

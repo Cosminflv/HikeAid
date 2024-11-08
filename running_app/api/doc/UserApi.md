@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**apiUserIdPut**](UserApi.md#apiuseridput) | **PUT** /api/User/{id} | 
 [**apiUserIdUploadProfilePictureBase64Post**](UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
 [**apiUserPost**](UserApi.md#apiuserpost) | **POST** /api/User | 
+[**apiUserSearchUserGet**](UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [**apiUserSendFriendRequestPost**](UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [**getDefaultProfilePictureGet**](UserApi.md#getdefaultprofilepictureget) | **GET** /getDefaultProfilePicture | 
 
@@ -468,6 +469,49 @@ void (empty response body)
 
  - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserSearchUserGet**
+> BuiltList<SearchUserDto> apiUserSearchUserGet(querry, userSearchingId)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+final String querry = querry_example; // String | 
+final int userSearchingId = 56; // int | 
+
+try {
+    final response = api.apiUserSearchUserGet(querry, userSearchingId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserSearchUserGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **querry** | **String**|  | [optional] 
+ **userSearchingId** | **int**|  | [optional] 
+
+### Return type
+
+[**BuiltList&lt;SearchUserDto&gt;**](SearchUserDto.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

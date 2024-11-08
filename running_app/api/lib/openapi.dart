@@ -21,6 +21,7 @@ export 'package:openapi/src/model/e_gender.dart';
 export 'package:openapi/src/model/friendship_model.dart';
 export 'package:openapi/src/model/like_dto.dart';
 export 'package:openapi/src/model/login_dto.dart';
+export 'package:openapi/src/model/search_user_dto.dart';
 export 'package:openapi/src/model/social_post_dto.dart';
 export 'package:openapi/src/model/social_post_model.dart';
 export 'package:openapi/src/model/track_dto.dart';

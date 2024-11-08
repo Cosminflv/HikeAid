@@ -89,6 +89,7 @@ Class | Method | HTTP request | Description
 [*UserApi*](doc/UserApi.md) | [**apiUserIdPut**](doc/UserApi.md#apiuseridput) | **PUT** /api/User/{id} | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdUploadProfilePictureBase64Post**](doc/UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
 [*UserApi*](doc/UserApi.md) | [**apiUserPost**](doc/UserApi.md#apiuserpost) | **POST** /api/User | 
+[*UserApi*](doc/UserApi.md) | [**apiUserSearchUserGet**](doc/UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSendFriendRequestPost**](doc/UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [*UserApi*](doc/UserApi.md) | [**getDefaultProfilePictureGet**](doc/UserApi.md#getdefaultprofilepictureget) | **GET** /getDefaultProfilePicture | 
 
@@ -101,6 +102,7 @@ Class | Method | HTTP request | Description
  - [FriendshipModel](doc/FriendshipModel.md)
  - [LikeDto](doc/LikeDto.md)
  - [LoginDto](doc/LoginDto.md)
+ - [SearchUserDto](doc/SearchUserDto.md)
  - [SocialPostDto](doc/SocialPostDto.md)
  - [SocialPostModel](doc/SocialPostModel.md)
  - [TrackDto](doc/TrackDto.md)

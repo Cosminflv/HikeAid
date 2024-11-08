@@ -538,6 +538,61 @@
         }
       }
     },
+    "/api/User/searchUser": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "querry",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userSearchingId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SearchUserDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SearchUserDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SearchUserDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/User/getFriendRequests": {
       "get": {
         "tags": [
@@ -908,7 +963,7 @@
           "requester": {
             "$ref": "#/components/schemas/UserModel"
           },
-          "reciever": {
+          "receiver": {
             "$ref": "#/components/schemas/UserModel"
           }
         },
@@ -936,6 +991,36 @@
             "nullable": true
           },
           "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchUserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "commonFriends": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "imageData": {
             "type": "string",
             "nullable": true
           }

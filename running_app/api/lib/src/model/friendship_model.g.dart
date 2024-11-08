@@ -20,7 +20,7 @@ class _$FriendshipModel extends FriendshipModel {
   @override
   final UserModel? requester;
   @override
-  final UserModel? reciever;
+  final UserModel? receiver;
 
   factory _$FriendshipModel([void Function(FriendshipModelBuilder)? updates]) =>
       (new FriendshipModelBuilder()..update(updates))._build();
@@ -32,7 +32,7 @@ class _$FriendshipModel extends FriendshipModel {
       this.createdAt,
       this.status,
       this.requester,
-      this.reciever})
+      this.receiver})
       : super._();
 
   @override
@@ -53,7 +53,7 @@ class _$FriendshipModel extends FriendshipModel {
         createdAt == other.createdAt &&
         status == other.status &&
         requester == other.requester &&
-        reciever == other.reciever;
+        receiver == other.receiver;
   }
 
   @override
@@ -65,7 +65,7 @@ class _$FriendshipModel extends FriendshipModel {
     _$hash = $jc(_$hash, createdAt.hashCode);
     _$hash = $jc(_$hash, status.hashCode);
     _$hash = $jc(_$hash, requester.hashCode);
-    _$hash = $jc(_$hash, reciever.hashCode);
+    _$hash = $jc(_$hash, receiver.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -79,7 +79,7 @@ class _$FriendshipModel extends FriendshipModel {
           ..add('createdAt', createdAt)
           ..add('status', status)
           ..add('requester', requester)
-          ..add('reciever', reciever))
+          ..add('receiver', receiver))
         .toString();
   }
 }
@@ -113,9 +113,9 @@ class FriendshipModelBuilder
       _$this._requester ??= new UserModelBuilder();
   set requester(UserModelBuilder? requester) => _$this._requester = requester;
 
-  UserModelBuilder? _reciever;
-  UserModelBuilder get reciever => _$this._reciever ??= new UserModelBuilder();
-  set reciever(UserModelBuilder? reciever) => _$this._reciever = reciever;
+  UserModelBuilder? _receiver;
+  UserModelBuilder get receiver => _$this._receiver ??= new UserModelBuilder();
+  set receiver(UserModelBuilder? receiver) => _$this._receiver = receiver;
 
   FriendshipModelBuilder() {
     FriendshipModel._defaults(this);
@@ -130,7 +130,7 @@ class FriendshipModelBuilder
       _createdAt = $v.createdAt;
       _status = $v.status;
       _requester = $v.requester?.toBuilder();
-      _reciever = $v.reciever?.toBuilder();
+      _receiver = $v.receiver?.toBuilder();
       _$v = null;
     }
     return this;
@@ -161,14 +161,14 @@ class FriendshipModelBuilder
               createdAt: createdAt,
               status: status,
               requester: _requester?.build(),
-              reciever: _reciever?.build());
+              receiver: _receiver?.build());
     } catch (_) {
       late String _$failedField;
       try {
         _$failedField = 'requester';
         _requester?.build();
-        _$failedField = 'reciever';
-        _reciever?.build();
+        _$failedField = 'receiver';
+        _receiver?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'FriendshipModel', _$failedField, e.toString());
