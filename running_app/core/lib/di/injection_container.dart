@@ -15,13 +15,16 @@ import 'package:domain/repositories/map_repository.dart';
 import 'package:domain/repositories/onboarding_repository.dart';
 import 'package:domain/repositories/permission_repository.dart';
 import 'package:data/repositories_impl/landmark_repository_impl.dart';
+import 'package:data/repositories_impl/search_user_repository_impl.dart';
 import 'package:domain/repositories/position_repository.dart';
+import 'package:domain/repositories/search_users_repository.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
 import 'package:domain/use_cases/authentication_session_use_case.dart';
 import 'package:domain/use_cases/authentication_use_case.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/location_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
+import 'package:domain/use_cases/search_users_use_case.dart';
 import 'package:domain/use_cases/user_profile_use_case.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
@@ -36,6 +39,7 @@ import 'package:openapi/openapi.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/io.dart';
 import 'package:dio/dio.dart';
+import 'package:running_app/search_users/serach_users_view_bloc.dart';
 import 'dart:io';
 
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
@@ -55,7 +59,7 @@ discardBlocsIfRegistered() {
 }
 
 initEarlyDependencies() {
-  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.2:7011/", connectTimeout: Duration(seconds: 10)));
+  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.3:7011/", connectTimeout: Duration(seconds: 10)));
   // ignore: deprecated_member_use
   (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
     client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
@@ -80,6 +84,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<PermissionRepository>(() => PermissionRepositoryImpl());
   sl.registerLazySingleton<OnboardingRepository>(() => OnboardingRepositoryImpl(openApi, storage));
   sl.registerLazySingleton<LandmarkRepository>(() => LandmarkRepositoryImpl());
+  sl.registerLazySingleton<SearchUsersRepository>(() => SearchUserRepositoryImpl());
   sl.registerLazySingleton<UserProfileRepository>(() => UserProfileRepositoryImpl(openApi));
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
@@ -91,6 +96,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<UserProfileUseCase>(() => UserProfileUseCase(sl.get<UserProfileRepository>()));
   sl.registerLazySingleton<AuthenticationSessionUseCase>(
       () => AuthenticationSessionUseCase(sl.get<OnboardingRepository>()));
+  sl.registerLazySingleton<SearchUsersUseCase>(() => SearchUsersUseCase(sl.get<SearchUsersRepository>()));
 
   //Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
@@ -101,6 +107,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<UserProfileViewBloc>(() => UserProfileViewBloc());
   sl.registerLazySingleton<AuthSessionBloc>(() => AuthSessionBloc());
   sl.registerLazySingleton<EditUserProfileViewBloc>(() => EditUserProfileViewBloc());
+  sl.registerLazySingleton<SearchUsersBloc>(() => SearchUsersBloc());
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 }

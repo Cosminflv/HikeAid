@@ -15,6 +15,7 @@ import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/search_users/serach_users_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 
 class RunningApp extends StatefulWidget {
@@ -50,6 +51,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
         BlocProvider(create: (context) => sl.get<LocationBloc>()),
         BlocProvider(create: (context) => sl.get<UserProfileViewBloc>()),
         BlocProvider(create: (context) => sl.get<AppBloc>()),
+        BlocProvider(create: (context) => sl.get<SearchUsersBloc>()),
         BlocProvider(create: (context) => sl.get<EditUserProfileViewBloc>())
       ],
       child: MaterialApp(

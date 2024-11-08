@@ -8,6 +8,7 @@ import 'package:running_app/map/widgets/ask_permission_popup.dart';
 import 'package:running_app/onboarding/authentication/authentication_page.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_page.dart';
+import 'package:running_app/search_users/search_users_view_page.dart';
 
 class RouteNames {
   @pragma('Startup')
@@ -24,6 +25,7 @@ class RouteNames {
 
   @pragma('Personal')
   static const editProfilePage = '$defaultPage/edit_user_profile_view_page';
+  static const searchUsersPage = '$defaultPage/search_users_view_page';
 
   @pragma('MISC')
   static const homePage = '${defaultPage}home_page';
@@ -54,6 +56,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case RouteNames.editProfilePage:
       final profile = settings.arguments as UserProfileEntity;
       page = EditUserProfileViewPage(profile: profile);
+    case RouteNames.searchUsersPage:
+      page = SearchUsersViewPage();
 
     // MISC
     case RouteNames.homePage:

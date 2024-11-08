@@ -27,7 +27,7 @@ class UserProfileViewPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Theme.of(context).highlightColor,
+          backgroundColor: Theme.of(context).colorScheme.primary,
           title: TextButton(
             onPressed: () {
               showLogoutConfirmation(context).then((hasConfirmed) {
@@ -39,12 +39,12 @@ class UserProfileViewPage extends StatelessWidget {
             },
             child: Text(
               AppLocalizations.of(context)!.logoutTitle,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.surface),
             ),
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).pushNamed(RouteNames.searchUsersPage),
                 icon: Icon(
                   FontAwesomeIcons.magnifyingGlass,
                   color: Theme.of(context).colorScheme.onSurface,
