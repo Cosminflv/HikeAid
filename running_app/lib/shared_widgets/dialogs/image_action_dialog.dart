@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,8 @@ import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart'
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
 
+import 'package:image/image.dart' as img;
+
 Future<void> showEditImageActions(BuildContext context) async {
   final bloc = BlocProviders.editProfile(context);
   final _picker = ImagePicker();
@@ -17,9 +20,20 @@ Future<void> showEditImageActions(BuildContext context) async {
     try {
       final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
-        File image = File(pickedFile.path); // Get the image file
-        final imageData = await image.readAsBytes();
-        bloc.add(UpdateProfilePictureEvent(imageData: imageData));
+        File image = File(pickedFile.path);
+        Uint8List imageData = await image.readAsBytes();
+
+        img.Image? originalImage = img.decodeImage(imageData);
+
+        if (originalImage != null) {
+          // Step 3: Resize the image (adjust width and height as needed)
+          img.Image resizedImage = img.copyResize(originalImage, width: 500); // e.g., width of 500px
+
+          // Step 4: Encode the resized image back to bytes (JPEG for compression)
+          Uint8List resizedImageData =
+              Uint8List.fromList(img.encodeJpg(resizedImage, quality: 85)); // quality can be set between 0-100
+          bloc.add(UpdateProfilePictureEvent(imageData: resizedImageData));
+        }
       }
     } catch (e) {
       print("Error picking image: $e");
@@ -44,7 +58,7 @@ Future<void> showEditImageActions(BuildContext context) async {
             const SizedBox(height: 16.0),
             CustomElevatedButton(
               onTap: () async {
-                await _pickImage();
+                _pickImage();
                 Navigator.of(context).pop();
               },
               trailing: const Icon(
