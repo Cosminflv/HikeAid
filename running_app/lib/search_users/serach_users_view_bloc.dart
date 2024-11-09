@@ -19,7 +19,6 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
 
   _handleSearchText(SearchUserEvent event, Emitter<SearchUsersState> emit) {
     if (event.text.isEmpty) {
-      _searchUseCase.clear();
       add(SearchStatusUpdatedEvent(SearchStatus.none));
       return;
     }
@@ -30,7 +29,6 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
   }
 
   _handleClearSearch(ClearSearchEvent event, Emitter<SearchUsersState> emit) {
-    _searchUseCase.clear();
     emit(state.copyWith(results: [], status: SearchStatus.none));
   }
 

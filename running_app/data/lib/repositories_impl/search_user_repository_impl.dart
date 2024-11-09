@@ -19,10 +19,9 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
   }
 
   @override
-  Future<TaskProgressListener?> search(
+  Future<void> search(
       {required String text, required int userId, required Function(List<SearchUserEntity> p1) onResult}) async {
     try {
-      final progress = TaskProgressListenerImpl();
       final result = await _openapi.getUserApi().apiUserSearchUserGet(querry: text, userSearchingId: userId);
 
       if (result.statusCode == 200) {
@@ -35,7 +34,6 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
 
         onResult(users);
       }
-      return progress;
     } catch (e) {
       print(e);
       return null;
