@@ -114,149 +114,151 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
         ),
         backgroundColor: Theme.of(context).highlightColor,
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 15.0),
-                  child: BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
-                    buildWhen: (previous, current) => previous != current && current is UserProfileEditing,
-                    builder: (context, state) {
-                      if (state is UserProfileEditing) {
-                        return GestureDetector(
-                          onTap: () => showEditImageActions(context),
-                          child: CircleAvatar(
-                            backgroundImage: MemoryImage(state.imageData),
-                            radius: 35.0,
-                          ),
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Theme.of(context).highlightColor,
-                    child: IntrinsicHeight(
-                      child: Column(
-                        children: [
-                          CustomTextField(
-                            textController: firstNameController,
-                            onChanged: (value) => BlocProviders.editProfile(context)
-                                .add(UpdateUserDetailEvent(type: UserDetailType.firstName, value: value)),
-                            hintText: "First Name",
-                          ),
-                          Divider(
-                            color: Theme.of(context).hoverColor,
-                          ),
-                          CustomTextField(
-                            textController: lastNameController,
-                            onChanged: (value) => BlocProviders.editProfile(context)
-                                .add(UpdateUserDetailEvent(type: UserDetailType.lastName, value: value)),
-                            hintText: "Last Name",
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Container(
-            color: Theme.of(context).highlightColor,
-            child: IntrinsicHeight(
-              child: Column(
-                children: [
-                  CustomTextField(
-                    textController: bioController,
-                    onChanged: (value) => BlocProviders.editProfile(context)
-                        .add(UpdateUserDetailEvent(type: UserDetailType.bio, value: value)),
-                    hintText: "Bio",
-                  ),
-                  CustomTextField(
-                    textController: countryController,
-                    onChanged: (value) => BlocProviders.editProfile(context)
-                        .add(UpdateUserDetailEvent(type: UserDetailType.country, value: value)),
-                    hintText: "Country",
-                  ),
-                  CustomTextField(
-                    textController: cityController,
-                    onChanged: (value) => BlocProviders.editProfile(context)
-                        .add(UpdateUserDetailEvent(type: UserDetailType.city, value: value)),
-                    hintText: "City",
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            //color: Theme.of(context).highlightColor,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Text(
-                "ATHLETE INFORMATION",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
-            buildWhen: (previous, current) => current is UserProfileEditing,
-            builder: (context, state) {
-              state as UserProfileEditing;
-
-              return Column(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileItemPicker<DateTime>(
-                    title: "Select Birthdate",
-                    value:
-                        "${state.birthDate.day} ${convertMonthToString(state.birthDate.month)} ${state.birthDate.year}",
-                    onTap: (context) => showCupertinoModalPopup(
-                      context: context,
-                      builder: (_) => CupertinoDatePickerDialog(currentBirthDate: state.birthDate),
-                    ),
-                  ),
-                  ProfileItemPicker<String>(
-                    title: "Gender",
-                    value: state.gender.toReadableString(),
-                    onTap: (context) => showCupertinoModalPopup(
-                      context: context,
-                      builder: (_) => CupertinoEnumPickerDialog(currentGender: state.gender),
-                    ),
-                  ),
-                  ProfileItemPicker<int>(
-                    title: "Weight (kg)",
-                    value: state.weight.toString(),
-                    onTap: (context) => showCupertinoModalPopup(
-                      context: context,
-                      builder: (_) => CupertinoWeightPickerDialog(currentWeight: state.weight),
-                    ),
-                  ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Used to calculate calories, power and more",
-                      style: Theme.of(context).textTheme.bodySmall,
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
+                      buildWhen: (previous, current) => previous != current && current is UserProfileEditing,
+                      builder: (context, state) {
+                        if (state is UserProfileEditing) {
+                          return GestureDetector(
+                            onTap: () => showEditImageActions(context),
+                            child: CircleAvatar(
+                              backgroundImage: MemoryImage(state.imageData),
+                              radius: 35.0,
+                            ),
+                          );
+                        }
+                        return const SizedBox.shrink();
+                      },
                     ),
                   ),
+                  Expanded(
+                    child: Container(
+                      color: Theme.of(context).highlightColor,
+                      child: IntrinsicHeight(
+                        child: Column(
+                          children: [
+                            CustomTextField(
+                              textController: firstNameController,
+                              onChanged: (value) => BlocProviders.editProfile(context)
+                                  .add(UpdateUserDetailEvent(type: UserDetailType.firstName, value: value)),
+                              hintText: "First Name",
+                            ),
+                            Divider(
+                              color: Theme.of(context).hoverColor,
+                            ),
+                            CustomTextField(
+                              textController: lastNameController,
+                              onChanged: (value) => BlocProviders.editProfile(context)
+                                  .add(UpdateUserDetailEvent(type: UserDetailType.lastName, value: value)),
+                              hintText: "Last Name",
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
                 ],
-              );
-            },
-          ),
-        ],
+              ),
+            ),
+            Container(
+              color: Theme.of(context).highlightColor,
+              child: IntrinsicHeight(
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      textController: bioController,
+                      onChanged: (value) => BlocProviders.editProfile(context)
+                          .add(UpdateUserDetailEvent(type: UserDetailType.bio, value: value)),
+                      hintText: "Bio",
+                    ),
+                    CustomTextField(
+                      textController: countryController,
+                      onChanged: (value) => BlocProviders.editProfile(context)
+                          .add(UpdateUserDetailEvent(type: UserDetailType.country, value: value)),
+                      hintText: "Country",
+                    ),
+                    CustomTextField(
+                      textController: cityController,
+                      onChanged: (value) => BlocProviders.editProfile(context)
+                          .add(UpdateUserDetailEvent(type: UserDetailType.city, value: value)),
+                      hintText: "City",
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              //color: Theme.of(context).highlightColor,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Text(
+                  "ATHLETE INFORMATION",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
+              buildWhen: (previous, current) => current is UserProfileEditing,
+              builder: (context, state) {
+                state as UserProfileEditing;
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ProfileItemPicker<DateTime>(
+                      title: "Select Birthdate",
+                      value:
+                          "${state.birthDate.day} ${convertMonthToString(state.birthDate.month)} ${state.birthDate.year}",
+                      onTap: (context) => showCupertinoModalPopup(
+                        context: context,
+                        builder: (_) => CupertinoDatePickerDialog(currentBirthDate: state.birthDate),
+                      ),
+                    ),
+                    ProfileItemPicker<String>(
+                      title: "Gender",
+                      value: state.gender.toReadableString(),
+                      onTap: (context) => showCupertinoModalPopup(
+                        context: context,
+                        builder: (_) => CupertinoEnumPickerDialog(currentGender: state.gender),
+                      ),
+                    ),
+                    ProfileItemPicker<int>(
+                      title: "Weight (kg)",
+                      value: state.weight.toString(),
+                      onTap: (context) => showCupertinoModalPopup(
+                        context: context,
+                        builder: (_) => CupertinoWeightPickerDialog(currentWeight: state.weight),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Used to calculate calories, power and more",
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
