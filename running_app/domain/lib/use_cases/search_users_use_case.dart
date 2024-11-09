@@ -15,7 +15,6 @@ class SearchUsersUseCase {
   search(
       {required String text,
       required int userId,
-      required Function(SearchStatus s) onStatusUpdate,
       required Function(List<SearchUserEntity>) onResult}) async {
     _cancelActiveSearch();
 
@@ -25,7 +24,7 @@ class SearchUsersUseCase {
     final progress = await _searchUsersRepository.search(
         text: text,
         userId: userId,
-        onStatusUpdate: (status) => onStatusUpdate(status),
+
         onResult: (result) {
           if (currentSearchTimestamp < _lastSearchTimestamp) {
             return;

@@ -27,6 +27,9 @@ class SearchUsersViewPage extends StatelessWidget {
           AppLocalizations.of(context)!.search,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.surface),
         ),
+        iconTheme: IconThemeData(
+          color: Theme.of(context).colorScheme.surface,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

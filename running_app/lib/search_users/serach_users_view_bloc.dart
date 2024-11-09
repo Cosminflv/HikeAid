@@ -26,8 +26,7 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
 
     add(SearchStatusUpdatedEvent(SearchStatus.started));
 
-    _searchUseCase.search(
-        text: event.text, userId: event.userId, onStatusUpdate: _onStatusUpdate, onResult: _onSearchCompleted);
+    _searchUseCase.search(text: event.text, userId: event.userId, onResult: _onSearchCompleted);
   }
 
   _handleClearSearch(ClearSearchEvent event, Emitter<SearchUsersState> emit) {
@@ -54,9 +53,5 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
 
     add(SearchStatusUpdatedEvent(SearchStatus.ended));
     add(SearchSuccessfulEvent(result));
-  }
-
-  _onStatusUpdate(SearchStatus status) {
-    final s = status;
   }
 }

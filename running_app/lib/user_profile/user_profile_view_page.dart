@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:domain/entities/auth_session_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +13,8 @@ import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/shared_widgets/dialogs/logout_confirm_dialog.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_state.dart';
+
+import 'dart:typed_data';
 
 class UserProfileViewPage extends StatelessWidget {
   final AuthSessionEntity? session;
@@ -47,13 +47,13 @@ class UserProfileViewPage extends StatelessWidget {
                 onPressed: () => Navigator.of(context).pushNamed(RouteNames.searchUsersPage),
                 icon: Icon(
                   FontAwesomeIcons.magnifyingGlass,
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.surface,
                 )),
             IconButton(
                 onPressed: () {},
                 icon: Icon(
                   FontAwesomeIcons.gear,
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.surface,
                 ))
           ],
         ),
