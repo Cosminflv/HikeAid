@@ -97,6 +97,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [CommentDto](doc/CommentDto.md)
+ - [EFriendshipState](doc/EFriendshipState.md)
  - [EFriendshipStatus](doc/EFriendshipStatus.md)
  - [EGender](doc/EGender.md)
  - [FriendshipModel](doc/FriendshipModel.md)

@@ -15,6 +15,8 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
     on<SearchStatusUpdatedEvent>(_handleSearchStatusUpdated);
     on<ClearSearchEvent>(_handleClearSearch);
     on<ResultSelectedEvent>(_handleResultSelected);
+
+    on<AddFriendEvent>(_handleAddFriendEvent);
   }
 
   _handleSearchText(SearchUserEvent event, Emitter<SearchUsersState> emit) {
@@ -44,6 +46,10 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
     } else {
       emit(state.copyWithNullSelectedLandmark());
     }
+  }
+
+  _handleAddFriendEvent(AddFriendEvent event, Emitter<SearchUsersState> emit) {
+    _searchUseCase.sendFriendRequest(requesterId: event.requesterId, receiverId: event.receiverId);
   }
 
   _onSearchCompleted(List<SearchUserEntity> result) {

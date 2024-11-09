@@ -3,7 +3,7 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/e_friendship_status.dart';
+import 'package:openapi/src/model/e_friendship_state.dart';
 import 'package:openapi/src/model/user_model.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -35,7 +35,7 @@ abstract class FriendshipModel implements Built<FriendshipModel, FriendshipModel
   DateTime? get createdAt;
 
   @BuiltValueField(wireName: r'status')
-  EFriendshipStatus? get status;
+  EFriendshipState? get status;
   // enum statusEnum {  0,  1,  2,  };
 
   @BuiltValueField(wireName: r'requester')
@@ -99,7 +99,7 @@ class _$FriendshipModelSerializer implements PrimitiveSerializer<FriendshipModel
       yield r'status';
       yield serializers.serialize(
         object.status,
-        specifiedType: const FullType(EFriendshipStatus),
+        specifiedType: const FullType(EFriendshipState),
       );
     }
     if (object.requester != null) {
@@ -170,8 +170,8 @@ class _$FriendshipModelSerializer implements PrimitiveSerializer<FriendshipModel
         case r'status':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(EFriendshipStatus),
-          ) as EFriendshipStatus;
+            specifiedType: const FullType(EFriendshipState),
+          ) as EFriendshipState;
           result.status = valueDes;
           break;
         case r'requester':

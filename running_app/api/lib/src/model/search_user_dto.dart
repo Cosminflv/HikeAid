@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/e_friendship_status.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -16,6 +17,7 @@ part 'search_user_dto.g.dart';
 /// * [city] 
 /// * [country] 
 /// * [commonFriends] 
+/// * [friendshipStatus] 
 /// * [imageData] 
 @BuiltValue()
 abstract class SearchUserDto implements Built<SearchUserDto, SearchUserDtoBuilder> {
@@ -33,6 +35,10 @@ abstract class SearchUserDto implements Built<SearchUserDto, SearchUserDtoBuilde
 
   @BuiltValueField(wireName: r'commonFriends')
   int? get commonFriends;
+
+  @BuiltValueField(wireName: r'friendshipStatus')
+  EFriendshipStatus? get friendshipStatus;
+  // enum friendshipStatusEnum {  0,  1,  2,  };
 
   @BuiltValueField(wireName: r'imageData')
   String? get imageData;
@@ -93,6 +99,13 @@ class _$SearchUserDtoSerializer implements PrimitiveSerializer<SearchUserDto> {
       yield serializers.serialize(
         object.commonFriends,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.friendshipStatus != null) {
+      yield r'friendshipStatus';
+      yield serializers.serialize(
+        object.friendshipStatus,
+        specifiedType: const FullType(EFriendshipStatus),
       );
     }
     if (object.imageData != null) {
@@ -162,6 +175,13 @@ class _$SearchUserDtoSerializer implements PrimitiveSerializer<SearchUserDto> {
             specifiedType: const FullType(int),
           ) as int;
           result.commonFriends = valueDes;
+          break;
+        case r'friendshipStatus':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(EFriendshipStatus),
+          ) as EFriendshipStatus;
+          result.friendshipStatus = valueDes;
           break;
         case r'imageData':
           final valueDes = serializers.deserialize(

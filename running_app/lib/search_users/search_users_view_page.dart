@@ -8,7 +8,7 @@ import 'package:running_app/onboarding/auth_session/auth_session_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/search_users/search_users_view_state.dart';
-import 'package:running_app/search_users/serach_users_view_bloc.dart';
+import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/search_users/widgets/search_list_view.dart';
 import 'package:running_app/shared_widgets/search_text_field.dart';
 
@@ -65,6 +65,7 @@ class SearchUsersViewPage extends StatelessWidget {
                   );
                 }),
             BlocBuilder<SearchUsersBloc, SearchUsersState>(
+              bloc: searchUsersBloc,
               builder: (context, state) {
                 var displayedItems = state.results;
                 if (state.status == SearchStatus.started) {
@@ -72,7 +73,11 @@ class SearchUsersViewPage extends StatelessWidget {
                 }
 
                 if (state.status == SearchStatus.ended && displayedItems.isNotEmpty) {
-                  return SearchListView(users: displayedItems, onItemTap: (user) {});
+                  return SearchListView(
+                      users: displayedItems,
+                      onItemTap: (user) {
+                        //TODO: Navigate to user profile
+                      });
                 }
 
                 return const SizedBox.shrink();

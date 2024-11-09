@@ -15,6 +15,7 @@ import 'package:openapi/src/date_serializer.dart';
 import 'package:openapi/src/model/date.dart';
 
 import 'package:openapi/src/model/comment_dto.dart';
+import 'package:openapi/src/model/e_friendship_state.dart';
 import 'package:openapi/src/model/e_friendship_status.dart';
 import 'package:openapi/src/model/e_gender.dart';
 import 'package:openapi/src/model/friendship_model.dart';
@@ -32,6 +33,7 @@ part 'serializers.g.dart';
 
 @SerializersFor([
   CommentDto,
+  EFriendshipState,
   EFriendshipStatus,
   EGender,
   FriendshipModel,

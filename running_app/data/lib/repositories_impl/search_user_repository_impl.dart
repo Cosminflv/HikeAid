@@ -1,8 +1,6 @@
 import 'package:data/models/search_user_entity_impl.dart';
-import 'package:data/models/task_progress_listener_impl.dart';
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:domain/repositories/search_users_repository.dart';
-import 'package:domain/repositories/task_progress_listener.dart';
 import 'package:openapi/openapi.dart';
 import 'package:built_collection/built_collection.dart';
 
@@ -10,13 +8,6 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
   final Openapi _openapi;
 
   SearchUserRepositoryImpl(this._openapi);
-
-  @override
-  void cancelSearch(TaskProgressListener listener) {
-    final listenerImpl = listener as TaskProgressListenerImpl;
-
-    listenerImpl.shouldCancel = true;
-  }
 
   @override
   Future<void> search(
@@ -36,7 +27,17 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
       }
     } catch (e) {
       print(e);
-      return null;
+      return;
+    }
+  }
+
+  @override
+  void sendFriendRequest({required int requesterId, required int receiverId}) async {
+    try {
+      await _openapi.getUserApi().apiUserSendFriendRequestPost(requesterId: requesterId, receiverId: receiverId);
+    } catch (e) {
+      print(e);
+      return;
     }
   }
 }

@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+enum FriendshipStatus { none, friends, pending }
+
 abstract class SearchUserEntity {
   final int id;
   final String name;
@@ -7,6 +9,7 @@ abstract class SearchUserEntity {
   final String country;
   final int commonFriends;
   final Uint8List imageData;
+  FriendshipStatus friendshipStatus;
 
   SearchUserEntity(
       {required this.id,
@@ -14,5 +17,6 @@ abstract class SearchUserEntity {
       required this.city,
       required this.country,
       required this.commonFriends,
-      required this.imageData});
+      required this.imageData,
+      required this.friendshipStatus});
 }

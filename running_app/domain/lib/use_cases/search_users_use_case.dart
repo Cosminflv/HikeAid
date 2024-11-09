@@ -24,4 +24,8 @@ class SearchUsersUseCase {
           onResult(result);
         });
   }
+
+  sendFriendRequest({required requesterId, required receiverId}) {
+    _searchUsersRepository.sendFriendRequest(requesterId: requesterId, receiverId: receiverId);
+  }
 }

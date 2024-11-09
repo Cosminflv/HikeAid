@@ -921,6 +921,15 @@
         },
         "additionalProperties": false
       },
+      "EFriendshipState": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
       "EFriendshipStatus": {
         "enum": [
           0,
@@ -958,7 +967,7 @@
             "format": "date-time"
           },
           "status": {
-            "$ref": "#/components/schemas/EFriendshipStatus"
+            "$ref": "#/components/schemas/EFriendshipState"
           },
           "requester": {
             "$ref": "#/components/schemas/UserModel"
@@ -1019,6 +1028,9 @@
           "commonFriends": {
             "type": "integer",
             "format": "int32"
+          },
+          "friendshipStatus": {
+            "$ref": "#/components/schemas/EFriendshipStatus"
           },
           "imageData": {
             "type": "string",

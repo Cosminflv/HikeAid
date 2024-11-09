@@ -20,9 +20,11 @@ class SearchListView extends StatelessWidget {
           child: ListView(
               padding: EdgeInsets.zero,
               children: List.generate(
-                users.length,
-                (index) => UserListItem(user: users[index], onTap: () {}),
-              )),
+                  users.length,
+                  (index) => UserListItem(
+                        user: users[index],
+                        onTap: () {},
+                      ))),
         ),
       ),
     );

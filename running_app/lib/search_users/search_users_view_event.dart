@@ -29,3 +29,10 @@ class ResultSelectedEvent extends SearchUsersEvent {
 }
 
 class ClearSearchEvent extends SearchUsersEvent {}
+
+class AddFriendEvent extends SearchUsersEvent {
+  final int requesterId;
+  final int receiverId;
+
+  AddFriendEvent({required this.requesterId, required this.receiverId});
+}

@@ -7,7 +7,7 @@ import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
-import 'package:running_app/search_users/serach_users_view_bloc.dart';
+import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 
 class BlocProviders {

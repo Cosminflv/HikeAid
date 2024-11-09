@@ -39,7 +39,7 @@ import 'package:openapi/openapi.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/io.dart';
 import 'package:dio/dio.dart';
-import 'package:running_app/search_users/serach_users_view_bloc.dart';
+import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'dart:io';
 
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';

@@ -18,6 +18,8 @@ class _$SearchUserDto extends SearchUserDto {
   @override
   final int? commonFriends;
   @override
+  final EFriendshipStatus? friendshipStatus;
+  @override
   final String? imageData;
 
   factory _$SearchUserDto([void Function(SearchUserDtoBuilder)? updates]) =>
@@ -29,6 +31,7 @@ class _$SearchUserDto extends SearchUserDto {
       this.city,
       this.country,
       this.commonFriends,
+      this.friendshipStatus,
       this.imageData})
       : super._();
 
@@ -48,6 +51,7 @@ class _$SearchUserDto extends SearchUserDto {
         city == other.city &&
         country == other.country &&
         commonFriends == other.commonFriends &&
+        friendshipStatus == other.friendshipStatus &&
         imageData == other.imageData;
   }
 
@@ -59,6 +63,7 @@ class _$SearchUserDto extends SearchUserDto {
     _$hash = $jc(_$hash, city.hashCode);
     _$hash = $jc(_$hash, country.hashCode);
     _$hash = $jc(_$hash, commonFriends.hashCode);
+    _$hash = $jc(_$hash, friendshipStatus.hashCode);
     _$hash = $jc(_$hash, imageData.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
@@ -72,6 +77,7 @@ class _$SearchUserDto extends SearchUserDto {
           ..add('city', city)
           ..add('country', country)
           ..add('commonFriends', commonFriends)
+          ..add('friendshipStatus', friendshipStatus)
           ..add('imageData', imageData))
         .toString();
   }
@@ -102,6 +108,11 @@ class SearchUserDtoBuilder
   set commonFriends(int? commonFriends) =>
       _$this._commonFriends = commonFriends;
 
+  EFriendshipStatus? _friendshipStatus;
+  EFriendshipStatus? get friendshipStatus => _$this._friendshipStatus;
+  set friendshipStatus(EFriendshipStatus? friendshipStatus) =>
+      _$this._friendshipStatus = friendshipStatus;
+
   String? _imageData;
   String? get imageData => _$this._imageData;
   set imageData(String? imageData) => _$this._imageData = imageData;
@@ -118,6 +129,7 @@ class SearchUserDtoBuilder
       _city = $v.city;
       _country = $v.country;
       _commonFriends = $v.commonFriends;
+      _friendshipStatus = $v.friendshipStatus;
       _imageData = $v.imageData;
       _$v = null;
     }
@@ -146,6 +158,7 @@ class SearchUserDtoBuilder
             city: city,
             country: country,
             commonFriends: commonFriends,
+            friendshipStatus: friendshipStatus,
             imageData: imageData);
     replace(_$result);
     return _$result;
