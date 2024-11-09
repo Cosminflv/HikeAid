@@ -28,6 +28,7 @@ class EditUserProfileViewPage extends StatefulWidget {
 }
 
 class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
+  // Controllers for text fields
   late TextEditingController firstNameController;
   late TextEditingController lastNameController;
   late TextEditingController bioController;
@@ -37,8 +38,6 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
   @override
   void initState() {
     super.initState();
-
-    // Initialize the text controllers with the profile data
     firstNameController = TextEditingController(text: widget.profile.firstName);
     lastNameController = TextEditingController(text: widget.profile.lastName);
     bioController = TextEditingController(text: widget.profile.bio);
@@ -48,7 +47,6 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
 
   @override
   void dispose() {
-    // Dispose of the controllers when the widget is removed
     firstNameController.dispose();
     lastNameController.dispose();
     bioController.dispose();
@@ -60,206 +58,219 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        actions: [
+      appBar: _buildAppBar(context),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildProfileHeader(context),
+            _buildDetailsSection(context),
+            const SizedBox(height: 15),
+            _buildAthleteInformationTitle(context),
+            const SizedBox(height: 15),
+            _buildAthleteInformation(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: TextButton(
+        onPressed: () => Navigator.of(context).pop(),
+        child: Text(
+          AppLocalizations.of(context)!.cancel,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        ),
+      ),
+      backgroundColor: Theme.of(context).highlightColor,
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
+            builder: (context, state) => _buildSaveButton(context, state),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildSaveButton(BuildContext context, EditUserProfileViewState state) {
+    if (state is UserProfileSaving) {
+      return const CircularProgressIndicator();
+    }
+    if (state is UserProfileEditSuccess) {
+      BlocProviders.userProfile(context).add(FetchUserProfileEvent(getSession(context)));
+      Navigator.of(context).pop();
+    }
+    if (state is UserProfileEditFailed) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(AppLocalizations.of(context)!.updateFailed),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      });
+    }
+    if (state is UserProfileEditing) {
+      return TextButton(
+        onPressed: () {
+          BlocProviders.editProfile(context).add(UserProfileSaveRequestedEvent());
+        },
+        child: Text(
+          AppLocalizations.of(context)!.save,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+        ),
+      );
+    }
+    return const SizedBox.shrink();
+  }
+
+  Widget _buildProfileHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding: const EdgeInsets.only(right: 15.0),
             child: BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
+              buildWhen: (previous, current) => previous != current && current is UserProfileEditing,
               builder: (context, state) {
-                if (state is UserProfileSaving) {
-                  return const CircularProgressIndicator();
-                }
-
-                if (state is UserProfileEditSuccess) {
-                  BlocProviders.userProfile(context).add(FetchUserProfileEvent(getSession(context)));
-                  Navigator.of(context).pop();
-                }
-
-                if (state is UserProfileEditFailed) {
-                  // Defer the showing of SnackBar until after the current frame
-                  SchedulerBinding.instance.addPostFrameCallback((_) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(AppLocalizations.of(context)!.updateFailed),
-                        backgroundColor: Colors.red, // Red background for error
-                        duration: const Duration(seconds: 2), // Duration the snackbar will be visible
-                      ),
-                    );
-                  });
-                }
                 if (state is UserProfileEditing) {
-                  return TextButton(
-                    onPressed: () {
-                      BlocProviders.editProfile(context).add(UserProfileSaveRequestedEvent());
-                    },
-                    child: Text(AppLocalizations.of(context)!.save,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                  return GestureDetector(
+                    onTap: () => showEditImageActions(context),
+                    child: CircleAvatar(
+                      backgroundImage: MemoryImage(state.imageData),
+                      radius: 35.0,
+                    ),
                   );
                 }
                 return const SizedBox.shrink();
               },
             ),
+          ),
+          Expanded(
+            child: _buildNameFields(context),
           )
         ],
-        title: TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text(AppLocalizations.of(context)!.cancel,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface)),
-        ),
-        backgroundColor: Theme.of(context).highlightColor,
       ),
-      body: SingleChildScrollView(
+    );
+  }
+
+  Widget _buildNameFields(BuildContext context) {
+    return Container(
+      color: Theme.of(context).highlightColor,
+      child: IntrinsicHeight(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
-                    child: BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
-                      buildWhen: (previous, current) => previous != current && current is UserProfileEditing,
-                      builder: (context, state) {
-                        if (state is UserProfileEditing) {
-                          return GestureDetector(
-                            onTap: () => showEditImageActions(context),
-                            child: CircleAvatar(
-                              backgroundImage: MemoryImage(state.imageData),
-                              radius: 35.0,
-                            ),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: Theme.of(context).highlightColor,
-                      child: IntrinsicHeight(
-                        child: Column(
-                          children: [
-                            CustomTextField(
-                              textController: firstNameController,
-                              onChanged: (value) => BlocProviders.editProfile(context)
-                                  .add(UpdateUserDetailEvent(type: UserDetailType.firstName, value: value)),
-                              hintText: "First Name",
-                            ),
-                            Divider(
-                              color: Theme.of(context).hoverColor,
-                            ),
-                            CustomTextField(
-                              textController: lastNameController,
-                              onChanged: (value) => BlocProviders.editProfile(context)
-                                  .add(UpdateUserDetailEvent(type: UserDetailType.lastName, value: value)),
-                              hintText: "Last Name",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+            CustomTextField(
+              textController: firstNameController,
+              onChanged: (value) => BlocProviders.editProfile(context)
+                  .add(UpdateUserDetailEvent(type: UserDetailType.firstName, value: value)),
+              hintText: "First Name",
             ),
-            Container(
-              color: Theme.of(context).highlightColor,
-              child: IntrinsicHeight(
-                child: Column(
-                  children: [
-                    CustomTextField(
-                      textController: bioController,
-                      onChanged: (value) => BlocProviders.editProfile(context)
-                          .add(UpdateUserDetailEvent(type: UserDetailType.bio, value: value)),
-                      hintText: "Bio",
-                    ),
-                    CustomTextField(
-                      textController: countryController,
-                      onChanged: (value) => BlocProviders.editProfile(context)
-                          .add(UpdateUserDetailEvent(type: UserDetailType.country, value: value)),
-                      hintText: "Country",
-                    ),
-                    CustomTextField(
-                      textController: cityController,
-                      onChanged: (value) => BlocProviders.editProfile(context)
-                          .add(UpdateUserDetailEvent(type: UserDetailType.city, value: value)),
-                      hintText: "City",
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              //color: Theme.of(context).highlightColor,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Text(
-                  "ATHLETE INFORMATION",
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
-              buildWhen: (previous, current) => current is UserProfileEditing,
-              builder: (context, state) {
-                state as UserProfileEditing;
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ProfileItemPicker<DateTime>(
-                      title: "Select Birthdate",
-                      value:
-                          "${state.birthDate.day} ${convertMonthToString(state.birthDate.month)} ${state.birthDate.year}",
-                      onTap: (context) => showCupertinoModalPopup(
-                        context: context,
-                        builder: (_) => CupertinoDatePickerDialog(currentBirthDate: state.birthDate),
-                      ),
-                    ),
-                    ProfileItemPicker<String>(
-                      title: "Gender",
-                      value: state.gender.toReadableString(),
-                      onTap: (context) => showCupertinoModalPopup(
-                        context: context,
-                        builder: (_) => CupertinoEnumPickerDialog(currentGender: state.gender),
-                      ),
-                    ),
-                    ProfileItemPicker<int>(
-                      title: "Weight (kg)",
-                      value: state.weight.toString(),
-                      onTap: (context) => showCupertinoModalPopup(
-                        context: context,
-                        builder: (_) => CupertinoWeightPickerDialog(currentWeight: state.weight),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "Used to calculate calories, power and more",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                    ),
-                  ],
-                );
-              },
+            Divider(color: Theme.of(context).hoverColor),
+            CustomTextField(
+              textController: lastNameController,
+              onChanged: (value) => BlocProviders.editProfile(context)
+                  .add(UpdateUserDetailEvent(type: UserDetailType.lastName, value: value)),
+              hintText: "Last Name",
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildDetailsSection(BuildContext context) {
+    return Container(
+      color: Theme.of(context).highlightColor,
+      child: IntrinsicHeight(
+        child: Column(
+          children: [
+            CustomTextField(
+              textController: bioController,
+              onChanged: (value) =>
+                  BlocProviders.editProfile(context).add(UpdateUserDetailEvent(type: UserDetailType.bio, value: value)),
+              hintText: "Bio",
+            ),
+            CustomTextField(
+              textController: countryController,
+              onChanged: (value) => BlocProviders.editProfile(context)
+                  .add(UpdateUserDetailEvent(type: UserDetailType.country, value: value)),
+              hintText: "Country",
+            ),
+            CustomTextField(
+              textController: cityController,
+              onChanged: (value) => BlocProviders.editProfile(context)
+                  .add(UpdateUserDetailEvent(type: UserDetailType.city, value: value)),
+              hintText: "City",
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAthleteInformationTitle(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Text(
+          "ATHLETE INFORMATION",
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAthleteInformation(BuildContext context) {
+    return BlocBuilder<EditUserProfileViewBloc, EditUserProfileViewState>(
+      buildWhen: (previous, current) => current is UserProfileEditing,
+      builder: (context, state) {
+        state as UserProfileEditing;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProfileItemPicker<DateTime>(
+              title: "Select Birthdate",
+              value: "${state.birthDate.day} ${convertMonthToString(state.birthDate.month)} ${state.birthDate.year}",
+              onTap: (context) => showCupertinoModalPopup(
+                context: context,
+                builder: (_) => CupertinoDatePickerDialog(currentBirthDate: state.birthDate),
+              ),
+            ),
+            ProfileItemPicker<String>(
+              title: "Gender",
+              value: state.gender.toReadableString(),
+              onTap: (context) => showCupertinoModalPopup(
+                context: context,
+                builder: (_) => CupertinoEnumPickerDialog(currentGender: state.gender),
+              ),
+            ),
+            ProfileItemPicker<int>(
+              title: "Weight (kg)",
+              value: state.weight.toString(),
+              onTap: (context) => showCupertinoModalPopup(
+                context: context,
+                builder: (_) => CupertinoWeightPickerDialog(currentWeight: state.weight),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Used to calculate calories, power and more",
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
