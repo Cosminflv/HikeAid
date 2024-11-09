@@ -5,8 +5,9 @@ abstract class SearchUsersEvent {}
 
 class SearchUserEvent extends SearchUsersEvent {
   final String text;
+  final int userId;
 
-  SearchUserEvent({required this.text});
+  SearchUserEvent({required this.text, required this.userId});
 }
 
 class SearchSuccessfulEvent extends SearchUsersEvent {

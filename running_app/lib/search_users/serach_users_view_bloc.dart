@@ -1,11 +1,9 @@
 import 'package:core/di/injection_container.dart';
-import 'package:domain/repositories/search_users_repository.dart';
+import 'package:domain/entities/search_user_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/search_users/search_users_view_state.dart';
 import 'package:domain/use_cases/search_users_use_case.dart';
-
-import 'package:dartz/dartz.dart';
 
 class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
   final _searchUseCase = sl.get<SearchUsersUseCase>();
@@ -28,7 +26,8 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
 
     add(SearchStatusUpdatedEvent(SearchStatus.started));
 
-    _searchUseCase.search(text: event.text, onResult: _onSearchCompleted);
+    _searchUseCase.search(
+        text: event.text, userId: event.userId, onStatusUpdate: _onStatusUpdate, onResult: _onSearchCompleted);
   }
 
   _handleClearSearch(ClearSearchEvent event, Emitter<SearchUsersState> emit) {
@@ -50,11 +49,14 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
     }
   }
 
-  _onSearchCompleted(SearchResult result) {
+  _onSearchCompleted(List<SearchUserEntity> result) {
     if (isClosed) return;
-    if (result is Left) return;
 
     add(SearchStatusUpdatedEvent(SearchStatus.ended));
-    add(SearchSuccessfulEvent((result as Right).value));
+    add(SearchSuccessfulEvent(result));
+  }
+
+  _onStatusUpdate(SearchStatus status) {
+    final s = status;
   }
 }

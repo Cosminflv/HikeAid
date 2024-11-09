@@ -84,7 +84,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<PermissionRepository>(() => PermissionRepositoryImpl());
   sl.registerLazySingleton<OnboardingRepository>(() => OnboardingRepositoryImpl(openApi, storage));
   sl.registerLazySingleton<LandmarkRepository>(() => LandmarkRepositoryImpl());
-  sl.registerLazySingleton<SearchUsersRepository>(() => SearchUserRepositoryImpl());
+  sl.registerLazySingleton<SearchUsersRepository>(() => SearchUserRepositoryImpl(openApi));
   sl.registerLazySingleton<UserProfileRepository>(() => UserProfileRepositoryImpl(openApi));
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());

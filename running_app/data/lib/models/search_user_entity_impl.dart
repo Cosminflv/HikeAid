@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:domain/entities/search_user_entity.dart';
+import 'package:openapi/openapi.dart';
 
 class SearchUserEntityImpl extends SearchUserEntity {
   SearchUserEntityImpl(
@@ -6,5 +9,18 @@ class SearchUserEntityImpl extends SearchUserEntity {
       required super.name,
       required super.city,
       required super.country,
-      required super.commonFriends});
+      required super.commonFriends,
+      required super.imageData});
+
+  // Factory constructor for creating an instance from DTO
+  factory SearchUserEntityImpl.fromDto(SearchUserDto dto) {
+    final image = base64Decode(dto.imageData!);
+    return SearchUserEntityImpl(
+        id: dto.id!,
+        name: dto.name!,
+        city: dto.city!,
+        country: dto.country!,
+        commonFriends: dto.commonFriends!,
+        imageData: image);
+  }
 }
