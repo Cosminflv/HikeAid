@@ -1,10 +1,10 @@
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:running_app/onboarding/auth_session/auth_session_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
+import 'package:running_app/utils/session_utils.dart';
 
 class UserListItem extends StatefulWidget {
   final SearchUserEntity user;
@@ -76,8 +76,7 @@ class _UserListItemState extends State<UserListItem> {
                       backgroundColor: Theme.of(context).colorScheme.tertiary,
                       text: "Add",
                       onTap: () {
-                        final currUserId =
-                            (BlocProviders.authSession(context).state as AuthSessionExistingState).session.user.id;
+                        final currUserId = getSession(context)!.user.id;
                         searchUsersBloc.add(AddFriendEvent(requesterId: currUserId, receiverId: widget.user.id));
                         setState(() {
                           widget.user.friendshipStatus = FriendshipStatus.pending;

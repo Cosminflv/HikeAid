@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:running_app/onboarding/auth_session/auth_session_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/search_users/search_users_view_state.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/search_users/widgets/search_list_view.dart';
 import 'package:running_app/shared_widgets/search_text_field.dart';
+import 'package:running_app/utils/session_utils.dart';
 
 class SearchUsersViewPage extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -43,8 +43,7 @@ class SearchUsersViewPage extends StatelessWidget {
                     child: SearchTextField(
                       controller: _controller,
                       onChanged: (text) {
-                        final userSearching =
-                            (BlocProviders.authSession(context).state as AuthSessionExistingState).session.user.id;
+                        final userSearching = getSession(context)!.user.id;
                         searchUsersBloc.add(SearchUserEvent(text: text, userId: userSearching));
                         if (text.isEmpty) {
                           searchUsersBloc.add(ClearSearchEvent());
