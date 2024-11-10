@@ -9,6 +9,7 @@ import 'package:running_app/onboarding/authentication/authentication_view_bloc.d
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
+import 'package:running_app/view_user_profile/view_user_profile_view_bloc.dart';
 
 class BlocProviders {
   static AuthenticationViewBloc authentication(BuildContext context) =>
@@ -19,6 +20,8 @@ class BlocProviders {
 
   static EditUserProfileViewBloc editProfile(BuildContext context) => BlocProvider.of<EditUserProfileViewBloc>(context);
   static UserProfileViewBloc userProfile(BuildContext context) => BlocProvider.of<UserProfileViewBloc>(context);
+  static ViewUserProfileViewBloc viewUserProfile(BuildContext context) =>
+      BlocProvider.of<ViewUserProfileViewBloc>(context);
   static SearchUsersBloc searchUsers(BuildContext context) => BlocProvider.of<SearchUsersBloc>(context);
 
   static MapViewBloc map(BuildContext context) => BlocProvider.of<MapViewBloc>(context);

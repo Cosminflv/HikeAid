@@ -23,7 +23,7 @@ class SearchListView extends StatelessWidget {
                   users.length,
                   (index) => UserListItem(
                         user: users[index],
-                        onTap: () {},
+                        onTap: () => onItemTap(users[index]),
                       ))),
         ),
       ),

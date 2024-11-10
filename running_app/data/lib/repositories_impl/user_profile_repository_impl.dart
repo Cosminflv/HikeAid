@@ -1,13 +1,11 @@
-import 'dart:convert';
-
 import 'package:data/models/user_profile_entity_impl.dart';
-import 'package:domain/entities/auth_session_entity.dart';
 import 'package:domain/entities/edit_user_profile_status.dart';
 import 'package:domain/entities/user_profile_entity.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
 
 import 'package:openapi/openapi.dart';
 import 'dart:typed_data';
+import 'dart:convert';
 
 class UserProfileRepositoryImpl extends UserProfileRepository {
   final Openapi _openapi;
@@ -15,9 +13,9 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
   UserProfileRepositoryImpl(this._openapi);
 
   @override
-  Future<UserProfileEntityImpl?> getAuthenticatedUserProfile(AuthSessionEntity session) async {
+  Future<UserProfileEntityImpl?> getAuthenticatedUserProfile(int userId) async {
     try {
-      final result = await _openapi.getUserApi().apiUserIdGetUserGet(id: session.user.id);
+      final result = await _openapi.getUserApi().apiUserIdGetUserGet(id: userId);
 
       if (result.statusCode == 200) {
         final data = result.data as Map<String, dynamic>;

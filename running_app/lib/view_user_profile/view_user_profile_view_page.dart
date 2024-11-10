@@ -2,60 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:running_app/config/routes.dart';
-import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
-import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
-import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
-import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
-import 'package:running_app/providers/bloc_providers.dart';
-import 'package:running_app/shared_widgets/custom_text_button.dart';
-import 'package:running_app/shared_widgets/dialogs/logout_confirm_dialog.dart';
-import 'package:running_app/user_profile/user_profile_view_bloc.dart';
-import 'package:running_app/user_profile/user_profile_view_state.dart';
 
 import 'dart:typed_data';
 
-class UserProfileViewPage extends StatelessWidget {
-  const UserProfileViewPage({super.key});
+import 'package:running_app/view_user_profile/view_user_profile_view_bloc.dart';
+import 'package:running_app/view_user_profile/view_user_profile_view_state.dart';
+
+class ViewUserProfileViewPage extends StatelessWidget {
+  const ViewUserProfileViewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<UserProfileViewBloc>.value(
-      value: BlocProvider.of<UserProfileViewBloc>(context),
+    return BlocProvider<ViewUserProfileViewBloc>.value(
+      value: BlocProvider.of<ViewUserProfileViewBloc>(context),
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           backgroundColor: Theme.of(context).colorScheme.primary,
-          title: TextButton(
-            onPressed: () {
-              showLogoutConfirmation(context).then((hasConfirmed) {
-                if (hasConfirmed) {
-                  BlocProvider.of<AuthSessionBloc>(context).add(LogoutEvent());
-                  BlocProviders.authentication(context).add(AuthResetEvent());
-                }
-              });
-            },
-            child: Text(
-              AppLocalizations.of(context)!.logoutTitle,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.surface),
-            ),
-          ),
-          actions: [
-            IconButton(
-                onPressed: () => Navigator.of(context).pushNamed(RouteNames.searchUsersPage),
-                icon: Icon(
-                  FontAwesomeIcons.magnifyingGlass,
-                  color: Theme.of(context).colorScheme.surface,
-                )),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  FontAwesomeIcons.gear,
-                  color: Theme.of(context).colorScheme.surface,
-                ))
-          ],
+          title: Text(AppLocalizations.of(context)!.search,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.surface,
+                  )),
         ),
-        body: BlocBuilder<UserProfileViewBloc, ViewUserProfileViewState>(builder: (context, state) {
+        body: BlocBuilder<ViewUserProfileViewBloc, ViewUserProfileViewState>(builder: (context, state) {
           if (state is InitialProfileState) {
             return const SizedBox.shrink();
           }
@@ -139,38 +107,6 @@ class UserProfileViewPage extends StatelessWidget {
                                 )
                               ],
                             ),
-                            SizedBox(
-                              height: 40,
-                              width: 100,
-                              child: CustomElevatedButton(
-                                backgroundColor: Theme.of(context).brightness == Brightness.light
-                                    ? Theme.of(context).colorScheme.tertiary
-                                    : Theme.of(context).colorScheme.onSurface,
-                                text: AppLocalizations.of(context)!.edit,
-                                textColor: Theme.of(context).colorScheme.surface,
-                                trailing: Icon(
-                                  FontAwesomeIcons.pen,
-                                  color: Theme.of(context).colorScheme.surface,
-                                  size: 15,
-                                ),
-                                onTap: () {
-                                  BlocProviders.editProfile(context).add(InitializeEditUserProfileEvent(
-                                    id: state.profile.id,
-                                    firstName: state.profile.firstName,
-                                    lastName: state.profile.lastName,
-                                    bio: state.profile.bio,
-                                    city: state.profile.city,
-                                    age: state.profile.age,
-                                    weight: state.profile.weight,
-                                    country: state.profile.country,
-                                    gender: state.profile.gender,
-                                    birthDate: state.profile.birthDate,
-                                    imageData: state.profile.imageData,
-                                  ));
-                                  Navigator.of(context).pushNamed(RouteNames.editProfilePage, arguments: state.profile);
-                                },
-                              ),
-                            )
                           ],
                         ),
                       ],

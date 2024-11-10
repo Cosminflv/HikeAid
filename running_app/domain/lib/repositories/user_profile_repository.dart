@@ -1,11 +1,10 @@
-import 'dart:typed_data';
-
-import 'package:domain/entities/auth_session_entity.dart';
 import 'package:domain/entities/edit_user_profile_status.dart';
 import 'package:domain/entities/user_profile_entity.dart';
 
+import 'dart:typed_data';
+
 abstract class UserProfileRepository {
-  Future<UserProfileEntity?> getAuthenticatedUserProfile(AuthSessionEntity session);
+  Future<UserProfileEntity?> getAuthenticatedUserProfile(int userId);
   Future<void> updateUserProfile(
       {required int id,
       required String firstName,
