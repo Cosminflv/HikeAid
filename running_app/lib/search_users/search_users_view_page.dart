@@ -86,7 +86,7 @@ class SearchUsersViewPage extends StatelessWidget {
                         BlocProviders.userProfile(context).add(FetchUserProfileEvent(userId: user.id));
                         Navigator.of(context).pushNamed(
                           RouteNames.userProfilePage,
-                          arguments: {'isEditable': false},
+                          arguments: {'isEditable': false, 'friendshipStatus': user.friendshipStatus},
                         );
                       });
                 }

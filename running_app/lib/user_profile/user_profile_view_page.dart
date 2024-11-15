@@ -1,3 +1,4 @@
+import 'package:domain/entities/search_user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,27 +9,37 @@ import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
 import 'package:running_app/providers/bloc_providers.dart';
+import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/shared_widgets/dialogs/logout_confirm_dialog.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_state.dart';
+import 'package:running_app/user_profile/widgets/friend_status_button.dart';
+import 'package:running_app/user_profile/widgets/profile_image_dialog.dart';
 
-import 'dart:typed_data';
+import 'package:running_app/utils/session_utils.dart';
 
-class UserProfileViewPage extends StatelessWidget {
+// ignore: must_be_immutable
+class UserProfileViewPage extends StatefulWidget {
   final bool isEditable;
+  FriendshipStatus? friendshipStatus;
 
-  const UserProfileViewPage({super.key, required this.isEditable});
+  UserProfileViewPage({super.key, required this.isEditable, this.friendshipStatus});
 
+  @override
+  State<UserProfileViewPage> createState() => _UserProfileViewPageState();
+}
+
+class _UserProfileViewPageState extends State<UserProfileViewPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<UserProfileBloc>.value(
       value: BlocProvider.of<UserProfileBloc>(context),
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: !isEditable,
+          automaticallyImplyLeading: !widget.isEditable,
           backgroundColor: Theme.of(context).colorScheme.primary,
-          title: isEditable
+          title: widget.isEditable
               ? TextButton(
                   onPressed: () {
                     showLogoutConfirmation(context).then((hasConfirmed) {
@@ -48,7 +59,7 @@ class UserProfileViewPage extends StatelessWidget {
                   AppLocalizations.of(context)!.search,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.surface),
                 ),
-          actions: isEditable
+          actions: widget.isEditable
               ? [
                   IconButton(
                       onPressed: () => Navigator.of(context).pushNamed(RouteNames.searchUsersPage),
@@ -128,7 +139,7 @@ class UserProfileViewPage extends StatelessWidget {
                         const SizedBox(height: 10),
                         Text(
                           state.profile.bio,
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20.0),
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 15.0),
                         ),
                         const SizedBox(height: 10),
                         Row(
@@ -144,7 +155,7 @@ class UserProfileViewPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            if (isEditable)
+                            if (widget.isEditable)
                               SizedBox(
                                 height: 40,
                                 width: 100,
@@ -178,6 +189,23 @@ class UserProfileViewPage extends StatelessWidget {
                                   },
                                 ),
                               ),
+                            if (widget.friendshipStatus != null)
+                              FriendshipButton(
+                                status: widget.friendshipStatus!,
+                                onAddFriend: () {
+                                  BlocProviders.searchUsers(context).add(AddFriendEvent(
+                                      requesterId: getSession(context)!.user.id, receiverId: state.profile.id));
+                                  setState(() {
+                                    widget.friendshipStatus = FriendshipStatus.pending;
+                                  });
+                                },
+                                onCancelRequest: () {
+                                  setState(() {
+                                    widget.friendshipStatus = FriendshipStatus.none;
+                                  });
+                                },
+                                onRemoveFriend: () {},
+                              ),
                           ],
                         ),
                       ],
@@ -189,38 +217,6 @@ class UserProfileViewPage extends StatelessWidget {
           );
         }),
       ),
-    );
-  }
-
-  Future<dynamic> profileImageDialog(BuildContext context, Uint8List imageData) {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          child: Stack(
-            children: [
-              Center(
-                child: Image.memory(imageData),
-              ),
-              Positioned(
-                top: 1,
-                right: 1,
-                child: IconButton(
-                  icon: Icon(
-                    FontAwesomeIcons.x,
-                    color: Theme.of(context).colorScheme.onSecondary,
-                    size: 20.0,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

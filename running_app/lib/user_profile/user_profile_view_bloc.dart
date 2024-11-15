@@ -5,13 +5,13 @@ import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/user_profile/user_profile_view_state.dart';
 
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileViewState> {
-  final UserProfileUseCase _userProfileUseCase = sl.get<UserProfileUseCase>();
+  final _userProfileUseCase = sl.get<UserProfileUseCase>();
 
   UserProfileBloc() : super(InitialProfileState()) {
     on<FetchUserProfileEvent>(_handleFetchUserProfile);
   }
 
-  Future<void> _handleFetchUserProfile(FetchUserProfileEvent event, Emitter<UserProfileViewState> emit) async {
+  _handleFetchUserProfile(FetchUserProfileEvent event, Emitter<UserProfileViewState> emit) async {
     emit(UserProfileLoadingState());
 
     // Determine whether to fetch authenticated user's profile or another user's profile.

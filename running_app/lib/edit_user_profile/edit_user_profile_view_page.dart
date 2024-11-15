@@ -77,14 +77,14 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       title: TextButton(
         onPressed: () => Navigator.of(context).pop(),
         child: Text(
           AppLocalizations.of(context)!.cancel,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.surface),
         ),
       ),
-      backgroundColor: Theme.of(context).highlightColor,
       actions: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -122,7 +122,7 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
         },
         child: Text(
           AppLocalizations.of(context)!.save,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurface),
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.surface),
         ),
       );
     }

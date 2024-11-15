@@ -57,8 +57,8 @@ class _HomeViewPageState extends State<HomeViewPage> {
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children: const [
-          MapViewPage(),
+        children:  [
+          const MapViewPage(),
           UserProfileViewPage(isEditable: true),
         ],
       ),

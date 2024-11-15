@@ -1,9 +1,8 @@
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
-import 'package:running_app/shared_widgets/custom_text_button.dart';
+import 'package:running_app/user_profile/widgets/friend_status_button.dart';
 import 'package:running_app/utils/session_utils.dart';
 
 class UserListItem extends StatefulWidget {
@@ -18,7 +17,6 @@ class UserListItem extends StatefulWidget {
 class _UserListItemState extends State<UserListItem> {
   @override
   Widget build(BuildContext context) {
-    final searchUsersBloc = BlocProviders.searchUsers(context);
     return Material(
       type: MaterialType.transparency,
       child: Column(
@@ -68,37 +66,25 @@ class _UserListItemState extends State<UserListItem> {
                 ),
               ),
               SizedBox(
-                width: 70,
                 height: 40,
-                child: Builder(builder: (context) {
-                  if (widget.user.friendshipStatus == FriendshipStatus.none) {
-                    return CustomElevatedButton(
-                      backgroundColor: Theme.of(context).colorScheme.tertiary,
-                      text: "Add",
-                      onTap: () {
-                        final currUserId = getSession(context)!.user.id;
-                        searchUsersBloc.add(AddFriendEvent(requesterId: currUserId, receiverId: widget.user.id));
-                        setState(() {
-                          widget.user.friendshipStatus = FriendshipStatus.pending;
-                        });
-                      },
-                    );
-                  }
-                  if (widget.user.friendshipStatus == FriendshipStatus.friends) {
-                    return CustomElevatedButton(
-                      backgroundColor: Theme.of(context).colorScheme.tertiary,
-                      leading: const Icon(FontAwesomeIcons.check),
-                    );
-                  }
-                  if (widget.user.friendshipStatus == FriendshipStatus.pending) {
-                    return CustomElevatedButton(
-                      backgroundColor: Theme.of(context).colorScheme.tertiary,
-                      text: "Pending",
-                    );
-                  }
-                  return const SizedBox.shrink();
-                }),
-              )
+                width: 90,
+                child: FriendshipButton(
+                  status: widget.user.friendshipStatus,
+                  onAddFriend: () {
+                    BlocProviders.searchUsers(context)
+                        .add(AddFriendEvent(requesterId: getSession(context)!.user.id, receiverId: widget.user.id));
+                    setState(() {
+                      widget.user.friendshipStatus = FriendshipStatus.pending;
+                    });
+                  },
+                  onCancelRequest: () {
+                    setState(() {
+                      widget.user.friendshipStatus = FriendshipStatus.none;
+                    });
+                  },
+                  onRemoveFriend: () {},
+                ),
+              ),
             ],
           ),
         ],

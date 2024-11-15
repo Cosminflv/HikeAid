@@ -1,3 +1,4 @@
+import 'package:domain/entities/search_user_entity.dart';
 import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
@@ -63,7 +64,9 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case RouteNames.userProfilePage:
       final args = settings.arguments as Map<String, dynamic>;
       final isEditable = args['isEditable'] as bool;
-      page = UserProfileViewPage(isEditable: isEditable);
+      page = UserProfileViewPage(
+          isEditable: isEditable,
+          friendshipStatus: args.containsKey('friendshipStatus') ? args['friendshipStatus'] as FriendshipStatus : null);
 
     // MISC
     case RouteNames.homePage:
