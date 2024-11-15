@@ -23,8 +23,14 @@ class SearchUsersViewPage extends StatelessWidget {
     final searchUsersBloc = BlocProviders.searchUsers(context);
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.primary,
+        leading: IconButton(
+            onPressed: () {
+              BlocProviders.userProfile(context).add(FetchUserProfileEvent(userId: getSession(context)!.user.id));
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(FontAwesomeIcons.arrowLeft)),
         title: Text(
           AppLocalizations.of(context)!.profile,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.surface),
