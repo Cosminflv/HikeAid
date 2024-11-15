@@ -1,24 +1,24 @@
 import 'package:domain/entities/user_profile_entity.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class ViewUserProfileViewState extends Equatable {}
+abstract class UserProfileViewState extends Equatable {}
 
-class InitialProfileState extends ViewUserProfileViewState {
+class InitialProfileState extends UserProfileViewState {
   @override
   List<Object?> get props => [];
 }
 
-class UserProfileLoadFailState extends ViewUserProfileViewState {
+class UserProfileLoadFailState extends UserProfileViewState {
   @override
   List<Object?> get props => [];
 }
 
-class UserProfileLoadingState extends ViewUserProfileViewState {
+class UserProfileLoadingState extends UserProfileViewState {
   @override
   List<Object?> get props => [];
 }
 
-class UserProfileLoadedState extends ViewUserProfileViewState {
+class UserProfileLoadedState extends UserProfileViewState {
   final UserProfileEntity profile;
 
   UserProfileLoadedState({required this.profile});

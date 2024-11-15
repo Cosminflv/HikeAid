@@ -1,9 +1,10 @@
 import 'package:domain/entities/auth_session_entity.dart';
 
-abstract class UserProfileViewEvent {}
+abstract class UserProfileEvent {}
 
-class FetchUserProfileEvent extends UserProfileViewEvent {
-  final AuthSessionEntity? session;
+class FetchUserProfileEvent extends UserProfileEvent {
+  final AuthSessionEntity? session; // For authenticated user.
+  final int? userId; // For viewing another user's profile.
 
-  FetchUserProfileEvent(this.session);
+  FetchUserProfileEvent({this.session, this.userId});
 }

@@ -44,7 +44,6 @@ import 'dart:io';
 
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:running_app/view_user_profile/view_user_profile_view_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -105,11 +104,10 @@ initEarlyDependencies() {
   sl.registerLazySingleton<MapViewBloc>(() => MapViewBloc(AssetBundleEntityImpl()));
   sl.registerLazySingleton<LocationBloc>(() => LocationBloc());
   sl.registerLazySingleton<AppBloc>(() => AppBloc());
-  sl.registerLazySingleton<UserProfileViewBloc>(() => UserProfileViewBloc());
+  sl.registerLazySingleton<UserProfileBloc>(() => UserProfileBloc());
   sl.registerLazySingleton<AuthSessionBloc>(() => AuthSessionBloc());
   sl.registerLazySingleton<EditUserProfileViewBloc>(() => EditUserProfileViewBloc());
   sl.registerLazySingleton<SearchUsersBloc>(() => SearchUsersBloc());
-  sl.registerLazySingleton<ViewUserProfileViewBloc>(() => ViewUserProfileViewBloc());
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 }

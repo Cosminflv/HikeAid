@@ -11,9 +11,8 @@ import 'package:running_app/search_users/search_users_view_state.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/search_users/widgets/search_list_view.dart';
 import 'package:running_app/shared_widgets/search_text_field.dart';
+import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/utils/session_utils.dart';
-
-import '../view_user_profile/view_user_profile_view_event.dart';
 
 class SearchUsersViewPage extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -78,8 +77,11 @@ class SearchUsersViewPage extends StatelessWidget {
                   return SearchListView(
                       users: displayedItems,
                       onItemTap: (user) {
-                        BlocProviders.viewUserProfile(context).add(FetchUserProfileEvent(user.id));
-                        Navigator.of(context).pushNamed(RouteNames.viewUserProfilePage);
+                        BlocProviders.userProfile(context).add(FetchUserProfileEvent(userId: user.id));
+                        Navigator.of(context).pushNamed(
+                          RouteNames.userProfilePage,
+                          arguments: {'isEditable': false},
+                        );
                       });
                 }
 

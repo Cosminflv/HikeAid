@@ -59,7 +59,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
         index: _currentIndex,
         children: const [
           MapViewPage(),
-          UserProfileViewPage(),
+          UserProfileViewPage(isEditable: true),
         ],
       ),
     );

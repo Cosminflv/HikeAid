@@ -33,7 +33,7 @@ class AuthSessionBlocListener extends StatelessWidget {
           listener: (context, state) {
             if (state is AuthSessionExistingState) {
               //Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
-              BlocProvider.of<UserProfileViewBloc>(context).add(FetchUserProfileEvent(state.session));
+              BlocProvider.of<UserProfileBloc>(context).add(FetchUserProfileEvent(session: state.session));
             }
             if (state is AuthSessionNotExistingState) {
               Navigator.of(context).pushReplacementNamed(RouteNames.getStartedPage);
