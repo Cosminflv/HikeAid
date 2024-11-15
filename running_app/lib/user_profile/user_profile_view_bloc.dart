@@ -15,9 +15,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileViewState> {
     emit(UserProfileLoadingState());
 
     // Determine whether to fetch authenticated user's profile or another user's profile.
-    final profile = event.session != null
-        ? await _userProfileUseCase.getAuthenticatedUserProfile(event.session!.user.id)
-        : await _userProfileUseCase.getAuthenticatedUserProfile(event.userId!);
+    final profile = await _userProfileUseCase.getUserProfile(event.userId);
 
     if (profile == null) {
       emit(UserProfileLoadFailState());

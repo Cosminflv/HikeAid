@@ -101,7 +101,7 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
       return const CircularProgressIndicator();
     }
     if (state is UserProfileEditSuccess) {
-      BlocProviders.userProfile(context).add(FetchUserProfileEvent(session: getSession(context)));
+      BlocProviders.userProfile(context).add(FetchUserProfileEvent(userId: getSession(context)!.user.id));
       Navigator.of(context).pop();
     }
     if (state is UserProfileEditFailed) {

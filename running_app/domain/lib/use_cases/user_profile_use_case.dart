@@ -9,7 +9,7 @@ class UserProfileUseCase {
 
   UserProfileUseCase(this._userProfileRepository);
 
-  Future<UserProfileEntity?> getAuthenticatedUserProfile(int userId) async {
+  Future<UserProfileEntity?> getUserProfile(int userId) async {
     final user = await _userProfileRepository.getAuthenticatedUserProfile(userId);
     return user;
   }
