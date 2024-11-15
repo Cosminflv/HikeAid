@@ -16,6 +16,7 @@ import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_state.dart';
 import 'package:running_app/user_profile/widgets/friend_status_button.dart';
 import 'package:running_app/user_profile/widgets/profile_image_dialog.dart';
+import 'package:running_app/user_profile/widgets/remove_friend_dialog.dart';
 
 import 'package:running_app/utils/session_utils.dart';
 
@@ -204,7 +205,10 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                                     widget.friendshipStatus = FriendshipStatus.none;
                                   });
                                 },
-                                onRemoveFriend: () {},
+                                onRemoveFriend: () {
+                                  showUnfriendConfirmation(
+                                      context, "${state.profile.firstName} ${state.profile.lastName}");
+                                },
                               ),
                           ],
                         ),
