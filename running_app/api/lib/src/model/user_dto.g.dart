@@ -15,11 +15,30 @@ class _$UserDto extends UserDto {
   final String? lastName;
   @override
   final String? passwordHash;
+  @override
+  final String? city;
+  @override
+  final String? country;
+  @override
+  final int? weight;
+  @override
+  final EGender? eGender;
+  @override
+  final DateTime? birthdate;
 
   factory _$UserDto([void Function(UserDtoBuilder)? updates]) =>
       (new UserDtoBuilder()..update(updates))._build();
 
-  _$UserDto._({this.username, this.firstName, this.lastName, this.passwordHash})
+  _$UserDto._(
+      {this.username,
+      this.firstName,
+      this.lastName,
+      this.passwordHash,
+      this.city,
+      this.country,
+      this.weight,
+      this.eGender,
+      this.birthdate})
       : super._();
 
   @override
@@ -36,7 +55,12 @@ class _$UserDto extends UserDto {
         username == other.username &&
         firstName == other.firstName &&
         lastName == other.lastName &&
-        passwordHash == other.passwordHash;
+        passwordHash == other.passwordHash &&
+        city == other.city &&
+        country == other.country &&
+        weight == other.weight &&
+        eGender == other.eGender &&
+        birthdate == other.birthdate;
   }
 
   @override
@@ -46,6 +70,11 @@ class _$UserDto extends UserDto {
     _$hash = $jc(_$hash, firstName.hashCode);
     _$hash = $jc(_$hash, lastName.hashCode);
     _$hash = $jc(_$hash, passwordHash.hashCode);
+    _$hash = $jc(_$hash, city.hashCode);
+    _$hash = $jc(_$hash, country.hashCode);
+    _$hash = $jc(_$hash, weight.hashCode);
+    _$hash = $jc(_$hash, eGender.hashCode);
+    _$hash = $jc(_$hash, birthdate.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -56,7 +85,12 @@ class _$UserDto extends UserDto {
           ..add('username', username)
           ..add('firstName', firstName)
           ..add('lastName', lastName)
-          ..add('passwordHash', passwordHash))
+          ..add('passwordHash', passwordHash)
+          ..add('city', city)
+          ..add('country', country)
+          ..add('weight', weight)
+          ..add('eGender', eGender)
+          ..add('birthdate', birthdate))
         .toString();
   }
 }
@@ -80,6 +114,26 @@ class UserDtoBuilder implements Builder<UserDto, UserDtoBuilder> {
   String? get passwordHash => _$this._passwordHash;
   set passwordHash(String? passwordHash) => _$this._passwordHash = passwordHash;
 
+  String? _city;
+  String? get city => _$this._city;
+  set city(String? city) => _$this._city = city;
+
+  String? _country;
+  String? get country => _$this._country;
+  set country(String? country) => _$this._country = country;
+
+  int? _weight;
+  int? get weight => _$this._weight;
+  set weight(int? weight) => _$this._weight = weight;
+
+  EGender? _eGender;
+  EGender? get eGender => _$this._eGender;
+  set eGender(EGender? eGender) => _$this._eGender = eGender;
+
+  DateTime? _birthdate;
+  DateTime? get birthdate => _$this._birthdate;
+  set birthdate(DateTime? birthdate) => _$this._birthdate = birthdate;
+
   UserDtoBuilder() {
     UserDto._defaults(this);
   }
@@ -91,6 +145,11 @@ class UserDtoBuilder implements Builder<UserDto, UserDtoBuilder> {
       _firstName = $v.firstName;
       _lastName = $v.lastName;
       _passwordHash = $v.passwordHash;
+      _city = $v.city;
+      _country = $v.country;
+      _weight = $v.weight;
+      _eGender = $v.eGender;
+      _birthdate = $v.birthdate;
       _$v = null;
     }
     return this;
@@ -116,7 +175,12 @@ class UserDtoBuilder implements Builder<UserDto, UserDtoBuilder> {
             username: username,
             firstName: firstName,
             lastName: lastName,
-            passwordHash: passwordHash);
+            passwordHash: passwordHash,
+            city: city,
+            country: country,
+            weight: weight,
+            eGender: eGender,
+            birthdate: birthdate);
     replace(_$result);
     return _$result;
   }

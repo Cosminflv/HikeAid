@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/e_gender.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -15,6 +16,11 @@ part 'user_dto.g.dart';
 /// * [firstName] 
 /// * [lastName] 
 /// * [passwordHash] 
+/// * [city] 
+/// * [country] 
+/// * [weight] 
+/// * [eGender] 
+/// * [birthdate] 
 @BuiltValue()
 abstract class UserDto implements Built<UserDto, UserDtoBuilder> {
   @BuiltValueField(wireName: r'username')
@@ -28,6 +34,22 @@ abstract class UserDto implements Built<UserDto, UserDtoBuilder> {
 
   @BuiltValueField(wireName: r'passwordHash')
   String? get passwordHash;
+
+  @BuiltValueField(wireName: r'city')
+  String? get city;
+
+  @BuiltValueField(wireName: r'country')
+  String? get country;
+
+  @BuiltValueField(wireName: r'weight')
+  int? get weight;
+
+  @BuiltValueField(wireName: r'eGender')
+  EGender? get eGender;
+  // enum eGenderEnum {  0,  1,  };
+
+  @BuiltValueField(wireName: r'birthdate')
+  DateTime? get birthdate;
 
   UserDto._();
 
@@ -78,6 +100,41 @@ class _$UserDtoSerializer implements PrimitiveSerializer<UserDto> {
       yield serializers.serialize(
         object.passwordHash,
         specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.city != null) {
+      yield r'city';
+      yield serializers.serialize(
+        object.city,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.country != null) {
+      yield r'country';
+      yield serializers.serialize(
+        object.country,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
+    if (object.weight != null) {
+      yield r'weight';
+      yield serializers.serialize(
+        object.weight,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.eGender != null) {
+      yield r'eGender';
+      yield serializers.serialize(
+        object.eGender,
+        specifiedType: const FullType(EGender),
+      );
+    }
+    if (object.birthdate != null) {
+      yield r'birthdate';
+      yield serializers.serialize(
+        object.birthdate,
+        specifiedType: const FullType(DateTime),
       );
     }
   }
@@ -134,6 +191,43 @@ class _$UserDtoSerializer implements PrimitiveSerializer<UserDto> {
           ) as String?;
           if (valueDes == null) continue;
           result.passwordHash = valueDes;
+          break;
+        case r'city':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.city = valueDes;
+          break;
+        case r'country':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
+          result.country = valueDes;
+          break;
+        case r'weight':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.weight = valueDes;
+          break;
+        case r'eGender':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(EGender),
+          ) as EGender;
+          result.eGender = valueDes;
+          break;
+        case r'birthdate':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.birthdate = valueDes;
           break;
         default:
           unhandled.add(key);

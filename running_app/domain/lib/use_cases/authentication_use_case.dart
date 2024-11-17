@@ -1,6 +1,7 @@
 import 'package:domain/entities/auth_session_entity.dart';
 import 'package:domain/entities/authentication_status.dart';
 import 'package:domain/entities/registration_status.dart';
+import 'package:domain/entities/user_profile_entity.dart';
 import 'package:domain/repositories/onboarding_repository.dart';
 
 class OnboardingUseCase {
@@ -24,6 +25,11 @@ class OnboardingUseCase {
       String? password,
       String? firstName,
       String? lastName,
+      String? city,
+      String? country,
+      int? weight,
+      EGenderEntity? gender,
+      DateTime? birthdate,
       required Function(RegistrationStatus) onProgress}) async {
     if (username == null || password == null || firstName == null || lastName == null) {
       onProgress(RegistrationFailed(reason: RegistrationFailType.invalidCredentials));
@@ -35,6 +41,11 @@ class OnboardingUseCase {
         password: password,
         firstName: firstName,
         lastName: lastName,
+        city: city!,
+        country: country!,
+        weight: weight!,
+        birthdate: birthdate!,
+        gender: gender!,
         onRegistrationProgressUpdated: (status) => onProgress(status));
   }
 

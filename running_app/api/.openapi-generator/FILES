@@ -49,4 +49,3 @@ lib/src/model/user_dto.dart
 lib/src/model/user_model.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/e_friendship_state_test.dart

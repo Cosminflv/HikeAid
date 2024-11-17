@@ -65,6 +65,7 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*LoginApi*](doc/LoginApi.md) | [**apiLoginLoginPost**](doc/LoginApi.md#apiloginloginpost) | **POST** /api/Login/login | 
+[*LoginApi*](doc/LoginApi.md) | [**apiLoginRegisterPost**](doc/LoginApi.md#apiloginregisterpost) | **POST** /api/Login/register | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostCommentsIdDelete**](doc/SocialPostApi.md#apisocialpostcommentsiddelete) | **DELETE** /api/SocialPost/comments/{id} | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostGet**](doc/SocialPostApi.md#apisocialpostget) | **GET** /api/SocialPost | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostIdDelete**](doc/SocialPostApi.md#apisocialpostiddelete) | **DELETE** /api/SocialPost/{id} | 
@@ -88,7 +89,6 @@ Class | Method | HTTP request | Description
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetUserGet**](doc/UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdPut**](doc/UserApi.md#apiuseridput) | **PUT** /api/User/{id} | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdUploadProfilePictureBase64Post**](doc/UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
-[*UserApi*](doc/UserApi.md) | [**apiUserPost**](doc/UserApi.md#apiuserpost) | **POST** /api/User | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSearchUserGet**](doc/UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSendFriendRequestPost**](doc/UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [*UserApi*](doc/UserApi.md) | [**getDefaultProfilePictureGet**](doc/UserApi.md#getdefaultprofilepictureget) | **GET** /getDefaultProfilePicture | 

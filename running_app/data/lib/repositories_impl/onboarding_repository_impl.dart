@@ -1,14 +1,16 @@
-import 'dart:convert';
-
 import 'package:data/models/auth_session_entity_impl.dart';
 import 'package:data/models/user_entity_impl.dart';
-import 'package:dio/dio.dart';
 import 'package:domain/entities/auth_session_entity.dart';
 import 'package:domain/entities/authentication_status.dart';
 import 'package:domain/entities/registration_status.dart';
+import 'package:domain/entities/user_profile_entity.dart';
 import 'package:domain/repositories/onboarding_repository.dart';
-import 'package:openapi/openapi.dart';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:openapi/openapi.dart';
+import 'package:dio/dio.dart';
+
+import 'dart:convert';
 
 class OnboardingRepositoryImpl extends OnboardingRepository {
   final Openapi _openapi;
@@ -66,18 +68,28 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
       required String password,
       required String firstName,
       required String lastName,
+      required String city,
+      required String country,
+      required int weight,
+      required EGenderEntity gender,
+      required DateTime birthdate,
       required Function(RegistrationStatus status) onRegistrationProgressUpdated}) async {
     try {
       onRegistrationProgressUpdated(RegistrationStarted());
       onRegistrationProgressUpdated(RegistrationInProgress());
 
-      final result = await _openapi.getUserApi().apiUserPost(
+      final result = await _openapi.getLoginApi().apiLoginRegisterPost(
         userDto: UserDto(
           (builder) {
             builder.username = username;
             builder.passwordHash = password;
             builder.firstName = firstName;
             builder.lastName = lastName;
+            builder.city = city;
+            builder.country = country;
+            builder.weight = weight;
+            builder.birthdate = birthdate.toUtc();
+            builder.eGender = gender == EGenderEntity.man ? EGender.number0 : EGender.number1;
           },
         ),
       );

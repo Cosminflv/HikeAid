@@ -9,6 +9,7 @@ import 'package:running_app/map/widgets/ask_permission_popup.dart';
 import 'package:running_app/onboarding/authentication/authentication_page.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_page.dart';
+import 'package:running_app/onboarding/user_preferences_setup/user_preferences_wizard_page.dart';
 import 'package:running_app/search_users/search_users_view_page.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
 
@@ -29,6 +30,7 @@ class RouteNames {
   static const editProfilePage = '$defaultPage/edit_user_profile_view_page';
   static const searchUsersPage = '$defaultPage/search_users_view_page';
   static const userProfilePage = '$defaultPage/user_profile_view_page';
+  static const userPreferencesWizardPage = '$defaultPage/user_preferences_wizard_page';
 
   @pragma('MISC')
   static const homePage = '${defaultPage}home_page';
@@ -67,6 +69,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       page = UserProfileViewPage(
           isEditable: isEditable,
           friendshipStatus: args.containsKey('friendshipStatus') ? args['friendshipStatus'] as FriendshipStatus : null);
+    case RouteNames.userPreferencesWizardPage:
+      page = const UserPreferencesWizardPage();
 
     // MISC
     case RouteNames.homePage:

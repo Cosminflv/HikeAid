@@ -20,6 +20,8 @@ class RegistrationViewBloc extends Bloc<RegistrationViewEvent, RegistrationViewS
     on<UpdateLastNameValueEvent>(_updateLastNameValueEvent);
     on<UpdatePasswordValueEvent>(_updatePasswordValueEvent);
 
+    on<CompleteUserProfileEvent>(_handleCompleteUserProfileEvent);
+
     on<ClearRegistrationEvent>(_clearRegistrationEventHandler);
   }
 
@@ -29,6 +31,11 @@ class RegistrationViewBloc extends Bloc<RegistrationViewEvent, RegistrationViewS
         password: state.password,
         firstName: state.firstName,
         lastName: state.lastName,
+        city: state.city,
+        country: state.country,
+        weight: state.weight,
+        gender: state.gender,
+        birthdate: event.birthdate,
         onProgress: (status) => _onRegistrationProgress(registrationStatus: status));
   }
 
@@ -41,6 +48,12 @@ class RegistrationViewBloc extends Bloc<RegistrationViewEvent, RegistrationViewS
   _registrationLoadingEventHandler(RegistrationLoadingEvent event, Emitter<RegistrationViewState> emit) =>
       RegistrationLoadingState(
           username: state.username, password: state.password, firstName: state.firstName, lastName: state.lastName);
+
+  _handleCompleteUserProfileEvent(CompleteUserProfileEvent event, Emitter<RegistrationViewState> emit) {
+    final initialState = state as InitialRegistrationState;
+
+    emit(initialState.copyWith(city: event.city, country: event.country, weight: event.weight, gender: event.gender));
+  }
 
   _clearRegistrationEventHandler(ClearRegistrationEvent event, Emitter<RegistrationViewState> emit) {
     emit(const InitialRegistrationState());

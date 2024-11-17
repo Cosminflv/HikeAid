@@ -19,7 +19,6 @@ Method | HTTP request | Description
 [**apiUserIdGetUserGet**](UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
 [**apiUserIdPut**](UserApi.md#apiuseridput) | **PUT** /api/User/{id} | 
 [**apiUserIdUploadProfilePictureBase64Post**](UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
-[**apiUserPost**](UserApi.md#apiuserpost) | **POST** /api/User | 
 [**apiUserSearchUserGet**](UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [**apiUserSendFriendRequestPost**](UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [**getDefaultProfilePictureGet**](UserApi.md#getdefaultprofilepictureget) | **GET** /getDefaultProfilePicture | 
@@ -416,46 +415,6 @@ Name | Type | Description  | Notes
  **id** | **String**|  | 
  **userId** | **int**|  | [optional] 
  **body** | **String**|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **apiUserPost**
-> apiUserPost(userDto)
-
-
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-
-final api = Openapi().getUserApi();
-final UserDto userDto = ; // UserDto | 
-
-try {
-    api.apiUserPost(userDto);
-} catch on DioException (e) {
-    print('Exception when calling UserApi->apiUserPost: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **userDto** | [**UserDto**](UserDto.md)|  | [optional] 
 
 ### Return type
 

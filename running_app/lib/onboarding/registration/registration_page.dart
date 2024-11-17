@@ -108,7 +108,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
               // Last Name TextField
               Align(
                 alignment: Alignment.centerRight,
-                
                 child: GestureDetector(
                   onTap: () {
                     lastNameController.clear();
@@ -205,7 +204,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     onTap: () {
                       if (_areFieldsFilled()) {
                         if (passwordController.text == confirmPasswordController.text) {
-                          debouncer.run(() => BlocProviders.registration(context).add(PerformRegistrationEvent()));
+                          debouncer.run(
+                              () => Navigator.of(context).pushReplacementNamed(RouteNames.userPreferencesWizardPage));
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -225,46 +225,46 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ],
               ),
 
-              const SizedBox(height: 30.0),
+              // const SizedBox(height: 30.0),
 
-              SizedBox(
-                width: 20,
-                child: BlocBuilder<RegistrationViewBloc, RegistrationViewState>(
-                  buildWhen: (previous, current) => previous != current,
-                  builder: (context, state) {
-                    if (state is RegistrationSuccesfulState) {
-                      // Schedule the snackbar to be shown after the current frame
-                      SchedulerBinding.instance.addPostFrameCallback((_) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(AppLocalizations.of(context)!.registerSuccess),
-                          ),
-                        );
-                        // TODO: Navigate to LoginPage or another relevant page
-                        BlocProviders.registration(context).add(ClearRegistrationEvent());
-                        Navigator.of(context).pushReplacementNamed(RouteNames.authenticationPage);
-                      });
-                    }
+              // SizedBox(
+              //   width: 20,
+              //   child: BlocBuilder<RegistrationViewBloc, RegistrationViewState>(
+              //     buildWhen: (previous, current) => previous != current,
+              //     builder: (context, state) {
+              //       if (state is RegistrationSuccesfulState) {
+              //         // Schedule the snackbar to be shown after the current frame
+              //         SchedulerBinding.instance.addPostFrameCallback((_) {
+              //           ScaffoldMessenger.of(context).showSnackBar(
+              //             SnackBar(
+              //               content: Text(AppLocalizations.of(context)!.registerSuccess),
+              //             ),
+              //           );
 
-                    if (state is RegistrationLoadingState) {
-                      return const CircularProgressIndicator();
-                    }
+              //           BlocProviders.registration(context).add(ClearRegistrationEvent());
+              //           Navigator.of(context).pushReplacementNamed(RouteNames.userPreferencesWizardPage);
+              //         });
+              //       }
 
-                    if (state is RegistrationFailedState) {
-                      // Schedule the snackbar to be shown after the current frame
-                      SchedulerBinding.instance.addPostFrameCallback((reason) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(state.reason.description),
-                          ),
-                        );
-                      });
-                    }
+              //       if (state is RegistrationLoadingState) {
+              //         return const CircularProgressIndicator();
+              //       }
 
-                    return Container();
-                  },
-                ),
-              ),
+              //       if (state is RegistrationFailedState) {
+              //         // Schedule the snackbar to be shown after the current frame
+              //         SchedulerBinding.instance.addPostFrameCallback((reason) {
+              //           ScaffoldMessenger.of(context).showSnackBar(
+              //             SnackBar(
+              //               content: Text(state.reason.description),
+              //             ),
+              //           );
+              //         });
+              //       }
+
+              //       return Container();
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),

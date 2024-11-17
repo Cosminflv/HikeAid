@@ -1,8 +1,13 @@
 import 'package:domain/entities/registration_status.dart';
+import 'package:domain/entities/user_profile_entity.dart';
 
 abstract class RegistrationViewEvent {}
 
-class PerformRegistrationEvent extends RegistrationViewEvent {}
+class PerformRegistrationEvent extends RegistrationViewEvent {
+  final DateTime birthdate;
+
+  PerformRegistrationEvent({required this.birthdate});
+}
 
 class RegistrationLoadingEvent extends RegistrationViewEvent {}
 
@@ -38,4 +43,15 @@ class UpdatePasswordValueEvent extends RegistrationViewEvent {
   String value;
 
   UpdatePasswordValueEvent({required this.value});
+}
+
+class CompleteUserProfileEvent extends RegistrationViewEvent {
+  final DateTime birthDate;
+  final String city;
+  final String country;
+  final EGenderEntity gender;
+  final int weight;
+
+  CompleteUserProfileEvent(
+      {required this.birthDate, required this.city, required this.country, required this.gender, required this.weight});
 }

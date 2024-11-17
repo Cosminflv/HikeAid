@@ -12,6 +12,11 @@ Name | Type | Description | Notes
 **firstName** | **String** |  | [optional] 
 **lastName** | **String** |  | [optional] 
 **passwordHash** | **String** |  | [optional] 
+**city** | **String** |  | [optional] 
+**country** | **String** |  | [optional] 
+**weight** | **int** |  | [optional] 
+**eGender** | [**EGender**](EGender.md) |  | [optional] 
+**birthdate** | [**DateTime**](DateTime.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
