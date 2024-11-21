@@ -1,3 +1,4 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:core/di/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
+import 'package:running_app/internet_connection/internet_connection_events.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_event.dart';
 import 'package:running_app/config/theme.dart';
@@ -15,6 +17,7 @@ import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 
@@ -52,6 +55,8 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
         BlocProvider(create: (context) => sl.get<UserProfileBloc>()),
         BlocProvider(create: (context) => sl.get<AppBloc>()),
         BlocProvider(create: (context) => sl.get<SearchUsersBloc>()),
+        BlocProvider(create: (context) => sl.get<SearchMenuBloc>()),
+        BlocProvider(create: (context) => AppBlocs.internetConnectionBloc..add(CheckInternetConnectionEvent())),
         BlocProvider(create: (context) => sl.get<EditUserProfileViewBloc>())
       ],
       child: MaterialApp(

@@ -1,5 +1,5 @@
+import 'package:domain/entities/search_status.dart';
 import 'package:domain/entities/search_user_entity.dart';
-import 'package:domain/use_cases/search_users_use_case.dart';
 
 abstract class SearchUsersEvent {}
 

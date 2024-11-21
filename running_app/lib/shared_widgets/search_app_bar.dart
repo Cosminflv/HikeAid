@@ -7,14 +7,15 @@ import '../app/app_state.dart';
 class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Widget title;
   final bool automaticallyImplyLeading;
+  final bool isInMapView;
 
-  const SearchAppBar({super.key, required this.title, this.automaticallyImplyLeading = true});
+  const SearchAppBar({super.key, required this.title, this.automaticallyImplyLeading = true, this.isInMapView = false});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
       builder: (context, state) {
-        if (state.isNavigating) {
+        if (state.isNavigating && isInMapView || state.isRecording || state.isDrawing) {
           return const SizedBox.shrink();
         }
         return AppBar(

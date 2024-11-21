@@ -112,16 +112,16 @@ class _SearchTextFieldState extends State<SearchTextField> {
         prefixIcon: prefix ??
             Icon(
               FontAwesomeIcons.magnifyingGlass,
-              size: 15,
+              size: 20,
               color: Theme.of(context).colorScheme.onSurfaceVariant,
             ),
         suffixIcon: suffix,
-        suffix: const SizedBox(height: 15),
-        hintText: widget.placeholderText ?? AppLocalizations.of(context)!.user,
+        suffix: const SizedBox(height: 30),
+        hintText: widget.placeholderText ?? AppLocalizations.of(context)!.whereTo,
         hintStyle:
             Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
         ),
         focusedBorder: OutlineInputBorder(

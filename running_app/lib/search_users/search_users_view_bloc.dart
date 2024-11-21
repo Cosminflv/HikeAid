@@ -1,4 +1,5 @@
 import 'package:core/di/injection_container.dart';
+import 'package:domain/entities/search_status.dart';
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';

@@ -1,5 +1,6 @@
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/app/app_state.dart';
+import 'package:running_app/internet_connection/internet_connection_checker.dart';
 import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
 import 'package:running_app/utils/sizes.dart';
@@ -57,9 +58,9 @@ class _HomeViewPageState extends State<HomeViewPage> {
       ),
       body: IndexedStack(
         index: _currentIndex,
-        children:  [
-          const MapViewPage(),
-          UserProfileViewPage(isEditable: true),
+        children: [
+          const InternetConnectionChecker(showFullPage: false, canInteract: true, child: MapViewPage()),
+          InternetConnectionChecker(child: UserProfileViewPage(isEditable: true)),
         ],
       ),
     );

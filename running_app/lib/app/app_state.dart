@@ -1,7 +1,17 @@
 import 'package:domain/settings/general_settings_entity.dart';
 import 'package:equatable/equatable.dart';
 
-enum AppStatus { uninitialized, intializedSDK, initializedMap, drawing, routing, navigation }
+enum AppStatus {
+  uninitialized,
+  intializedSDK,
+  initializedMap,
+  drawing,
+  routing,
+  navigation,
+  navigationPaused,
+  recording,
+  recordingPaused
+}
 
 enum AppBrightness { dark, light }
 
@@ -23,6 +33,11 @@ class AppState extends Equatable {
       statusBarBrightness: statusBarBrightness ?? this.statusBarBrightness);
 
   bool get isNavigating => status == AppStatus.navigation;
+
+  bool get isRecording => status == AppStatus.recording;
+  bool get isRecordingPaused => status == AppStatus.recordingPaused;
+
+  bool get isDrawing => status == AppStatus.drawing;
 
   @override
   List<Object?> get props => [status, distanceUnit];

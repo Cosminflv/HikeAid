@@ -1,12 +1,13 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:data/extensions.dart';
 import 'package:data/models/coordinates_entity_impl.dart';
+import 'package:data/repositories_impl/extensions.dart';
 
 import 'package:domain/entities/landmark_entity.dart';
 
 import 'package:gem_kit/core.dart';
+import 'package:image/image.dart' as img;
 
 class LandmarkEntityImpl extends LandmarkEntity {
   final Landmark? ref;
@@ -37,9 +38,12 @@ class LandmarkEntityImpl extends LandmarkEntity {
   void setImage(Uint8List image) {
     if (ref != null) {
       final originalImage = ref?.getImage(size: Size(128, 128), format: ImageFileFormat.png);
-      ref?.setExtraImage(imageData: originalImage!, format: ImageFileFormat.png);
 
       ref?.setImage(imageData: image, format: ImageFileFormat.png);
+
+      if (!hasExtraImage) {
+        ref?.setExtraImage(imageData: originalImage!, format: ImageFileFormat.png);
+      }
     }
   }
 
@@ -47,8 +51,39 @@ class LandmarkEntityImpl extends LandmarkEntity {
   Uint8List? get extraImage => ref?.getExtraImage(size: Size(128, 128), format: ImageFileFormat.png);
 
   @override
+  bool get hasExtraImage {
+    if (extraImage == null || extraImage!.isEmpty) return false;
+    img.Image image = img.decodeImage(extraImage!)!;
+
+    for (int y = 0; y < image.height; y++) {
+      for (int x = 0; x < image.width; x++) {
+        if (image.getPixel(x, y).a != 0) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  @override
+  Uint8List? get image => ref?.getImage(size: Size(128, 128), format: ImageFileFormat.png);
+
+  @override
   int get id {
     final combinedString = '${ref!.coordinates.latitude.toString()}_${ref!.coordinates.longitude.toString()}';
     return combinedString.hashCode;
+  }
+
+  @override
+  LandmarkEntity copy({Uint8List? image}) {
+    final img = image ?? ref?.getImage(size: Size(128, 128), format: ImageFileFormat.png);
+
+    final referenceCopy = toGemLandmark();
+    referenceCopy.setImage(imageData: img!);
+
+    final landmarkCopy = LandmarkEntityImpl(ref: referenceCopy, icon: img);
+
+    return landmarkCopy;
   }
 }

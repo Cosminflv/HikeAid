@@ -1,18 +1,18 @@
-import 'package:domain/use_cases/search_users_use_case.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:domain/entities/search_status.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/search_users/search_users_view_state.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/search_users/widgets/search_list_view.dart';
-import 'package:running_app/shared_widgets/search_text_field.dart';
+import 'package:running_app/shared_widgets/search_users_text_field.dart';
 import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/utils/session_utils.dart';
+
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchUsersViewPage extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -48,7 +48,7 @@ class SearchUsersViewPage extends StatelessWidget {
                 builder: (context, state) {
                   return Padding(
                     padding: const EdgeInsets.all(15.0),
-                    child: SearchTextField(
+                    child: SearchUsersTextField(
                       controller: _controller,
                       onChanged: (text) {
                         final userSearching = getSession(context)!.user.id;
@@ -80,7 +80,7 @@ class SearchUsersViewPage extends StatelessWidget {
                 }
 
                 if (state.status == SearchStatus.ended && displayedItems.isNotEmpty) {
-                  return SearchListView(
+                  return SearchUsersListView(
                       users: displayedItems,
                       onItemTap: (user) {
                         BlocProviders.userProfile(context).add(FetchUserProfileEvent(userId: user.id));

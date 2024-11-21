@@ -1,8 +1,6 @@
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:domain/repositories/search_users_repository.dart';
 
-enum SearchStatus { none, started, ended }
-
 class SearchUsersUseCase {
   final SearchUsersRepository _searchUsersRepository;
 

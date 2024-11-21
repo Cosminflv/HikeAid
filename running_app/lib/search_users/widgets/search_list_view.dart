@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:running_app/config/theme.dart';
 import 'package:running_app/search_users/widgets/search_list_item.dart';
 
-class SearchListView extends StatelessWidget {
+class SearchUsersListView extends StatelessWidget {
   final List<SearchUserEntity> users;
   final Function(SearchUserEntity) onItemTap;
-  const SearchListView({super.key, required this.users, required this.onItemTap});
+  const SearchUsersListView({super.key, required this.users, required this.onItemTap});
 
   @override
   Widget build(BuildContext context) {
