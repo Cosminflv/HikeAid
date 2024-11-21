@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/coordinates_entity.dart';
+import 'package:domain/entities/landmark_entity.dart';
 
 abstract class MapRepository {
   // Gestures
@@ -13,6 +14,8 @@ abstract class MapRepository {
   // Center and Distance
   CoordinatesEntity? getCenterCoordinates();
   MapCameraStateEntity? getCameraState();
+
+  void presentHighlights(LandmarkEntity landmark, {int? highlightId, bool showLabel = true, Uint8List? image});
 
   // Miscellaneous
   void setPositionTrackerImage(Uint8List imageData, {double scale = 1.0});

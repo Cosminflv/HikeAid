@@ -1,3 +1,4 @@
+import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
 
 enum DFollowPositionStatus { entered, exited }
@@ -25,4 +26,11 @@ abstract class CameraRepository {
 
   void setFollowPositionPreferences(
       {required DFollowPositionRotationMode mode, double angle = 0, bool objectFollowMap = false});
+
+  void centerOnCoordinates(
+      {required CoordinatesEntity coordinates,
+      required PointEntity point,
+      double viewAngle = 0,
+      int? zoom,
+      bool withAnimation = true});
 }

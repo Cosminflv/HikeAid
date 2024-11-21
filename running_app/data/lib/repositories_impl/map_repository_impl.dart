@@ -1,9 +1,12 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:data/models/camera_state_entity_impl.dart';
+import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/coordinates_entity.dart';
+import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/repositories/map_repository.dart';
 import 'package:domain/map_controller.dart';
 import 'package:data/repositories_impl/extensions.dart';
@@ -15,6 +18,32 @@ class MapRepositoryImpl extends MapRepository {
   final GemMapController _controller;
 
   MapRepositoryImpl(MapController mapController) : _controller = (mapController as MapControllerImpl).ref;
+
+  @override
+  void presentHighlights(LandmarkEntity landmark, {int? highlightId, bool showLabel = true, Uint8List? image}) {
+    landmark as LandmarkEntityImpl;
+    final List<Landmark> landmarksToHighlight = [];
+
+    final landmarkCopy = Landmark();
+
+    landmarkCopy.name = showLabel ? landmark.name : '';
+    landmarkCopy.coordinates = landmark.ref!.coordinates;
+    landmarkCopy.setImage(imageData: image ?? landmark.ref!.getImage(size: Size(129, 128)));
+    landmarkCopy.address = landmark.ref!.address;
+
+    landmarksToHighlight.add(landmarkCopy);
+
+    final settings = HighlightRenderSettings(imgSz: 50, textSz: 0, options: {
+      HighlightOptions.noFading,
+      HighlightOptions.overlap,
+    });
+
+    _controller.activateHighlight(
+      landmarksToHighlight,
+      renderSettings: settings,
+      highlightId: highlightId,
+    );
+  }
 
   @override
   void registerMapGesturesCallbacks({

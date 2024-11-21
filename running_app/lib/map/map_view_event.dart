@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
@@ -25,6 +27,22 @@ class SelectedLandmarkUpdatedEvent extends MapViewEvent {
   final String? name;
 
   SelectedLandmarkUpdatedEvent({required this.landmark, this.coordinates, this.name, required this.forceCenter});
+}
+
+class PresentHighlightEvent extends MapViewEvent {
+  final LandmarkEntity landmark;
+  final PointEntity? screenPosition;
+  final bool showLabel;
+  final bool isPin;
+  final Uint8List? image;
+
+  PresentHighlightEvent({
+    required this.landmark,
+    this.image,
+    this.screenPosition,
+    this.showLabel = true,
+    this.isPin = false,
+  });
 }
 
 class FollowPositionEvent extends MapViewEvent {

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:core/di/injection_container.dart';
 import 'package:domain/repositories/camera_repository.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
@@ -11,9 +13,13 @@ import 'package:domain/entities/view_area_entity.dart';
 
 import 'dart:async';
 
+import 'package:running_app/utils/assets_utils.dart';
+
 class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   late MapUseCase _mapUseCase;
   late LandmarkUseCase _landmarkUseCase;
+
+  late Uint8List? _pinImage;
 
   final AssetBundleEntity _assetBundleEntity;
 
@@ -32,6 +38,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<ResetCameraEvent>(_handleResetCamera);
 
     on<SelectedLandmarkUpdatedEvent>(_selectedLandmarkUpdatedEventHandler);
+    on<PresentHighlightEvent>(_handlePresentHighlightEvent);
 
     on<CameraStateUpdatedEvent>(_handleCameraStateUpdated);
   }
@@ -45,6 +52,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     _registerMapGestureCallbacks(event.isInteractive);
 
     _setupPositionTracker(true);
+    await _loadImages();
   }
 
   _handleAlignNorth(CompassAlignNorthEvent event, Emitter<MapViewState> emit) {
@@ -68,9 +76,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     int zoom = event.shouldZoomCamera ? 90 : 80;
     final angle = event.shouldTiltCamera ? 60.0 : 0.0;
 
-    PointEntity<double> pointToCenter =
-        PointEntity(x: _getCenterOfVisibleArea!().x, y: _getCenterOfVisibleArea!().y + 100);
-
+    PointEntity<double> pointToCenter = _getCenterOfVisibleArea!();
     _mapUseCase.startFollowPosition(
       zoom: zoom,
       viewAngle: angle,
@@ -98,6 +104,19 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       return;
     }
     emit(state.copyWith(mapSelectedLandmark: event.landmark));
+  }
+
+  _handlePresentHighlightEvent(PresentHighlightEvent event, Emitter<MapViewState> emit) async {
+    _mapUseCase.presentHighlight(event.landmark,
+        highlightId: _toShortRange(event.landmark.id),
+        showLabel: event.showLabel,
+        image: event.isPin ? _pinImage : event.image);
+
+    if (event.screenPosition != null) {
+      _mapUseCase.centerOnCoordinates(
+          coordinates: event.landmark.coordinates, screenPosition: event.screenPosition!, zoom: 70);
+      emit(state.copyWith(isFollowingPosition: false));
+    }
   }
 
   _registerMapGestureCallbacks(bool isInteractive) {
@@ -135,5 +154,22 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       _debounce!.cancel();
     }
     _debounce = Timer(duration, action);
+  }
+
+  int _toShortRange(int hash) {
+    const int shortMin = 0;
+    const int shortMax = 32767;
+
+    int range = shortMax - shortMin + 1;
+    int normalizedHash = hash % range + shortMin;
+
+    if (normalizedHash < shortMin) {
+      normalizedHash += range;
+    }
+    return normalizedHash;
+  }
+
+  Future<void> _loadImages() async {
+    _pinImage = await assetToUint8List('assets/map_pin.png');
   }
 }
