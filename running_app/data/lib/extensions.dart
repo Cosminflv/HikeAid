@@ -18,7 +18,7 @@ extension CoordinatesEntityExtension on CoordinatesEntity {
 }
 
 extension GemCoordinatesExtension on Coordinates {
-  CoordinatesEntityImpl toEntityImpl() => CoordinatesEntityImpl(latitude: latitude!, longitude: longitude!);
+  CoordinatesEntityImpl toEntityImpl() => CoordinatesEntityImpl(latitude: latitude, longitude: longitude);
 }
 
 extension GemPositionExtension on GemPosition {

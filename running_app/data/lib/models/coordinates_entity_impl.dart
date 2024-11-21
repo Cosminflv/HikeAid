@@ -6,7 +6,7 @@ class CoordinatesEntityImpl extends CoordinatesEntity {
   CoordinatesEntityImpl({required super.latitude, required super.longitude});
 
   static CoordinatesEntityImpl fromGemCoordinates(Coordinates coords) =>
-      CoordinatesEntityImpl(latitude: coords.latitude!, longitude: coords.longitude!);
+      CoordinatesEntityImpl(latitude: coords.latitude, longitude: coords.longitude);
 
   static CoordinatesEntityImpl fromJson(Map<String, dynamic> json) =>
       CoordinatesEntityImpl(latitude: json['lat'] as double, longitude: json['lon'] as double);

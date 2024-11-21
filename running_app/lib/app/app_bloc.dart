@@ -1,5 +1,3 @@
-import 'package:core/di/injection_container.dart';
-import 'package:domain/use_cases/sdk_settings_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/app/app_events.dart';
 import 'package:running_app/app/app_state.dart';

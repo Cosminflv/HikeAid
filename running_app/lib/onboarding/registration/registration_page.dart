@@ -1,15 +1,10 @@
-import 'package:domain/entities/registration_status.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/config/routes.dart';
-import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_event.dart';
-import 'package:running_app/onboarding/registration/registration_view_state.dart';
 import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/utils/debouncer.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -224,47 +219,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   )),
                 ],
               ),
-
-              // const SizedBox(height: 30.0),
-
-              // SizedBox(
-              //   width: 20,
-              //   child: BlocBuilder<RegistrationViewBloc, RegistrationViewState>(
-              //     buildWhen: (previous, current) => previous != current,
-              //     builder: (context, state) {
-              //       if (state is RegistrationSuccesfulState) {
-              //         // Schedule the snackbar to be shown after the current frame
-              //         SchedulerBinding.instance.addPostFrameCallback((_) {
-              //           ScaffoldMessenger.of(context).showSnackBar(
-              //             SnackBar(
-              //               content: Text(AppLocalizations.of(context)!.registerSuccess),
-              //             ),
-              //           );
-
-              //           BlocProviders.registration(context).add(ClearRegistrationEvent());
-              //           Navigator.of(context).pushReplacementNamed(RouteNames.userPreferencesWizardPage);
-              //         });
-              //       }
-
-              //       if (state is RegistrationLoadingState) {
-              //         return const CircularProgressIndicator();
-              //       }
-
-              //       if (state is RegistrationFailedState) {
-              //         // Schedule the snackbar to be shown after the current frame
-              //         SchedulerBinding.instance.addPostFrameCallback((reason) {
-              //           ScaffoldMessenger.of(context).showSnackBar(
-              //             SnackBar(
-              //               content: Text(state.reason.description),
-              //             ),
-              //           );
-              //         });
-              //       }
-
-              //       return Container();
-              //     },
-              //   ),
-              // ),
             ],
           ),
         ),
