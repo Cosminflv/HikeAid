@@ -70,7 +70,7 @@ class SearchHistoryViewPage extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 itemCount: historyLandmarks.length,
                 itemBuilder: (context, index) => LandmarkListItem(
-                    showExtraImage: true,
+                    showExtraImage: false,
                     landmark: historyLandmarks[index],
                     onTap: () => _landmarkTapped(context, historyLandmarks[index])),
                 separatorBuilder: (BuildContext context, int index) => const Divider(indent: dividerIndent),

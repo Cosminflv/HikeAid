@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/models/position_entity_impl.dart';
 import 'package:data/repositories_impl/extensions.dart';
@@ -35,9 +37,7 @@ extension AddressInfoExtension on AddressInfo {
 
 extension GemLandmarkExtension on Landmark {
   LandmarkEntityImpl toEntityImpl({int width = 48, int height = 48, Uint8List? image, bool isPositionBased = false}) {
-    final landmarkImage = image ?? getImage();
-
-    setExtraImage(imageData: landmarkImage, format: ImageFileFormat.png);
+    final landmarkImage = image ?? getImage(size: Size(width.toDouble(), height.toDouble()));
 
     return LandmarkEntityImpl(
       ref: this,
