@@ -24,7 +24,8 @@ class MapBlocListener extends StatelessWidget {
         listener: (context, state) {
           LandmarkPanelBottomSheet.show(context);
         },
-        listenWhen: (previous, current) => previous.mapSelectedLandmark == null && current.mapSelectedLandmark != null,
+        listenWhen: (previous, current) =>
+            previous.mapSelectedLandmark != current.mapSelectedLandmark && current.mapSelectedLandmark != null,
       ),
     ], child: child);
   }
