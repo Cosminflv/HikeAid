@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:data/extensions.dart';
 import 'package:data/models/camera_state_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
@@ -49,9 +50,39 @@ class MapRepositoryImpl extends MapRepository {
   void registerMapGesturesCallbacks({
     required Function() onMapMove,
     required Function(double) onMapAngleUpdated,
+    required Function(LandmarkEntity?) onTap,
   }) {
     _controller.registerOnMapAngleUpdate(onMapAngleUpdated);
     _controller.registerMoveCallback((p1, p2) => onMapMove());
+
+    _controller.registerTouchCallback((pos) {
+      _controller.setCursorScreenPosition(pos);
+
+      Landmark? selectedLandmark;
+
+      final landmarks = _controller.cursorSelectionLandmarks();
+
+      if (landmarks.isNotEmpty) {
+        selectedLandmark = landmarks.first;
+      }
+
+      final streets = _controller.cursorSelectionStreets();
+      if (streets.isNotEmpty && selectedLandmark == null) {
+        selectedLandmark = streets.first;
+      }
+
+      if (selectedLandmark == null) {
+        final coordinates = _controller.transformScreenToWgs(XyType(x: pos.x, y: pos.y));
+        if (coordinates == null) return;
+        Landmark lmk = Landmark();
+        lmk.coordinates = coordinates;
+        lmk.name = 'Map Pin';
+        lmk.setImageFromIcon(GemIcon.searchResultsPin);
+        selectedLandmark = lmk;
+      }
+
+      onTap(selectedLandmark.toEntityImpl());
+    });
   }
 
   // Center and Distance

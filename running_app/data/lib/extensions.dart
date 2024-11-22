@@ -1,6 +1,6 @@
-import 'package:data/models/coordinates_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/models/position_entity_impl.dart';
+import 'package:data/repositories_impl/extensions.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/position.dart';
@@ -15,10 +15,6 @@ extension CoordinatesEntityExtension on CoordinatesEntity {
     lmk.coordinates = toGemCoordinates();
     return lmk;
   }
-}
-
-extension GemCoordinatesExtension on Coordinates {
-  CoordinatesEntityImpl toEntityImpl() => CoordinatesEntityImpl(latitude: latitude, longitude: longitude);
 }
 
 extension GemPositionExtension on GemPosition {

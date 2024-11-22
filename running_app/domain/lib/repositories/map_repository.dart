@@ -9,6 +9,7 @@ abstract class MapRepository {
   void registerMapGesturesCallbacks({
     required Function() onMapMove,
     required Function(double) onMapAngleUpdated,
+    required Function(LandmarkEntity?) onTap,
   });
 
   // Center and Distance

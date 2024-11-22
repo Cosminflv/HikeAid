@@ -139,6 +139,13 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
         if (isClosed) return;
         add(CameraStateUpdatedEvent());
       }, duration: const Duration(milliseconds: 500));
+    }, onTap: (selectedLandmark) {
+      if (selectedLandmark != null) {
+        if (state.mapSelectedLandmark != null) {
+          add(RemoveHighlightsEvent(highlightId: _toShortRange(state.mapSelectedLandmark!.id)));
+        }
+        add(SelectedLandmarkUpdatedEvent(landmark: selectedLandmark, forceCenter: true));
+      }
     });
   }
 

@@ -28,8 +28,12 @@ class MapUseCase {
 
   void setEnableTouchGestures(bool enable) => _mapRepository.setEnableTouchGestures(enable);
 
-  void registerMapGestureCallbacks({required Function(double) onMapAngleUpdated, required Function() onMapMove}) =>
-      _mapRepository.registerMapGesturesCallbacks(onMapAngleUpdated: onMapAngleUpdated, onMapMove: onMapMove);
+  void registerMapGestureCallbacks(
+          {required Function(double) onMapAngleUpdated,
+          required Function() onMapMove,
+          required Function(LandmarkEntity?) onTap}) =>
+      _mapRepository.registerMapGesturesCallbacks(
+          onMapAngleUpdated: onMapAngleUpdated, onMapMove: onMapMove, onTap: onTap);
 
   MapCameraStateEntity? getCameraState() => _mapRepository.getCameraState();
 
