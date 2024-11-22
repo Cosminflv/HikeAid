@@ -10,6 +10,7 @@ import 'package:running_app/onboarding/authentication/authentication_page.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_page.dart';
 import 'package:running_app/onboarding/user_preferences_setup/user_preferences_wizard_page.dart';
+import 'package:running_app/search/search_history/search_history_view_page.dart';
 import 'package:running_app/search/search_view_page.dart';
 import 'package:running_app/search_users/search_users_view_page.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
@@ -27,6 +28,7 @@ class RouteNames {
   static const mapPage = '$defaultPage/map_page';
   static const askPermissionPage = '$defaultPage/ask_permission_popup';
   static const searchPage = '$defaultPage/search_view_page';
+  static const searchHistoryPage = '$defaultPage/search_history_page';
 
   @pragma('Personal')
   static const editProfilePage = '$defaultPage/edit_user_profile_view_page';
@@ -59,6 +61,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return FadeRoute(page: const AskPermissionPopup());
     case RouteNames.searchPage:
       return FadeRoute(page: SearchViewPage());
+    case RouteNames.searchHistoryPage:
+      return FadeRoute(page: const SearchHistoryViewPage());
 
     // Personal
     case RouteNames.editProfilePage:

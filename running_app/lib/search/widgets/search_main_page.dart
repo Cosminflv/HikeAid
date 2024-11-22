@@ -1,5 +1,6 @@
 import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/landmark_with_distance_entity.dart';
+import 'package:running_app/config/routes.dart';
 import 'package:running_app/config/theme.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/search/widgets/search_category.dart';
@@ -57,7 +58,7 @@ class SearchMainPage extends StatelessWidget {
                       if (historyLandmarks.length >= 4)
                         SearchCategoryItem(
                           title: AppLocalizations.of(context)!.moreFromHistory,
-                          onTap: () {},
+                          onTap: () => Navigator.of(context).pushNamed(RouteNames.searchHistoryPage),
                           trail: Icon(FontAwesomeIcons.chevronRight,
                               size: 20, color: Theme.of(context).colorScheme.primary),
                         ),

@@ -1,10 +1,8 @@
-
-
+import 'package:running_app/utils/sizes.dart';
+import 'package:running_app/utils/unit_converters.dart';
 import 'package:domain/entities/landmark_with_distance_entity.dart';
 
 import 'package:flutter/material.dart';
-import 'package:running_app/utils/sizes.dart';
-import 'package:running_app/utils/unit_converters.dart';
 
 class LandmarkListItem extends StatelessWidget {
   final LandmarkWithDistanceEntity landmark;
@@ -16,7 +14,7 @@ class LandmarkListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final image = showExtraImage ? landmark.landmark.extraImage : landmark.icon;
-    
+
     return Material(
       type: MaterialType.transparency,
       child: Column(
