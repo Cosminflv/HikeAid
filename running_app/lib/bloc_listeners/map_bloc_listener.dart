@@ -1,6 +1,7 @@
 import 'package:core/di/app_blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:running_app/landmark_panel/widgets/landmark_panel_bottom_sheet.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/map/map_view_state.dart';
@@ -18,7 +19,13 @@ class MapBlocListener extends StatelessWidget {
         listener: _mapViewBlocListener,
         listenWhen: (previous, current) =>
             previous.mapSelectedLandmark != current.mapSelectedLandmark && current.mapSelectedLandmark != null,
-      )
+      ),
+      BlocListener<MapViewBloc, MapViewState>(
+        listener: (context, state) {
+          LandmarkPanelBottomSheet.show(context);
+        },
+        listenWhen: (previous, current) => previous.mapSelectedLandmark == null && current.mapSelectedLandmark != null,
+      ),
     ], child: child);
   }
 

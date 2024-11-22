@@ -16,6 +16,7 @@ abstract class MapRepository {
   MapCameraStateEntity? getCameraState();
 
   void presentHighlights(LandmarkEntity landmark, {int? highlightId, bool showLabel = true, Uint8List? image});
+  void removeHighlight(int highlightId);
 
   // Miscellaneous
   void setPositionTrackerImage(Uint8List imageData, {double scale = 1.0});

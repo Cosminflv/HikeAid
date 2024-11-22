@@ -88,4 +88,7 @@ class MapRepositoryImpl extends MapRepository {
   void setEnableTouchGestures(bool enable) {
     _controller.preferences.enableTouchGestures(TouchGestures.values, enable);
   }
+
+  @override
+  void removeHighlight(int highlightId) => _controller.deactivateHighlight(highlightId: highlightId);
 }

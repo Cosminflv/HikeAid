@@ -45,6 +45,11 @@ class PresentHighlightEvent extends MapViewEvent {
   });
 }
 
+class RemoveHighlightsEvent extends MapViewEvent {
+  final int highlightId;
+  RemoveHighlightsEvent({required this.highlightId});
+}
+
 class FollowPositionEvent extends MapViewEvent {
   final bool shouldTiltCamera;
   final bool shouldZoomCamera;

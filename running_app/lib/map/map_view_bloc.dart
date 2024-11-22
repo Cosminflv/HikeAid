@@ -39,6 +39,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
     on<SelectedLandmarkUpdatedEvent>(_selectedLandmarkUpdatedEventHandler);
     on<PresentHighlightEvent>(_handlePresentHighlightEvent);
+    on<RemoveHighlightsEvent>(_handleRemoveHighlights);
 
     on<CameraStateUpdatedEvent>(_handleCameraStateUpdated);
   }
@@ -117,6 +118,10 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
           coordinates: event.landmark.coordinates, screenPosition: event.screenPosition!, zoom: 70);
       emit(state.copyWith(isFollowingPosition: false));
     }
+  }
+
+  _handleRemoveHighlights(RemoveHighlightsEvent event, Emitter<MapViewState> emit) {
+    _mapUseCase.removeHighlights(_toShortRange(event.highlightId));
   }
 
   _registerMapGestureCallbacks(bool isInteractive) {

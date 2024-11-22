@@ -36,6 +36,8 @@ class MapUseCase {
   void presentHighlight(LandmarkEntity landmark, {int? highlightId, bool showLabel = true, Uint8List? image}) =>
       _mapRepository.presentHighlights(landmark, highlightId: highlightId, showLabel: showLabel, image: image);
 
+  void removeHighlights(int highlightId) => _mapRepository.removeHighlight(highlightId);
+
   void setFollowPositionPreferences(
           {required DFollowPositionRotationMode mode, double angle = 0, bool objectFollowMap = false}) =>
       _cameraRepository.setFollowPositionPreferences(mode: mode, angle: angle, objectFollowMap: objectFollowMap);
