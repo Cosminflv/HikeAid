@@ -5,6 +5,7 @@ import 'package:running_app/landmark_panel/widgets/landmark_panel_information_se
 import 'package:running_app/landmark_panel/widgets/landmark_panel_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:running_app/routing/routing_view_events.dart';
+import 'package:running_app/shared_widgets/dialogs/transport_mode_dialog.dart';
 
 class LandmarkPanel extends StatelessWidget {
   final LandmarkEntity landmark;
@@ -44,9 +45,15 @@ class LandmarkPanel extends StatelessWidget {
                       LandmarkPanelButton(
                           text: AppLocalizations.of(context)!.setDestination,
                           onTap: () {
-                            AppBlocs.routingBloc.add(BuildRouteEvent(
-                                departureCoordinates: AppBlocs.locationBloc.state.currentPosition!.coordinates,
-                                waypoints: [landmark]));
+                            if (AppBlocs.routingBloc.state.transportMeans == null) {
+                              showTransportModeChoice(context).then((hasConfirmed) {
+                                if (hasConfirmed) {
+                                  AppBlocs.routingBloc.add(BuildRouteEvent(
+                                      departureCoordinates: AppBlocs.locationBloc.state.currentPosition!.coordinates,
+                                      waypoints: [landmark]));
+                                }
+                              });
+                            }
                           },
                           isFilled: false),
                     ],

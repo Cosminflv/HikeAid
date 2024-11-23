@@ -2,6 +2,7 @@
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/route_entity.dart';
+import 'package:domain/entities/transport_means.dart';
 import 'package:domain/use_cases/routing_use_case.dart';
 import 'package:running_app/routing/routing_view_state.dart';
 
@@ -14,11 +15,13 @@ class BuildRouteEvent extends RoutingViewEvent {
   BuildRouteEvent({required this.waypoints, this.departureCoordinates});
 }
 
-class BuildFingerRouteEvent extends RoutingViewEvent {
-  final LandmarkEntity marker;
+class SelectedTransportModeEvent extends RoutingViewEvent {
+  final DTransportMeans transport;
 
-  BuildFingerRouteEvent(this.marker);
+  SelectedTransportModeEvent(this.transport);
 }
+
+class ResetRoutingStateEvent extends RoutingViewEvent {}
 
 class RebuildRouteEvent extends RoutingViewEvent {
   final RouteEntity route;

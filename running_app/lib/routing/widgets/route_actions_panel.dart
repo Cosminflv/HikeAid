@@ -11,6 +11,7 @@ import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/navigation/navigation_view_bloc.dart';
 import 'package:running_app/navigation/navigation_view_events.dart';
 import 'package:running_app/navigation/navigation_view_state.dart';
+import 'package:running_app/routing/routing_view_events.dart';
 import 'package:running_app/routing/widgets/route_details_panel.dart';
 import 'package:running_app/shared_widgets/route_action_button.dart';
 
@@ -77,6 +78,7 @@ class RouteActionsPanel extends StatelessWidget {
                       AppBlocs.mapBloc.add(RemoveAllRoutesEvent());
                       AppBlocs.mapBloc
                           .add(RemoveHighlightsEvent(highlightId: AppBlocs.mapBloc.state.mapSelectedLandmark!.id));
+                      AppBlocs.routingBloc.add(ResetRoutingStateEvent());
                       Navigator.of(context).pop();
                     },
                   ),

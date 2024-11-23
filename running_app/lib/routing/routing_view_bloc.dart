@@ -19,8 +19,10 @@ class RoutingViewBloc extends Bloc<RoutingViewEvent, RoutingViewState> {
       : _routingUseCase = sl.get<RoutingUseCase>(),
         _landmarkUseCase = sl.get<LandmarkUseCase>(),
         super(const RoutingViewState()) {
+    on<ResetRoutingStateEvent>(_handleResetRoutingState);
+    on<SelectedTransportModeEvent>(_handleSelectedTransport);
+
     on<BuildRouteEvent>(_handleBuildRoute);
-    on<BuildFingerRouteEvent>(_handleBuildFingerRoute);
     on<RebuildRouteEvent>(_handleRebuildRoute);
 
     on<CancelBuildRouteEvent>(_handleCancelBuildRoute);
@@ -31,6 +33,14 @@ class RoutingViewBloc extends Bloc<RoutingViewEvent, RoutingViewState> {
     on<RouteBuildStatusUpdatedEvent>(_handleRouteBuildStatusUpdated);
 
     on<RouteViewStatusChangedEvent>(_handleRouteViewStatusChangedEvent);
+  }
+
+  _handleResetRoutingState(ResetRoutingStateEvent event, Emitter<RoutingViewState> emit) {
+    emit(const RoutingViewState());
+  }
+
+  _handleSelectedTransport(SelectedTransportModeEvent event, Emitter<RoutingViewState> emit) {
+    emit(state.copyWith(transportMeans: event.transport));
   }
 
   _handleBuildRoute(BuildRouteEvent event, Emitter<RoutingViewState> emit) async {
@@ -50,29 +60,13 @@ class RoutingViewBloc extends Bloc<RoutingViewEvent, RoutingViewState> {
     emit(state.copyWith(destinationName: event.waypoints.last.name));
 
     await _routingUseCase.buildRoute(
+        transportMeans: state.transportMeans!,
         waypoints: waypoints,
         onResult: (result) {
           if (isClosed) return;
 
           if (result is Left) {
             if (getRouteErrorFromGemError((result as Left).value) == RouteError.canceled) return;
-            add(RouteBuildFinishedEvent(null));
-          } else {
-            final routes = (result as Right).value;
-            add(RouteBuildFinishedEvent(routes));
-          }
-        });
-  }
-
-  _handleBuildFingerRoute(BuildFingerRouteEvent event, Emitter<RoutingViewState> emit) async {
-    add(RouteBuildStatusUpdatedEvent(RouteBuildStatus.building));
-
-    await _routingUseCase.buildRoute(
-        waypoints: [event.marker],
-        isFingerDrawn: true,
-        onResult: (result) {
-          if (isClosed) return;
-          if (result is Left) {
             add(RouteBuildFinishedEvent(null));
           } else {
             final routes = (result as Right).value;

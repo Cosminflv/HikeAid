@@ -24,11 +24,11 @@ class RoutingUseCase {
   Future<void> buildRoute(
       {required LandmarkEntityList waypoints,
       required Function(RouteResult) onResult,
-      DTransportMeans transportMeans = DTransportMeans.pedestrian,
+      required DTransportMeans transportMeans,
       bool isFingerDrawn = false}) async {
     cancelDurationsTo();
 
-    final preferences = RoutePreferencesEntity();
+    final preferences = RoutePreferencesEntity(transportMeans: transportMeans);
 
     _currentRouteProgressListener = _routeRepository.route(
         waypoints: waypoints,
@@ -66,11 +66,11 @@ class RoutingUseCase {
 
   Future<Either<Failure, int>> _getDurationTo(
       {required List<LandmarkEntity> waypoints,
-      DTransportMeans transportMeans = DTransportMeans.pedestrian,
+      required DTransportMeans transportMeans,
       bool withOnlyTimeDistance = false}) async {
     final routeCompleter = Completer<Either<Failure, int>>();
 
-    final preferences = RoutePreferencesEntity();
+    final preferences = RoutePreferencesEntity(transportMeans: transportMeans);
 
     final listener = _routeRepository.route(
         waypoints: waypoints,
