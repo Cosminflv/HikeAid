@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:running_app/route_planning/route_actions_panel.dart';
+import 'package:running_app/routing/widgets/route_actions_panel.dart';
 
 class RouteActionsBottomSheet {
   static PersistentBottomSheetController? _controller;

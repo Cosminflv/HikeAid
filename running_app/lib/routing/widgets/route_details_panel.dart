@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 
-import '../../map/map_view_state.dart';
-import '../../utils/unit_converters.dart';
+import '../../../map/map_view_state.dart';
+import '../../../utils/unit_converters.dart';
 
 class RouteDetailsPanel extends StatelessWidget {
   final bool withDivider;

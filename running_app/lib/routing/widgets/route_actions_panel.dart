@@ -5,16 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:running_app/config/routes.dart';
+import 'package:running_app/landmark_panel/widgets/landmark_panel_button.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/navigation/navigation_view_bloc.dart';
 import 'package:running_app/navigation/navigation_view_events.dart';
 import 'package:running_app/navigation/navigation_view_state.dart';
-import 'package:running_app/route_planning/route_details_panel.dart';
+import 'package:running_app/routing/widgets/route_details_panel.dart';
 import 'package:running_app/shared_widgets/route_action_button.dart';
 
-import '../../shared_widgets/bottom_sheets/route_actions_bottom_sheet.dart';
-import '../../utils/sizes.dart';
+import '../../../shared_widgets/bottom_sheets/route_actions_bottom_sheet.dart';
+import '../../../utils/sizes.dart';
 
 class RouteActionsPanel extends StatelessWidget {
   final BuildContext? pageContext;
@@ -41,7 +42,6 @@ class RouteActionsPanel extends StatelessWidget {
                 ),
               ],
             ),
-            const Divider(height: 10),
             const SizedBox(height: 5),
             BlocBuilder<NavigationViewBloc, NavigationViewState>(
               bloc: AppBlocs.navigationBloc,
@@ -70,7 +70,8 @@ class RouteActionsPanel extends StatelessWidget {
                   height: 50,
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   width: MediaQuery.of(context).size.width / 2 - 15,
-                  child: StartNavigationButton(
+                  child: LandmarkPanelButton(
+                    isFilled: false,
                     text: AppLocalizations.of(context)!.cancel,
                     onTap: () {
                       AppBlocs.mapBloc.add(RemoveAllRoutesEvent());
@@ -84,7 +85,7 @@ class RouteActionsPanel extends StatelessWidget {
                   height: 50,
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   width: MediaQuery.of(context).size.width / 2 - 15,
-                  child: StartNavigationButton(
+                  child: RouteActionButton(
                     text: AppLocalizations.of(context)!.navigate,
                     onTap: () {
                       final locationState = sl.get<LocationBloc>().state;

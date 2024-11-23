@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-class StartNavigationButton extends StatelessWidget {
+class RouteActionButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
-  const StartNavigationButton({super.key, required this.onTap, required this.text});
+  const RouteActionButton({super.key, required this.onTap, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +15,9 @@ class StartNavigationButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             side: BorderSide(
               color: Theme.of(context).colorScheme.outline,
-              width: 0.5,
+              width: 0.2,
             ),
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(8),
           )),
       onPressed: onTap,
       child: IntrinsicWidth(

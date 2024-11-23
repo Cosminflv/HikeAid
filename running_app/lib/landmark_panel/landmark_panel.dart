@@ -44,7 +44,6 @@ class LandmarkPanel extends StatelessWidget {
                       LandmarkPanelButton(
                           text: AppLocalizations.of(context)!.setDestination,
                           onTap: () {
-                            //TODO: ADD ROUTE CALCULATION EVENT
                             AppBlocs.routingBloc.add(BuildRouteEvent(
                                 departureCoordinates: AppBlocs.locationBloc.state.currentPosition!.coordinates,
                                 waypoints: [landmark]));
