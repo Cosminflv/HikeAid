@@ -6,11 +6,14 @@ import 'package:running_app/landmark_store/landmark_store_bloc.dart';
 
 import 'package:core/di/injection_container.dart';
 import 'package:running_app/map/map_view_bloc.dart';
+import 'package:running_app/navigation/navigation_view_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
+import 'package:running_app/routing/routing_view_bloc.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
+import 'package:running_app/home/home_view_bloc.dart';
 
 class AppBlocs {
   // Existing Blocs
@@ -20,6 +23,12 @@ class AppBlocs {
 
   // Getter for MapViewBloc
   static MapViewBloc get mapBloc => sl<MapViewBloc>();
+
+  // Getter for RoutingViewBloc
+  static RoutingViewBloc get routingBloc => sl<RoutingViewBloc>();
+
+  // Getter for NavigationViewBloc
+  static NavigationViewBloc get navigationBloc => sl<NavigationViewBloc>();
 
   // Getter for LandmarkStoreBloc (searchHistory)
   static LandmarkStoreBloc get searchHistoryLandmarkStoreBloc =>
@@ -36,6 +45,9 @@ class AppBlocs {
 
   // Getter for AppBloc
   static AppBloc get appBloc => sl<AppBloc>();
+
+  // Getter for HomeViewBloc
+  static HomeViewBloc get homeViewBloc => sl<HomeViewBloc>();
 
   // Getter for AuthSessionBloc
   static AuthSessionBloc get authSessionBloc => sl<AuthSessionBloc>();

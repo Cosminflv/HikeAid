@@ -12,6 +12,9 @@ class Sizes {
 
   static const double landmarkIconSize = 25;
 
+  static double routeTitlePanelHeight = 60;
+  static int get routesDisplayPadding => (physicalScreenWidth * 0.1).toInt();
+
   static int appBarHeight = 100;
   static int get physicalAppBarHeight => (appBarHeight * devicePixelRatio).toInt();
 
@@ -49,6 +52,26 @@ class Sizes {
   static void updateBottomPadding(double padding) {
     bottomPadding = bottomPadding == -1 ? padding.toInt() : bottomPadding;
   }
+
+  static ViewAreaEntity get routesDisplayAreaMode =>
+      _getRoutesDisplayArea(getRouteActionsPanelHeight(true).toInt() + 30);
+
+  static ViewAreaEntity _getRoutesDisplayArea(int physicalBottomHeight) {
+    final topPadding = routeTitlePanelHeight * devicePixelRatio;
+    return ViewAreaEntity(
+        xy: PointEntity(x: routesDisplayPadding, y: topPadding.toInt()),
+        size: SizeEntity(
+          width: physicalScreenWidth - 2 * routesDisplayPadding,
+          height: physicalScreenHeight -
+              physicalAppBarHeight -
+              (physicalBottomHeight * devicePixelRatio).toInt() -
+              topPadding.toInt() -
+              2 * routesDisplayPadding,
+        ));
+  }
+
+  static double getRouteActionsPanelHeight(bool withRouteDetails) =>
+      100 + (withRouteDetails ? 85 : view.padding.bottom / view.devicePixelRatio);
 
   static ViewAreaEntity getMapVisibleArea(BuildContext context) {
     final appStatus = AppBlocs.appBloc.state.status;

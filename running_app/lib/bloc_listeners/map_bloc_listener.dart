@@ -1,7 +1,7 @@
 import 'package:core/di/app_blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:running_app/landmark_panel/widgets/landmark_panel_bottom_sheet.dart';
+import 'package:running_app/shared_widgets/bottom_sheets/landmark_panel_bottom_sheet.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/map/map_view_state.dart';

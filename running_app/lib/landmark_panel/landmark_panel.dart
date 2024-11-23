@@ -1,8 +1,10 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/landmark_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:running_app/landmark_panel/widgets/landmark_panel_information_section.dart';
 import 'package:running_app/landmark_panel/widgets/landmark_panel_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/routing/routing_view_events.dart';
 
 class LandmarkPanel extends StatelessWidget {
   final LandmarkEntity landmark;
@@ -43,6 +45,9 @@ class LandmarkPanel extends StatelessWidget {
                           text: AppLocalizations.of(context)!.setDestination,
                           onTap: () {
                             //TODO: ADD ROUTE CALCULATION EVENT
+                            AppBlocs.routingBloc.add(BuildRouteEvent(
+                                departureCoordinates: AppBlocs.locationBloc.state.currentPosition!.coordinates,
+                                waypoints: [landmark]));
                           },
                           isFilled: false),
                     ],

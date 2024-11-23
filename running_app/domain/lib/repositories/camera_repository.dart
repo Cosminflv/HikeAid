@@ -33,4 +33,6 @@ abstract class CameraRepository {
       double viewAngle = 0,
       int? zoom,
       bool withAnimation = true});
+
+  void centerOnMapRoutes({required ViewAreaEntity area, required bool withAnimation, required bool addCenterPadding});
 }

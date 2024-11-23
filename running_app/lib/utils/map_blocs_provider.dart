@@ -1,3 +1,4 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:core/di/injection_container.dart';
 import 'package:domain/entities/landmark_store_entity.dart';
 import 'package:flutter/widgets.dart';
@@ -13,6 +14,8 @@ class MapBlocsProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider.value(value: sl.get<MapViewBloc>()),
+      BlocProvider.value(value: AppBlocs.routingBloc),
+      BlocProvider.value(value: AppBlocs.navigationBloc),
       BlocProvider.value(value: sl.get<LandmarkStoreBloc>(instanceName: DLandmarkStoreType.searchHistory.name)),
     ], child: child);
   }

@@ -22,7 +22,7 @@ extension CoordinatesEntityExtension on CoordinatesEntity {
 extension GemPositionExtension on GemPosition {
   PositionEntityImpl? toEntityImpl() {
     if (!hasCoordinates) return null;
-    return PositionEntityImpl(ref: this, coordinates: coordinates.toEntityImpl(), speed: speed, altitude: altitude);
+    return PositionEntityImpl(ref: this, coordinates: coordinates.toEntity(), speed: speed, altitude: altitude);
   }
 }
 

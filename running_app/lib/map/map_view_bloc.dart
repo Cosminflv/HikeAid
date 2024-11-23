@@ -1,19 +1,18 @@
-import 'dart:typed_data';
-
 import 'package:core/di/injection_container.dart';
+import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/repositories/camera_repository.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
+import 'package:domain/entities/view_area_entity.dart';
 import 'package:domain/entities/asset_bundle_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
+import 'package:running_app/utils/assets_utils.dart';
+import 'package:running_app/utils/sizes.dart';
 import 'package:running_app/map/map_view_state.dart';
 
-import 'package:domain/entities/view_area_entity.dart';
-
 import 'dart:async';
-
-import 'package:running_app/utils/assets_utils.dart';
+import 'dart:typed_data';
 
 class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   late MapUseCase _mapUseCase;
@@ -36,10 +35,17 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
     on<FollowPositionEvent>(_followPositionEventHandler);
     on<ResetCameraEvent>(_handleResetCamera);
+    on<CenterOnRoutesEvent>(_handleCenterOnRoutes);
 
     on<SelectedLandmarkUpdatedEvent>(_selectedLandmarkUpdatedEventHandler);
     on<PresentHighlightEvent>(_handlePresentHighlightEvent);
     on<RemoveHighlightsEvent>(_handleRemoveHighlights);
+
+    on<SelectedRouteUpdatedEvent>(_handleSelectedRouteUpdated);
+    on<PresentRoutesEvent>(_handlePresentRoutes);
+    on<RemoveAllRoutesEvent>(_handleRemoveAllRoutes);
+    on<RemoveRoutesEvent>(_handleRemoveRoutes);
+    on<RemoveAllRoutesExceptEvent>(_handleRemoveAllRouteExcept);
 
     on<CameraStateUpdatedEvent>(_handleCameraStateUpdated);
   }
@@ -92,6 +98,12 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   _handleResetCamera(ResetCameraEvent event, Emitter<MapViewState> emit) =>
       emit(state.copyWith(isFollowingPosition: false, isFollowPositionFixed: false));
 
+  _handleCenterOnRoutes(CenterOnRoutesEvent event, Emitter<MapViewState> emit) {
+    emit(state.copyWith(isFollowingPosition: false, isCenteredOnRoutes: true));
+
+    _mapUseCase.centerOnMapRoutes(event.viewArea ?? Sizes.routesDisplayAreaMode, true, true);
+  }
+
   _selectedLandmarkUpdatedEventHandler(SelectedLandmarkUpdatedEvent event, Emitter<MapViewState> emit) async {
     if (event.landmark == null) {
       emit(state.copyWithNullLandmark());
@@ -124,7 +136,11 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     _mapUseCase.removeHighlights(_toShortRange(event.highlightId));
   }
 
-  _registerMapGestureCallbacks(bool isInteractive) {
+  _defaultLandmarkRouteTapPriorityFunction(LandmarkEntity landmark) => false;
+
+  _registerMapGestureCallbacks(
+    bool isInteractive,
+  ) {
     _mapUseCase.setEnableTouchGestures(isInteractive);
     if (!isInteractive) return;
 
@@ -139,14 +155,64 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
         if (isClosed) return;
         add(CameraStateUpdatedEvent());
       }, duration: const Duration(milliseconds: 500));
-    }, onTap: (selectedLandmark) {
-      if (state.mapSelectedLandmark != null) {
-        _mapUseCase.removeHighlights(_toShortRange(state.mapSelectedLandmark!.id));
-      }
-      if (selectedLandmark != null) {
-        add(SelectedLandmarkUpdatedEvent(landmark: selectedLandmark, forceCenter: true));
+    }, onTap: (selectedLandmark, selectedRoute) {
+      if (selectedLandmark != null && selectedRoute != null) {
+        final landmarkTestMethod = _defaultLandmarkRouteTapPriorityFunction;
+
+        if (landmarkTestMethod(selectedLandmark)) {
+          add(SelectedLandmarkUpdatedEvent(landmark: selectedLandmark, forceCenter: true));
+        } else {
+          add(SelectedRouteUpdatedEvent(selectedRoute));
+        }
+      } else {
+        if (selectedLandmark != null) {
+          add(SelectedLandmarkUpdatedEvent(landmark: selectedLandmark, forceCenter: true));
+        }
+        if (selectedRoute != null) {
+          add(SelectedRouteUpdatedEvent(selectedRoute));
+        }
       }
     });
+  }
+
+  _handleSelectedRouteUpdated(SelectedRouteUpdatedEvent event, Emitter<MapViewState> emit) async {
+    if (state.routes.isEmpty) {
+      return;
+    }
+    final selectedRoute = event.route;
+
+    final mainRoute = state.routes.firstWhere((element) => element.equals(selectedRoute));
+
+    _mapUseCase.setMainRoute(mainRoute);
+
+    if (isClosed) return;
+    emit(state.copyWith(mapSelectedRoute: mainRoute));
+  }
+
+  _handlePresentRoutes(PresentRoutesEvent event, Emitter<MapViewState> emit) async {
+    _mapUseCase.presentRoutes(event.routes, hasLabel: event.hasLabel);
+
+    if (event.routes.isNotEmpty) {
+      emit(state.copyWith(mapSelectedRoute: event.routes.first, routes: event.routes));
+    }
+    if (event.shouldCenter == false) return;
+    await Future.delayed(const Duration(milliseconds: 200));
+    add(CenterOnRoutesEvent(viewArea: event.viewArea));
+  }
+
+  _handleRemoveAllRoutes(RemoveAllRoutesEvent event, Emitter<MapViewState> emit) {
+    _mapUseCase.removeRoutes();
+    emit(state.copyWithNullRoute());
+  }
+
+  _handleRemoveRoutes(RemoveRoutesEvent event, Emitter<MapViewState> emit) {
+    for (final route in event.routes) {
+      _mapUseCase.removeRoute(route);
+    }
+  }
+
+  _handleRemoveAllRouteExcept(RemoveAllRoutesExceptEvent event, Emitter<MapViewState> emit) {
+    _mapUseCase.removeRoutesExcept(event.routes);
   }
 
   _handleCameraStateUpdated(CameraStateUpdatedEvent event, Emitter<MapViewState> emit) =>

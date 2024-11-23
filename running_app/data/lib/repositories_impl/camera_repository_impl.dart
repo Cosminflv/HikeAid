@@ -1,4 +1,4 @@
-import 'package:data/extensions.dart';
+import 'package:data/repositories_impl/extensions.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 
@@ -55,5 +55,14 @@ class CameraRepositoryImpl extends CameraRepository {
             : GemAnimation(type: AnimationType.none),
         zoomLevel: zoom ?? _controller.zoomLevel,
         viewAngle: viewAngle.toDouble());
+  }
+
+  @override
+  void centerOnMapRoutes({required ViewAreaEntity area, required bool withAnimation, required addCenterPadding}) {
+    var paddedArea = area.toRectType();
+
+    _controller.centerOnRoutes(
+        screenRect: paddedArea,
+        animation: withAnimation ? GemAnimation(type: AnimationType.linear, duration: 1250) : null);
   }
 }

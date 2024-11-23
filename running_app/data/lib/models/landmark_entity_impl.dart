@@ -22,7 +22,7 @@ class LandmarkEntityImpl extends LandmarkEntity {
           name: ref!.name,
           address: ref.address.toAddressString(),
           countryCode: ref.address.getField(AddressField.countryCode),
-          coordinates: ref.coordinates.toEntityImpl(),
+          coordinates: ref.coordinates.toEntity(),
         );
 
   LandmarkEntityImpl.fromList({

@@ -1,11 +1,15 @@
+import 'package:data/repositories_impl/image_cache_repository_impl.dart';
 import 'package:data/repositories_impl/internet_connection_repository_impl.dart';
 import 'package:data/repositories_impl/landmark_store_repository_impl.dart';
+import 'package:data/repositories_impl/navigation_repository_impl.dart';
 import 'package:data/repositories_impl/onboarding_repository_impl.dart';
 import 'package:data/repositories_impl/camera_repository_impl.dart';
 import 'package:data/repositories_impl/map_repository_impl.dart';
 import 'package:data/repositories_impl/permission_repository_impl.dart';
 import 'package:data/repositories_impl/position_repository_impl.dart';
+import 'package:data/repositories_impl/route_repository_impl.dart';
 import 'package:data/repositories_impl/search_repository_impl.dart';
+import 'package:data/repositories_impl/tts_repository_impl.dart';
 import 'package:data/repositories_impl/user_profile_repository_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:domain/entities/landmark_store_entity.dart';
@@ -14,17 +18,21 @@ import 'package:domain/map_platform.dart';
 import 'package:data/models/asset_bundle_entity_impl.dart';
 import 'package:data/utils/map_platform_impl.dart';
 import 'package:domain/repositories/camera_repository.dart';
+import 'package:domain/repositories/image_cache_repository.dart';
 import 'package:domain/repositories/internet_connection_repository.dart';
 import 'package:domain/repositories/landmark_repository.dart';
 import 'package:domain/repositories/landmark_store_repository.dart';
 import 'package:domain/repositories/map_repository.dart';
+import 'package:domain/repositories/navigation_repository.dart';
 import 'package:domain/repositories/onboarding_repository.dart';
 import 'package:domain/repositories/permission_repository.dart';
 import 'package:data/repositories_impl/landmark_repository_impl.dart';
 import 'package:data/repositories_impl/search_user_repository_impl.dart';
 import 'package:domain/repositories/position_repository.dart';
+import 'package:domain/repositories/route_repository.dart';
 import 'package:domain/repositories/search_repository.dart';
 import 'package:domain/repositories/search_users_repository.dart';
+import 'package:domain/repositories/tts_repository.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
 import 'package:domain/use_cases/authentication_session_use_case.dart';
 import 'package:domain/use_cases/authentication_use_case.dart';
@@ -33,12 +41,16 @@ import 'package:domain/use_cases/landmark_store_use_case.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/location_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
+import 'package:domain/use_cases/navigation_use_case.dart';
+import 'package:domain/use_cases/routing_use_case.dart';
 import 'package:domain/use_cases/search_use_case.dart';
 import 'package:domain/use_cases/search_users_use_case.dart';
 import 'package:domain/use_cases/user_profile_use_case.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
+import 'package:running_app/home/home_view_bloc.dart';
 import 'package:running_app/internet_connection/internet_connection_bloc.dart';
 import 'package:running_app/landmark_store/landmark_store_bloc.dart';
+import 'package:running_app/navigation/navigation_view_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
@@ -51,6 +63,7 @@ import 'package:openapi/openapi.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/io.dart';
 import 'package:dio/dio.dart';
+import 'package:running_app/routing/routing_view_bloc.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'dart:io';
@@ -74,7 +87,7 @@ discardBlocsIfRegistered() {
 }
 
 initEarlyDependencies() {
-  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.3:7011/", connectTimeout: Duration(seconds: 10)));
+  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.4:7011/", connectTimeout: Duration(seconds: 10)));
   // ignore: deprecated_member_use
   (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
     client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
@@ -104,6 +117,10 @@ initEarlyDependencies() {
   sl.registerLazySingleton<SearchRepository>(() => SearchRepositoryImpl());
   sl.registerLazySingleton<LandmarkStoreRepository>(() => LandmarkStoreRepositoryImpl());
   sl.registerLazySingleton<InternetConnectionRepository>(() => InternetConnectionRepositoryImpl());
+  sl.registerLazySingleton<TTSRepository>(() => TTSRepositoryImpl());
+  sl.registerLazySingleton<RouteRepository>(() => RouteRepositoryImpl());
+  sl.registerLazySingleton<ImageCacheRepository>(() => ImageCacheRepositoryImpl());
+  sl.registerLazySingleton<NavigationRepository>(() => NavigationRepositoryImpl(sl.get<ImageCacheRepository>()));
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
   //Usecases
@@ -119,6 +136,9 @@ initEarlyDependencies() {
   sl.registerLazySingleton<LandmarkStoreUseCase>(() => LandmarkStoreUseCase(sl.get<LandmarkStoreRepository>()));
   sl.registerLazySingleton<InternetConnectionUseCase>(
       () => InternetConnectionUseCase(sl.get<InternetConnectionRepository>()));
+  sl.registerLazySingleton<RoutingUseCase>(() => RoutingUseCase(sl.get<RouteRepository>()));
+  sl.registerLazySingleton<NavigationUseCase>(
+      () => NavigationUseCase(sl.get<NavigationRepository>(), sl.get<TTSRepository>()));
 
   //Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
@@ -132,6 +152,9 @@ initEarlyDependencies() {
   sl.registerLazySingleton<SearchUsersBloc>(() => SearchUsersBloc());
   sl.registerLazySingleton<SearchMenuBloc>(() => SearchMenuBloc());
   sl.registerLazySingleton<InternetConnectionBloc>(() => InternetConnectionBloc());
+  sl.registerLazySingleton<RoutingViewBloc>(() => RoutingViewBloc());
+  sl.registerLazySingleton<NavigationViewBloc>(() => NavigationViewBloc());
+  sl.registerLazySingleton<HomeViewBloc>(() => HomeViewBloc());
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 }

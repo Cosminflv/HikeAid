@@ -2,7 +2,9 @@ import 'dart:typed_data';
 
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
+import 'package:domain/entities/route_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
+import 'package:domain/settings/general_settings_entity.dart';
 
 abstract class MapViewEvent {}
 
@@ -71,4 +73,44 @@ class CompassLockCameraEvent extends MapViewEvent {}
 
 class ResetCameraEvent extends MapViewEvent {
   ResetCameraEvent();
+}
+
+class CenterOnRoutesEvent extends MapViewEvent {
+  final ViewAreaEntity? viewArea;
+  CenterOnRoutesEvent({this.viewArea});
+}
+
+class SelectedRouteUpdatedEvent extends MapViewEvent {
+  final RouteEntity route;
+
+  SelectedRouteUpdatedEvent(this.route);
+}
+
+class PresentRoutesEvent extends MapViewEvent {
+  final List<RouteEntity> routes;
+  final DDistanceUnit distanceUnit;
+  final ViewAreaEntity? viewArea;
+  final bool hasLabel;
+
+  final bool shouldCenter;
+
+  PresentRoutesEvent(
+      {required this.routes,
+      required this.distanceUnit,
+      this.viewArea,
+      this.hasLabel = false,
+      this.shouldCenter = true});
+}
+
+class RemoveAllRoutesEvent extends MapViewEvent {}
+
+class RemoveRoutesEvent extends MapViewEvent {
+  final List<RouteEntity> routes;
+  RemoveRoutesEvent(this.routes);
+}
+
+class RemoveAllRoutesExceptEvent extends MapViewEvent {
+  final List<RouteEntity> routes;
+
+  RemoveAllRoutesExceptEvent(this.routes);
 }

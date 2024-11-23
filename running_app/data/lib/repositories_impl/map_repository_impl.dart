@@ -4,13 +4,17 @@ import 'dart:ui';
 import 'package:data/extensions.dart';
 import 'package:data/models/camera_state_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
+import 'package:data/models/route_entity_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
+import 'package:data/utils/units_converter.dart';
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
+import 'package:domain/entities/route_entity.dart';
 import 'package:domain/repositories/map_repository.dart';
 import 'package:domain/map_controller.dart';
 import 'package:data/repositories_impl/extensions.dart';
+import 'package:domain/settings/general_settings_entity.dart';
 
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/map.dart';
@@ -50,7 +54,7 @@ class MapRepositoryImpl extends MapRepository {
   void registerMapGesturesCallbacks({
     required Function() onMapMove,
     required Function(double) onMapAngleUpdated,
-    required Function(LandmarkEntity?) onTap,
+    required Function(LandmarkEntity?, RouteEntity?) onTap,
   }) {
     _controller.registerOnMapAngleUpdate(onMapAngleUpdated);
     _controller.registerMoveCallback((p1, p2) => onMapMove());
@@ -59,8 +63,14 @@ class MapRepositoryImpl extends MapRepository {
       _controller.setCursorScreenPosition(pos);
 
       Landmark? selectedLandmark;
+      Route? selectedRoute;
 
       final landmarks = _controller.cursorSelectionLandmarks();
+
+      final routes = _controller.cursorSelectionRoutes();
+      if (routes.isNotEmpty) {
+        selectedRoute = routes.first;
+      }
 
       if (landmarks.isNotEmpty) {
         selectedLandmark = landmarks.first;
@@ -81,7 +91,7 @@ class MapRepositoryImpl extends MapRepository {
         selectedLandmark = lmk;
       }
 
-      onTap(selectedLandmark.toEntityImpl());
+      onTap(selectedLandmark.toEntityImpl(), selectedRoute?.toEntityImpl(waypoints: []));
     });
   }
 
@@ -90,7 +100,7 @@ class MapRepositoryImpl extends MapRepository {
   CoordinatesEntity? getCenterCoordinates() {
     final size = _controller.viewport;
 
-    return _controller.transformScreenToWgs(XyType(x: size.width! ~/ 2, y: size.height! ~/ 2))?.toEntityImpl();
+    return _controller.transformScreenToWgs(XyType(x: size.width! ~/ 2, y: size.height! ~/ 2))?.toEntity();
   }
 
   @override
@@ -120,6 +130,119 @@ class MapRepositoryImpl extends MapRepository {
     _controller.preferences.enableTouchGestures(TouchGestures.values, enable);
   }
 
+  // Routes
   @override
   void removeHighlight(int highlightId) => _controller.deactivateHighlight(highlightId: highlightId);
+
+  @override
+  void presentRoute(RouteEntity route, {bool isMainRoute = false, bool hasLabel = true, (int, int, int)? color}) {
+    route as RouteEntityImpl;
+
+    final mapRoutes = _controller.preferences.routes;
+    final timeDistance = route.ref.getTimeDistance();
+
+    final totalDistance = timeDistance.restrictedDistanceM + timeDistance.unrestrictedDistanceM;
+    final totalTime = timeDistance.restrictedTimeS + timeDistance.unrestrictedTimeS;
+
+    final formattedDistance = convertDistance(totalDistance, DDistanceUnit.km);
+    final formattedTime = convertDuration(totalTime);
+
+    final settings = RouteRenderSettings(
+      turnArrowInnerSz: 2.5,
+      turnArrowOuterSz: 1.5,
+      turnArrowInnerColor: Color.fromARGB(255, 255, 255, 255),
+      turnArrowOuterColor: Color.fromARGB(255, 21, 29, 85),
+    );
+    settings.innerSz = 1.25;
+    settings.outerSz = 0.5;
+
+    settings.options = {RouteRenderOptions.showTurnArrows};
+
+    if (color != null) {
+      settings.fillColor = Color.fromARGB(100, color.$1, color.$2, color.$3);
+    }
+
+    mapRoutes.add(route.ref, isMainRoute,
+        label: hasLabel ? '$formattedTime \n $formattedDistance' : null, routeRenderSettings: settings);
+  }
+
+  @override
+  void presentRouteSummary(RouteEntity route) {
+    route as RouteEntityImpl;
+
+    final mapRoutes = _controller.preferences.routes;
+
+    mapRoutes.add(route.ref, true);
+  }
+
+  @override
+  void setMainRoute(RouteEntity route) async {
+    route as RouteEntityImpl;
+
+    final mainRouteRenderSettings = RouteRenderSettings();
+    mainRouteRenderSettings.options = {
+      RouteRenderOptions.showTurnArrows,
+    };
+    mainRouteRenderSettings.innerSz = 1.25;
+    mainRouteRenderSettings.outerSz = 0.5;
+
+    final alternativeRouteRenderSettings = RouteRenderSettings();
+    alternativeRouteRenderSettings.options = {
+      RouteRenderOptions.showTurnArrows,
+    };
+    alternativeRouteRenderSettings.innerSz = 1.25;
+    alternativeRouteRenderSettings.outerSz = 0.5;
+
+    final routes = _controller.preferences.routes;
+
+    for (final mapRoute in routes) {
+      if (mapRoute.equals(route.ref)) {
+        routes.setRenderSettings(mapRoute, mainRouteRenderSettings);
+      } else {
+        routes.setRenderSettings(mapRoute, alternativeRouteRenderSettings);
+      }
+    }
+
+    routes.mainRoute = route.ref;
+
+    // routes.setRenderSettings(route.ref, mainRouteRenderSettings);
+
+    // routes.setRenderSettings(mainRoute, mainRouteRenderSettings);
+  }
+
+  @override
+  void clearAllButMainRoute() async {
+    final routes = _controller.preferences.routes;
+    routes.clearAllButMainRoute();
+  }
+
+  @override
+  void clearRoutes() => _controller.preferences.routes.clear();
+
+  @override
+  void removeRoute(RouteEntity route) {
+    route as RouteEntityImpl;
+    _controller.preferences.routes.remove(route.ref);
+  }
+
+  @override
+  void clearRouteExcept(List<RouteEntity> routes) {
+    final mapRoutes = _controller.preferences.routes;
+
+    final gemRoutes = routes.map((e) {
+      e as RouteEntityImpl;
+      return e.ref;
+    });
+
+    final routesToRemove = mapRoutes.where((element1) {
+      return !gemRoutes.any((element2) => element1.equals(element2));
+    }).toList();
+
+    for (final route in routesToRemove) {
+      _controller.preferences.routes.remove(route);
+    }
+  }
+
+  @override
+  void clearHighlights() => _controller.deactivateAllHighlights();
 }
