@@ -61,6 +61,10 @@ class MapUseCase {
 
   void removeRoutesExcept(List<RouteEntity> routes) => _mapRepository.clearRouteExcept(routes);
 
+  void clearAllButMainRoute() => _mapRepository.clearAllButMainRoute();
+
+  void clearHighlights() => _mapRepository.clearHighlights();
+
   void setFollowPositionPreferences(
           {required DFollowPositionRotationMode mode, double angle = 0, bool objectFollowMap = false}) =>
       _cameraRepository.setFollowPositionPreferences(mode: mode, angle: angle, objectFollowMap: objectFollowMap);

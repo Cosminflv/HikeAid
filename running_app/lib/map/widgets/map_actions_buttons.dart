@@ -30,8 +30,7 @@ class MapActionsButtons extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    if (!mapState.isFollowingPosition && !state.isNavigating)
-                      const Expanded(child: FollowPositionButton()),
+                    if (!mapState.isFollowingPosition) const Expanded(child: FollowPositionButton()),
                   ],
                 ),
               ),

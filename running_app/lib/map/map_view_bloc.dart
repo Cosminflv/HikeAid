@@ -46,6 +46,8 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<RemoveAllRoutesEvent>(_handleRemoveAllRoutes);
     on<RemoveRoutesEvent>(_handleRemoveRoutes);
     on<RemoveAllRoutesExceptEvent>(_handleRemoveAllRouteExcept);
+    on<RemoveRoutesExceptMainEvent>(_handleRemoveRoutesExceptMainEvent);
+    on<RemoveAllHighlightsEvent>(_handleRemoveAllHighlights);
 
     on<CameraStateUpdatedEvent>(_handleCameraStateUpdated);
   }
@@ -213,6 +215,19 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
   _handleRemoveAllRouteExcept(RemoveAllRoutesExceptEvent event, Emitter<MapViewState> emit) {
     _mapUseCase.removeRoutesExcept(event.routes);
+  }
+
+  _handleRemoveRoutesExceptMainEvent(RemoveRoutesExceptMainEvent event, Emitter<MapViewState> emit) {
+    _mapUseCase.clearAllButMainRoute();
+  }
+
+  _handleRemoveAllHighlights(RemoveAllHighlightsEvent event, Emitter<MapViewState> emit) {
+    if (event.removeFromMap) {
+      _mapUseCase.clearHighlights();
+    }
+    if (event.removeFromState) {
+      emit(state.copyWithNullLandmark());
+    }
   }
 
   _handleCameraStateUpdated(CameraStateUpdatedEvent event, Emitter<MapViewState> emit) =>

@@ -16,6 +16,7 @@ class MapBlocsProvider extends StatelessWidget {
       BlocProvider.value(value: sl.get<MapViewBloc>()),
       BlocProvider.value(value: AppBlocs.routingBloc),
       BlocProvider.value(value: AppBlocs.navigationBloc),
+      BlocProvider.value(value: AppBlocs.navigationInstructionBloc),
       BlocProvider.value(value: sl.get<LandmarkStoreBloc>(instanceName: DLandmarkStoreType.searchHistory.name)),
     ], child: child);
   }

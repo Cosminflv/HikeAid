@@ -94,9 +94,9 @@ class _MapViewPageState extends State<MapViewPage> {
                 );
               }),
               const MapActionsButtons(),
-              const Positioned(
-                top: 20,
-                child: MapViewTopPanel(),
+              Positioned(
+                top: 0,
+                child: MapViewTopPanel(topPadding: MediaQuery.of(context).padding.top),
               ),
             ],
           ),

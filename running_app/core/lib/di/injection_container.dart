@@ -51,6 +51,7 @@ import 'package:running_app/home/home_view_bloc.dart';
 import 'package:running_app/internet_connection/internet_connection_bloc.dart';
 import 'package:running_app/landmark_store/landmark_store_bloc.dart';
 import 'package:running_app/navigation/navigation_view_bloc.dart';
+import 'package:running_app/navigation_instructions/navigation_instructions_panel_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
@@ -155,6 +156,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<RoutingViewBloc>(() => RoutingViewBloc());
   sl.registerLazySingleton<NavigationViewBloc>(() => NavigationViewBloc());
   sl.registerLazySingleton<HomeViewBloc>(() => HomeViewBloc());
+  sl.registerLazySingleton<NavigationInstructionPanelBloc>(() => NavigationInstructionPanelBloc());
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 }

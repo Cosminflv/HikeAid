@@ -16,6 +16,7 @@ import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/home/home_view_bloc.dart';
+import 'package:running_app/navigation_instructions/navigation_instructions_panel_bloc.dart';
 
 class AppBlocs {
   // Existing Blocs
@@ -39,6 +40,9 @@ class AppBlocs {
   // Getter for LandmarkStoreBloc (savedPlaces)
   static LandmarkStoreBloc get savedPlacesLandmarkStoreBloc =>
       sl<LandmarkStoreBloc>(instanceName: DLandmarkStoreType.savedPlaces.name);
+
+  // Getter NavigationInstructionPanelBloc
+  static NavigationInstructionPanelBloc get navigationInstructionBloc => sl<NavigationInstructionPanelBloc>();
 
   // Getter for LandmarkCategoryBloc
   //static LandmarkCategoryBloc get landmarkCategoryBloc => sl<LandmarkCategoryBloc>();

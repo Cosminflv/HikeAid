@@ -114,3 +114,16 @@ class RemoveAllRoutesExceptEvent extends MapViewEvent {
 
   RemoveAllRoutesExceptEvent(this.routes);
 }
+
+class RemoveRoutesExceptMainEvent extends MapViewEvent {
+  RemoveRoutesExceptMainEvent();
+}
+
+class RemoveAllHighlightsEvent extends MapViewEvent {
+  final bool removeFromMap;
+  final bool removeFromState;
+  RemoveAllHighlightsEvent({
+    this.removeFromMap = true,
+    this.removeFromState = true,
+  });
+}

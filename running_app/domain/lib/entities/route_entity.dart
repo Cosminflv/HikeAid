@@ -3,6 +3,8 @@ import 'package:domain/entities/landmark_entity.dart';
 
 import 'dart:typed_data';
 
+import 'package:domain/entities/route_instruction_description_entity.dart';
+
 abstract class RouteEntity {
   final List<LandmarkEntity> waypoints;
   final int distance;
@@ -31,6 +33,8 @@ abstract class RouteEntity {
   LandmarkEntity? getLandmarkAtDistance(int distance);
   CoordinatesEntity getCoordinatesAtDistance(int distance);
   int getTimeAtDistance(int distance);
+
+  Stream<RouteInstructionDescriptionEntity> getInstructions();
 
   bool equals(RouteEntity route);
 

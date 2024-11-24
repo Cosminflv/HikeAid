@@ -4,6 +4,7 @@ import 'package:data/repositories_impl/extensions.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/route_entity.dart';
+import 'package:domain/entities/route_instruction_description_entity.dart';
 
 import 'dart:async';
 import 'dart:math';
@@ -59,6 +60,43 @@ class RouteEntityImpl extends RouteEntity {
 
   @override
   bool equals(RouteEntity route) => ref.equals((route as RouteEntityImpl).ref);
+
+  @override
+  Stream<RouteInstructionDescriptionEntity> getInstructions() {
+    final result = StreamController<RouteInstructionDescriptionEntity>();
+
+    // processItems() async {
+    //   final segments = ref.segments;
+    //   for (final segment in segments) {
+    //     final instructionList = segment.instructions;
+
+    //     for (final instruction in instructionList) {
+    //       final TimeDistance distance = instruction.traveledTimeDistance;
+    //       final TurnDetails turnDetails = instruction.turnDetails;
+    //       final String followRoadInstruction = instruction.followRoadInstruction;
+    //       final String turnInstruction = instruction.turnInstruction;
+
+    //       final rawDistance = distance.restrictedDistanceM + distance.unrestrictedDistanceM;
+
+    //       final imageData = turnDetails.getAbstractGeometryImage(
+    //           size: Size(100, 100), renderSettings: AbstractGeometryImageRenderSettings());
+
+    //       result.add(
+    //         RouteInstructionDescriptionEntityImpl(
+    //           ref: instruction,
+    //           distance: rawDistance,
+    //           image: imageData,
+    //           followRoadInstruction: followRoadInstruction,
+    //           turnInstruction: turnInstruction,
+    //         ),
+    //       );
+    //     }
+    //   }
+    // }
+
+    // processItems();
+    return result.stream;
+  }
 
   @override
   int get id => ref.hashCode;

@@ -3,6 +3,7 @@ import 'package:running_app/bloc_listeners/app_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/auth_session_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/location_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/map_bloc_listener.dart';
+import 'package:running_app/bloc_listeners/navigation_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/routing_bloc_listener.dart';
 
 class MapPageBlocListeners extends StatelessWidget {
@@ -15,8 +16,10 @@ class MapPageBlocListeners extends StatelessWidget {
       child: AuthSessionBlocListener(
         child: LocationBlocListener(
           child: RoutingBlocListener(
-            child: MapBlocListener(
-              child: child,
+            child: NavigationBlocListener(
+              child: MapBlocListener(
+                child: child,
+              ),
             ),
           ),
         ),
