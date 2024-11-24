@@ -1,6 +1,6 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/search_status.dart';
 import 'package:running_app/config/routes.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/search_users/search_users_view_state.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
@@ -20,14 +20,14 @@ class SearchUsersViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final searchUsersBloc = BlocProviders.searchUsers(context);
+    final searchUsersBloc = AppBlocs.searchUsersBloc;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.primary,
         leading: IconButton(
             onPressed: () {
-              BlocProviders.userProfile(context).add(FetchUserProfileEvent(userId: getSession(context)!.user.id));
+              AppBlocs.userProfileBloc.add(FetchUserProfileEvent(userId: getSession(context)!.user.id));
               Navigator.of(context).pop();
             },
             icon: const Icon(FontAwesomeIcons.arrowLeft)),
@@ -83,7 +83,7 @@ class SearchUsersViewPage extends StatelessWidget {
                   return SearchUsersListView(
                       users: displayedItems,
                       onItemTap: (user) {
-                        BlocProviders.userProfile(context).add(FetchUserProfileEvent(userId: user.id));
+                        AppBlocs.userProfileBloc.add(FetchUserProfileEvent(userId: user.id));
                         Navigator.of(context).pushNamed(
                           RouteNames.userProfilePage,
                           arguments: {'isEditable': false, 'friendshipStatus': user.friendshipStatus},

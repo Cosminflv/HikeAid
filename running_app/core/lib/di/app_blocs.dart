@@ -1,5 +1,6 @@
 import 'package:domain/entities/landmark_store_entity.dart';
 import 'package:running_app/app/app_bloc.dart';
+import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/internet_connection/internet_connection_bloc.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/landmark_store/landmark_store_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:running_app/onboarding/authentication/authentication_view_bloc.d
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 import 'package:running_app/routing/routing_view_bloc.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
+import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/home/home_view_bloc.dart';
 
@@ -41,8 +43,6 @@ class AppBlocs {
   // Getter for LandmarkCategoryBloc
   //static LandmarkCategoryBloc get landmarkCategoryBloc => sl<LandmarkCategoryBloc>();
 
-  // New Blocs
-
   // Getter for AppBloc
   static AppBloc get appBloc => sl<AppBloc>();
 
@@ -56,7 +56,7 @@ class AppBlocs {
   static AuthenticationViewBloc get authenticationViewBloc => sl<AuthenticationViewBloc>();
 
   // Getter for UserProfileViewBloc
-  static UserProfileBloc get userProfileViewBloc => sl<UserProfileBloc>();
+  static UserProfileBloc get userProfileBloc => sl<UserProfileBloc>();
 
   // Getter for InternetConnectionBloc
   static InternetConnectionBloc get internetConnectionBloc => sl<InternetConnectionBloc>();
@@ -66,4 +66,10 @@ class AppBlocs {
 
   // Getter for RegistrationViewBloc
   static RegistrationViewBloc get registrationViewBloc => sl<RegistrationViewBloc>();
+
+  // Getter for EditUserProfileViewBloc
+  static EditUserProfileViewBloc get editProfileBloc => sl<EditUserProfileViewBloc>();
+
+  // Getter for SearchUsersBloc
+  static SearchUsersBloc get searchUsersBloc => sl<SearchUsersBloc>();
 }

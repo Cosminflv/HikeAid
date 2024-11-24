@@ -1,3 +1,4 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:core/di/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,6 @@ import 'package:running_app/app/app_state.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_state.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/utils/toasts.dart';
@@ -19,7 +19,7 @@ class AuthSessionBlocListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appBloc = BlocProviders.app(context);
+    final appBloc = AppBlocs.appBloc;
     return MultiBlocListener(
       listeners: [
         BlocListener<AuthSessionBloc, AuthSessionState>(
@@ -29,7 +29,7 @@ class AuthSessionBlocListener extends StatelessWidget {
           listenWhen: (prev, curr) => prev is AuthSessionExistingState && curr is AuthSessionNotExistingState,
         ),
         BlocListener<AuthSessionBloc, AuthSessionState>(
-          bloc: BlocProviders.authSession(context),
+          bloc: AppBlocs.authSessionBloc,
           listener: (context, state) {
             if (state is AuthSessionExistingState) {
               //Navigator.of(context).pushReplacementNamed(RouteNames.homePage);

@@ -1,3 +1,4 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +9,6 @@ import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart'
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/shared_widgets/dialogs/logout_confirm_dialog.dart';
@@ -46,7 +46,7 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                     showLogoutConfirmation(context).then((hasConfirmed) {
                       if (hasConfirmed) {
                         BlocProvider.of<AuthSessionBloc>(context).add(LogoutEvent());
-                        BlocProviders.authentication(context).add(AuthResetEvent());
+                        AppBlocs.authenticationViewBloc.add(AuthResetEvent());
                       }
                     });
                   },
@@ -172,7 +172,7 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                                     size: 15,
                                   ),
                                   onTap: () {
-                                    BlocProviders.editProfile(context).add(InitializeEditUserProfileEvent(
+                                    AppBlocs.editProfileBloc.add(InitializeEditUserProfileEvent(
                                       id: state.profile.id,
                                       firstName: state.profile.firstName,
                                       lastName: state.profile.lastName,
@@ -194,7 +194,7 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                               FriendshipButton(
                                 status: widget.friendshipStatus!,
                                 onAddFriend: () {
-                                  BlocProviders.searchUsers(context).add(AddFriendEvent(
+                                  AppBlocs.searchUsersBloc.add(AddFriendEvent(
                                       requesterId: getSession(context)!.user.id, receiverId: state.profile.id));
                                   setState(() {
                                     widget.friendshipStatus = FriendshipStatus.pending;

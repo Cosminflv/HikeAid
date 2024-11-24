@@ -1,7 +1,7 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 
 class CupertinoWeightPickerDialog extends StatefulWidget {
   final int currentWeight;
@@ -56,7 +56,7 @@ class _CupertinoWeightPickerDialogState extends State<CupertinoWeightPickerDialo
             child: const Text("Done"),
             onPressed: () {
               // Trigger the BLoC event with the new weight value when Done is pressed
-              BlocProviders.editProfile(context).add(
+              AppBlocs.editProfileBloc.add(
                 UpdateUserWeightEvent(newWeight: selectedWeight),
               );
               Navigator.of(context).pop(); // Close the dialog

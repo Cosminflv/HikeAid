@@ -1,3 +1,4 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/config/theme.dart';
 import 'package:running_app/location/location_bloc.dart';
@@ -5,7 +6,6 @@ import 'package:running_app/location/location_state.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/map/map_view_state.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +44,7 @@ class FollowPositionButton extends StatelessWidget {
   }
 
   void _handleButtonPress(BuildContext context) {
-    final locationBloc = BlocProviders.location(context);
+    final locationBloc = AppBlocs.locationBloc;
 
     final locationState = locationBloc.state;
 
@@ -66,7 +66,7 @@ class FollowPositionButton extends StatelessWidget {
   }
 
   void _followPosition(BuildContext context) {
-    final mapBloc = BlocProviders.map(context);
+    final mapBloc = AppBlocs.mapBloc;
 
     mapBloc.add(FollowPositionEvent(shouldTiltCamera: false, shouldZoomCamera: false));
     mapBloc.add(SelectedLandmarkUpdatedEvent(landmark: null, forceCenter: true));

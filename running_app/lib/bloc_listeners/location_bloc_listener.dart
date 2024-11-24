@@ -1,9 +1,9 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_state.dart';
 import 'package:running_app/map/map_view_event.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -18,7 +18,7 @@ class LocationBlocListener extends StatelessWidget {
       BlocListener<LocationBloc, LocationState>(
         listener: (context, locationState) {
           if (locationState.openLocationPanel == true) {
-            BlocProviders.map(context).add(SelectedLandmarkUpdatedEvent(
+            AppBlocs.mapBloc.add(SelectedLandmarkUpdatedEvent(
                 landmark: null,
                 forceCenter: true,
                 coordinates: locationState.currentPosition?.coordinates,

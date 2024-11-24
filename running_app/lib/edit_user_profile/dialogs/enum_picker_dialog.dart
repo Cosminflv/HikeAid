@@ -1,8 +1,8 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 
 class CupertinoEnumPickerDialog extends StatefulWidget {
   final EGenderEntity currentGender;
@@ -51,7 +51,7 @@ class _CupertinoEnumPickerDialogState extends State<CupertinoEnumPickerDialog> {
             child: const Text("Done"),
             onPressed: () {
               // Trigger the BLoC event with the selected enum value when Done is pressed
-              BlocProviders.editProfile(context).add(
+              AppBlocs.editProfileBloc.add(
                 UpdateUserGenderEvent(newGender: selectedGender),
               );
               Navigator.of(context).pop(); // Close the dialog

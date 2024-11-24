@@ -1,3 +1,4 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,6 @@ import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_state.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/utils/converters.dart';
 import 'package:running_app/utils/debouncer.dart';
@@ -30,7 +30,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   @override
   void initState() {
-    BlocProviders.authentication(context).add(AuthClearEvent());
+    AppBlocs.authenticationViewBloc.add(AuthClearEvent());
     super.initState();
   }
 
@@ -64,7 +64,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               // Username TextField
               TextFormField(
                 style: Theme.of(context).textTheme.bodyMedium,
-                onChanged: (value) => BlocProviders.authentication(context).add(UpdateUsernameValueEvent(value: value)),
+                onChanged: (value) => AppBlocs.authenticationViewBloc.add(UpdateUsernameValueEvent(value: value)),
                 controller: usernameController,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!.username,
@@ -102,7 +102,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     textColor: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.onPrimary
                         : const Color.fromARGB(255, 44, 43, 50),
-                    onTap: () => BlocProviders.authentication(context).add(PerformAuthenticationEvent()),
+                    onTap: () => AppBlocs.authenticationViewBloc.add(PerformAuthenticationEvent()),
                   )),
                 ],
               ),
@@ -161,7 +161,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                         );
                       });
 
-                      BlocProviders.authentication(context).add(AuthResetEvent());
+                      AppBlocs.authenticationViewBloc.add(AuthResetEvent());
                     }
 
                     return Container();
@@ -192,7 +192,7 @@ class _PasswordFieldState extends State<PasswordField> {
   Widget build(BuildContext context) {
     return TextFormField(
       style: Theme.of(context).textTheme.bodyMedium,
-      onChanged: (value) => BlocProviders.authentication(context).add(UpdatePasswordValueEvent(value: value)),
+      onChanged: (value) => AppBlocs.authenticationViewBloc.add(UpdatePasswordValueEvent(value: value)),
       controller: widget.passwordController,
       obscureText: !_isPasswordVisible, // Hide or show the password
       decoration: InputDecoration(

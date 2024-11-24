@@ -1,7 +1,7 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 
 class CupertinoDatePickerDialog extends StatefulWidget {
   final DateTime currentBirthDate;
@@ -45,7 +45,7 @@ class _CupertinoDatePickerDialogState extends State<CupertinoDatePickerDialog> {
             child: const Text("Done"),
             onPressed: () {
               // Trigger the BLoC event with the new date when Done is pressed
-              BlocProviders.editProfile(context).add(
+              AppBlocs.editProfileBloc.add(
                 UpdateUserBirthDateEvent(newDateTime: selectedDate),
               );
               Navigator.of(context).pop(); // Close the dialog

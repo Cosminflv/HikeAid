@@ -1,7 +1,8 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/onboarding/registration/registration_view_event.dart';
-import 'package:running_app/providers/bloc_providers.dart';
+
 import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/utils/debouncer.dart';
 
@@ -25,7 +26,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   void initState() {
-    BlocProviders.registration(context).add(ClearRegistrationEvent());
+    AppBlocs.registrationViewBloc.add(ClearRegistrationEvent());
     usernameController.clear();
     firstNameController.clear();
     lastNameController.clear();
@@ -58,7 +59,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: GestureDetector(
                   onTap: () {
                     usernameController.clear();
-                    BlocProviders.registration(context).add(UpdateUsernameValueEvent(value: ""));
+                    AppBlocs.registrationViewBloc.add(UpdateUsernameValueEvent(value: ""));
                   },
                   child: Text(
                     AppLocalizations.of(context)!.clear,
@@ -67,7 +68,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
               ),
               TextFormField(
-                onChanged: (value) => BlocProviders.registration(context).add(UpdateUsernameValueEvent(value: value)),
+                onChanged: (value) => AppBlocs.registrationViewBloc.add(UpdateUsernameValueEvent(value: value)),
                 controller: usernameController,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!.username,
@@ -82,7 +83,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: GestureDetector(
                   onTap: () {
                     firstNameController.clear();
-                    BlocProviders.registration(context).add(UpdateFirstNameValueEvent(value: ""));
+                    AppBlocs.registrationViewBloc.add(UpdateFirstNameValueEvent(value: ""));
                   },
                   child: Text(
                     AppLocalizations.of(context)!.clear,
@@ -91,7 +92,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
               ),
               TextFormField(
-                onChanged: (value) => BlocProviders.registration(context).add(UpdateFirstNameValueEvent(value: value)),
+                onChanged: (value) => AppBlocs.registrationViewBloc.add(UpdateFirstNameValueEvent(value: value)),
                 controller: firstNameController,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!.firstName,
@@ -106,7 +107,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: GestureDetector(
                   onTap: () {
                     lastNameController.clear();
-                    BlocProviders.registration(context).add(UpdateLastNameValueEvent(value: ""));
+                    AppBlocs.registrationViewBloc.add(UpdateLastNameValueEvent(value: ""));
                   },
                   child: Text(
                     AppLocalizations.of(context)!.clear,
@@ -115,7 +116,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
               ),
               TextFormField(
-                onChanged: (value) => BlocProviders.registration(context).add(UpdateLastNameValueEvent(value: value)),
+                onChanged: (value) => AppBlocs.registrationViewBloc.add(UpdateLastNameValueEvent(value: value)),
                 controller: lastNameController,
                 decoration: InputDecoration(
                   labelText: AppLocalizations.of(context)!.lastName,
@@ -130,7 +131,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 child: GestureDetector(
                   onTap: () {
                     passwordController.clear();
-                    BlocProviders.registration(context).add(UpdatePasswordValueEvent(value: ""));
+                    AppBlocs.registrationViewBloc.add(UpdatePasswordValueEvent(value: ""));
                   },
                   child: Text(
                     AppLocalizations.of(context)!.clear,
@@ -139,7 +140,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
               ),
               TextFormField(
-                onChanged: (value) => BlocProviders.registration(context).add(UpdatePasswordValueEvent(value: value)),
+                onChanged: (value) => AppBlocs.registrationViewBloc.add(UpdatePasswordValueEvent(value: value)),
                 controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(

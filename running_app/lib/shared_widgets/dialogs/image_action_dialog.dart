@@ -1,19 +1,18 @@
-import 'dart:io';
-import 'dart:typed_data';
-
+import 'package:core/di/app_blocs.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
 
 import 'package:image/image.dart' as img;
+import 'dart:io';
+import 'dart:typed_data';
 
 Future<void> showEditImageActions(BuildContext context) async {
-  final bloc = BlocProviders.editProfile(context);
+  final bloc = AppBlocs.editProfileBloc;
   final _picker = ImagePicker();
 
   Future<void> _pickImage() async {

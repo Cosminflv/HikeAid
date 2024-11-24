@@ -10,7 +10,6 @@ import 'package:running_app/config/routes.dart';
 import 'package:running_app/location/location_event.dart';
 import 'package:running_app/map/widgets/map_actions_buttons.dart';
 import 'package:running_app/map/widgets/map_view_top_panel.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/search/search_menu_events.dart';
 import 'package:running_app/shared_widgets/search_app_bar.dart';
 import 'package:running_app/utils/common_handlers.dart';
@@ -85,8 +84,8 @@ class _MapViewPageState extends State<MapViewPage> {
               Builder(builder: (context) {
                 return MapWidget(
                   onMapCreated: (controller) {
-                    final appBloc = BlocProviders.app(context);
-                    final locationBloc = BlocProviders.location(context);
+                    final appBloc = AppBlocs.appBloc;
+                    final locationBloc = AppBlocs.locationBloc;
 
                     initMapDependecies(controller);
                     locationBloc.add(InitializeLocationEvent());

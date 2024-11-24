@@ -1,3 +1,4 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart'
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:running_app/edit_user_profile/edit_user_profile_view_state.dart';
-import 'package:running_app/providers/bloc_providers.dart';
 import 'package:running_app/shared_widgets/custom_text_field.dart';
 import 'package:running_app/edit_user_profile/dialogs/date_picker_dialog.dart';
 import 'package:running_app/shared_widgets/dialogs/image_action_dialog.dart';
@@ -101,7 +101,7 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
       return const CircularProgressIndicator();
     }
     if (state is UserProfileEditSuccess) {
-      BlocProviders.userProfile(context).add(FetchUserProfileEvent(userId: getSession(context)!.user.id));
+      AppBlocs.userProfileBloc.add(FetchUserProfileEvent(userId: getSession(context)!.user.id));
       Navigator.of(context).pop();
     }
     if (state is UserProfileEditFailed) {
@@ -118,7 +118,7 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
     if (state is UserProfileEditing) {
       return TextButton(
         onPressed: () {
-          BlocProviders.editProfile(context).add(UserProfileSaveRequestedEvent());
+          AppBlocs.editProfileBloc.add(UserProfileSaveRequestedEvent());
         },
         child: Text(
           AppLocalizations.of(context)!.save,
@@ -169,15 +169,15 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
           children: [
             CustomTextField(
               textController: firstNameController,
-              onChanged: (value) => BlocProviders.editProfile(context)
-                  .add(UpdateUserDetailEvent(type: UserDetailType.firstName, value: value)),
+              onChanged: (value) =>
+                  AppBlocs.editProfileBloc.add(UpdateUserDetailEvent(type: UserDetailType.firstName, value: value)),
               hintText: "First Name",
             ),
             Divider(color: Theme.of(context).hoverColor),
             CustomTextField(
               textController: lastNameController,
-              onChanged: (value) => BlocProviders.editProfile(context)
-                  .add(UpdateUserDetailEvent(type: UserDetailType.lastName, value: value)),
+              onChanged: (value) =>
+                  AppBlocs.editProfileBloc.add(UpdateUserDetailEvent(type: UserDetailType.lastName, value: value)),
               hintText: "Last Name",
             ),
           ],
@@ -195,19 +195,19 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
             CustomTextField(
               textController: bioController,
               onChanged: (value) =>
-                  BlocProviders.editProfile(context).add(UpdateUserDetailEvent(type: UserDetailType.bio, value: value)),
+                  AppBlocs.editProfileBloc.add(UpdateUserDetailEvent(type: UserDetailType.bio, value: value)),
               hintText: "Bio",
             ),
             CustomTextField(
               textController: countryController,
-              onChanged: (value) => BlocProviders.editProfile(context)
-                  .add(UpdateUserDetailEvent(type: UserDetailType.country, value: value)),
+              onChanged: (value) =>
+                  AppBlocs.editProfileBloc.add(UpdateUserDetailEvent(type: UserDetailType.country, value: value)),
               hintText: "Country",
             ),
             CustomTextField(
               textController: cityController,
-              onChanged: (value) => BlocProviders.editProfile(context)
-                  .add(UpdateUserDetailEvent(type: UserDetailType.city, value: value)),
+              onChanged: (value) =>
+                  AppBlocs.editProfileBloc.add(UpdateUserDetailEvent(type: UserDetailType.city, value: value)),
               hintText: "City",
             ),
           ],

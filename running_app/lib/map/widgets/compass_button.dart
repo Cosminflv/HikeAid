@@ -1,12 +1,12 @@
 import 'dart:typed_data';
 
+import 'package:core/di/app_blocs.dart';
 import 'package:core/di/injection_container.dart';
 import 'package:domain/map_platform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 
-import '../../providers/bloc_providers.dart';
 import '../map_view_bloc.dart';
 import '../map_view_state.dart';
 
@@ -72,7 +72,7 @@ class _CompassButtonState extends State<CompassButton> {
   }
 
   _handleCompassTap(BuildContext context) {
-    final mapBloc = BlocProviders.map(context);
+    final mapBloc = AppBlocs.mapBloc;
 
     if (mapBloc.state.isFollowPositionFixed) {
       mapBloc.add(CompassLockCameraEvent());
