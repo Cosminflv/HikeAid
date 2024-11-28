@@ -1,7 +1,6 @@
 import 'package:domain/repositories/navigation_repository.dart';
 import 'package:domain/use_cases/location_use_case.dart';
 
-
 import 'package:core/di/injection_container.dart';
 import 'package:domain/use_cases/navigation_use_case.dart';
 
@@ -72,7 +71,7 @@ class NavigationViewBloc extends Bloc<NavigationViewEvent, NavigationViewState> 
           if (isClosed) return;
           add(DestinationReachedEvent());
         },
-        demoSpeed: 10);
+        demoSpeed: 2);
 
     emit(state.copyWith(isNavigatingOnTour: event.isNavigatingOnTour));
 

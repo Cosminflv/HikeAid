@@ -82,7 +82,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   }
 
   _followPositionEventHandler(FollowPositionEvent event, Emitter<MapViewState> emit) async {
-    int zoom = event.shouldZoomCamera ? 90 : 80;
+    int zoom = event.shouldZoomCamera ? 80 : 70;
     final angle = event.shouldTiltCamera ? 60.0 : 0.0;
 
     PointEntity<double> pointToCenter = _getCenterOfVisibleArea!();

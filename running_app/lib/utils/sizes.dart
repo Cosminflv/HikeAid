@@ -2,6 +2,7 @@ import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/view_area_entity.dart';
 import 'package:flutter/widgets.dart';
 import 'package:running_app/app/app_state.dart';
+import 'package:running_app/navigation_top_panel/navigation_top_panel_sizes.dart';
 
 class Sizes {
   static final view = WidgetsBinding.instance.platformDispatcher.views.first;
@@ -41,7 +42,10 @@ class Sizes {
       case AppStatus.routing:
       case AppStatus.recording:
       case AppStatus.navigation:
-        return const PointEntity(x: 0.5, y: 0.5);
+        final mapHeight = screenHeight;
+        final availableHeight =
+            mapHeight - NavigationTopPanelSizes.panelHeight(context) - view.padding.top / view.devicePixelRatio;
+        return PointEntity(x: 0.5, y: availableHeight / mapHeight);
     }
   }
 
