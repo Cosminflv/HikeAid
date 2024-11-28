@@ -122,11 +122,9 @@ class NavigationTopPanelState extends State<NavigationTopPanel> with SingleTicke
     if (index == 0) return const CurrentSpeedIndicator(isExpanded: true);
     //if (index == 1) return const AverageSpeedIndicator(isExpanded: true);
     if (index == 2) return const TraveledDistanceIndicator(isExpanded: true);
-    if (index == 3) return const DistanceToNextWaypointIndicator(isExpanded: true);
-    if (index == 4) return const TraveledDistanceIndicator(isExpanded: true);
-    if (index == 5) return const RemainingDistanceIndicator(isExpanded: true);
+    if (index == 3) return const RemainingDistanceIndicator(isExpanded: true);
     //if (index == 6) return const MotionIndicator(isExpanded: true);
-    if (index == 7) return const RemainingDurationIndicator(isExpanded: true);
+    if (index == 4) return const RemainingDurationIndicator(isExpanded: true);
     //if (index == 8) return const TerrainProfileIndicator();
     //return const CurrentElevationIndicator(isExpanded: true);
     return const SizedBox.shrink();

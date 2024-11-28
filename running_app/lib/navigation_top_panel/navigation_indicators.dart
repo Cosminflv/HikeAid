@@ -79,34 +79,6 @@ class TraveledDistanceIndicator extends StatelessWidget {
   }
 }
 
-class DistanceToNextWaypointIndicator extends StatelessWidget {
-  final bool isExpanded;
-
-  const DistanceToNextWaypointIndicator({super.key, this.isExpanded = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<NavigationViewBloc, NavigationViewState>(
-      builder: (context, state) {
-        String? distanceString = state.currentInstruction != null
-            ? convertDistance(state.currentInstruction!.distanceToNextWaypoint, DDistanceUnit.km)
-            : '0 m';
-        List<String> parts = distanceString.split(' ');
-        String number = parts[0];
-        String unit = parts[1];
-
-        return NavigationIndicator(
-          speed: (number == '0') ? '-' : number,
-          label: "Next waypoint", //TODO: Change to internationalization
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
-          measurementUnit: ' $unit',
-          isExpanded: isExpanded,
-        );
-      },
-    );
-  }
-}
-
 class RemainingDistanceIndicator extends StatelessWidget {
   final bool isExpanded;
 

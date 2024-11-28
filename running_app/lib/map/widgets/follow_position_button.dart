@@ -68,7 +68,7 @@ class FollowPositionButton extends StatelessWidget {
   void _followPosition(BuildContext context) {
     final mapBloc = AppBlocs.mapBloc;
 
-    mapBloc.add(FollowPositionEvent(shouldTiltCamera: false, shouldZoomCamera: false));
+    mapBloc.add(FollowPositionEvent(shouldTiltCamera: false, shouldZoomCamera: true));
     mapBloc.add(SelectedLandmarkUpdatedEvent(landmark: null, forceCenter: true));
   }
 }

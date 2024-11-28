@@ -27,7 +27,7 @@ class NavigationInformationsPanelState extends State<NavigationInformationsPanel
         children: [
           PageView.builder(
             controller: _pageController,
-            itemCount: 5,
+            itemCount: 4,
             onPageChanged: (index) {
               setState(() {
                 _currentPage = index;
@@ -37,8 +37,7 @@ class NavigationInformationsPanelState extends State<NavigationInformationsPanel
               if (index == 0) return NavigationInformationFirstPage(onItemTap: widget.onItemTap);
               if (index == 1) return NavigationInformationSecondPage(onItemTap: widget.onItemTap);
               if (index == 2) return NavigationInformationThirdPage(onItemTap: widget.onItemTap);
-              if (index == 3) return NavigationInformationFourthPage(onItemTap: widget.onItemTap);
-              return NavigationInformationFifthPage(onItemTap: widget.onItemTap);
+              return NavigationInformationFourthPage(onItemTap: widget.onItemTap);
             },
           ),
           Align(
@@ -47,7 +46,7 @@ class NavigationInformationsPanelState extends State<NavigationInformationsPanel
               padding: const EdgeInsets.only(bottom: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(5, (index) {
+                children: List.generate(4, (index) {
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     margin: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -84,6 +83,22 @@ class NavigationInformationFirstPage extends StatelessWidget {
   }
 }
 
+// class NavigationInformationSecondPage extends StatelessWidget {
+//   final Function(int index) onItemTap;
+//   const NavigationInformationSecondPage({super.key, required this.onItemTap});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.start,
+//       children: [
+//         GestureDetector(onTap: () => onItemTap(2), child: const TraveledDistanceIndicator()),
+//         GestureDetector(onTap: () => onItemTap(3), child: const DistanceToNextWaypointIndicator()),
+//       ],
+//     );
+//   }
+// }
+
 class NavigationInformationSecondPage extends StatelessWidget {
   final Function(int index) onItemTap;
   const NavigationInformationSecondPage({super.key, required this.onItemTap});
@@ -93,8 +108,8 @@ class NavigationInformationSecondPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        GestureDetector(onTap: () => onItemTap(2), child: const TraveledDistanceIndicator()),
-        GestureDetector(onTap: () => onItemTap(3), child: const DistanceToNextWaypointIndicator()),
+        GestureDetector(onTap: () => onItemTap(4), child: const TraveledDistanceIndicator()),
+        GestureDetector(onTap: () => onItemTap(5), child: const RemainingDistanceIndicator()),
       ],
     );
   }
@@ -109,8 +124,8 @@ class NavigationInformationThirdPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        GestureDetector(onTap: () => onItemTap(4), child: const TraveledDistanceIndicator()),
-        GestureDetector(onTap: () => onItemTap(5), child: const RemainingDistanceIndicator()),
+        //GestureDetector(onTap: () => onItemTap(6), child: const MotionIndicator()),
+        GestureDetector(onTap: () => onItemTap(7), child: const RemainingDurationIndicator()),
       ],
     );
   }
@@ -119,22 +134,6 @@ class NavigationInformationThirdPage extends StatelessWidget {
 class NavigationInformationFourthPage extends StatelessWidget {
   final Function(int index) onItemTap;
   const NavigationInformationFourthPage({super.key, required this.onItemTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        //GestureDetector(onTap: () => onItemTap(6), child: const MotionIndicator()),
-        GestureDetector(onTap: () => onItemTap(7), child: const RemainingDurationIndicator()),
-      ],
-    );
-  }
-}
-
-class NavigationInformationFifthPage extends StatelessWidget {
-  final Function(int index) onItemTap;
-  const NavigationInformationFifthPage({super.key, required this.onItemTap});
 
   @override
   Widget build(BuildContext context) {
