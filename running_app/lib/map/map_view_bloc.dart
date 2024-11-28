@@ -8,6 +8,7 @@ import 'package:domain/entities/asset_bundle_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/utils/assets_utils.dart';
+import 'package:running_app/utils/debouncer.dart';
 import 'package:running_app/utils/sizes.dart';
 import 'package:running_app/map/map_view_state.dart';
 
@@ -23,6 +24,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   final AssetBundleEntity _assetBundleEntity;
 
   Timer? _debounce;
+  final Debouncer _debouncer = Debouncer(milliseconds: 100);
 
   PointEntity<double> Function()? _getCenterOfVisibleArea;
 
@@ -70,7 +72,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   }
 
   _handleCompassAngleUpdated(CompassAngleUpdatedEvent event, Emitter<MapViewState> emit) {
-    emit(state.copyWith(compassAngle: event.angle));
+    emit(state.copyWith(compassAngle: event.angle, isFollowingPosition: state.isFollowingPosition));
   }
 
   _handleCompassLockCamera(CompassLockCameraEvent event, Emitter<MapViewState> emit) {
@@ -95,6 +97,8 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       },
       pointToCenter: pointToCenter,
     );
+
+    emit(state.copyWith(isFollowingPosition: true, isCenteredOnRoutes: false));
   }
 
   _handleResetCamera(ResetCameraEvent event, Emitter<MapViewState> emit) =>
@@ -153,11 +157,10 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     }, onMapMove: () {
       if (isClosed) return;
       add(ResetCameraEvent());
-
-      debounce(() {
+      _debouncer.run(() {
         if (isClosed) return;
         add(CameraStateUpdatedEvent());
-      }, duration: const Duration(milliseconds: 500));
+      });
     }, onTap: (selectedLandmark, selectedRoute) {
       if (selectedLandmark != null && selectedRoute != null) {
         final landmarkTestMethod = _defaultLandmarkRouteTapPriorityFunction;
