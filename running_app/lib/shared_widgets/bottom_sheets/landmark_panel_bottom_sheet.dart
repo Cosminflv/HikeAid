@@ -18,7 +18,7 @@ class LandmarkPanelBottomSheet {
       ),
       builder: (context) => BlocBuilder<MapViewBloc, MapViewState>(
         bloc: AppBlocs.mapBloc,
-        buildWhen: (previous, current) => previous.mapSelectedLandmark != current.mapSelectedLandmark,
+        buildWhen: (previous, current) => previous.mapSelectedLandmark != current.mapSelectedLandmark && current.mapSelectedLandmark != null,
         builder: (context, mapViewState) {
           // final landmarkToDisplay =
           //     routePlanningState.getWaypointForLandmark(mapViewState.mapSelectedLandmark!)?.landmark ??

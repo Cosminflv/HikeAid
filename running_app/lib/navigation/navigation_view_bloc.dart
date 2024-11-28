@@ -97,6 +97,7 @@ class NavigationViewBloc extends Bloc<NavigationViewEvent, NavigationViewState> 
         (_locationUseCase.hasPosition == false || _locationUseCase.hasLocationPermission == false)) {
       _locationUseCase.cancelPositionListener();
     }
+    add(NavigationStatusUpdatedEvent(NavigationStatus.finished));
     emit(state.copyWithNullInstruction().copyWithNullRoute().copyWithNullTrip().copyWith(isNavigatingOnTour: false));
   }
 

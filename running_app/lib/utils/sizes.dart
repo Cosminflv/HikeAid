@@ -12,6 +12,7 @@ class Sizes {
   static int bottomPadding = -1;
 
   static const double landmarkIconSize = 25;
+  static double get navigationBottomControlsHeight => 120.0;
 
   static double routeTitlePanelHeight = 60;
   static int get routesDisplayPadding => (physicalScreenWidth * 0.1).toInt();

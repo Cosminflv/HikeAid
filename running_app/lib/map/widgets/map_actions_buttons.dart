@@ -14,27 +14,32 @@ class MapActionsButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
       builder: (context, state) {
+        if (state.isNavigating) return const SizedBox.shrink();
         return BlocBuilder<MapViewBloc, MapViewState>(
           builder: (context, mapState) {
-            return AnimatedPositioned(
-              duration: Durations.short1,
-              bottom: 10.0,
-              right: 0,
-              child: Container(
-                height: 50,
-                width: 40,
-                margin: const EdgeInsets.only(right: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: getAppbarColor(context),
+            if (!mapState.isFollowingPosition) {
+              return AnimatedPositioned(
+                duration: Durations.short1,
+                bottom: 10.0,
+                right: 0,
+                child: Container(
+                  height: 50,
+                  width: 40,
+                  margin: const EdgeInsets.only(right: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: getAppbarColor(context),
+                  ),
+                  child: const Column(
+                    children: [
+                      Expanded(child: FollowPositionButton()),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    if (!mapState.isFollowingPosition) const Expanded(child: FollowPositionButton()),
-                  ],
-                ),
-              ),
-            );
+              );
+            }
+
+            return const SizedBox.shrink();
           },
         );
       },
