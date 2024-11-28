@@ -107,6 +107,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   }
 
   _selectedLandmarkUpdatedEventHandler(SelectedLandmarkUpdatedEvent event, Emitter<MapViewState> emit) async {
+    if (state.mapSelectedLandmark != null) _mapUseCase.removeHighlights(_toShortRange(state.mapSelectedLandmark!.id));
     if (event.landmark == null) {
       emit(state.copyWithNullLandmark());
 
