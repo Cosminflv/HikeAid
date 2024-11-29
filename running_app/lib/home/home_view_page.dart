@@ -24,9 +24,12 @@ class _HomeViewPageState extends State<HomeViewPage> {
     return Scaffold(
       extendBodyBehindAppBar: false,
       bottomNavigationBar: BlocBuilder<AppBloc, AppState>(
-        builder: (context, state) {
+        builder: (context, appState) {
           Sizes.updateStatusBarHeight(MediaQuery.of(context).padding.top);
           Sizes.updateBottomPadding(MediaQuery.of(context).padding.bottom);
+          if (appState.isNavigating || appState.isRecording) {
+            return const SizedBox.shrink();
+          }
 
           return Container(
             decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, boxShadow: [
