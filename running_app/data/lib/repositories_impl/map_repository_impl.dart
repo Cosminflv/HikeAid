@@ -1,7 +1,3 @@
-import 'dart:typed_data';
-import 'dart:ui';
-
-import 'package:data/extensions.dart';
 import 'package:data/models/camera_state_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/models/route_entity_impl.dart';
@@ -19,7 +15,12 @@ import 'package:domain/settings/general_settings_entity.dart';
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/map.dart';
 
+import 'dart:typed_data';
+import 'dart:ui';
+
 class MapRepositoryImpl extends MapRepository {
+  final polylineMarkerCollection = MarkerCollection(markerType: MarkerType.polyline, name: "MarkerLine");
+  final pointMarkerCollection = MarkerCollection(markerType: MarkerType.point, name: "MarkerPoint");
   final GemMapController _controller;
 
   MapRepositoryImpl(MapController mapController) : _controller = (mapController as MapControllerImpl).ref;
@@ -245,4 +246,40 @@ class MapRepositoryImpl extends MapRepository {
 
   @override
   void clearHighlights() => _controller.deactivateAllHighlights();
+
+  @override
+  void addMarker({required CoordinatesEntity coordinates, required Uint8List image}) {}
+
+  @override
+  void addPolylineMarker({required List<CoordinatesEntity> coordinates}) {
+    if (polylineMarkerCollection.size == 0) {
+      final marker = Marker();
+      marker.setCoordinates(coordinates.map((e) => e.toGemCoordinates()).toList());
+
+      polylineMarkerCollection.add(marker);
+
+      _controller.preferences.markers.add(polylineMarkerCollection,
+          settings: MarkerCollectionRenderSettings(
+            polylineInnerColor: Color.fromARGB(255, 121, 134, 203),
+            polylineOuterColor: Color.fromARGB(255, 255, 255, 255),
+            polylineOuterSize: 1,
+            polylineInnerSize: 1.5,
+          ));
+
+      return;
+    }
+  }
+
+  @override
+  Future<Uint8List?> captureImage() async => await _controller.captureImage();
+
+  @override
+  void clearMarkers() {
+    _controller.preferences.markers.clear();
+    polylineMarkerCollection.clear();
+    pointMarkerCollection.clear();
+  }
+
+  @override
+  void clearPaths() => _controller.preferences.paths.clear();
 }

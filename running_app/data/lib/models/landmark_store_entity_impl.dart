@@ -1,4 +1,3 @@
-import 'package:data/extensions.dart';
 import 'package:data/models/landmark_category_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/repositories_impl/extensions.dart';

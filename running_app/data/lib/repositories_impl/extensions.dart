@@ -24,6 +24,18 @@ extension CoordinatesEntityExtension on CoordinatesEntity {
   }
 }
 
+extension GemLandmarkExtension on Landmark {
+  LandmarkEntityImpl toEntityImpl({int width = 48, int height = 48, Uint8List? image, bool isPositionBased = false}) {
+    final landmarkImage = image ?? getImage();
+
+    return LandmarkEntityImpl(
+      ref: this,
+      icon: landmarkImage,
+      isPositionBased: isPositionBased,
+    );
+  }
+}
+
 extension GemCoordinatesExtension on Coordinates {
   CoordinatesEntityImpl toEntity() => CoordinatesEntityImpl(latitude: latitude, longitude: longitude);
 }

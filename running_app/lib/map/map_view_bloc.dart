@@ -38,10 +38,16 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<FollowPositionEvent>(_followPositionEventHandler);
     on<ResetCameraEvent>(_handleResetCamera);
     on<CenterOnRoutesEvent>(_handleCenterOnRoutes);
+    on<CenterOnPathEvent>(_handleCenterOnPath);
 
     on<SelectedLandmarkUpdatedEvent>(_selectedLandmarkUpdatedEventHandler);
     on<PresentHighlightEvent>(_handlePresentHighlightEvent);
     on<RemoveHighlightsEvent>(_handleRemoveHighlights);
+
+    on<ClearPathsEvent>(_handleClearPaths);
+    on<AddMarkerEvent>(_handleAddMarker);
+    on<AddPolylineMarkerEvent>(_handleAddPolylineMarker);
+    on<ClearMarkersEvent>(_handleClearMarkers);
 
     on<SelectedRouteUpdatedEvent>(_handleSelectedRouteUpdated);
     on<PresentRoutesEvent>(_handlePresentRoutes);
@@ -108,6 +114,10 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     emit(state.copyWith(isFollowingPosition: false, isCenteredOnRoutes: true));
 
     _mapUseCase.centerOnMapRoutes(event.viewArea ?? Sizes.routesDisplayAreaMode, true, true);
+  }
+
+  _handleCenterOnPath(CenterOnPathEvent event, Emitter<MapViewState> emit) {
+    _mapUseCase.centerOnPath(event.path, event.viewArea);
   }
 
   _selectedLandmarkUpdatedEventHandler(SelectedLandmarkUpdatedEvent event, Emitter<MapViewState> emit) async {
@@ -180,6 +190,20 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       }
     });
   }
+
+  _handleClearPaths(ClearPathsEvent event, Emitter<MapViewState> emit) => _mapUseCase.clearPaths();
+
+  _handleAddMarker(AddMarkerEvent event, Emitter<MapViewState> emit) {
+    //_addMarkersDebouncer.run(() {
+    _mapUseCase.addMarkers(coordinates: event.coordinates, image: _pinImage!);
+    //});
+  }
+
+  _handleAddPolylineMarker(AddPolylineMarkerEvent event, Emitter<MapViewState> emit) {
+    _mapUseCase.addPolylineMarker(coordinates: event.coordinates);
+  }
+
+  _handleClearMarkers(ClearMarkersEvent event, Emitter<MapViewState> emit) => _mapUseCase.clearMarkers();
 
   _handleSelectedRouteUpdated(SelectedRouteUpdatedEvent event, Emitter<MapViewState> emit) async {
     if (state.routes.isEmpty) {

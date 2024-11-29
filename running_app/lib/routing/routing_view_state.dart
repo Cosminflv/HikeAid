@@ -6,6 +6,8 @@ import 'package:equatable/equatable.dart';
 
 enum RouteViewStatus { none, routeDescription, routeProfile }
 
+enum RouteWayType { oneWay, roundTrip }
+
 class RoutingViewState extends Equatable {
   final List<RouteEntity> routes;
   final RouteBuildStatus status;

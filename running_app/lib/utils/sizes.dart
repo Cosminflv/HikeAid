@@ -29,6 +29,8 @@ class Sizes {
   static int get screenWidth => physicalScreenWidth ~/ devicePixelRatio;
   static int get screenHeight => physicalScreenHeight ~/ devicePixelRatio;
 
+  static PointEntity get screenCenter => PointEntity(x: physicalScreenWidth ~/ 2, y: physicalScreenHeight ~/ 2);
+
   static PointEntity<double> getCenterOfVisibleArea(BuildContext context) {
     final appStatus = AppBlocs.appBloc.state.status;
 

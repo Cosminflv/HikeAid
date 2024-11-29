@@ -19,6 +19,8 @@ class AppBlocListener extends StatelessWidget {
           final mapBloc = AppBlocs.mapBloc;
 
           mapBloc.add(InitMapViewEvent(
+            screenCenter: Sizes.screenCenter,
+            mapVisibleAreaFunction: () => Sizes.getMapVisibleArea(context),
             centerOfVisibleAreaFunction: () => Sizes.getCenterOfVisibleArea(context),
           ));
         },

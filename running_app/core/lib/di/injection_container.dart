@@ -11,7 +11,11 @@ import 'package:data/repositories_impl/route_repository_impl.dart';
 import 'package:data/repositories_impl/search_repository_impl.dart';
 import 'package:data/repositories_impl/tts_repository_impl.dart';
 import 'package:data/repositories_impl/user_profile_repository_impl.dart';
+import 'package:data/repositories_impl/tour_repository_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
+import 'package:data/factories/landmark_factory_impl.dart';
+import 'package:data/factories/path_factory_impl.dart';
+
 import 'package:domain/entities/landmark_store_entity.dart';
 import 'package:domain/map_widget_builder.dart';
 import 'package:domain/map_platform.dart';
@@ -32,6 +36,7 @@ import 'package:domain/repositories/position_repository.dart';
 import 'package:domain/repositories/route_repository.dart';
 import 'package:domain/repositories/search_repository.dart';
 import 'package:domain/repositories/search_users_repository.dart';
+import 'package:domain/repositories/tour_repository.dart';
 import 'package:domain/repositories/tts_repository.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
 import 'package:domain/use_cases/authentication_session_use_case.dart';
@@ -45,7 +50,11 @@ import 'package:domain/use_cases/navigation_use_case.dart';
 import 'package:domain/use_cases/routing_use_case.dart';
 import 'package:domain/use_cases/search_use_case.dart';
 import 'package:domain/use_cases/search_users_use_case.dart';
+import 'package:domain/use_cases/tour_use_case.dart';
 import 'package:domain/use_cases/user_profile_use_case.dart';
+import 'package:domain/factories/landmark_factory.dart';
+import 'package:domain/factories/path_factory.dart';
+
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/home/home_view_bloc.dart';
 import 'package:running_app/internet_connection/internet_connection_bloc.dart';
@@ -67,6 +76,7 @@ import 'package:dio/dio.dart';
 import 'package:running_app/routing/routing_view_bloc.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
+import 'package:running_app/tour_recording/tour_recording_bloc.dart';
 import 'dart:io';
 
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
@@ -122,6 +132,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<RouteRepository>(() => RouteRepositoryImpl());
   sl.registerLazySingleton<ImageCacheRepository>(() => ImageCacheRepositoryImpl());
   sl.registerLazySingleton<NavigationRepository>(() => NavigationRepositoryImpl(sl.get<ImageCacheRepository>()));
+  sl.registerLazySingleton<TourRepository>(() => TourRepositoryImpl());
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
   //Usecases
@@ -140,6 +151,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<RoutingUseCase>(() => RoutingUseCase(sl.get<RouteRepository>()));
   sl.registerLazySingleton<NavigationUseCase>(
       () => NavigationUseCase(sl.get<NavigationRepository>(), sl.get<TTSRepository>()));
+  sl.registerLazySingleton<TourUseCase>(() => TourUseCase(sl.get<TourRepository>(), sl.get<PermissionRepository>()));
 
   //Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
@@ -157,8 +169,13 @@ initEarlyDependencies() {
   sl.registerLazySingleton<NavigationViewBloc>(() => NavigationViewBloc());
   sl.registerLazySingleton<HomeViewBloc>(() => HomeViewBloc());
   sl.registerLazySingleton<NavigationInstructionPanelBloc>(() => NavigationInstructionPanelBloc());
+  sl.registerLazySingleton<TourRecordingBloc>(() => TourRecordingBloc(sl.get<TourUseCase>()));
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
+
+  //Factories
+  sl.registerLazySingleton<PathFactory>(() => PathFactoryImpl());
+  sl.registerLazySingleton<LandmarkFactory>(() => LandmarkFactoryImpl());
 }
 
 initMapDependecies(MapController controller, {String? instanceName}) async {

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
+import 'package:domain/entities/path_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
 import 'package:domain/settings/general_settings_entity.dart';
@@ -10,12 +11,16 @@ abstract class MapViewEvent {}
 
 class InitMapViewEvent extends MapViewEvent {
   final String? instanceName;
+  final PointEntity screenCenter;
   final bool isInteractive;
 
   final PointEntity<double> Function() centerOfVisibleAreaFunction;
+  final ViewAreaEntity Function() mapVisibleAreaFunction;
 
   InitMapViewEvent({
     this.instanceName,
+    required this.screenCenter,
+    required this.mapVisibleAreaFunction,
     this.isInteractive = true,
     required this.centerOfVisibleAreaFunction,
   });
@@ -51,6 +56,34 @@ class RemoveHighlightsEvent extends MapViewEvent {
   final int highlightId;
   RemoveHighlightsEvent({required this.highlightId});
 }
+
+class ClearPathsEvent extends MapViewEvent {}
+
+class SetPositionTracker extends MapViewEvent {
+  final bool visibility;
+  SetPositionTracker(this.visibility);
+}
+
+class AddMarkerEvent extends MapViewEvent {
+  final CoordinatesEntity coordinates;
+
+  AddMarkerEvent(this.coordinates);
+}
+
+class AddPolylineMarkerEvent extends MapViewEvent {
+  final List<CoordinatesEntity> coordinates;
+
+  AddPolylineMarkerEvent(this.coordinates);
+}
+
+class CenterOnPathEvent extends MapViewEvent {
+  final PathEntity path;
+  final ViewAreaEntity? viewArea;
+
+  CenterOnPathEvent({required this.path, this.viewArea});
+}
+
+class ClearMarkersEvent extends MapViewEvent {}
 
 class FollowPositionEvent extends MapViewEvent {
   final bool shouldTiltCamera;

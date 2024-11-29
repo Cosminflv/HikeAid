@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:core/di/injection_container.dart';
 import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
@@ -14,6 +16,8 @@ import 'package:running_app/routing/routing_view_state.dart';
 class RoutingViewBloc extends Bloc<RoutingViewEvent, RoutingViewState> {
   final RoutingUseCase _routingUseCase;
   final LandmarkUseCase _landmarkUseCase;
+
+  final waypointImages = <String, Uint8List>{};
 
   RoutingViewBloc()
       : _routingUseCase = sl.get<RoutingUseCase>(),

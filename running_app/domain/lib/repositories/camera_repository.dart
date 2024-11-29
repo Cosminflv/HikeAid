@@ -1,4 +1,5 @@
 import 'package:domain/entities/coordinates_entity.dart';
+import 'package:domain/entities/path_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
 
 enum DFollowPositionStatus { entered, exited }
@@ -33,6 +34,8 @@ abstract class CameraRepository {
       double viewAngle = 0,
       int? zoom,
       bool withAnimation = true});
+
+  void centerOnPath({required PathEntity path, ViewAreaEntity? area});
 
   void centerOnMapRoutes({required ViewAreaEntity area, required bool withAnimation, required bool addCenterPadding});
 }

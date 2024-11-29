@@ -29,6 +29,7 @@ dependencies:
   image: ^4.3.0
   connectivity_plus: ^6.1.0
   flutter_tts: ^3.8.5
+  gpx: ^2.2.2
 
 
 dev_dependencies:

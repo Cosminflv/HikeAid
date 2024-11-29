@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
+import 'package:domain/entities/path_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
 import 'package:domain/repositories/camera_repository.dart';
@@ -50,6 +51,8 @@ class MapUseCase {
     }
   }
 
+  void clearPaths() => _mapRepository.clearPaths();
+
   void centerOnMapRoutes(ViewAreaEntity viewArea, bool withAnimation, bool addCenterPadding) => _cameraRepository
       .centerOnMapRoutes(area: viewArea, withAnimation: withAnimation, addCenterPadding: addCenterPadding);
 
@@ -65,6 +68,15 @@ class MapUseCase {
 
   void clearHighlights() => _mapRepository.clearHighlights();
 
+  // Markers and position
+
+  void addMarkers({required CoordinatesEntity coordinates, required Uint8List image}) =>
+      _mapRepository.addMarker(coordinates: coordinates, image: image);
+  void addPolylineMarker({required List<CoordinatesEntity> coordinates}) =>
+      _mapRepository.addPolylineMarker(coordinates: coordinates);
+
+  void clearMarkers() => _mapRepository.clearMarkers();
+
   void setFollowPositionPreferences(
           {required DFollowPositionRotationMode mode, double angle = 0, bool objectFollowMap = false}) =>
       _cameraRepository.setFollowPositionPreferences(mode: mode, angle: angle, objectFollowMap: objectFollowMap);
@@ -77,4 +89,9 @@ class MapUseCase {
   void centerOnCoordinates({required CoordinatesEntity coordinates, required PointEntity screenPosition, int? zoom}) =>
       _cameraRepository.centerOnCoordinates(
           coordinates: coordinates, point: screenPosition, zoom: zoom, withAnimation: true);
+
+  void centerOnPath(PathEntity path, ViewAreaEntity? viewArea) =>
+      _cameraRepository.centerOnPath(path: path, area: viewArea);
+
+  Future<Uint8List?> captureImage() => _mapRepository.captureImage();
 }

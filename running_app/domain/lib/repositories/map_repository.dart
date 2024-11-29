@@ -30,9 +30,19 @@ abstract class MapRepository {
   void removeRoute(RouteEntity route);
   void clearRouteExcept(List<RouteEntity> routes);
 
+  // Markers
+  void addMarker({required CoordinatesEntity coordinates, required Uint8List image});
+  void addPolylineMarker({required List<CoordinatesEntity> coordinates});
+  void clearMarkers();
+
+  // Path
+  void clearPaths();
+
   // Miscellaneous
   void setPositionTrackerImage(Uint8List imageData, {double scale = 1.0});
   void alignNorthUp();
 
   void setEnableTouchGestures(bool enable);
+
+  Future<Uint8List?> captureImage();
 }

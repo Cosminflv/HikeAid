@@ -17,6 +17,7 @@ import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/home/home_view_bloc.dart';
 import 'package:running_app/navigation_instructions/navigation_instructions_panel_bloc.dart';
+import 'package:running_app/tour_recording/tour_recording_bloc.dart';
 
 class AppBlocs {
   // Existing Blocs
@@ -32,6 +33,9 @@ class AppBlocs {
 
   // Getter for NavigationViewBloc
   static NavigationViewBloc get navigationBloc => sl<NavigationViewBloc>();
+
+  // Getter for TourRecordingBloc
+  static TourRecordingBloc get tourRecordingBloc => sl<TourRecordingBloc>();
 
   // Getter for LandmarkStoreBloc (searchHistory)
   static LandmarkStoreBloc get searchHistoryLandmarkStoreBloc =>
