@@ -1,8 +1,10 @@
 import 'package:core/di/app_blocs.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/app/app_state.dart';
+import 'package:running_app/app/trip_record/tour_record__page.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/map/map_view_state.dart';
 import 'package:running_app/map/widgets/compass_button.dart';
@@ -31,6 +33,16 @@ class _MapViewTopPanelState extends State<MapViewTopPanel> {
                   totalDistance: AppBlocs.mapBloc.state.mapSelectedRoute?.distance.toInt() ?? 0,
                   totalDuration: AppBlocs.mapBloc.state.mapSelectedRoute?.duration.toInt() ?? 0,
                   topPadding: widget.topPadding,
+                ),
+              if (appState.isRecording)
+                Container(
+                  color: Theme.of(context).colorScheme.surface,
+                  child: Column(
+                    children: [
+                      SizedBox(height: widget.topPadding),
+                      const SizedBox(height: 200, child: RecorderInformationPanel()),
+                    ],
+                  ),
                 ),
               BlocBuilder<MapViewBloc, MapViewState>(
                 builder: (context, mapState) {

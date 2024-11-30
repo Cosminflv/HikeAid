@@ -13,15 +13,15 @@ class MapActionsButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
-      builder: (context, state) {
-        if (state.isNavigating) return const SizedBox.shrink();
+      builder: (context, appState) {
+        if (appState.isNavigating && appState.isRecording) return const SizedBox.shrink();
         return BlocBuilder<MapViewBloc, MapViewState>(
           builder: (context, mapState) {
             if (!mapState.isFollowingPosition) {
               return AnimatedPositioned(
                 duration: Durations.short1,
                 bottom: 10.0,
-                right: 0,
+                right: 0, 
                 child: Container(
                   height: 50,
                   width: 40,

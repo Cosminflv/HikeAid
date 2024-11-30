@@ -152,6 +152,12 @@ class RemoveRoutesExceptMainEvent extends MapViewEvent {
   RemoveRoutesExceptMainEvent();
 }
 
+class SetIsMapInteractiveEvent extends MapViewEvent {
+  final bool isMapInteractive;
+
+  SetIsMapInteractiveEvent({required this.isMapInteractive});
+}
+
 class RemoveAllHighlightsEvent extends MapViewEvent {
   final bool removeFromMap;
   final bool removeFromState;

@@ -44,6 +44,8 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<PresentHighlightEvent>(_handlePresentHighlightEvent);
     on<RemoveHighlightsEvent>(_handleRemoveHighlights);
 
+    on<SetIsMapInteractiveEvent>(_handleSetIsMapInteractive);
+
     on<ClearPathsEvent>(_handleClearPaths);
     on<AddMarkerEvent>(_handleAddMarker);
     on<AddPolylineMarkerEvent>(_handleAddPolylineMarker);
@@ -190,6 +192,9 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       }
     });
   }
+
+  _handleSetIsMapInteractive(SetIsMapInteractiveEvent event, Emitter<MapViewState> emit) =>
+      emit(state.copyWith(isMapInteractive: event.isMapInteractive));
 
   _handleClearPaths(ClearPathsEvent event, Emitter<MapViewState> emit) => _mapUseCase.clearPaths();
 

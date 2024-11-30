@@ -11,6 +11,8 @@ class MapViewState extends Equatable {
   final bool isFollowPositionFixed;
   final bool isCenteredOnRoutes;
 
+  final bool isMapInteractive;
+
   final double compassAngle;
 
   final List<RouteEntity> routes;
@@ -28,6 +30,7 @@ class MapViewState extends Equatable {
     this.compassAngle = 0.0,
     this.cameraState = const MapCameraStateEntity(coordinates: CoordinatesImpl(latitude: 45, longitude: 25), zoom: 60),
     this.routes = const [],
+    this.isMapInteractive = true,
     this.mapSelectedLandmark,
     this.mapSelectedRoute,
   });
@@ -39,6 +42,7 @@ class MapViewState extends Equatable {
     bool? isCenteredOnRoutes,
     double? compassAngle,
     MapCameraStateEntity? cameraState,
+    bool? isMapInteractive,
     LandmarkEntity? mapSelectedLandmark,
     RouteEntity? mapSelectedRoute,
     List<RouteEntity>? routes,
@@ -50,6 +54,7 @@ class MapViewState extends Equatable {
         isCenteredOnRoutes: isCenteredOnRoutes ?? this.isCenteredOnRoutes,
         cameraState: cameraState ?? this.cameraState,
         compassAngle: compassAngle ?? this.compassAngle,
+        isMapInteractive: isMapInteractive ?? this.isMapInteractive,
         mapSelectedLandmark: mapSelectedLandmark ?? this.mapSelectedLandmark,
         mapSelectedRoute: mapSelectedRoute ?? this.mapSelectedRoute,
         routes: routes ?? this.routes,
@@ -62,6 +67,7 @@ class MapViewState extends Equatable {
         isCenteredOnRoutes: isCenteredOnRoutes,
         compassAngle: compassAngle,
         mapSelectedLandmark: null,
+        isMapInteractive: isMapInteractive,
         mapSelectedRoute: mapSelectedRoute,
         cameraState: cameraState,
         routes: routes,
@@ -73,6 +79,7 @@ class MapViewState extends Equatable {
         isFollowPositionFixed: isFollowPositionFixed,
         isCenteredOnRoutes: isCenteredOnRoutes,
         mapSelectedLandmark: mapSelectedLandmark,
+        isMapInteractive: isMapInteractive,
         mapSelectedRoute: null,
         compassAngle: compassAngle,
         cameraState: cameraState,
@@ -87,6 +94,7 @@ class MapViewState extends Equatable {
         isCenteredOnRoutes,
         compassAngle,
         cameraState,
+        isMapInteractive,
         mapSelectedLandmark,
         mapSelectedRoute,
         routes,
