@@ -67,20 +67,17 @@ import 'package:running_app/onboarding/registration/registration_view_bloc.dart'
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/app/app_bloc.dart';
-import 'package:domain/map_controller.dart';
-
-import 'package:openapi/openapi.dart';
-import 'package:get_it/get_it.dart';
-import 'package:dio/io.dart';
-import 'package:dio/dio.dart';
+import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/routing/routing_view_bloc.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/tour_recording/tour_recording_bloc.dart';
-import 'dart:io';
+import 'package:domain/map_controller.dart';
 
-import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:openapi/openapi.dart';
+import 'package:get_it/get_it.dart';
+import 'package:dio/dio.dart';
 
 final sl = GetIt.instance;
 
@@ -98,12 +95,7 @@ discardBlocsIfRegistered() {
 }
 
 initEarlyDependencies() {
-  Dio dio = Dio(BaseOptions(baseUrl: "https://192.168.1.3:7011/", connectTimeout: Duration(seconds: 10)));
-  // ignore: deprecated_member_use
-  (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
-    client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
-    return client;
-  };
+  Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.1.5:7011/", connectTimeout: Duration(seconds: 10)));
 
   dio.options.validateStatus = (status) {
     // Allow all status codes from 200 to 499 as valid
