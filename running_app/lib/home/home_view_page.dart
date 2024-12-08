@@ -102,7 +102,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
                 const TourRecordPage(),
                 InternetConnectionChecker(
                     child: UserProfileViewPage(
-                  isEditable: false,
+                  isEditable: true,
                 ))
               ],
             ),
