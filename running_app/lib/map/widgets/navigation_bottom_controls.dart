@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/app/app_events.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/navigation/navigation_view_events.dart';
 import 'package:running_app/tour_recording/tour_recording_events.dart';
@@ -76,6 +77,7 @@ class NavigationBottomControls extends StatelessWidget {
                           } else {
                             final recordingBloc = AppBlocs.tourRecordingBloc;
                             recordingBloc.add(StopRecordingEvent());
+                            AppBlocs.appBloc.add(UpdateAppStatusEvent(AppStatus.initializedMap));
                           }
                         },
                         child: Row(

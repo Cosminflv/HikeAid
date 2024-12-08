@@ -1,10 +1,11 @@
-import 'dart:async';
 
 import 'package:domain/entities/friendship_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/friendships/friendships_view_events.dart';
 import 'package:running_app/friendships/friendships_view_state.dart';
 import 'package:domain/use_cases/friendship_use_case.dart';
+
+import 'dart:async';
 
 class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewState> {
   final FriendshipUseCase _friendshipUseCase;
@@ -65,10 +66,9 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
 
     await emit.forEach<List<FriendshipEntity>>(
       _friendshipUpdates.stream,
-      onData: (incomingRequests) {
-        int x = 3;
-        return state.copyWith(incomingRequests: incomingRequests);
-      },
+      onData: (incomingRequests) =>
+        state.copyWith(incomingRequests: incomingRequests)
+    
     );
   }
 }
