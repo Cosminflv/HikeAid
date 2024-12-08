@@ -32,7 +32,7 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
   }
 
   @override
-  void sendFriendRequest({required int requesterId, required int receiverId}) async {
+  Future<void> sendFriendRequest({required int requesterId, required int receiverId}) async {
     try {
       await _openapi.getUserApi().apiUserSendFriendRequestPost(requesterId: requesterId, receiverId: receiverId);
     } catch (e) {

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/app/app_events.dart';
 import 'package:running_app/app/app_state.dart';
 import 'package:running_app/config/routes.dart';
+import 'package:running_app/friendships/friendships_view_events.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_state.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
@@ -34,6 +35,7 @@ class AuthSessionBlocListener extends StatelessWidget {
             if (state is AuthSessionExistingState) {
               //Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
               BlocProvider.of<UserProfileBloc>(context).add(FetchUserProfileEvent(userId: state.session.user.id));
+              AppBlocs.friendships.add(InitializeNotificationService(userId: state.session.user.id));
             }
             if (state is AuthSessionNotExistingState) {
               Navigator.of(context).pushReplacementNamed(RouteNames.getStartedPage);

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/navigation/navigation_view_events.dart';
+import 'package:running_app/tour_recording/tour_recording_events.dart';
 import 'package:running_app/utils/sizes_calculator.dart';
 
 import '../../app/app_bloc.dart';
@@ -69,8 +70,13 @@ class NavigationBottomControls extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                         ),
                         onPressed: () {
-                          final navigationBloc = AppBlocs.navigationBloc;
-                          navigationBloc.add(StopNavigationEvent());
+                          if (AppBlocs.appBloc.state.status == AppStatus.navigation) {
+                            final navigationBloc = AppBlocs.navigationBloc;
+                            navigationBloc.add(StopNavigationEvent());
+                          } else {
+                            final recordingBloc = AppBlocs.tourRecordingBloc;
+                            recordingBloc.add(StopRecordingEvent());
+                          }
                         },
                         child: Row(
                           children: [

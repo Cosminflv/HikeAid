@@ -1,6 +1,7 @@
 import 'package:domain/entities/landmark_store_entity.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
+import 'package:running_app/friendships/friendships_view_bloc.dart';
 import 'package:running_app/internet_connection/internet_connection_bloc.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/landmark_store/landmark_store_bloc.dart';
@@ -65,6 +66,9 @@ class AppBlocs {
 
   // Getter for UserProfileViewBloc
   static UserProfileBloc get userProfileBloc => sl<UserProfileBloc>();
+
+  // Getter for FriendshipsViewBloc
+  static FriendshipsViewBloc get friendships => sl<FriendshipsViewBloc>();
 
   // Getter for InternetConnectionBloc
   static InternetConnectionBloc get internetConnectionBloc => sl<InternetConnectionBloc>();

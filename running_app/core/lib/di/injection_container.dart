@@ -1,3 +1,4 @@
+import 'package:data/repositories_impl/friendship_repository_impl.dart';
 import 'package:data/repositories_impl/image_cache_repository_impl.dart';
 import 'package:data/repositories_impl/internet_connection_repository_impl.dart';
 import 'package:data/repositories_impl/landmark_store_repository_impl.dart';
@@ -22,6 +23,7 @@ import 'package:domain/map_platform.dart';
 import 'package:data/models/asset_bundle_entity_impl.dart';
 import 'package:data/utils/map_platform_impl.dart';
 import 'package:domain/repositories/camera_repository.dart';
+import 'package:domain/repositories/friendship_repository.dart';
 import 'package:domain/repositories/image_cache_repository.dart';
 import 'package:domain/repositories/internet_connection_repository.dart';
 import 'package:domain/repositories/landmark_repository.dart';
@@ -45,6 +47,7 @@ import 'package:domain/use_cases/internet_connection_use_case.dart';
 import 'package:domain/use_cases/landmark_store_use_case.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/location_use_case.dart';
+import 'package:domain/use_cases/friendship_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
 import 'package:domain/use_cases/navigation_use_case.dart';
 import 'package:domain/use_cases/routing_use_case.dart';
@@ -60,6 +63,7 @@ import 'package:running_app/home/home_view_bloc.dart';
 import 'package:running_app/internet_connection/internet_connection_bloc.dart';
 import 'package:running_app/landmark_store/landmark_store_bloc.dart';
 import 'package:running_app/navigation/navigation_view_bloc.dart';
+import 'package:running_app/friendships/friendships_view_bloc.dart';
 import 'package:running_app/navigation_instructions/navigation_instructions_panel_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
@@ -125,8 +129,10 @@ initEarlyDependencies() {
   sl.registerLazySingleton<ImageCacheRepository>(() => ImageCacheRepositoryImpl());
   sl.registerLazySingleton<NavigationRepository>(() => NavigationRepositoryImpl(sl.get<ImageCacheRepository>()));
   sl.registerLazySingleton<TourRepository>(() => TourRepositoryImpl());
+  sl.registerLazySingleton<FriendshipRepository>(() => FriendshipRepositoryImpl(openApi));
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
+
   //Usecases
   sl.registerLazySingleton<OnboardingUseCase>(() => OnboardingUseCase(sl.get<OnboardingRepository>()));
   sl.registerLazySingleton<LocationUseCase>(
@@ -144,6 +150,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<NavigationUseCase>(
       () => NavigationUseCase(sl.get<NavigationRepository>(), sl.get<TTSRepository>()));
   sl.registerLazySingleton<TourUseCase>(() => TourUseCase(sl.get<TourRepository>(), sl.get<PermissionRepository>()));
+  sl.registerLazySingleton<FriendshipUseCase>(() => FriendshipUseCase(sl.get<FriendshipRepository>()));
 
   //Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
@@ -162,6 +169,7 @@ initEarlyDependencies() {
   sl.registerLazySingleton<HomeViewBloc>(() => HomeViewBloc());
   sl.registerLazySingleton<NavigationInstructionPanelBloc>(() => NavigationInstructionPanelBloc());
   sl.registerLazySingleton<TourRecordingBloc>(() => TourRecordingBloc(sl.get<TourUseCase>()));
+  sl.registerLazySingleton<FriendshipsViewBloc>(() => FriendshipsViewBloc(sl.get<FriendshipUseCase>()));
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 
