@@ -16,9 +16,9 @@ class SendFriendshipRequestEvent extends FriendshipsViewEvent {
 }
 
 class DeclineFriendshipRequestEvent extends FriendshipsViewEvent {
-  final int requestId;
+  final FriendshipEntity request;
 
-  DeclineFriendshipRequestEvent({required this.requestId});
+  DeclineFriendshipRequestEvent({required this.request});
 }
 
 class AcceptFriendshipRequestEvent extends FriendshipsViewEvent {

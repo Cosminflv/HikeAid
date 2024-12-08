@@ -1,6 +1,7 @@
 import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/friendship_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/friendships/friendships_view_events.dart';
 
 // ignore: must_be_immutable
@@ -27,11 +28,24 @@ class _FriendshipRequestsListState extends State<FriendshipRequestsList> {
             ),
             title: Text(request.requesterName),
             subtitle: Text('ID: ${request.requesterId}'),
-            trailing: ElevatedButton(
-              onPressed: () {
-                _acceptRequest(request);
-              },
-              child: const Text('Accept'),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min, // This ensures buttons are side by side
+              children: [
+                IconButton(
+                  icon: const Icon(FontAwesomeIcons.check),
+                  color: Theme.of(context).colorScheme.primary,
+                  onPressed: () {
+                    _acceptRequest(request);
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(FontAwesomeIcons.xmark),
+                  color: Colors.red,
+                  onPressed: () {
+                    _declineRequest(request);
+                  },
+                ),
+              ],
             ),
           ),
         );
@@ -45,11 +59,22 @@ class _FriendshipRequestsListState extends State<FriendshipRequestsList> {
       SnackBar(content: Text('Accepted request from ${request.requesterName}')),
     );
 
-    
-
     // Remove the accepted request from the list
     setState(() {
       AppBlocs.friendships.add(AcceptFriendshipRequestEvent(request: request));
+      widget.requests.remove(request);
+    });
+  }
+
+  void _declineRequest(FriendshipEntity request) {
+    // Example: Show a SnackBar to confirm action
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Declined request from ${request.requesterName}')),
+    );
+
+    // Remove the accepted request from the list
+    setState(() {
+      AppBlocs.friendships.add(DeclineFriendshipRequestEvent(request: request));
       widget.requests.remove(request);
     });
   }

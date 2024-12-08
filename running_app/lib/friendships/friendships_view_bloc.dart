@@ -46,7 +46,7 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
   }
 
   _handleDeclineFriendshipRequest(DeclineFriendshipRequestEvent event, Emitter<FriendshipsViewState> emit) async {
-    await _friendshipUseCase.declineFriendshipRequest(event.requestId);
+    await _friendshipUseCase.declineFriendshipRequest(event.request.id);
   }
 
   _handleInitializeNotificationService(InitializeNotificationService event, Emitter<FriendshipsViewState> emit) async {
