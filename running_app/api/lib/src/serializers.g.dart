@@ -8,10 +8,9 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CommentDto.serializer)
-      ..add(EFriendshipState.serializer)
       ..add(EFriendshipStatus.serializer)
       ..add(EGender.serializer)
-      ..add(FriendshipModel.serializer)
+      ..add(FriendshipDto.serializer)
       ..add(LikeDto.serializer)
       ..add(LoginDto.serializer)
       ..add(SearchUserDto.serializer)
@@ -19,8 +18,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(SocialPostModel.serializer)
       ..add(TrackDto.serializer)
       ..add(UpdateUserDto.serializer)
-      ..add(UserDto.serializer)
-      ..add(UserModel.serializer))
+      ..add(UserDto.serializer))
     .build();
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint

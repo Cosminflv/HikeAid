@@ -2,10 +2,9 @@
 README.md
 analysis_options.yaml
 doc/CommentDto.md
-doc/EFriendshipState.md
 doc/EFriendshipStatus.md
 doc/EGender.md
-doc/FriendshipModel.md
+doc/FriendshipDto.md
 doc/LikeDto.md
 doc/LoginApi.md
 doc/LoginDto.md
@@ -18,7 +17,6 @@ doc/TrackDto.md
 doc/UpdateUserDto.md
 doc/UserApi.md
 doc/UserDto.md
-doc/UserModel.md
 lib/openapi.dart
 lib/src/api.dart
 lib/src/api/login_api.dart
@@ -34,10 +32,9 @@ lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
 lib/src/model/comment_dto.dart
 lib/src/model/date.dart
-lib/src/model/e_friendship_state.dart
 lib/src/model/e_friendship_status.dart
 lib/src/model/e_gender.dart
-lib/src/model/friendship_model.dart
+lib/src/model/friendship_dto.dart
 lib/src/model/like_dto.dart
 lib/src/model/login_dto.dart
 lib/src/model/search_user_dto.dart
@@ -46,6 +43,6 @@ lib/src/model/social_post_model.dart
 lib/src/model/track_dto.dart
 lib/src/model/update_user_dto.dart
 lib/src/model/user_dto.dart
-lib/src/model/user_model.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/friendship_dto_test.dart

@@ -141,7 +141,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiUserGetFriendRequestsGet**
-> BuiltList<FriendshipModel> apiUserGetFriendRequestsGet()
+> BuiltList<FriendshipDto> apiUserGetFriendRequestsGet(receiverId)
 
 
 
@@ -150,9 +150,10 @@ void (empty response body)
 import 'package:openapi/api.dart';
 
 final api = Openapi().getUserApi();
+final String receiverId = receiverId_example; // String | 
 
 try {
-    final response = api.apiUserGetFriendRequestsGet();
+    final response = api.apiUserGetFriendRequestsGet(receiverId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling UserApi->apiUserGetFriendRequestsGet: $e\n');
@@ -160,11 +161,14 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **receiverId** | **String**|  | [optional] 
 
 ### Return type
 
-[**BuiltList&lt;FriendshipModel&gt;**](FriendshipModel.md)
+[**BuiltList&lt;FriendshipDto&gt;**](FriendshipDto.md)
 
 ### Authorization
 

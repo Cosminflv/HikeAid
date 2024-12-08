@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/friendship_model.dart';
+import 'package:openapi/src/model/friendship_dto.dart';
 import 'package:openapi/src/model/search_user_dto.dart';
 import 'package:openapi/src/model/update_user_dto.dart';
 
@@ -193,6 +193,7 @@ class UserApi {
   /// 
   ///
   /// Parameters:
+  /// * [receiverId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -200,9 +201,10 @@ class UserApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<FriendshipModel>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<FriendshipDto>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<FriendshipModel>>> apiUserGetFriendRequestsGet({ 
+  Future<Response<BuiltList<FriendshipDto>>> apiUserGetFriendRequestsGet({ 
+    String? receiverId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -229,22 +231,27 @@ class UserApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      if (receiverId != null) r'receiverId': encodeQueryParameter(_serializers, receiverId, const FullType(String)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<FriendshipModel>? _responseData;
+    BuiltList<FriendshipDto>? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(FriendshipModel)]),
-      ) as BuiltList<FriendshipModel>;
+        specifiedType: const FullType(BuiltList, [FullType(FriendshipDto)]),
+      ) as BuiltList<FriendshipDto>;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -256,7 +263,7 @@ class UserApi {
       );
     }
 
-    return Response<BuiltList<FriendshipModel>>(
+    return Response<BuiltList<FriendshipDto>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

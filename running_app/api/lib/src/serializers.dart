@@ -15,10 +15,9 @@ import 'package:openapi/src/date_serializer.dart';
 import 'package:openapi/src/model/date.dart';
 
 import 'package:openapi/src/model/comment_dto.dart';
-import 'package:openapi/src/model/e_friendship_state.dart';
 import 'package:openapi/src/model/e_friendship_status.dart';
 import 'package:openapi/src/model/e_gender.dart';
-import 'package:openapi/src/model/friendship_model.dart';
+import 'package:openapi/src/model/friendship_dto.dart';
 import 'package:openapi/src/model/like_dto.dart';
 import 'package:openapi/src/model/login_dto.dart';
 import 'package:openapi/src/model/search_user_dto.dart';
@@ -27,16 +26,14 @@ import 'package:openapi/src/model/social_post_model.dart';
 import 'package:openapi/src/model/track_dto.dart';
 import 'package:openapi/src/model/update_user_dto.dart';
 import 'package:openapi/src/model/user_dto.dart';
-import 'package:openapi/src/model/user_model.dart';
 
 part 'serializers.g.dart';
 
 @SerializersFor([
   CommentDto,
-  EFriendshipState,
   EFriendshipStatus,
   EGender,
-  FriendshipModel,
+  FriendshipDto,
   LikeDto,
   LoginDto,
   SearchUserDto,
@@ -45,13 +42,8 @@ part 'serializers.g.dart';
   TrackDto,
   UpdateUserDto,
   UserDto,
-  UserModel,
 ])
 Serializers serializers = (_$serializers.toBuilder()
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(FriendshipModel)]),
-        () => ListBuilder<FriendshipModel>(),
-      )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(SearchUserDto)]),
         () => ListBuilder<SearchUserDto>(),
@@ -59,6 +51,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TrackDto)]),
         () => ListBuilder<TrackDto>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(FriendshipDto)]),
+        () => ListBuilder<FriendshipDto>(),
       )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

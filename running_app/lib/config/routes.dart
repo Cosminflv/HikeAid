@@ -3,6 +3,7 @@ import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_page.dart';
+import 'package:running_app/friendships/friendships_view_page.dart';
 import 'package:running_app/home/home_view_page.dart';
 import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/map/widgets/ask_permission_popup.dart';
@@ -35,6 +36,7 @@ class RouteNames {
   static const searchUsersPage = '$defaultPage/search_users_view_page';
   static const userProfilePage = '$defaultPage/user_profile_view_page';
   static const userPreferencesWizardPage = '$defaultPage/user_preferences_wizard_page';
+  static const friendshipRequests = '$defaultPage/friendships_view_page';
 
   @pragma('MISC')
   static const homePage = '${defaultPage}home_page';
@@ -78,6 +80,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
           friendshipStatus: args.containsKey('friendshipStatus') ? args['friendshipStatus'] as FriendshipStatus : null);
     case RouteNames.userPreferencesWizardPage:
       page = const UserPreferencesWizardPage();
+    case RouteNames.friendshipRequests:
+      page = const FriendshipsViewPage();
 
     // MISC
     case RouteNames.homePage:

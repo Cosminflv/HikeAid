@@ -6,6 +6,9 @@ class FriendshipUseCase {
 
   FriendshipUseCase(this._friendshipRepository);
 
+  Future<List<FriendshipEntity>> fetchRequests(int receiverId) async =>
+      await _friendshipRepository.fetchRequests(receiverId);
+
   void initializeNotificationConnection(
       int userId, Function(String err, FriendshipEntity? friendshipEntity) onNotificationReceived) {
     _friendshipRepository.establishNotificationsConnection(userId, onNotificationReceived);

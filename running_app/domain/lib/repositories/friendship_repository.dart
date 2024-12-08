@@ -1,6 +1,8 @@
 import 'package:domain/entities/friendship_entity.dart';
 
 abstract class FriendshipRepository {
+  Future<List<FriendshipEntity>> fetchRequests(int receiverId);
+
   void establishNotificationsConnection(
       int userId, Function(String err, FriendshipEntity? friendshipEntity) onNotificationReceived);
 

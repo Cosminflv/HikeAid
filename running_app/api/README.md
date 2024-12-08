@@ -97,10 +97,9 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [CommentDto](doc/CommentDto.md)
- - [EFriendshipState](doc/EFriendshipState.md)
  - [EFriendshipStatus](doc/EFriendshipStatus.md)
  - [EGender](doc/EGender.md)
- - [FriendshipModel](doc/FriendshipModel.md)
+ - [FriendshipDto](doc/FriendshipDto.md)
  - [LikeDto](doc/LikeDto.md)
  - [LoginDto](doc/LoginDto.md)
  - [SearchUserDto](doc/SearchUserDto.md)
@@ -109,7 +108,6 @@ Class | Method | HTTP request | Description
  - [TrackDto](doc/TrackDto.md)
  - [UpdateUserDto](doc/UpdateUserDto.md)
  - [UserDto](doc/UserDto.md)
- - [UserModel](doc/UserModel.md)
 
 
 ## Documentation For Authorization

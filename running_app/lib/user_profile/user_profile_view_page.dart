@@ -6,6 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
+import 'package:running_app/friendships/friendships_view_bloc.dart';
+import 'package:running_app/friendships/friendships_view_state.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
@@ -68,12 +70,27 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                         FontAwesomeIcons.magnifyingGlass,
                         color: Theme.of(context).colorScheme.surface,
                       )),
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        FontAwesomeIcons.gear,
-                        color: Theme.of(context).colorScheme.surface,
-                      ))
+                  BlocBuilder<FriendshipsViewBloc, FriendshipsViewState>(
+                    builder: (context, state) {
+                      return IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(RouteNames.friendshipRequests).then((result) {
+                              if (result == true) {
+                                // Trigger a state update to rebuild the previous page
+                                setState(() {});
+                              }
+                            });
+                          },
+                          icon: Icon(
+                            FontAwesomeIcons.bell,
+                            color: state.incomingRequests.isNotEmpty
+                                ? const Color.fromARGB(255, 222, 134, 33)
+                                : Theme.of(context).colorScheme.surface,
+                          ));
+                    },
+                    buildWhen: (previous, current) =>
+                        previous.incomingRequests.length != current.incomingRequests.length,
+                  )
                 ]
               : null,
         ),
@@ -100,6 +117,7 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
           state as UserProfileLoadedState;
 
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),

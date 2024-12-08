@@ -36,6 +36,7 @@ class AuthSessionBlocListener extends StatelessWidget {
               //Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
               BlocProvider.of<UserProfileBloc>(context).add(FetchUserProfileEvent(userId: state.session.user.id));
               AppBlocs.friendships.add(InitializeNotificationService(userId: state.session.user.id));
+              AppBlocs.friendships.add(FetchRequestsEvent(receiverId: state.session.user.id));
             }
             if (state is AuthSessionNotExistingState) {
               Navigator.of(context).pushReplacementNamed(RouteNames.getStartedPage);
@@ -48,7 +49,8 @@ class AuthSessionBlocListener extends StatelessWidget {
           },
           listenWhen: (previous, current) =>
               ((previous is AuthSessionNotExistingState && current is AuthSessionExistingState) ||
-              (previous is AuthSessionExistingState && current is AuthSessionNotExistingState)) && previous != current,
+                  (previous is AuthSessionExistingState && current is AuthSessionNotExistingState)) &&
+              previous != current,
         ),
       ],
       child: child,

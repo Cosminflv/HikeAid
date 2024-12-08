@@ -1,4 +1,12 @@
+import 'package:domain/entities/friendship_entity.dart';
+
 abstract class FriendshipsViewEvent {}
+
+class FetchRequestsEvent extends FriendshipsViewEvent {
+  final int receiverId;
+
+  FetchRequestsEvent({required this.receiverId});
+}
 
 class SendFriendshipRequestEvent extends FriendshipsViewEvent {
   final int requesterId;
@@ -14,9 +22,9 @@ class DeclineFriendshipRequestEvent extends FriendshipsViewEvent {
 }
 
 class AcceptFriendshipRequestEvent extends FriendshipsViewEvent {
-  final int requestId;
+  final FriendshipEntity request;
 
-  AcceptFriendshipRequestEvent({required this.requestId});
+  AcceptFriendshipRequestEvent({required this.request});
 }
 
 class InitializeNotificationService extends FriendshipsViewEvent {

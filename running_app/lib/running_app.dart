@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
+import 'package:running_app/friendships/friendships_view_bloc.dart';
 import 'package:running_app/internet_connection/internet_connection_events.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_event.dart';
@@ -49,6 +50,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => sl.get<AuthSessionBloc>()),
+        BlocProvider(create: (context) => sl.get<FriendshipsViewBloc>()),
         BlocProvider(create: (context) => sl.get<AuthenticationViewBloc>()),
         BlocProvider(create: (context) => sl.get<RegistrationViewBloc>()),
         BlocProvider(create: (context) => sl.get<LocationBloc>()),

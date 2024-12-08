@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:data/models/friendship_entity_impl.dart';
 import 'package:domain/entities/friendship_entity.dart';
 import 'package:domain/repositories/friendship_repository.dart';
@@ -20,6 +21,25 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   bool _isClosing = false; // Flag to indicate intentional closure
 
   @override
+  Future<List<FriendshipEntity>> fetchRequests(int receiverId) async {
+    try {
+      final result = await _openapi.getUserApi().apiUserGetFriendRequestsGet(receiverId: receiverId.toString());
+      if (result.statusCode == 200) {
+        final requests = result.data as BuiltList<FriendshipDto>;
+        List<FriendshipEntity> requestList = [];
+        for (FriendshipDto request in requests) {
+          requestList.add(FriendshipEntityImpl.fromDto(request));
+        }
+        return requestList;
+      }
+    } catch (e) {
+      print(e);
+      return [];
+    }
+    return [];
+  }
+
+  @override
   Future<bool> declineFriendshipRequest(int requestId) async {
     try {
       await _openapi.getUserApi().apiUserDeclineFriendRequestPost(requestId: requestId);
@@ -34,7 +54,7 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   void establishNotificationsConnection(
       int userId, Function(String err, FriendshipEntity? entity) onNotificationReceived) {
     _isClosing = false; // Reset the flag
-    
+
     // Connect to the WebSocket server
     if (!kIsWeb) {
       _ioChannel = IOWebSocketChannel.connect(
@@ -52,11 +72,11 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
           onNotificationReceived(
               "success",
               FriendshipEntityImpl(
-                  id: decodedMessage['id'],
-                  requesterId: decodedMessage['requesterId'],
-                  receiverId: decodedMessage['receiverId'],
-                  requesterName: decodedMessage['requesterName'],
-                  receiverName: decodedMessage['receiverName']));
+                id: decodedMessage['id'],
+                requesterId: decodedMessage['requesterId'],
+                receiverId: decodedMessage['receiverId'],
+                requesterName: decodedMessage['requesterName'],
+              ));
         },
         onError: (error) {
           onNotificationReceived("Error: $error", null);
@@ -75,15 +95,21 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
           onNotificationReceived(
               "success",
               FriendshipEntityImpl(
-                  id: decodedMessage['id'],
-                  requesterId: decodedMessage['requesterId'],
-                  receiverId: decodedMessage['receiverId'],
-                  requesterName: decodedMessage['requesterName'],
-                  receiverName: decodedMessage['receiverName']));
+                id: decodedMessage['id'],
+                requesterId: decodedMessage['requesterId'],
+                receiverId: decodedMessage['receiverId'],
+                requesterName: decodedMessage['requesterName'],
+              ));
         },
         onError: (error) {
-          onNotificationReceived("Error: $error",
-              FriendshipEntityImpl(id: 0, requesterId: 0, receiverId: 0, requesterName: "err", receiverName: "err"));
+          onNotificationReceived(
+              "Error: $error",
+              FriendshipEntityImpl(
+                id: 0,
+                requesterId: 0,
+                receiverId: 0,
+                requesterName: "err",
+              ));
           print('WebSocket error: $error');
           _reconnect(userId, onNotificationReceived);
         },
