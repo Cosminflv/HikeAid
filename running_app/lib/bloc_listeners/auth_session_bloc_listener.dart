@@ -39,6 +39,7 @@ class AuthSessionBlocListener extends StatelessWidget {
             }
             if (state is AuthSessionNotExistingState) {
               Navigator.of(context).pushReplacementNamed(RouteNames.getStartedPage);
+              AppBlocs.friendships.add(CloseNotificationService());
               discardBlocsIfRegistered();
             }
             if (state is AuthSessionFailureState) {
@@ -46,8 +47,8 @@ class AuthSessionBlocListener extends StatelessWidget {
             }
           },
           listenWhen: (previous, current) =>
-              (previous is AuthSessionNotExistingState && current is AuthSessionExistingState) ||
-              (previous is AuthSessionExistingState && current is AuthSessionNotExistingState),
+              ((previous is AuthSessionNotExistingState && current is AuthSessionExistingState) ||
+              (previous is AuthSessionExistingState && current is AuthSessionNotExistingState)) && previous != current,
         ),
       ],
       child: child,

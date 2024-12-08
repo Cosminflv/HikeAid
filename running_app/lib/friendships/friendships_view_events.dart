@@ -24,3 +24,5 @@ class InitializeNotificationService extends FriendshipsViewEvent {
 
   InitializeNotificationService({required this.userId});
 }
+
+class CloseNotificationService extends FriendshipsViewEvent {}

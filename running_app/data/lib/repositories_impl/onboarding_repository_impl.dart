@@ -104,10 +104,11 @@ class OnboardingRepositoryImpl extends OnboardingRepository {
   }
 
   @override
-  Future<AuthenticationFailed?> signOut() async {
+  Future<bool> signOut(int userId) async {
     await _storage.delete(key: "jwt");
     await _storage.delete(key: "userId");
-    return null;
+
+    return true;
   }
 
   @override

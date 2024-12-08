@@ -22,7 +22,7 @@ class AuthSessionBloc extends Bloc<AuthSessionEvent, AuthSessionState> {
   }
 
   _handleCheckForSessionEvent(CheckForSessionEvent event, Emitter<AuthSessionState> emit) async {
-  final result = await authSessionUseCase.checkForSession();
+    final result = await authSessionUseCase.checkForSession();
 
     if (result != null) {
       emit(AuthSessionExistingState(result));
@@ -32,7 +32,7 @@ class AuthSessionBloc extends Bloc<AuthSessionEvent, AuthSessionState> {
   }
 
   _handleLogout(LogoutEvent event, Emitter<AuthSessionState> emit) async {
-    await authSessionUseCase.signOut();
+    //await authSessionUseCase.signOut();
     emit(AuthSessionNotExistingState());
   }
 }

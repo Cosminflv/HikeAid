@@ -54,7 +54,7 @@ class OnboardingUseCase {
     return result;
   }
 
-  Future<AuthenticationFailed?> logout() {
+  Future<bool?> logout(int userId) {
     throw UnimplementedError();
   }
 }

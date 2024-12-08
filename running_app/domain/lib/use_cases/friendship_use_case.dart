@@ -11,6 +11,8 @@ class FriendshipUseCase {
     _friendshipRepository.establishNotificationsConnection(userId, onNotificationReceived);
   }
 
+  void closeNotificationsConnection() => _friendshipRepository.closeNotificationsConnection();
+
   Future<bool> declineFriendshipRequest(int requestId) async =>
       await _friendshipRepository.declineFriendshipRequest(requestId);
 

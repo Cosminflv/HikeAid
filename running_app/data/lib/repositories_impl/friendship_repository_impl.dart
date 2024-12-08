@@ -13,6 +13,12 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   final Openapi _openapi;
 
   FriendshipRepositoryImpl(this._openapi);
+
+  IOWebSocketChannel? _ioChannel;
+  WebSocketChannel? _webChannel;
+
+  bool _isClosing = false; // Flag to indicate intentional closure
+
   @override
   Future<bool> declineFriendshipRequest(int requestId) async {
     try {
@@ -27,21 +33,20 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   @override
   void establishNotificationsConnection(
       int userId, Function(String err, FriendshipEntity? entity) onNotificationReceived) {
-    late IOWebSocketChannel channel;
-    late WebSocketChannel webChannel;
-
+    _isClosing = false; // Reset the flag
+    
     // Connect to the WebSocket server
     if (!kIsWeb) {
-      channel = IOWebSocketChannel.connect(
+      _ioChannel = IOWebSocketChannel.connect(
         Uri.parse('ws://192.168.1.5:7011/ws?userId=$userId'),
       );
     } else {
-      webChannel = WebSocketChannel.connect(Uri.parse('ws://192.168.1.5:7011/ws?userId=$userId'));
+      _webChannel = WebSocketChannel.connect(Uri.parse('ws://192.168.1.5:7011/ws?userId=$userId'));
     }
 
     // Listen for incoming messages
     if (!kIsWeb) {
-      channel.stream.listen(
+      _ioChannel!.stream.listen(
         (message) {
           final decodedMessage = jsonDecode(message);
           onNotificationReceived(
@@ -64,7 +69,7 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
         },
       );
     } else {
-      webChannel.stream.listen(
+      _webChannel!.stream.listen(
         (message) {
           var decodedMessage = jsonDecode(message);
           onNotificationReceived(
@@ -91,6 +96,8 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   }
 
   void _reconnect(int userId, Function(String err, FriendshipEntity? entity) onNotificationReceived) {
+    if (_isClosing) return; // Do not reconnect if the disconnection is intentional
+
     // Retry connection after 5 seconds
     Future.delayed(const Duration(seconds: 5), () {
       establishNotificationsConnection(userId, onNotificationReceived);
@@ -116,6 +123,21 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
     } catch (e) {
       print(e);
       return false;
+    }
+  }
+
+  @override
+  void closeNotificationsConnection() {
+    _isClosing = true;
+
+    if (_ioChannel != null) {
+      _ioChannel!.sink.close();
+      _ioChannel = null;
+    }
+
+    if (_webChannel != null) {
+      _webChannel!.sink.close();
+      _webChannel = null;
     }
   }
 }

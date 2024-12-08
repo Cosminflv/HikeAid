@@ -8,14 +8,21 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
   final FriendshipUseCase _friendshipUseCase;
 
   FriendshipsViewBloc(this._friendshipUseCase) : super(const FriendshipsViewState()) {
+    on<InitializeNotificationService>(_handleInitializeNotificationService);
+    on<CloseNotificationService>(_handleCloseNotificationService);
+
     on<SendFriendshipRequestEvent>(_handleSendFriendshipRequest);
     on<AcceptFriendshipRequestEvent>(_handleAcceptFriendshipRequest);
     on<DeclineFriendshipRequestEvent>(_handleDeclineFriendshipRequest);
-    on<InitializeNotificationService>(_handleInitializeNotificationService);
   }
 
   _handleSendFriendshipRequest(SendFriendshipRequestEvent event, Emitter<FriendshipsViewState> emit) async {
     await _friendshipUseCase.sendFriendshipRequest(event.requesterId, event.receiverId);
+  }
+
+  _handleCloseNotificationService(CloseNotificationService event, Emitter<FriendshipsViewState> emit) {
+    _friendshipUseCase.closeNotificationsConnection();
+    emit(state.copyWith(isInitialized: false));
   }
 
   _handleAcceptFriendshipRequest(AcceptFriendshipRequestEvent event, Emitter<FriendshipsViewState> emit) async {
@@ -27,6 +34,7 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
   }
 
   _handleInitializeNotificationService(InitializeNotificationService event, Emitter<FriendshipsViewState> emit) async {
+    if (state.isInitialized) return;
     List<FriendshipEntity> updatedFriendships = [];
 
     _friendshipUseCase.initializeNotificationConnection(event.userId, (err, entity) {
@@ -36,6 +44,6 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
       }
       updatedFriendships = List<FriendshipEntity>.from(state.incomingRequests)..add(entity!);
     });
-    emit(state.copyWith(incomingRequests: updatedFriendships));
+    emit(state.copyWith(isInitialized: true, incomingRequests: updatedFriendships));
   }
 }

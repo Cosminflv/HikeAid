@@ -21,7 +21,7 @@ abstract class OnboardingRepository {
       required DateTime birthdate,
       required Function(RegistrationStatus status) onRegistrationProgressUpdated});
 
-  Future<AuthenticationFailed?> signOut();
+  Future<bool> signOut(int userId);
 
   Future<AuthSessionEntity?> checkForSession();
 }
