@@ -77,6 +77,14 @@ class _UserListItemState extends State<UserListItem> {
                       widget.user.friendshipStatus = FriendshipStatus.pending;
                     });
                   },
+                  onAcceptRequest: () {
+                    // TODO: Search for the existing friend request in order to accept it
+
+                    // AppBlocs.friendships.add(AcceptFriendshipRequestEvent(request: widget.friendRequest!));
+                    // setState(() {
+                    //   widget.user.friendshipStatus = FriendshipStatus.friends;
+                    // });
+                  },
                   onCancelRequest: () {
                     setState(() {
                       widget.user.friendshipStatus = FriendshipStatus.none;

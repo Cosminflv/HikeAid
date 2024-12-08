@@ -1,4 +1,5 @@
 import 'package:core/di/app_blocs.dart';
+import 'package:domain/entities/friendship_entity.dart';
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
 import 'package:running_app/friendships/friendships_view_bloc.dart';
+import 'package:running_app/friendships/friendships_view_events.dart';
 import 'package:running_app/friendships/friendships_view_state.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
@@ -26,8 +28,9 @@ import 'package:running_app/utils/session_utils.dart';
 class UserProfileViewPage extends StatefulWidget {
   final bool isEditable;
   FriendshipStatus? friendshipStatus;
+  FriendshipEntity? friendRequest;
 
-  UserProfileViewPage({super.key, required this.isEditable, this.friendshipStatus});
+  UserProfileViewPage({super.key, required this.isEditable, this.friendshipStatus, this.friendRequest});
 
   @override
   State<UserProfileViewPage> createState() => _UserProfileViewPageState();
@@ -216,6 +219,13 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                                       requesterId: getSession(context)!.user.id, receiverId: state.profile.id));
                                   setState(() {
                                     widget.friendshipStatus = FriendshipStatus.pending;
+                                  });
+                                },
+                                onAcceptRequest: () {
+                                  AppBlocs.friendships
+                                      .add(AcceptFriendshipRequestEvent(request: widget.friendRequest!));
+                                  setState(() {
+                                    widget.friendshipStatus = FriendshipStatus.friends;
                                   });
                                 },
                                 onCancelRequest: () {

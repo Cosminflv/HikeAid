@@ -1,4 +1,3 @@
-
 import 'package:domain/entities/friendship_entity.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/friendships/friendships_view_events.dart';
@@ -41,9 +40,9 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
   _handleAcceptFriendshipRequest(AcceptFriendshipRequestEvent event, Emitter<FriendshipsViewState> emit) async {
     await _friendshipUseCase.acceptFriendshipRequest(event.request.id);
 
-    // final updatedList = List<FriendshipEntity>.from(state.incomingRequests)..remove(event.request);
+    final updatedList = List<FriendshipEntity>.from(state.incomingRequests)..remove(event.request);
 
-    // emit(state.copyWith(incomingRequests: updatedList));
+    emit(state.copyWith(incomingRequests: updatedList));
   }
 
   _handleDeclineFriendshipRequest(DeclineFriendshipRequestEvent event, Emitter<FriendshipsViewState> emit) async {
@@ -64,11 +63,9 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
 
     emit(state.copyWith(isInitialized: true));
 
-    await emit.forEach<List<FriendshipEntity>>(
-      _friendshipUpdates.stream,
-      onData: (incomingRequests) =>
-        state.copyWith(incomingRequests: incomingRequests)
-    
-    );
+    await emit.forEach<List<FriendshipEntity>>(_friendshipUpdates.stream,
+        onData: (incomingRequests) {
+          return state.copyWith(incomingRequests: incomingRequests);
+        });
   }
 }

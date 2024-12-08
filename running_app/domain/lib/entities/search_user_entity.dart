@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-enum FriendshipStatus { none, friends, pending }
+enum FriendshipStatus { none, friends, pending, waitingAccept }
 
 abstract class SearchUserEntity {
   final int id;

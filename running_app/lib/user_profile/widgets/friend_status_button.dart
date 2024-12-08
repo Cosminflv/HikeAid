@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class FriendshipButton extends StatelessWidget {
   final FriendshipStatus status;
   final VoidCallback onAddFriend;
+  final VoidCallback onAcceptRequest;
   final VoidCallback onRemoveFriend;
   final VoidCallback onCancelRequest;
 
@@ -11,6 +12,7 @@ class FriendshipButton extends StatelessWidget {
     super.key,
     required this.status,
     required this.onAddFriend,
+    required this.onAcceptRequest,
     required this.onRemoveFriend,
     required this.onCancelRequest,
   });
@@ -43,6 +45,11 @@ class FriendshipButton extends StatelessWidget {
         onPressed = onCancelRequest;
 
         break;
+
+      case FriendshipStatus.waitingAccept:
+        icon = Icons.check;
+        label = "Accept";
+        onPressed = onAcceptRequest;
     }
 
     return ElevatedButton.icon(

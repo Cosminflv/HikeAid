@@ -1,3 +1,4 @@
+import 'package:domain/entities/friendship_entity.dart';
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/widgets.dart';
@@ -76,8 +77,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       final args = settings.arguments as Map<String, dynamic>;
       final isEditable = args['isEditable'] as bool;
       page = UserProfileViewPage(
-          isEditable: isEditable,
-          friendshipStatus: args.containsKey('friendshipStatus') ? args['friendshipStatus'] as FriendshipStatus : null);
+        isEditable: isEditable,
+        friendshipStatus: args.containsKey('friendshipStatus') ? args['friendshipStatus'] as FriendshipStatus : null,
+        friendRequest: args.containsKey('friendRequest') ? args['friendRequest'] as FriendshipEntity : null,
+      );
     case RouteNames.userPreferencesWizardPage:
       page = const UserPreferencesWizardPage();
     case RouteNames.friendshipRequests:
