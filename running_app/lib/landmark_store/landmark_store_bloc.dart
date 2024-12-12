@@ -1,4 +1,3 @@
-
 import 'package:core/di/injection_container.dart';
 import 'package:domain/entities/landmark_store_entity.dart';
 import 'package:domain/use_cases/landmark_store_use_case.dart';
@@ -8,7 +7,7 @@ import 'package:running_app/landmark_store/landmark_store_events.dart';
 import 'package:running_app/landmark_store/landmark_store_state.dart';
 
 class LandmarkStoreBloc extends Bloc<LandmarkStoreEvent, LandmarkStoreState> {
-  final _landmarkStoreUseCase = sl.get<LandmarkStoreUseCase>();
+  //final _landmarkStoreUseCase = sl.get<LandmarkStoreUseCase>();
 
   final DLandmarkStoreType _storeType;
 
@@ -24,9 +23,9 @@ class LandmarkStoreBloc extends Bloc<LandmarkStoreEvent, LandmarkStoreState> {
   }
 
   _handleLoadStore(LoadLandmarkStoreEvent event, Emitter<LandmarkStoreState> emit) {
-    final lmks = _landmarkStoreUseCase.getLandmarks(_storeType);
+    //final lmks = _landmarkStoreUseCase.getLandmarks(_storeType);
 
-    add(LandmarksUpdatedEvent(landmarks: lmks));
+    add(LandmarksUpdatedEvent(landmarks: []));
   }
 
   _handleLandmarksUpdatedEvent(LandmarksUpdatedEvent event, Emitter<LandmarkStoreState> emit) {
@@ -38,7 +37,7 @@ class LandmarkStoreBloc extends Bloc<LandmarkStoreEvent, LandmarkStoreState> {
     if (event.landmark.hasExtraImage) {
       event.landmark.setImage(event.landmark.extraImage!);
     }
-    _landmarkStoreUseCase.addToStore(event.landmark, _storeType);
+    //_landmarkStoreUseCase.addToStore(event.landmark, _storeType);
 
     if (event.landmark.hasExtraImage) {
       event.landmark.setImage(currentImage);
@@ -48,12 +47,12 @@ class LandmarkStoreBloc extends Bloc<LandmarkStoreEvent, LandmarkStoreState> {
   }
 
   _handleRemoveLandmarkFromStore(RemoveLandmarkFromStoreEvent event, Emitter<LandmarkStoreState> emit) {
-    _landmarkStoreUseCase.removeFromStore(event.landmark, _storeType);
+    //_landmarkStoreUseCase.removeFromStore(event.landmark, _storeType);
     add(LoadLandmarkStoreEvent());
   }
 
   _handleClearStoreEvent(ClearStoreEvent event, Emitter<LandmarkStoreState> emit) {
-    _landmarkStoreUseCase.clearItems(_storeType);
+    //_landmarkStoreUseCase.clearItems(_storeType);
     add(LoadLandmarkStoreEvent());
   }
 }

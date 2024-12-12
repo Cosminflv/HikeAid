@@ -143,7 +143,7 @@ initEarlyDependencies() {
       () => AuthenticationSessionUseCase(sl.get<OnboardingRepository>()));
   sl.registerLazySingleton<SearchUsersUseCase>(() => SearchUsersUseCase(sl.get<SearchUsersRepository>()));
   sl.registerLazySingleton<SearchUseCase>(() => SearchUseCase(sl.get<SearchRepository>()));
-  sl.registerLazySingleton<LandmarkStoreUseCase>(() => LandmarkStoreUseCase(sl.get<LandmarkStoreRepository>()));
+  //sl.registerLazySingleton<LandmarkStoreUseCase>(() => LandmarkStoreUseCase(sl.get<LandmarkStoreRepository>()));
   sl.registerLazySingleton<InternetConnectionUseCase>(
       () => InternetConnectionUseCase(sl.get<InternetConnectionRepository>()));
   sl.registerLazySingleton<RoutingUseCase>(() => RoutingUseCase(sl.get<RouteRepository>()));

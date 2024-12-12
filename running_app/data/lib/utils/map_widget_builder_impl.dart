@@ -14,8 +14,9 @@ class MapControllerImpl extends MapController {
 
 class MapWidgetBuilderImpl extends MapWidgetBuilder {
   @override
-  Widget build(Function(MapController)? onMapCreated, CoordinatesEntity? coordinates, int? zoom) {
+  Widget build(Function(MapController)? onMapCreated, CoordinatesEntity? coordinates, int? zoom, String? authToken) {
     return MapWidgetImpl(
+      authorizationToken: authToken ?? '',
       onMapCreated: onMapCreated,
       initialCoordinates: coordinates,
       zoomLevel: zoom,

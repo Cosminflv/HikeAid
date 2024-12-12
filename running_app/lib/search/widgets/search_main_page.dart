@@ -26,8 +26,7 @@ class SearchMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final historyLandmarks = _getHistoryLandmarkWithDistance(context).reversed.toList();
-
+    final historyLandmarks = [];
     return Expanded(
       child: Container(
         color: getAppbarColor(context),

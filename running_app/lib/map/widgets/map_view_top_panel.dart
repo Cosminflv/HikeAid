@@ -44,12 +44,12 @@ class _MapViewTopPanelState extends State<MapViewTopPanel> {
                     ],
                   ),
                 ),
-              BlocBuilder<MapViewBloc, MapViewState>(
-                builder: (context, mapState) {
-                  if (mapState.isFollowingPosition) return const SizedBox.shrink();
-                  return const CompassButton();
-                },
-              ),
+              // BlocBuilder<MapViewBloc, MapViewState>(
+              //   builder: (context, mapState) {
+              //     if (mapState.isFollowingPosition) return const SizedBox.shrink();
+              //     return const CompassButton();
+              //   },
+              // ),
             ],
           );
         });

@@ -1,7 +1,6 @@
 import 'package:domain/repositories/permission_repository.dart';
 
 import 'package:permission_handler/permission_handler.dart';
-import 'package:geolocator/geolocator.dart' as gl;
 import 'package:rxdart/rxdart.dart';
 
 class PermissionRepositoryImpl extends PermissionRepository {
@@ -21,22 +20,19 @@ class PermissionRepositoryImpl extends PermissionRepository {
   late bool _isLocationEnabled;
 
   PermissionRepositoryImpl() {
-    gl.Geolocator.isLocationServiceEnabled().then((value) {
-      _isLocationEnabled = value;
-      _locationStatusStreamController.sink.add(_isLocationEnabled);
-    });
+    // gl.Geolocator.getServiceStatusStream().listen((status) {
+    //   switch (status) {
+    //     case gl.ServiceStatus.enabled:
+    //       _isLocationEnabled = true;
+    //       break;
+    //     case gl.ServiceStatus.disabled:
+    //       _isLocationEnabled = false;
+    //       break;
+    //   }
+    //   _locationStatusStreamController.sink.add(_isLocationEnabled);
+    // });
 
-    gl.Geolocator.getServiceStatusStream().listen((status) {
-      switch (status) {
-        case gl.ServiceStatus.enabled:
-          _isLocationEnabled = true;
-          break;
-        case gl.ServiceStatus.disabled:
-          _isLocationEnabled = false;
-          break;
-      }
-      _locationStatusStreamController.sink.add(_isLocationEnabled);
-    });
+    _locationStatusStreamController.sink.add(true);
 
     _updateAccessStatus(DPermissionType.locationWhenInUse);
   }
@@ -95,11 +91,11 @@ class PermissionRepositoryImpl extends PermissionRepository {
       return DAccessStatus.denied;
     }
 
-    final permissionGranted = await permission.isGranted;
+    //final permissionGranted = await permission.isGranted;
 
-    if (!permissionGranted) {
-      await permission.request();
-    }
+    // if (!permissionGranted) {
+    //   await permission.request();
+    // }
 
     await _updateAccessStatus(permissionType);
 
@@ -112,7 +108,7 @@ class PermissionRepositoryImpl extends PermissionRepository {
     if (permission == null) return;
 
     final oldStatus = getAccessStatus(permissionType);
-    final permissionStatus = await permission.status;
+    final permissionStatus = PermissionStatus.granted;
 
     final newStatus = _toAccessStatus(permissionStatus);
 
@@ -160,6 +156,7 @@ class PermissionRepositoryImpl extends PermissionRepository {
 
   @override
   Future<bool> openLocationService() async {
-    return await gl.Geolocator.openLocationSettings();
+    _isLocationEnabled = true;
+    return true;
   }
 }

@@ -10,16 +10,22 @@ class MapWidget extends StatelessWidget {
   final int? zoomLevel;
   final Function(MapController)? onMapCreated;
   final bool showPlaceholder;
+  final String? authorizationToken;
 
   const MapWidget(
-      {super.key, this.onMapCreated, this.initialCoordinates, this.zoomLevel, this.showPlaceholder = false});
+      {super.key,
+      this.onMapCreated,
+      this.initialCoordinates,
+      this.zoomLevel,
+      this.showPlaceholder = false,
+      this.authorizationToken});
 
   @override
   Widget build(BuildContext context) {
     if (showPlaceholder == true) {
       return Center(child: CircularProgressIndicator(color: Theme.of(context).colorScheme.primary));
     }
-    return sl.get<MapWidgetBuilder>().build(onMapCreated, initialCoordinates, zoomLevel);
+    return sl.get<MapWidgetBuilder>().build(onMapCreated, initialCoordinates, zoomLevel, authorizationToken);
   }
 }
 

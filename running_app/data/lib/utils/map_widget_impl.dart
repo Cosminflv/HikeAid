@@ -7,11 +7,12 @@ import 'package:gem_kit/map.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class MapWidgetImpl extends MapWidget {
-  MapWidgetImpl({super.onMapCreated, super.initialCoordinates, super.zoomLevel});
+  MapWidgetImpl({super.onMapCreated, super.initialCoordinates, super.zoomLevel, super.authorizationToken});
 
   @override
   Widget build(BuildContext context) {
     return GemMap(
+      appAuthorization: authorizationToken ?? '',
       zoomLevel: zoomLevel,
       coordinates: initialCoordinates?.toGemCoordinates(),
       onMapCreated: (gemController) {
