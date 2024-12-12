@@ -7,6 +7,7 @@ import 'package:gem_kit/sense.dart';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import 'package:flutter/foundation.dart';
 
 import 'dart:io' as io;
 import 'dart:io';
@@ -19,7 +20,9 @@ class TourRepositoryImpl extends TourRepository {
   Directory? _documentsDirectory;
 
   TourRepositoryImpl() {
-    if (io.Platform.isAndroid) {
+    if (kIsWeb) {
+      _documentsDirectory = null;
+    } else if (io.Platform.isAndroid) {
       getExternalStorageDirectory().then((dir) => _documentsDirectory = dir);
     } else if (io.Platform.isIOS) {
       getApplicationDocumentsDirectory().then((dir) => _documentsDirectory = dir);
@@ -174,6 +177,7 @@ class TourRepositoryImpl extends TourRepository {
 
   Future<void> _ensureDirectoryIsCreated(String path) async {
     if (_documentsDirectory == null) {
+      if (kIsWeb) _documentsDirectory = null;
       if (io.Platform.isAndroid) {
         _documentsDirectory = await getExternalStorageDirectory();
       } else if (io.Platform.isIOS) {
