@@ -103,7 +103,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
                 InternetConnectionChecker(
                     child: UserProfileViewPage(
                   isEditable: true,
-                ))
+                )),
               ],
             ),
           );

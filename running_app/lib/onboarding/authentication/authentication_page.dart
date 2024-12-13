@@ -142,7 +142,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                         );
                         //BlocProviders.authentication(context).add(AuthResetEvent());
                         Navigator.of(context).pop();
-
                         Navigator.of(context).pushReplacementNamed(RouteNames.homePage);
                       });
                     }
