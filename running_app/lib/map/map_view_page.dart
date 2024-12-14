@@ -35,77 +35,79 @@ class _MapViewPageState extends State<MapViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MapBlocsProvider(
-      child: MapPageBlocListeners(
-        child: Scaffold(
-          extendBodyBehindAppBar: false,
-          appBar: SearchAppBar(
-            automaticallyImplyLeading: false,
-            isInMapView: true,
-            title: Hero(
-                tag: 'searchBar',
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: InkWell(
-                    onTap: () => _handleSearchBarTap(context),
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                        borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8),
-                                child: Icon(
-                                  FontAwesomeIcons.magnifyingGlass,
-                                  size: 20,
-                                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+    return Scaffold(
+      body: MapBlocsProvider(
+        child: MapPageBlocListeners(
+          child: Scaffold(
+            extendBodyBehindAppBar: false,
+            appBar: SearchAppBar(
+              automaticallyImplyLeading: false,
+              isInMapView: true,
+              title: Hero(
+                  tag: 'searchBar',
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: InkWell(
+                      onTap: () => _handleSearchBarTap(context),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                                  child: Icon(
+                                    FontAwesomeIcons.magnifyingGlass,
+                                    size: 20,
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!.search,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
-                              )
-                            ],
-                          ),
-                        ],
+                                Text(
+                                  AppLocalizations.of(context)!.search,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                )),
-          ),
-          body: Stack(
-            children: [
-              Builder(builder: (context) {
-                return MapWidget(
-                  authorizationToken:
-                      "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIyMmRhMzc4ZC1kMGE4LTRjZTItYjljYS1lMGU5N2YxZGU3NzkiLCJleHAiOjE3NTEzMTcyMDAsImlzcyI6Ik1hZ2ljIExhbmUiLCJqdGkiOiIxMjU3NTY1MC1lMGU5LTRkM2YtODE4Zi1jNTY4NGNjY2U0YmUifQ.RyLbm3rxMTRlnune8wlaYULk-oYqfOjSxdQWbBN-SDQ_d3eN9u_ZRgoYC7ZbSJLau28kTtzPLwCGYfrkJK0zqQ",
-                  onMapCreated: (controller) {
-                    final appBloc = AppBlocs.appBloc;
-                    final locationBloc = AppBlocs.locationBloc;
-                    AppBlocs.appBloc.add(UpdateAppStatusEvent(AppStatus.intializedSDK));
-
-                    initMapDependecies(controller);
-                    locationBloc.add(InitializeLocationEvent());
-                    appBloc.add(UpdateAppStatusEvent(AppStatus.initializedMap));
-                  },
-                );
-              }),
-              const MapActionsButtons(),
-              Positioned(
-                top: 0,
-                child: MapViewTopPanel(topPadding: MediaQuery.of(context).padding.top),
-              ),
-              const NavigationBottomControls(),
-            ],
+                  )),
+            ),
+            body: Stack(
+              children: [
+                Builder(builder: (context) {
+                  return MapWidget(
+                    authorizationToken:
+                        "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIyMmRhMzc4ZC1kMGE4LTRjZTItYjljYS1lMGU5N2YxZGU3NzkiLCJleHAiOjE3NTEzMTcyMDAsImlzcyI6Ik1hZ2ljIExhbmUiLCJqdGkiOiIxMjU3NTY1MC1lMGU5LTRkM2YtODE4Zi1jNTY4NGNjY2U0YmUifQ.RyLbm3rxMTRlnune8wlaYULk-oYqfOjSxdQWbBN-SDQ_d3eN9u_ZRgoYC7ZbSJLau28kTtzPLwCGYfrkJK0zqQ",
+                    onMapCreated: (controller) {
+                      final appBloc = AppBlocs.appBloc;
+                      final locationBloc = AppBlocs.locationBloc;
+                      AppBlocs.appBloc.add(UpdateAppStatusEvent(AppStatus.intializedSDK));
+      
+                      initMapDependecies(controller);
+                      locationBloc.add(InitializeLocationEvent());
+                      appBloc.add(UpdateAppStatusEvent(AppStatus.initializedMap));
+                    },
+                  );
+                }),
+                const MapActionsButtons(),
+                Positioned(
+                  top: 0,
+                  child: MapViewTopPanel(topPadding: MediaQuery.of(context).padding.top),
+                ),
+                const NavigationBottomControls(),
+              ],
+            ),
           ),
         ),
       ),

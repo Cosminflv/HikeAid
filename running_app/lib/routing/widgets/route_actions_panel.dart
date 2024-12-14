@@ -70,7 +70,7 @@ class RouteActionsPanel extends StatelessWidget {
                 Container(
                   height: 50,
                   padding: const EdgeInsets.symmetric(vertical: 5),
-                  width: MediaQuery.of(context).size.width / 2 - 15,
+                  width: MediaQuery.of(context).size.width / 3 - 15,
                   child: LandmarkPanelButton(
                     isFilled: false,
                     text: AppLocalizations.of(context)!.cancel,
@@ -86,7 +86,7 @@ class RouteActionsPanel extends StatelessWidget {
                 Container(
                   height: 50,
                   padding: const EdgeInsets.symmetric(vertical: 5),
-                  width: MediaQuery.of(context).size.width / 2 - 15,
+                  width: MediaQuery.of(context).size.width / 3 - 15,
                   child: RouteActionButton(
                     text: AppLocalizations.of(context)!.navigate,
                     onTap: () {
