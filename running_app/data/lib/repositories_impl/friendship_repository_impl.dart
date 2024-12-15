@@ -7,6 +7,7 @@ import 'package:openapi/openapi.dart';
 import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:core/config.dart';
 
 import 'dart:convert';
 
@@ -58,7 +59,7 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
     // Connect to the WebSocket server
     if (!kIsWeb) {
       _ioChannel = IOWebSocketChannel.connect(
-        Uri.parse('ws://192.168.1.5:7011/ws?userId=$userId'),
+        Uri.parse('ws://$ipv4Address:7011/ws?userId=$userId'),
       );
     } else {
       _webChannel = WebSocketChannel.connect(Uri.parse('ws://192.168.1.5:7011/ws?userId=$userId'));

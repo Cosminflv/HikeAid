@@ -1,3 +1,4 @@
+import 'package:core/config.dart';
 import 'package:data/repositories_impl/friendship_repository_impl.dart';
 import 'package:data/repositories_impl/image_cache_repository_impl.dart';
 import 'package:data/repositories_impl/internet_connection_repository_impl.dart';
@@ -99,7 +100,7 @@ discardBlocsIfRegistered() {
 }
 
 initEarlyDependencies() {
-  Dio dio = Dio(BaseOptions(baseUrl: "http://192.168.1.5:7011/", connectTimeout: Duration(seconds: 10)));
+  Dio dio = Dio(BaseOptions(baseUrl: "http://$ipv4Address:7011/", connectTimeout: Duration(seconds: 10)));
 
   dio.options.validateStatus = (status) {
     // Allow all status codes from 200 to 499 as valid
