@@ -8,7 +8,7 @@ Route Calculation and Navigation: Plan your ideal run with optimized route sugge
 
 Run Recording and Analytics: Track every step with precision. Record metrics like distance, pace, elevation, and calories burned. Analyze your performance with comprehensive stats and visualizations.
 
-Whether you're training for a marathon, exploring scenic trails, or just enjoying a jog, RunMate combines smart technology and seamless navigation to make every run a rewarding journey.
+Whether you're training for a marathon, exploring scenic trails, or just enjoying a jog, SwiftStride combines smart technology and seamless navigation to make every run a rewarding journey.
 
 ### Installation guide
 
