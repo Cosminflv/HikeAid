@@ -1,0 +1,67 @@
+name: SwiftStride
+version: 1.0.0
+description: SwiftStride is the go-to app for runners of all levels, offering powerful tools to enhance your running experience.
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^5.0.0 # Ensure compatibility with Dart API client
+  flutter_bloc: ^8.0.0
+  build_runner: ^2.3.0
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+scripts:
+  postinstall: |
+    echo "Running build_runner to generate code..."
+    flutter pub run build_runner build --delete-conflicting-outputs
+
+tools:
+  - java: "1.8+"
+  - flutter: ">=3.0.0"
+
+variables:
+  GEM_API_TOKEN: YOUR_API_KEY # Replace with your MagicLane API key
+  IPV4_ADDRESS: YOUR_IPV4_ADDRESS # Replace with the current server IPv4 address
+
+flutter:
+  assets:
+    - assets/images/
+    - assets/maps/
+
+build_configurations:
+  debug:
+    args:
+      - --dart-define=GEM_API_TOKEN=${{ GEM_API_TOKEN }}
+      - --dart-define=IPV4_ADDRESS=${{ IPV4_ADDRESS }}
+      - --port=7011
+  release:
+    args:
+      - --dart-define=GEM_API_TOKEN=${{ GEM_API_TOKEN }}
+      - --dart-define=IPV4_ADDRESS=${{ IPV4_ADDRESS }}
+      - --port=7011
+
+steps:
+  - name: Install dependencies
+    run: |
+      flutter pub get
+
+  - name: Configure Maps & Navigation SDK
+    run: |
+      wget https://developer.magiclane.com/api/sdk/gemkit.zip -O gemkit.zip
+      unzip gemkit.zip -d plugins
+
+  - name: Authorize SDK
+    run: |
+      echo "Setting GEM_API_TOKEN and IPV4_ADDRESS..."
+
+  - name: Generate Dart API client
+    run: |
+      java -jar openapi-generator-cli-7.8.0.jar generate -i api.json -g dart-dio -o api
+      cd api && flutter pub run build_runner build --delete-conflicting-outputs
+
+links:
+  - [MagicLane SDK](https://developer.magiclane.com/documentation/Flutter/index.php)
+  - [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator)
+  - [Flutter Framework](https://docs.flutter.dev/get-started/install)
+  - [BLoC](https://pub.dev/packages/flutter_bloc)
