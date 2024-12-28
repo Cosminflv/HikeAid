@@ -8,13 +8,12 @@ class SearchUsersUseCase {
 
   SearchUsersUseCase(this._searchUsersRepository) : _lastSearchTimestamp = 0;
 
-  search({required String text, required int userId, required Function(List<SearchUserEntity>) onResult}) async {
+  search({required String text, required Function(List<SearchUserEntity>) onResult}) async {
     _lastSearchTimestamp = DateTime.now().millisecondsSinceEpoch;
     final currentSearchTimestamp = _lastSearchTimestamp;
 
     await _searchUsersRepository.search(
         text: text,
-        userId: userId,
         onResult: (result) {
           if (currentSearchTimestamp < _lastSearchTimestamp) {
             return;
@@ -23,7 +22,7 @@ class SearchUsersUseCase {
         });
   }
 
-  sendFriendRequest({required requesterId, required receiverId}) {
-    _searchUsersRepository.sendFriendRequest(requesterId: requesterId, receiverId: receiverId);
-  }
+  // sendFriendRequest({required requesterId, required receiverId}) {
+  //   _searchUsersRepository.sendFriendRequest(requesterId: requesterId, receiverId: receiverId);
+  // }
 }

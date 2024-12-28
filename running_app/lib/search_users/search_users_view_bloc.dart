@@ -1,6 +1,7 @@
 import 'package:core/di/injection_container.dart';
 import 'package:domain/entities/search_status.dart';
 import 'package:domain/entities/search_user_entity.dart';
+import 'package:domain/use_cases/friendship_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/search_users/search_users_view_state.dart';
@@ -8,6 +9,7 @@ import 'package:domain/use_cases/search_users_use_case.dart';
 
 class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
   final _searchUseCase = sl.get<SearchUsersUseCase>();
+  final _friendshipsUseCase = sl.get<FriendshipUseCase>();
 
   SearchUsersBloc() : super(const SearchUsersState()) {
     on<SearchUserEvent>(_handleSearchText);
@@ -28,7 +30,7 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
 
     add(SearchStatusUpdatedEvent(SearchStatus.started));
 
-    _searchUseCase.search(text: event.text, userId: event.userId, onResult: _onSearchCompleted);
+    _searchUseCase.search(text: event.text, onResult: _onSearchCompleted);
   }
 
   _handleClearSearch(ClearSearchEvent event, Emitter<SearchUsersState> emit) {
@@ -50,7 +52,7 @@ class SearchUsersBloc extends Bloc<SearchUsersEvent, SearchUsersState> {
   }
 
   _handleAddFriendEvent(AddFriendEvent event, Emitter<SearchUsersState> emit) {
-    _searchUseCase.sendFriendRequest(requesterId: event.requesterId, receiverId: event.receiverId);
+    _friendshipsUseCase.sendFriendshipRequest(event.receiverId);
   }
 
   _onSearchCompleted(List<SearchUserEntity> result) {

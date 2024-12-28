@@ -22,13 +22,13 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
   }
 
   _handleFetchRequests(FetchRequestsEvent event, Emitter<FriendshipsViewState> emit) async {
-    final requests = await _friendshipUseCase.fetchRequests(event.receiverId);
+    final requests = await _friendshipUseCase.fetchRequests();
 
     emit(state.copyWith(incomingRequests: requests));
   }
 
   _handleSendFriendshipRequest(SendFriendshipRequestEvent event, Emitter<FriendshipsViewState> emit) async {
-    await _friendshipUseCase.sendFriendshipRequest(event.requesterId, event.receiverId);
+    await _friendshipUseCase.sendFriendshipRequest(event.requesterId);
   }
 
   _handleCloseNotificationService(CloseNotificationService event, Emitter<FriendshipsViewState> emit) {
@@ -63,9 +63,8 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
 
     emit(state.copyWith(isInitialized: true));
 
-    await emit.forEach<List<FriendshipEntity>>(_friendshipUpdates.stream,
-        onData: (incomingRequests) {
-          return state.copyWith(incomingRequests: incomingRequests);
-        });
+    await emit.forEach<List<FriendshipEntity>>(_friendshipUpdates.stream, onData: (incomingRequests) {
+      return state.copyWith(incomingRequests: incomingRequests);
+    });
   }
 }

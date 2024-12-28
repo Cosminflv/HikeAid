@@ -47,9 +47,9 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
   }
 
   @override
-  Future<bool> deleteProfilePicture(int id) async {
+  Future<bool> deleteProfilePicture() async {
     try {
-      final result = await _openapi.getUserApi().apiUserIdDeleteProfilePicturePost(id: id.toString(), userId: id);
+      final result = await _openapi.getUserApi().apiUserDeleteProfilePicturePost();
       if (result.statusCode == 200) {
         final response = result.data as bool;
         return response;
@@ -62,15 +62,15 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
   }
 
   @override
-  Future<Uint8List> fetchDefaultUserProfileImage(int id) async {
-    final imageData = await _getUserImageData(id, true);
+  Future<Uint8List> fetchDefaultUserProfileImage() async {
+    final imageData = await _getUserImageData(0, true);
     return imageData ?? Uint8List(3);
   }
 
   Future<Uint8List?> _getUserImageData(int userId, bool defaultImage) async {
     try {
       final result = defaultImage
-          ? await _openapi.getUserApi().getDefaultProfilePictureGet()
+          ? await _openapi.getUserApi().apiUserGetDefaultProfilePictureGet()
           : await _openapi.getUserApi().apiUserIdGetProfilePictureGet(id: userId.toString(), userId: userId);
 
       if (result.statusCode == 200) {
@@ -124,22 +124,19 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
     String base64Image = base64Encode(imageData);
 
     try {
-      final result = await _openapi.getUserApi().apiUserIdPut(
-          id: id.toString(),
-          updateUserDto: UpdateUserDto((builder) {
-            builder.hasDeletedImage = hasDeletedImage;
-            builder.id = id;
-            builder.firstName = firstName;
-            builder.lastName = lastName;
-            builder.city = city;
-            builder.country = conutry;
-            builder.age = age;
-            builder.birthDate = DateTime.utc(birthDate.year, birthDate.month, birthDate.day);
-            builder.weight = weight;
-            builder.gender = gender.index == 0 ? EGender.number0 : EGender.number1;
-            builder.bio = bio;
-            builder.imageData = base64Image;
-          }));
+      final result = await _openapi.getUserApi().apiUserUpdateUserPut(updateUserDto: UpdateUserDto((builder) {
+        builder.hasDeletedImage = hasDeletedImage;
+        builder.firstName = firstName;
+        builder.lastName = lastName;
+        builder.city = city;
+        builder.country = conutry;
+        builder.age = age;
+        builder.birthDate = DateTime.utc(birthDate.year, birthDate.month, birthDate.day);
+        builder.weight = weight;
+        builder.gender = gender.index == 0 ? EGender.number0 : EGender.number1;
+        builder.bio = bio;
+        builder.imageData = base64Image;
+      }));
 
       switch (result.statusCode) {
         case 200:

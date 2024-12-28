@@ -45,12 +45,12 @@ class UserProfileUseCase {
         onUpdateProgress: onUpdateProgress);
   }
 
-  Future<void> deleteProfilePicture(int id) async {
-    await _userProfileRepository.deleteProfilePicture(id);
+  Future<void> deleteProfilePicture() async {
+    await _userProfileRepository.deleteProfilePicture();
   }
 
   Future<Uint8List> fetchDefaultUserProfilePicture(int id) async {
-    final imageData = await _userProfileRepository.fetchDefaultUserProfileImage(id);
+    final imageData = await _userProfileRepository.fetchDefaultUserProfileImage();
     return imageData;
   }
 }

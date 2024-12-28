@@ -2,8 +2,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:data/models/friendship_entity_impl.dart';
 import 'package:domain/entities/friendship_entity.dart';
 import 'package:domain/repositories/friendship_repository.dart';
-import 'package:openapi/openapi.dart';
+import 'package:core/config.dart';
 
+import 'package:openapi/openapi.dart';
 import 'package:flutter/foundation.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -21,9 +22,9 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   bool _isClosing = false; // Flag to indicate intentional closure
 
   @override
-  Future<List<FriendshipEntity>> fetchRequests(int receiverId) async {
+  Future<List<FriendshipEntity>> fetchRequests() async {
     try {
-      final result = await _openapi.getUserApi().apiUserGetFriendRequestsGet(receiverId: receiverId.toString());
+      final result = await _openapi.getUserApi().apiUserGetFriendRequestsGet();
       if (result.statusCode == 200) {
         final requests = result.data as BuiltList<FriendshipDto>;
         List<FriendshipEntity> requestList = [];
@@ -58,10 +59,10 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
     // Connect to the WebSocket server
     if (!kIsWeb) {
       _ioChannel = IOWebSocketChannel.connect(
-        Uri.parse('ws://192.168.1.5:7011/ws?userId=$userId'),
+        Uri.parse('ws://$ipv4Address:7011/ws?userId=$userId'),
       );
     } else {
-      _webChannel = WebSocketChannel.connect(Uri.parse('ws://192.168.1.5:7011/ws?userId=$userId'));
+      _webChannel = WebSocketChannel.connect(Uri.parse('ws://$ipv4Address:7011/ws?userId=$userId'));
     }
 
     // Listen for incoming messages
@@ -131,9 +132,9 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   }
 
   @override
-  Future<bool> sendFriendRequest({required int requesterId, required int receiverId}) async {
+  Future<bool> sendFriendRequest({required int receiverId}) async {
     try {
-      await _openapi.getUserApi().apiUserSendFriendRequestPost(requesterId: requesterId, receiverId: receiverId);
+      await _openapi.getUserApi().apiUserSendFriendRequestPost(receiverId: receiverId);
       return true;
     } catch (e) {
       print(e);

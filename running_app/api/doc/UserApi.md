@@ -11,17 +11,17 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiUserAcceptFriendRequestPost**](UserApi.md#apiuseracceptfriendrequestpost) | **POST** /api/User/acceptFriendRequest | 
 [**apiUserDeclineFriendRequestPost**](UserApi.md#apiuserdeclinefriendrequestpost) | **POST** /api/User/declineFriendRequest | 
+[**apiUserDeleteProfilePicturePost**](UserApi.md#apiuserdeleteprofilepicturepost) | **POST** /api/User/deleteProfilePicture | 
 [**apiUserGet**](UserApi.md#apiuserget) | **GET** /api/User | 
+[**apiUserGetDefaultProfilePictureGet**](UserApi.md#apiusergetdefaultprofilepictureget) | **GET** /api/User/getDefaultProfilePicture | 
 [**apiUserGetFriendRequestsGet**](UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
-[**apiUserIdDeleteProfilePicturePost**](UserApi.md#apiuseriddeleteprofilepicturepost) | **POST** /api/User/{id}/deleteProfilePicture | 
 [**apiUserIdFriendsNumberGet**](UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [**apiUserIdGetProfilePictureGet**](UserApi.md#apiuseridgetprofilepictureget) | **GET** /api/User/{id}/getProfilePicture | 
 [**apiUserIdGetUserGet**](UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
-[**apiUserIdPut**](UserApi.md#apiuseridput) | **PUT** /api/User/{id} | 
-[**apiUserIdUploadProfilePictureBase64Post**](UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
 [**apiUserSearchUserGet**](UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [**apiUserSendFriendRequestPost**](UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
-[**getDefaultProfilePictureGet**](UserApi.md#getdefaultprofilepictureget) | **GET** /getDefaultProfilePicture | 
+[**apiUserUpdateUserPut**](UserApi.md#apiuserupdateuserput) | **PUT** /api/User/updateUser | 
+[**apiUserUploadProfilePictureBase64Post**](UserApi.md#apiuseruploadprofilepicturebase64post) | **POST** /api/User/uploadProfilePictureBase64 | 
 
 
 # **apiUserAcceptFriendRequestPost**
@@ -104,6 +104,42 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **apiUserDeleteProfilePicturePost**
+> apiUserDeleteProfilePicturePost()
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+
+try {
+    api.apiUserDeleteProfilePicturePost();
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserDeleteProfilePicturePost: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **apiUserGet**
 > apiUserGet()
 
@@ -140,8 +176,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiUserGetFriendRequestsGet**
-> BuiltList<FriendshipDto> apiUserGetFriendRequestsGet(receiverId)
+# **apiUserGetDefaultProfilePictureGet**
+> apiUserGetDefaultProfilePictureGet()
 
 
 
@@ -150,63 +186,16 @@ void (empty response body)
 import 'package:openapi/api.dart';
 
 final api = Openapi().getUserApi();
-final String receiverId = receiverId_example; // String | 
 
 try {
-    final response = api.apiUserGetFriendRequestsGet(receiverId);
-    print(response);
+    api.apiUserGetDefaultProfilePictureGet();
 } catch on DioException (e) {
-    print('Exception when calling UserApi->apiUserGetFriendRequestsGet: $e\n');
+    print('Exception when calling UserApi->apiUserGetDefaultProfilePictureGet: $e\n');
 }
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **receiverId** | **String**|  | [optional] 
-
-### Return type
-
-[**BuiltList&lt;FriendshipDto&gt;**](FriendshipDto.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **apiUserIdDeleteProfilePicturePost**
-> apiUserIdDeleteProfilePicturePost(id, userId)
-
-
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-
-final api = Openapi().getUserApi();
-final String id = id_example; // String | 
-final int userId = 56; // int | 
-
-try {
-    api.apiUserIdDeleteProfilePicturePost(id, userId);
-} catch on DioException (e) {
-    print('Exception when calling UserApi->apiUserIdDeleteProfilePicturePost: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **userId** | **int**|  | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -220,6 +209,43 @@ void (empty response body)
 
  - **Content-Type**: Not defined
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserGetFriendRequestsGet**
+> BuiltList<FriendshipDto> apiUserGetFriendRequestsGet()
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+
+try {
+    final response = api.apiUserGetFriendRequestsGet();
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserGetFriendRequestsGet: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**BuiltList&lt;FriendshipDto&gt;**](FriendshipDto.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -349,94 +375,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiUserIdPut**
-> apiUserIdPut(id, updateUserDto)
-
-
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-
-final api = Openapi().getUserApi();
-final String id = id_example; // String | 
-final UpdateUserDto updateUserDto = ; // UpdateUserDto | 
-
-try {
-    api.apiUserIdPut(id, updateUserDto);
-} catch on DioException (e) {
-    print('Exception when calling UserApi->apiUserIdPut: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **updateUserDto** | [**UpdateUserDto**](UpdateUserDto.md)|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **apiUserIdUploadProfilePictureBase64Post**
-> apiUserIdUploadProfilePictureBase64Post(id, userId, body)
-
-
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-
-final api = Openapi().getUserApi();
-final String id = id_example; // String | 
-final int userId = 56; // int | 
-final String body = BYTE_ARRAY_DATA_HERE; // String | 
-
-try {
-    api.apiUserIdUploadProfilePictureBase64Post(id, userId, body);
-} catch on DioException (e) {
-    print('Exception when calling UserApi->apiUserIdUploadProfilePictureBase64Post: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **userId** | **int**|  | [optional] 
- **body** | **String**|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **apiUserSearchUserGet**
-> BuiltList<SearchUserDto> apiUserSearchUserGet(querry, userSearchingId)
+> BuiltList<SearchUserDto> apiUserSearchUserGet(querry)
 
 
 
@@ -446,10 +386,9 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getUserApi();
 final String querry = querry_example; // String | 
-final int userSearchingId = 56; // int | 
 
 try {
-    final response = api.apiUserSearchUserGet(querry, userSearchingId);
+    final response = api.apiUserSearchUserGet(querry);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling UserApi->apiUserSearchUserGet: $e\n');
@@ -461,7 +400,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **querry** | **String**|  | [optional] 
- **userSearchingId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -479,7 +417,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiUserSendFriendRequestPost**
-> apiUserSendFriendRequestPost(requesterId, receiverId)
+> apiUserSendFriendRequestPost(receiverId)
 
 
 
@@ -488,11 +426,10 @@ Name | Type | Description  | Notes
 import 'package:openapi/api.dart';
 
 final api = Openapi().getUserApi();
-final int requesterId = 56; // int | 
 final int receiverId = 56; // int | 
 
 try {
-    api.apiUserSendFriendRequestPost(requesterId, receiverId);
+    api.apiUserSendFriendRequestPost(receiverId);
 } catch on DioException (e) {
     print('Exception when calling UserApi->apiUserSendFriendRequestPost: $e\n');
 }
@@ -502,7 +439,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **requesterId** | **int**|  | [optional] 
  **receiverId** | **int**|  | [optional] 
 
 ### Return type
@@ -520,8 +456,8 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getDefaultProfilePictureGet**
-> getDefaultProfilePictureGet()
+# **apiUserUpdateUserPut**
+> apiUserUpdateUserPut(updateUserDto)
 
 
 
@@ -530,16 +466,20 @@ void (empty response body)
 import 'package:openapi/api.dart';
 
 final api = Openapi().getUserApi();
+final UpdateUserDto updateUserDto = ; // UpdateUserDto | 
 
 try {
-    api.getDefaultProfilePictureGet();
+    api.apiUserUpdateUserPut(updateUserDto);
 } catch on DioException (e) {
-    print('Exception when calling UserApi->getDefaultProfilePictureGet: $e\n');
+    print('Exception when calling UserApi->apiUserUpdateUserPut: $e\n');
 }
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateUserDto** | [**UpdateUserDto**](UpdateUserDto.md)|  | [optional] 
 
 ### Return type
 
@@ -551,7 +491,47 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json, text/json, application/*+json
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserUploadProfilePictureBase64Post**
+> apiUserUploadProfilePictureBase64Post(body)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+final String body = BYTE_ARRAY_DATA_HERE; // String | 
+
+try {
+    api.apiUserUploadProfilePictureBase64Post(body);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserUploadProfilePictureBase64Post: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **String**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
