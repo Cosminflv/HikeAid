@@ -8,7 +8,7 @@ Route Calculation and Navigation: Plan your ideal run with optimized route sugge
 
 Run Recording and Analytics: Track every step with precision. Record metrics like distance, pace, elevation, and calories burned. Analyze your performance with comprehensive stats and visualizations.
 
-Whether you're training for a marathon, exploring scenic trails, or just enjoying a jog, RunMate combines smart technology and seamless navigation to make every run a rewarding journey.
+Whether you're training for a marathon, exploring scenic trails, or just enjoying a jog, SwiftStride combines smart technology and seamless navigation to make every run a rewarding journey.
 
 ### Installation guide
 
@@ -17,6 +17,8 @@ Whether you're training for a marathon, exploring scenic trails, or just enjoyin
 2. Configure Maps & Navigation SDK by following downloading [GemKit SDK for flutter](https://developer.magiclane.com/api/sdk/) and adding it to plugins directory.
 
 3. Authorize Map & Navigation SDK by [getting a key](https://developer.magiclane.com/documentation/Flutter/guide_getting_started.php) and passing it to the environment variable ``GEM_API_TOKEN`` inside a ``launch.json`` file like so:
+
+4. Make sure server is running on current IPv4 Address. Also fill the ``IPV4_ADDRESS`` field in launch.json. Make sure the server and client are running on the name port, eg. "7011"
 
 ```dart
 {
@@ -54,9 +56,6 @@ Whether you're training for a marathon, exploring scenic trails, or just enjoyin
     ]
 }
 ```
-
-4. Make sure server is running on current IPv4 Address. Also fill the ``IPV4_ADDRESS`` field in launch.json. Make sure the server and client are running on the name port, eg. "7011"
-
 
 ### OpenAPI Generator:
 
