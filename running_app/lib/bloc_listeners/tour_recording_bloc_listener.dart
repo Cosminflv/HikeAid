@@ -1,7 +1,6 @@
 import 'package:core/di/app_blocs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:running_app/config/routes.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/tour_recording/tour_recording_bloc.dart';
 import 'package:running_app/tour_recording/tour_recording_state.dart';

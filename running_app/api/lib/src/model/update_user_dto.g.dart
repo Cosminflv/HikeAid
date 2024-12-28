@@ -8,8 +8,6 @@ part of 'update_user_dto.dart';
 
 class _$UpdateUserDto extends UpdateUserDto {
   @override
-  final int? id;
-  @override
   final String? firstName;
   @override
   final String? lastName;
@@ -36,8 +34,7 @@ class _$UpdateUserDto extends UpdateUserDto {
       (new UpdateUserDtoBuilder()..update(updates))._build();
 
   _$UpdateUserDto._(
-      {this.id,
-      this.firstName,
+      {this.firstName,
       this.lastName,
       this.bio,
       this.age,
@@ -51,8 +48,7 @@ class _$UpdateUserDto extends UpdateUserDto {
       : super._();
 
   @override
-  UpdateUserDto rebuild(void Function(UpdateUserDtoBuilder) updates) =>
-      (toBuilder()..update(updates)).build();
+  UpdateUserDto rebuild(void Function(UpdateUserDtoBuilder) updates) => (toBuilder()..update(updates)).build();
 
   @override
   UpdateUserDtoBuilder toBuilder() => new UpdateUserDtoBuilder()..replace(this);
@@ -61,7 +57,6 @@ class _$UpdateUserDto extends UpdateUserDto {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is UpdateUserDto &&
-        id == other.id &&
         firstName == other.firstName &&
         lastName == other.lastName &&
         bio == other.bio &&
@@ -78,7 +73,6 @@ class _$UpdateUserDto extends UpdateUserDto {
   @override
   int get hashCode {
     var _$hash = 0;
-    _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, firstName.hashCode);
     _$hash = $jc(_$hash, lastName.hashCode);
     _$hash = $jc(_$hash, bio.hashCode);
@@ -97,7 +91,6 @@ class _$UpdateUserDto extends UpdateUserDto {
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'UpdateUserDto')
-          ..add('id', id)
           ..add('firstName', firstName)
           ..add('lastName', lastName)
           ..add('bio', bio)
@@ -113,13 +106,8 @@ class _$UpdateUserDto extends UpdateUserDto {
   }
 }
 
-class UpdateUserDtoBuilder
-    implements Builder<UpdateUserDto, UpdateUserDtoBuilder> {
+class UpdateUserDtoBuilder implements Builder<UpdateUserDto, UpdateUserDtoBuilder> {
   _$UpdateUserDto? _$v;
-
-  int? _id;
-  int? get id => _$this._id;
-  set id(int? id) => _$this._id = id;
 
   String? _firstName;
   String? get firstName => _$this._firstName;
@@ -159,8 +147,7 @@ class UpdateUserDtoBuilder
 
   bool? _hasDeletedImage;
   bool? get hasDeletedImage => _$this._hasDeletedImage;
-  set hasDeletedImage(bool? hasDeletedImage) =>
-      _$this._hasDeletedImage = hasDeletedImage;
+  set hasDeletedImage(bool? hasDeletedImage) => _$this._hasDeletedImage = hasDeletedImage;
 
   String? _imageData;
   String? get imageData => _$this._imageData;
@@ -173,7 +160,6 @@ class UpdateUserDtoBuilder
   UpdateUserDtoBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _id = $v.id;
       _firstName = $v.firstName;
       _lastName = $v.lastName;
       _bio = $v.bio;
@@ -207,7 +193,6 @@ class UpdateUserDtoBuilder
   _$UpdateUserDto _build() {
     final _$result = _$v ??
         new _$UpdateUserDto._(
-            id: id,
             firstName: firstName,
             lastName: lastName,
             bio: bio,

@@ -3,7 +3,6 @@ import 'package:domain/entities/search_user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/user_profile/widgets/friend_status_button.dart';
-import 'package:running_app/utils/session_utils.dart';
 
 class UserListItem extends StatefulWidget {
   final SearchUserEntity user;
@@ -71,8 +70,7 @@ class _UserListItemState extends State<UserListItem> {
                 child: FriendshipButton(
                   status: widget.user.friendshipStatus,
                   onAddFriend: () {
-                    AppBlocs.searchUsersBloc
-                        .add(AddFriendEvent(requesterId: getSession(context)!.user.id, receiverId: widget.user.id));
+                    AppBlocs.searchUsersBloc.add(AddFriendEvent(widget.user.id));
                     setState(() {
                       widget.user.friendshipStatus = FriendshipStatus.pending;
                     });

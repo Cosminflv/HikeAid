@@ -5,9 +5,8 @@ abstract class SearchUsersEvent {}
 
 class SearchUserEvent extends SearchUsersEvent {
   final String text;
-  final int userId;
 
-  SearchUserEvent({required this.text, required this.userId});
+  SearchUserEvent({required this.text});
 }
 
 class SearchSuccessfulEvent extends SearchUsersEvent {
@@ -31,8 +30,7 @@ class ResultSelectedEvent extends SearchUsersEvent {
 class ClearSearchEvent extends SearchUsersEvent {}
 
 class AddFriendEvent extends SearchUsersEvent {
-  final int requesterId;
   final int receiverId;
 
-  AddFriendEvent({required this.requesterId, required this.receiverId});
+  AddFriendEvent(this.receiverId);
 }

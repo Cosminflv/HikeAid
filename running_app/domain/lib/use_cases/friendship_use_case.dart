@@ -6,8 +6,7 @@ class FriendshipUseCase {
 
   FriendshipUseCase(this._friendshipRepository);
 
-  Future<List<FriendshipEntity>> fetchRequests(int receiverId) async =>
-      await _friendshipRepository.fetchRequests(receiverId);
+  Future<List<FriendshipEntity>> fetchRequests() async => await _friendshipRepository.fetchRequests();
 
   void initializeNotificationConnection(
       int userId, Function(String err, FriendshipEntity? friendshipEntity) onNotificationReceived) {
@@ -19,8 +18,7 @@ class FriendshipUseCase {
   Future<bool> declineFriendshipRequest(int requestId) async =>
       await _friendshipRepository.declineFriendshipRequest(requestId);
 
-  Future<bool> sendFriendshipRequest(int requesterId, int receiverId) async =>
-      await _friendshipRepository.sendFriendRequest(requesterId: requesterId, receiverId: receiverId);
+  Future<bool> sendFriendshipRequest(int receiverId) async => await _friendshipRepository.sendFriendRequest(receiverId);
 
   Future<bool> acceptFriendshipRequest(int requestId) async =>
       await _friendshipRepository.acceptFriendRequest(requestId);

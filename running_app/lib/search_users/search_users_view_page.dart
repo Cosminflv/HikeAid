@@ -51,8 +51,8 @@ class SearchUsersViewPage extends StatelessWidget {
                     child: SearchUsersTextField(
                       controller: _controller,
                       onChanged: (text) {
-                        final userSearching = getSession(context)!.user.id;
-                        searchUsersBloc.add(SearchUserEvent(text: text, userId: userSearching));
+
+                        searchUsersBloc.add(SearchUserEvent(text: text));
                         if (text.isEmpty) {
                           searchUsersBloc.add(ClearSearchEvent());
                         }

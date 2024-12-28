@@ -22,8 +22,6 @@ import 'package:running_app/user_profile/widgets/friend_status_button.dart';
 import 'package:running_app/user_profile/widgets/profile_image_dialog.dart';
 import 'package:running_app/user_profile/widgets/remove_friend_dialog.dart';
 
-import 'package:running_app/utils/session_utils.dart';
-
 // ignore: must_be_immutable
 class UserProfileViewPage extends StatefulWidget {
   final bool isEditable;
@@ -215,8 +213,7 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                               FriendshipButton(
                                 status: widget.friendshipStatus!,
                                 onAddFriend: () {
-                                  AppBlocs.searchUsersBloc.add(AddFriendEvent(
-                                      requesterId: getSession(context)!.user.id, receiverId: state.profile.id));
+                                  AppBlocs.searchUsersBloc.add(AddFriendEvent(state.profile.id));
                                   setState(() {
                                     widget.friendshipStatus = FriendshipStatus.pending;
                                   });

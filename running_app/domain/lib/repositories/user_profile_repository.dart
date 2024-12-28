@@ -19,6 +19,6 @@ abstract class UserProfileRepository {
       required Uint8List imageData,
       required bool hasDeletedImage,
       required Function(EditUserProfileStatus) onUpdateProgress});
-  Future<void> deleteProfilePicture(int id);
+  Future<void> deleteProfilePicture();
   Future<Uint8List> fetchDefaultUserProfileImage(int id);
 }

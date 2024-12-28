@@ -22,9 +22,9 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   bool _isClosing = false; // Flag to indicate intentional closure
 
   @override
-  Future<List<FriendshipEntity>> fetchRequests(int receiverId) async {
+  Future<List<FriendshipEntity>> fetchRequests() async {
     try {
-      final result = await _openapi.getUserApi().apiUserGetFriendRequestsGet(receiverId: receiverId.toString());
+      final result = await _openapi.getUserApi().apiUserGetFriendRequestsGet();
       if (result.statusCode == 200) {
         final requests = result.data as BuiltList<FriendshipDto>;
         List<FriendshipEntity> requestList = [];
@@ -62,7 +62,7 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
         Uri.parse('ws://$ipv4Address:7011/ws?userId=$userId'),
       );
     } else {
-      _webChannel = WebSocketChannel.connect(Uri.parse('ws://192.168.1.5:7011/ws?userId=$userId'));
+      _webChannel = WebSocketChannel.connect(Uri.parse('ws://$ipv4Address:7011/ws?userId=$userId'));
     }
 
     // Listen for incoming messages
@@ -132,9 +132,9 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   }
 
   @override
-  Future<bool> sendFriendRequest({required int requesterId, required int receiverId}) async {
+  Future<bool> sendFriendRequest(int receiverId) async {
     try {
-      await _openapi.getUserApi().apiUserSendFriendRequestPost(requesterId: requesterId, receiverId: receiverId);
+      await _openapi.getUserApi().apiUserSendFriendRequestPost(receiverId: receiverId);
       return true;
     } catch (e) {
       print(e);

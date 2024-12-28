@@ -12,7 +12,6 @@ part 'update_user_dto.g.dart';
 /// UpdateUserDto
 ///
 /// Properties:
-/// * [id] 
 /// * [firstName] 
 /// * [lastName] 
 /// * [bio] 
@@ -26,9 +25,6 @@ part 'update_user_dto.g.dart';
 /// * [imageData] 
 @BuiltValue()
 abstract class UpdateUserDto implements Built<UpdateUserDto, UpdateUserDtoBuilder> {
-  @BuiltValueField(wireName: r'id')
-  int? get id;
-
   @BuiltValueField(wireName: r'firstName')
   String? get firstName;
 
@@ -86,13 +82,6 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
     UpdateUserDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.id != null) {
-      yield r'id';
-      yield serializers.serialize(
-        object.id,
-        specifiedType: const FullType(int),
-      );
-    }
     if (object.firstName != null) {
       yield r'firstName';
       yield serializers.serialize(
@@ -193,13 +182,6 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
-          break;
         case r'firstName':
           final valueDes = serializers.deserialize(
             value,

@@ -9,10 +9,9 @@ class FetchRequestsEvent extends FriendshipsViewEvent {
 }
 
 class SendFriendshipRequestEvent extends FriendshipsViewEvent {
-  final int requesterId;
   final int receiverId;
 
-  SendFriendshipRequestEvent({required this.requesterId, required this.receiverId});
+  SendFriendshipRequestEvent(this.receiverId);
 }
 
 class DeclineFriendshipRequestEvent extends FriendshipsViewEvent {

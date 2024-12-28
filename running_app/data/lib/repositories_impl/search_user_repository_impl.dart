@@ -10,10 +10,9 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
   SearchUserRepositoryImpl(this._openapi);
 
   @override
-  Future<void> search(
-      {required String text, required int userId, required Function(List<SearchUserEntity> p1) onResult}) async {
+  Future<void> search({required String text, required Function(List<SearchUserEntity> p1) onResult}) async {
     try {
-      final result = await _openapi.getUserApi().apiUserSearchUserGet(querry: text, userSearchingId: userId);
+      final result = await _openapi.getUserApi().apiUserSearchUserGet(querry: text);
 
       if (result.statusCode == 200) {
         final dtoList = result.data as BuiltList<SearchUserDto>;
@@ -25,16 +24,6 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
 
         onResult(users);
       }
-    } catch (e) {
-      print(e);
-      return;
-    }
-  }
-
-  @override
-  Future<void> sendFriendRequest({required int requesterId, required int receiverId}) async {
-    try {
-      await _openapi.getUserApi().apiUserSendFriendRequestPost(requesterId: requesterId, receiverId: receiverId);
     } catch (e) {
       print(e);
       return;

@@ -81,17 +81,17 @@ Class | Method | HTTP request | Description
 [*TrackApi*](doc/TrackApi.md) | [**apiTrackIdUserTracksGet**](doc/TrackApi.md#apitrackidusertracksget) | **GET** /api/Track/{id}/userTracks | 
 [*UserApi*](doc/UserApi.md) | [**apiUserAcceptFriendRequestPost**](doc/UserApi.md#apiuseracceptfriendrequestpost) | **POST** /api/User/acceptFriendRequest | 
 [*UserApi*](doc/UserApi.md) | [**apiUserDeclineFriendRequestPost**](doc/UserApi.md#apiuserdeclinefriendrequestpost) | **POST** /api/User/declineFriendRequest | 
+[*UserApi*](doc/UserApi.md) | [**apiUserDeleteProfilePicturePost**](doc/UserApi.md#apiuserdeleteprofilepicturepost) | **POST** /api/User/deleteProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserGet**](doc/UserApi.md#apiuserget) | **GET** /api/User | 
+[*UserApi*](doc/UserApi.md) | [**apiUserGetDefaultProfilePictureGet**](doc/UserApi.md#apiusergetdefaultprofilepictureget) | **GET** /api/User/getDefaultProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserGetFriendRequestsGet**](doc/UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
-[*UserApi*](doc/UserApi.md) | [**apiUserIdDeleteProfilePicturePost**](doc/UserApi.md#apiuseriddeleteprofilepicturepost) | **POST** /api/User/{id}/deleteProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdFriendsNumberGet**](doc/UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetProfilePictureGet**](doc/UserApi.md#apiuseridgetprofilepictureget) | **GET** /api/User/{id}/getProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetUserGet**](doc/UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
-[*UserApi*](doc/UserApi.md) | [**apiUserIdPut**](doc/UserApi.md#apiuseridput) | **PUT** /api/User/{id} | 
-[*UserApi*](doc/UserApi.md) | [**apiUserIdUploadProfilePictureBase64Post**](doc/UserApi.md#apiuseriduploadprofilepicturebase64post) | **POST** /api/User/{id}/uploadProfilePictureBase64 | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSearchUserGet**](doc/UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSendFriendRequestPost**](doc/UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
-[*UserApi*](doc/UserApi.md) | [**getDefaultProfilePictureGet**](doc/UserApi.md#getdefaultprofilepictureget) | **GET** /getDefaultProfilePicture | 
+[*UserApi*](doc/UserApi.md) | [**apiUserUpdateUserPut**](doc/UserApi.md#apiuserupdateuserput) | **PUT** /api/User/updateUser | 
+[*UserApi*](doc/UserApi.md) | [**apiUserUploadProfilePictureBase64Post**](doc/UserApi.md#apiuseruploadprofilepicturebase64post) | **POST** /api/User/uploadProfilePictureBase64 | 
 
 
 ## Documentation For Models
