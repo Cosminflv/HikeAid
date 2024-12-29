@@ -103,12 +103,11 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
 
   @override
   Future<void> updateUserProfile({
-    required int id,
     required String firstName,
     required String lastName,
     required String bio,
     required String city,
-    required String conutry,
+    required String country,
     required int age,
     required int weight,
     required EGenderEntity gender,
@@ -129,7 +128,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
         builder.firstName = firstName;
         builder.lastName = lastName;
         builder.city = city;
-        builder.country = conutry;
+        builder.country = country;
         builder.age = age;
         builder.birthDate = DateTime.utc(birthDate.year, birthDate.month, birthDate.day);
         builder.weight = weight;

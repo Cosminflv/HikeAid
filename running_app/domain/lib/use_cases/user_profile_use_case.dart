@@ -30,14 +30,13 @@ class UserProfileUseCase {
     required Function(EditUserProfileStatus) onUpdateProgress,
   }) async {
     await _userProfileRepository.updateUserProfile(
-        id: id,
         firstName: firstName,
         lastName: lastName,
         bio: bio,
         imageData: imageData,
         hasDeletedImage: hasDeletedImage,
         city: city,
-        conutry: country,
+        country: country,
         weight: weight,
         birthDate: birthDate,
         age: age,
@@ -49,7 +48,7 @@ class UserProfileUseCase {
     await _userProfileRepository.deleteProfilePicture();
   }
 
-  Future<Uint8List> fetchDefaultUserProfilePicture(int id) async {
+  Future<Uint8List> fetchDefaultUserProfilePicture() async {
     final imageData = await _userProfileRepository.fetchDefaultUserProfileImage();
     return imageData;
   }

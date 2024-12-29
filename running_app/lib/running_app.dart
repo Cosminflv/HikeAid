@@ -67,7 +67,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
       child: MaterialApp(
         title: "Running App",
         theme: (MediaQuery.of(context).platformBrightness == Brightness.light) ? lightThemeData : darkThemeData,
-        home: const GetStartedPage(),
+        home: const MapViewPage(),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

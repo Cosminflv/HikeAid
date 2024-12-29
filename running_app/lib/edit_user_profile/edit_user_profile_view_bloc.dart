@@ -122,7 +122,7 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
   _handleFetchDefaultProfilePicture(
       FetchDefaultProfilePictureEvent event, Emitter<EditUserProfileViewState> emit) async {
     final editState = state as UserProfileEditing;
-    final imageData = await _userProfileUseCase.fetchDefaultUserProfilePicture(editState.id);
+    final imageData = await _userProfileUseCase.fetchDefaultUserProfilePicture();
     emit(editState.copyWith(imageData: imageData));
   }
 
