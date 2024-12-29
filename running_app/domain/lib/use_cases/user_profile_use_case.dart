@@ -15,7 +15,6 @@ class UserProfileUseCase {
   }
 
   Future<void> updateUserProfile({
-    required int id,
     required String firstName,
     required String lastName,
     required String bio,
@@ -30,14 +29,13 @@ class UserProfileUseCase {
     required Function(EditUserProfileStatus) onUpdateProgress,
   }) async {
     await _userProfileRepository.updateUserProfile(
-        id: id,
         firstName: firstName,
         lastName: lastName,
         bio: bio,
         imageData: imageData,
         hasDeletedImage: hasDeletedImage,
         city: city,
-        conutry: country,
+        country: country,
         weight: weight,
         birthDate: birthDate,
         age: age,

@@ -45,7 +45,6 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
   _handleUserProfileSaveRequested(UserProfileSaveRequestedEvent event, Emitter<EditUserProfileViewState> emit) {
     final editState = state as UserProfileEditing;
     _userProfileUseCase.updateUserProfile(
-        id: editState.id,
         firstName: editState.firstName,
         lastName: editState.lastName,
         bio: editState.bio,
