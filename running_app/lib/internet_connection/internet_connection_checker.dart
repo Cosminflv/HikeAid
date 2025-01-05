@@ -1,9 +1,12 @@
 import 'package:another_flushbar/flushbar.dart';
+import 'package:core/di/app_blocs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/friendships/friendships_view_events.dart';
 import 'package:running_app/internet_connection/internet_connection_bloc.dart';
+import 'package:running_app/utils/session_utils.dart';
 
 import 'internet_connection_page.dart';
 
@@ -82,6 +85,12 @@ class _InternetConnectionCheckerState extends State<InternetConnectionChecker> {
         listener: (context, hasInternetConnection) {
           if (hasInternetConnection && widget.onInternetConnectionRestored != null) {
             widget.onInternetConnectionRestored!();
+          }
+
+          if (hasInternetConnection) {
+            AppBlocs.friendships.add(InitializeNotificationService(userId: getSession(context)!.user.id));
+          } else {
+            AppBlocs.friendships.add(CloseNotificationService());
           }
 
           if (widget.showFullPage) return;

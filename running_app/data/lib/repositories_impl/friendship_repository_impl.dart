@@ -82,11 +82,12 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
         onError: (error) {
           onNotificationReceived("Error: $error", null);
           print('WebSocket error: $error');
-          _reconnect(userId, onNotificationReceived);
+          if (!(error as WebSocketChannelException).message!.contains('errno = 103')) {
+            _reconnect(userId, onNotificationReceived);
+          }
         },
         onDone: () {
           print('WebSocket closed');
-          _reconnect(userId, onNotificationReceived);
         },
       );
     } else {
@@ -112,7 +113,9 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
                 requesterName: "err",
               ));
           print('WebSocket error: $error');
-          _reconnect(userId, onNotificationReceived);
+          if (!(error as WebSocketChannelException).message!.contains('errno = 103')) {
+            _reconnect(userId, onNotificationReceived);
+          }
         },
         onDone: () {
           onNotificationReceived("Socket closed", null);

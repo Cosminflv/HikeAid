@@ -33,7 +33,7 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
 
   _handleCloseNotificationService(CloseNotificationService event, Emitter<FriendshipsViewState> emit) {
     _friendshipUseCase.closeNotificationsConnection();
-    _friendshipUpdates.close();
+    //_friendshipUpdates.close();
     emit(state.copyWith(isInitialized: false));
   }
 
