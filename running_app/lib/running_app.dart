@@ -7,12 +7,10 @@ import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/friendships/friendships_view_bloc.dart';
-import 'package:running_app/home/home_view_page.dart';
 import 'package:running_app/internet_connection/internet_connection_events.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_event.dart';
 import 'package:running_app/config/theme.dart';
-import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
@@ -67,7 +65,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
       child: MaterialApp(
         title: "Running App",
         theme: (MediaQuery.of(context).platformBrightness == Brightness.light) ? lightThemeData : darkThemeData,
-        home: const MapViewPage(),
+        home: const GetStartedPage(),
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

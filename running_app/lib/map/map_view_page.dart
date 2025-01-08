@@ -87,6 +87,7 @@ class _MapViewPageState extends State<MapViewPage> {
               children: [
                 Builder(builder: (context) {
                   return MapWidget(
+                    key: const ValueKey('MapWidget'),
                     authorizationToken:
                         "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIyMmRhMzc4ZC1kMGE4LTRjZTItYjljYS1lMGU5N2YxZGU3NzkiLCJleHAiOjE3NTEzMTcyMDAsImlzcyI6Ik1hZ2ljIExhbmUiLCJqdGkiOiIxMjU3NTY1MC1lMGU5LTRkM2YtODE4Zi1jNTY4NGNjY2U0YmUifQ.RyLbm3rxMTRlnune8wlaYULk-oYqfOjSxdQWbBN-SDQ_d3eN9u_ZRgoYC7ZbSJLau28kTtzPLwCGYfrkJK0zqQ",
                     onMapCreated: (controller) {

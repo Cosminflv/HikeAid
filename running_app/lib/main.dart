@@ -1,11 +1,13 @@
+import 'package:core/config.dart';
 import 'package:core/di/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:running_app/running_app.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  initEarlyDependencies();
+  initEarlyDependencies(ipv4Address);
   // await GemKit.initialize(appAuthorization: gemApiToken)
   //     .then((value) => sl.get<AppBloc>().add(UpdateAppStatusEvent(AppStatus.intializedSDK)));
 
