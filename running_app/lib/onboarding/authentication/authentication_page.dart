@@ -63,6 +63,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
               // Username TextField
               TextFormField(
+                key: const Key('usernameForm'),
                 style: Theme.of(context).textTheme.bodyMedium,
                 onChanged: (value) => AppBlocs.authenticationViewBloc.add(UpdateUsernameValueEvent(value: value)),
                 controller: usernameController,
@@ -75,6 +76,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
               // Password TextField
               PasswordField(
+                key: const Key('passwordForm'),
                 passwordController: passwordController,
               ),
               const SizedBox(height: 30.0), // Spacing before button
@@ -84,6 +86,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 children: [
                   SizedBox(
                       child: CustomElevatedButton(
+                    key: const Key('LoginButton'),
                     backgroundColor: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).colorScheme.primary
                         : Theme.of(context).colorScheme.onSurface,

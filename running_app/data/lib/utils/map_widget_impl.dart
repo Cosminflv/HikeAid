@@ -12,6 +12,7 @@ class MapWidgetImpl extends MapWidget {
   @override
   Widget build(BuildContext context) {
     return GemMap(
+      key: ValueKey("MapWidget"),
       zoomLevel: zoomLevel,
       coordinates: initialCoordinates?.toGemCoordinates(),
       onMapCreated: (gemController) {

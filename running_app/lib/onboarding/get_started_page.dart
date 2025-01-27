@@ -48,6 +48,7 @@ class GetStartedPage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: BlocBuilder<AuthSessionBloc, AuthSessionState>(builder: (context, state) {
                   return CustomElevatedButton(
+                      key: const ValueKey('GetStartedButton'),
                       backgroundColor: Theme.of(context).brightness == Brightness.light
                           ? Theme.of(context).colorScheme.primary
                           : Theme.of(context).colorScheme.onSurface,

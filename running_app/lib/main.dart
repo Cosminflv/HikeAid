@@ -11,7 +11,7 @@ import 'package:gem_kit/core.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  initEarlyDependencies();
+  initEarlyDependencies(ipv4Address);
   await GemKit.initialize(appAuthorization: gemApiToken)
       .then((value) => sl.get<AppBloc>().add(UpdateAppStatusEvent(AppStatus.intializedSDK)));
 
