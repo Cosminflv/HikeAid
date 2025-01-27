@@ -217,19 +217,20 @@ class UserModelBuilder implements Builder<UserModel, UserModelBuilder> {
   _$UserModel _build() {
     final _$result = _$v ??
         new _$UserModel._(
-            id: id,
-            username: username,
-            firstName: firstName,
-            lastName: lastName,
-            passwordHash: passwordHash,
-            bio: bio,
-            age: age,
-            country: country,
-            city: city,
-            weight: weight,
-            gender: gender,
-            birthDate: birthDate,
-            profilePictureUrl: profilePictureUrl);
+          id: id,
+          username: username,
+          firstName: firstName,
+          lastName: lastName,
+          passwordHash: passwordHash,
+          bio: bio,
+          age: age,
+          country: country,
+          city: city,
+          weight: weight,
+          gender: gender,
+          birthDate: birthDate,
+          profilePictureUrl: profilePictureUrl,
+        );
     replace(_$result);
     return _$result;
   }

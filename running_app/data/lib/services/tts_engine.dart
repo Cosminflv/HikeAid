@@ -15,7 +15,7 @@ class TTSEngine {
   double rate = 0.5;
   bool isCurrentLanguageInstalled = false;
 
-  String? _newVoiceText;
+  //String? _newVoiceText;
 
   TtsState ttsState = TtsState.stopped;
 
@@ -80,9 +80,9 @@ class TTSEngine {
     });
   }
 
-  Future<dynamic> _getLanguages() async => await flutterTts.getLanguages;
+  //Future<dynamic> _getLanguages() async => await flutterTts.getLanguages;
 
-  Future<dynamic> _getEngines() async => await flutterTts.getEngines;
+  //Future<dynamic> _getEngines() async => await flutterTts.getEngines;
 
   Future _getDefaultEngine() async {
     var engine = await flutterTts.getDefaultEngine;
@@ -98,17 +98,17 @@ class TTSEngine {
     }
   }
 
-  Future _speak() async {
-    await flutterTts.setVolume(volume);
-    await flutterTts.setSpeechRate(rate);
-    await flutterTts.setPitch(pitch);
+  // Future _speak() async {
+  //   await flutterTts.setVolume(volume);
+  //   await flutterTts.setSpeechRate(rate);
+  //   await flutterTts.setPitch(pitch);
 
-    if (_newVoiceText != null) {
-      if (_newVoiceText!.isNotEmpty) {
-        await flutterTts.speak(_newVoiceText!);
-      }
-    }
-  }
+  //   if (_newVoiceText != null) {
+  //     if (_newVoiceText!.isNotEmpty) {
+  //       await flutterTts.speak(_newVoiceText!);
+  //     }
+  //   }
+  // }
 
   Future setVolume(double volume) async {
     await flutterTts.setVolume(volume);
@@ -141,15 +141,15 @@ class TTSEngine {
     flutterTts.setLanguage('en');
   }
 
-  Future _stop() async {
-    var result = await flutterTts.stop();
-    if (result == 1) ttsState = TtsState.stopped;
-  }
+  // Future _stop() async {
+  //   var result = await flutterTts.stop();
+  //   if (result == 1) ttsState = TtsState.stopped;
+  // }
 
-  Future _pause() async {
-    var result = await flutterTts.pause();
-    if (result == 1) ttsState = TtsState.paused;
-  }
+  // Future _pause() async {
+  //   var result = await flutterTts.pause();
+  //   if (result == 1) ttsState = TtsState.paused;
+  // }
 
   void dispose() {
     flutterTts.stop();

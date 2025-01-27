@@ -1,5 +1,5 @@
 import 'package:data/models/coordinates_entity_impl.dart';
-import 'package:domain/entities/coordinates_entity.dart';
+
 import 'package:domain/entities/tour_entity.dart';
 import 'package:xml/xml.dart' as xml;
 

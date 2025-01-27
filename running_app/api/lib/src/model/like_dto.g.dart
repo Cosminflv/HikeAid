@@ -88,7 +88,11 @@ class LikeDtoBuilder implements Builder<LikeDto, LikeDtoBuilder> {
   LikeDto build() => _build();
 
   _$LikeDto _build() {
-    final _$result = _$v ?? new _$LikeDto._(postId: postId, userId: userId);
+    final _$result = _$v ??
+        new _$LikeDto._(
+          postId: postId,
+          userId: userId,
+        );
     replace(_$result);
     return _$result;
   }

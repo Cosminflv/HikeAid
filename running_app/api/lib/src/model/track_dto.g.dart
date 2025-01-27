@@ -112,7 +112,11 @@ class TrackDtoBuilder implements Builder<TrackDto, TrackDtoBuilder> {
   _$TrackDto _build() {
     final _$result = _$v ??
         new _$TrackDto._(
-            id: id, userId: userId, gpxData: gpxData, logData: logData);
+          id: id,
+          userId: userId,
+          gpxData: gpxData,
+          logData: logData,
+        );
     replace(_$result);
     return _$result;
   }

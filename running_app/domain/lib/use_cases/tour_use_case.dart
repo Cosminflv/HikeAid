@@ -14,7 +14,7 @@ class TourUseCase {
   Future<void> startRecording() async {
     final granted = await _permissionRepository.askPermission(DPermissionType.manageExternalStorage);
 
-    // if (!granted) return;
+    if (!granted) return;
 
     _tourRepository.startRecording();
   }

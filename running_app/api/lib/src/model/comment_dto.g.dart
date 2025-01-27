@@ -113,10 +113,11 @@ class CommentDtoBuilder implements Builder<CommentDto, CommentDtoBuilder> {
   _$CommentDto _build() {
     final _$result = _$v ??
         new _$CommentDto._(
-            postId: postId,
-            userId: userId,
-            content: content,
-            timeStamp: timeStamp);
+          postId: postId,
+          userId: userId,
+          content: content,
+          timeStamp: timeStamp,
+        );
     replace(_$result);
     return _$result;
   }

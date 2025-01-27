@@ -102,7 +102,11 @@ class SocialPostDtoBuilder
 
   _$SocialPostDto _build() {
     final _$result = _$v ??
-        new _$SocialPostDto._(id: id, content: content, imageUrl: imageUrl);
+        new _$SocialPostDto._(
+          id: id,
+          content: content,
+          imageUrl: imageUrl,
+        );
     replace(_$result);
     return _$result;
   }

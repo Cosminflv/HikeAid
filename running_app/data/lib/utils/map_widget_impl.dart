@@ -1,10 +1,11 @@
 import 'package:data/utils/map_widget_builder_impl.dart';
-import 'package:domain/map_widget.dart';
 import 'package:data/repositories_impl/extensions.dart';
+
+import 'package:domain/map_widget.dart';
 
 import 'package:gem_kit/map.dart';
 
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
 
 class MapWidgetImpl extends MapWidget {
   MapWidgetImpl({super.onMapCreated, super.initialCoordinates, super.zoomLevel});

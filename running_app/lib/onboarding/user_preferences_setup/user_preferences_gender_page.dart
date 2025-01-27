@@ -131,8 +131,6 @@ class CupertinoGenderPickerDialog extends StatelessWidget {
         return "Male";
       case EGenderEntity.woman:
         return "Female";
-      default:
-        return "";
     }
   }
 }

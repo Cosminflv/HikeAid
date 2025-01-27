@@ -153,13 +153,14 @@ class SearchUserDtoBuilder
   _$SearchUserDto _build() {
     final _$result = _$v ??
         new _$SearchUserDto._(
-            id: id,
-            name: name,
-            city: city,
-            country: country,
-            commonFriends: commonFriends,
-            friendshipStatus: friendshipStatus,
-            imageData: imageData);
+          id: id,
+          name: name,
+          city: city,
+          country: country,
+          commonFriends: commonFriends,
+          friendshipStatus: friendshipStatus,
+          imageData: imageData,
+        );
     replace(_$result);
     return _$result;
   }

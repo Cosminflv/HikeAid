@@ -155,13 +155,14 @@ class FriendshipModelBuilder
     try {
       _$result = _$v ??
           new _$FriendshipModel._(
-              id: id,
-              requesterId: requesterId,
-              receiverId: receiverId,
-              createdAt: createdAt,
-              status: status,
-              requester: _requester?.build(),
-              receiver: _receiver?.build());
+            id: id,
+            requesterId: requesterId,
+            receiverId: receiverId,
+            createdAt: createdAt,
+            status: status,
+            requester: _requester?.build(),
+            receiver: _receiver?.build(),
+          );
     } catch (_) {
       late String _$failedField;
       try {

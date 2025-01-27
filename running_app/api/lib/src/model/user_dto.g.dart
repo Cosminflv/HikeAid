@@ -172,15 +172,16 @@ class UserDtoBuilder implements Builder<UserDto, UserDtoBuilder> {
   _$UserDto _build() {
     final _$result = _$v ??
         new _$UserDto._(
-            username: username,
-            firstName: firstName,
-            lastName: lastName,
-            passwordHash: passwordHash,
-            city: city,
-            country: country,
-            weight: weight,
-            eGender: eGender,
-            birthdate: birthdate);
+          username: username,
+          firstName: firstName,
+          lastName: lastName,
+          passwordHash: passwordHash,
+          city: city,
+          country: country,
+          weight: weight,
+          eGender: eGender,
+          birthdate: birthdate,
+        );
     replace(_$result);
     return _$result;
   }

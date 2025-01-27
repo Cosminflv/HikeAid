@@ -40,8 +40,8 @@ class CameraRepositoryImpl extends CameraRepository {
           .setMapRotationMode(FollowPositionMapRotationMode.values[mode.index], angle: angle, objectFollowMap: true);
 
   @override
-  void registerFollowPositionStateUpdatedCallback(Function(DFollowPositionStatus) onStatusUpdated) =>
-      _controller.registerFollowPositionState((status) => onStatusUpdated(DFollowPositionStatus.values[status.index]));
+  void registerFollowPositionStateUpdatedCallback(Function(DFollowPositionStatus) onStatusUpdated) => _controller
+      .registerFollowPositionStateCallback((status) => onStatusUpdated(DFollowPositionStatus.values[status.index]));
 
   @override
   void centerOnCoordinates(

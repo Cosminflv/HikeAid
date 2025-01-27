@@ -116,10 +116,11 @@ class FriendshipDtoBuilder
   _$FriendshipDto _build() {
     final _$result = _$v ??
         new _$FriendshipDto._(
-            id: id,
-            receiverId: receiverId,
-            requesterId: requesterId,
-            requesterName: requesterName);
+          id: id,
+          receiverId: receiverId,
+          requesterId: requesterId,
+          requesterName: requesterName,
+        );
     replace(_$result);
     return _$result;
   }

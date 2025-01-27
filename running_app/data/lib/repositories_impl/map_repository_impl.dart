@@ -57,7 +57,7 @@ class MapRepositoryImpl extends MapRepository {
     required Function(double) onMapAngleUpdated,
     required Function(LandmarkEntity?, RouteEntity?) onTap,
   }) {
-    _controller.registerOnMapAngleUpdate(onMapAngleUpdated);
+    _controller.registerOnMapAngleUpdateCallback(onMapAngleUpdated);
     _controller.registerMoveCallback((p1, p2) => onMapMove());
 
     _controller.registerTouchCallback((pos) {

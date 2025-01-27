@@ -126,11 +126,12 @@ class SocialPostModelBuilder
   _$SocialPostModel _build() {
     final _$result = _$v ??
         new _$SocialPostModel._(
-            id: id,
-            userId: userId,
-            content: content,
-            createdAt: createdAt,
-            imageUrl: imageUrl);
+          id: id,
+          userId: userId,
+          content: content,
+          createdAt: createdAt,
+          imageUrl: imageUrl,
+        );
     replace(_$result);
     return _$result;
   }

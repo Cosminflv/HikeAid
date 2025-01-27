@@ -1,4 +1,3 @@
-import 'package:core/config.dart';
 import 'package:data/repositories_impl/friendship_repository_impl.dart';
 import 'package:data/repositories_impl/image_cache_repository_impl.dart';
 import 'package:data/repositories_impl/internet_connection_repository_impl.dart';

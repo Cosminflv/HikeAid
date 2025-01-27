@@ -66,7 +66,7 @@ class SearchRepositoryImpl extends SearchRepository {
     final progress = TaskProgressListenerImpl();
 
     final prefs = SearchPreferences(searchAddresses: false, searchMapPOIs: true, maxMatches: 40);
-    prefs.landmarkCategories.add(category.ref);
+    prefs.landmarks.addStoreCategoryId(category.ref.landmarkStoreId, category.ref.id);
 
     progress.ref =
         SearchService.searchAroundPosition(coordinates.toGemCoordinates(), preferences: prefs, (err, result) {

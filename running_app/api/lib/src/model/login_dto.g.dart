@@ -90,8 +90,11 @@ class LoginDtoBuilder implements Builder<LoginDto, LoginDtoBuilder> {
   LoginDto build() => _build();
 
   _$LoginDto _build() {
-    final _$result =
-        _$v ?? new _$LoginDto._(username: username, password: password);
+    final _$result = _$v ??
+        new _$LoginDto._(
+          username: username,
+          password: password,
+        );
     replace(_$result);
     return _$result;
   }

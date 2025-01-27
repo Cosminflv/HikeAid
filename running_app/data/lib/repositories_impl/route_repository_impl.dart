@@ -4,7 +4,6 @@ import 'package:data/repositories_impl/extensions.dart';
 
 import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/route_entity.dart';
-import 'package:domain/entities/transport_means.dart';
 import 'package:domain/repositories/route_repository.dart';
 import 'package:domain/repositories/task_progress_listener.dart';
 import 'package:domain/settings/bike_preferences_entity.dart';
@@ -72,25 +71,6 @@ class RouteRepositoryImpl extends RouteRepository {
     RoutingService.cancelRoute(listener.ref!);
   }
 
-  _convertToGemTransportMode(DTransportMeans transportMeans) {
-    switch (transportMeans) {
-      case DTransportMeans.car:
-        return RouteTransportMode.car;
-      case DTransportMeans.pedestrian:
-        return RouteTransportMode.pedestrian;
-      // case TransportMeans.car:
-      //   return ERouteTransportMode.RTM_Car;
-      // case TransportMeans.pedestrian:
-      //   return ERouteTransportMode.RTM_Pedestrian;
-      // case TransportMeans.truck:
-      //   return ERouteTransportMode.RTM_Lorry;
-      // case TransportMeans.bus:
-      //   return ERouteTransportMode.RTM_Public;
-      default:
-        throw Exception("Unknown transport means");
-    }
-  }
-
   _routeCalculationHandler({
     required int err,
     required List<LandmarkEntity> waypoints,
@@ -122,29 +102,5 @@ class RouteRepositoryImpl extends RouteRepository {
     if (progressListener.shouldCancel) return;
 
     onResult(Right(routeEntities));
-  }
-
-  BikeProfile _convertBikeTypeToEBikeProfile(BikeType bikeType) {
-    switch (bikeType) {
-      case BikeType.cross:
-        return BikeProfile.cross;
-      case BikeType.city:
-        return BikeProfile.city;
-      case BikeType.mountain:
-        return BikeProfile.mountain;
-      default:
-        throw Exception("Unknown BikeType $bikeType");
-    }
-  }
-
-  RouteType _convertRangeTypeToERouteType(TravelMode rangeType) {
-    switch (rangeType) {
-      case TravelMode.fastest:
-        return RouteType.fastest;
-      case TravelMode.economic:
-        return RouteType.economic;
-      default:
-        throw Exception("Unknown RangeType $rangeType");
-    }
   }
 }

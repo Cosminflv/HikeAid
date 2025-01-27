@@ -147,7 +147,7 @@ class TourRepositoryImpl extends TourRepository {
 
   String get _tracksDirectoryPath => "${_documentsDirectory!.path}/Data/Tracks";
   String get _tracksPreviewPath => "${_documentsDirectory!.path}/Tours/previews";
-  String get _plannedTracksDirectoryPath => "${_documentsDirectory!.path}/Data/PlannedTracks";
+  //String get _plannedTracksDirectoryPath => "${_documentsDirectory!.path}/Data/PlannedTracks";
 
   Future<Uint8List?> _readPreviewForGPX(String name) async {
     final previewPath = '$_tracksPreviewPath/$name'.replaceAll('gpx', 'jpg');

@@ -79,8 +79,6 @@ class NavigationRepositoryImpl extends NavigationRepository {
         }
         onInstructionUpdated(insEntityImpl);
         break;
-      default:
-        break;
     }
   }
 

@@ -48,7 +48,8 @@ class _$UpdateUserDto extends UpdateUserDto {
       : super._();
 
   @override
-  UpdateUserDto rebuild(void Function(UpdateUserDtoBuilder) updates) => (toBuilder()..update(updates)).build();
+  UpdateUserDto rebuild(void Function(UpdateUserDtoBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
 
   @override
   UpdateUserDtoBuilder toBuilder() => new UpdateUserDtoBuilder()..replace(this);
@@ -106,7 +107,8 @@ class _$UpdateUserDto extends UpdateUserDto {
   }
 }
 
-class UpdateUserDtoBuilder implements Builder<UpdateUserDto, UpdateUserDtoBuilder> {
+class UpdateUserDtoBuilder
+    implements Builder<UpdateUserDto, UpdateUserDtoBuilder> {
   _$UpdateUserDto? _$v;
 
   String? _firstName;
@@ -147,7 +149,8 @@ class UpdateUserDtoBuilder implements Builder<UpdateUserDto, UpdateUserDtoBuilde
 
   bool? _hasDeletedImage;
   bool? get hasDeletedImage => _$this._hasDeletedImage;
-  set hasDeletedImage(bool? hasDeletedImage) => _$this._hasDeletedImage = hasDeletedImage;
+  set hasDeletedImage(bool? hasDeletedImage) =>
+      _$this._hasDeletedImage = hasDeletedImage;
 
   String? _imageData;
   String? get imageData => _$this._imageData;
@@ -193,17 +196,18 @@ class UpdateUserDtoBuilder implements Builder<UpdateUserDto, UpdateUserDtoBuilde
   _$UpdateUserDto _build() {
     final _$result = _$v ??
         new _$UpdateUserDto._(
-            firstName: firstName,
-            lastName: lastName,
-            bio: bio,
-            age: age,
-            country: country,
-            city: city,
-            gender: gender,
-            birthDate: birthDate,
-            weight: weight,
-            hasDeletedImage: hasDeletedImage,
-            imageData: imageData);
+          firstName: firstName,
+          lastName: lastName,
+          bio: bio,
+          age: age,
+          country: country,
+          city: city,
+          gender: gender,
+          birthDate: birthDate,
+          weight: weight,
+          hasDeletedImage: hasDeletedImage,
+          imageData: imageData,
+        );
     replace(_$result);
     return _$result;
   }

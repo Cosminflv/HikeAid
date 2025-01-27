@@ -27,8 +27,6 @@ extension RegistrationFailTypeExtension on RegistrationFailType {
         return "Invalid credentials";
       case RegistrationFailType.other:
         return "An unknown error occurred";
-      default:
-        return "An unknown error occurred"; // This case should not occur, but it's good to have a fallback.
     }
   }
 }
