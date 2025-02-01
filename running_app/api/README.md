@@ -72,7 +72,9 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-[*AlertApi*](doc/AlertApi.md) | [**apiAlertAddAlertPost**](doc/AlertApi.md#apialertaddalertpost) | **POST** /api/Alert/AddAlert | 
+[*AlertApi*](doc/AlertApi.md) | [**apiAlertAddAlertPost**](doc/AlertApi.md#apialertaddalertpost) | **POST** /api/Alert/addAlert | 
+[*AlertApi*](doc/AlertApi.md) | [**apiAlertAlertIdImageGet**](doc/AlertApi.md#apialertalertidimageget) | **GET** /api/Alert/{alertId}/image | 
+[*AlertApi*](doc/AlertApi.md) | [**apiAlertGetAllAlertsGet**](doc/AlertApi.md#apialertgetallalertsget) | **GET** /api/Alert/GetAllAlerts | 
 [*LoginApi*](doc/LoginApi.md) | [**apiLoginLoginPost**](doc/LoginApi.md#apiloginloginpost) | **POST** /api/Login/login | 
 [*LoginApi*](doc/LoginApi.md) | [**apiLoginRegisterPost**](doc/LoginApi.md#apiloginregisterpost) | **POST** /api/Login/register | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostCommentsIdDelete**](doc/SocialPostApi.md#apisocialpostcommentsiddelete) | **DELETE** /api/SocialPost/comments/{id} | 

@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Alert/AddAlert": {
+    "/api/Alert/addAlert": {
       "post": {
         "tags": [
           "Alert"
@@ -92,6 +92,41 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Alert/GetAllAlerts": {
+      "get": {
+        "tags": [
+          "Alert"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Alert/{alertId}/image": {
+      "get": {
+        "tags": [
+          "Alert"
+        ],
+        "parameters": [
+          {
+            "name": "alertId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"

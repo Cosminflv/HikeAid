@@ -9,7 +9,9 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**apiAlertAddAlertPost**](AlertApi.md#apialertaddalertpost) | **POST** /api/Alert/AddAlert | 
+[**apiAlertAddAlertPost**](AlertApi.md#apialertaddalertpost) | **POST** /api/Alert/addAlert | 
+[**apiAlertAlertIdImageGet**](AlertApi.md#apialertalertidimageget) | **GET** /api/Alert/{alertId}/image | 
+[**apiAlertGetAllAlertsGet**](AlertApi.md#apialertgetallalertsget) | **GET** /api/Alert/GetAllAlerts | 
 
 
 # **apiAlertAddAlertPost**
@@ -64,6 +66,82 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiAlertAlertIdImageGet**
+> apiAlertAlertIdImageGet(alertId)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getAlertApi();
+final int alertId = 56; // int | 
+
+try {
+    api.apiAlertAlertIdImageGet(alertId);
+} catch on DioException (e) {
+    print('Exception when calling AlertApi->apiAlertAlertIdImageGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **alertId** | **int**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiAlertGetAllAlertsGet**
+> apiAlertGetAllAlertsGet()
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getAlertApi();
+
+try {
+    api.apiAlertGetAllAlertsGet();
+} catch on DioException (e) {
+    print('Exception when calling AlertApi->apiAlertGetAllAlertsGet: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

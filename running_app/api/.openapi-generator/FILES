@@ -47,4 +47,3 @@ lib/src/model/update_user_dto.dart
 lib/src/model/user_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/alert_api_test.dart
