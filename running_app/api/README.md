@@ -47,13 +47,21 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:openapi/openapi.dart';
 
 
-final api = Openapi().getLoginApi();
-final LoginDto loginDto = ; // LoginDto | 
+final api = Openapi().getAlertApi();
+final DateTime createdAt = 2013-10-20T19:20:30+01:00; // DateTime | 
+final DateTime expiresAt = 2013-10-20T19:20:30+01:00; // DateTime | 
+final String title = title_example; // String | 
+final String description = description_example; // String | 
+final String alertType = alertType_example; // String | 
+final bool isActive = true; // bool | 
+final double latitude = 1.2; // double | 
+final double longitude = 1.2; // double | 
+final MultipartFile imageFile = BINARY_DATA_HERE; // MultipartFile | 
 
 try {
-    api.apiLoginLoginPost(loginDto);
+    api.apiAlertAddAlertPost(createdAt, expiresAt, title, description, alertType, isActive, latitude, longitude, imageFile);
 } catch on DioException (e) {
-    print("Exception when calling LoginApi->apiLoginLoginPost: $e\n");
+    print("Exception when calling AlertApi->apiAlertAddAlertPost: $e\n");
 }
 
 ```
@@ -64,6 +72,7 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*AlertApi*](doc/AlertApi.md) | [**apiAlertAddAlertPost**](doc/AlertApi.md#apialertaddalertpost) | **POST** /api/Alert/AddAlert | 
 [*LoginApi*](doc/LoginApi.md) | [**apiLoginLoginPost**](doc/LoginApi.md#apiloginloginpost) | **POST** /api/Login/login | 
 [*LoginApi*](doc/LoginApi.md) | [**apiLoginRegisterPost**](doc/LoginApi.md#apiloginregisterpost) | **POST** /api/Login/register | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostCommentsIdDelete**](doc/SocialPostApi.md#apisocialpostcommentsiddelete) | **DELETE** /api/SocialPost/comments/{id} | 

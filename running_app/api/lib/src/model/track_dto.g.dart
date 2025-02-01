@@ -8,18 +8,28 @@ part of 'track_dto.dart';
 
 class _$TrackDto extends TrackDto {
   @override
-  final int? id;
+  final int id;
   @override
-  final int? userId;
+  final int userId;
   @override
-  final String? gpxData;
+  final String gpxData;
   @override
-  final String? logData;
+  final String logData;
 
   factory _$TrackDto([void Function(TrackDtoBuilder)? updates]) =>
       (new TrackDtoBuilder()..update(updates))._build();
 
-  _$TrackDto._({this.id, this.userId, this.gpxData, this.logData}) : super._();
+  _$TrackDto._(
+      {required this.id,
+      required this.userId,
+      required this.gpxData,
+      required this.logData})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'TrackDto', 'id');
+    BuiltValueNullFieldError.checkNotNull(userId, r'TrackDto', 'userId');
+    BuiltValueNullFieldError.checkNotNull(gpxData, r'TrackDto', 'gpxData');
+    BuiltValueNullFieldError.checkNotNull(logData, r'TrackDto', 'logData');
+  }
 
   @override
   TrackDto rebuild(void Function(TrackDtoBuilder) updates) =>
@@ -112,10 +122,13 @@ class TrackDtoBuilder implements Builder<TrackDto, TrackDtoBuilder> {
   _$TrackDto _build() {
     final _$result = _$v ??
         new _$TrackDto._(
-          id: id,
-          userId: userId,
-          gpxData: gpxData,
-          logData: logData,
+          id: BuiltValueNullFieldError.checkNotNull(id, r'TrackDto', 'id'),
+          userId: BuiltValueNullFieldError.checkNotNull(
+              userId, r'TrackDto', 'userId'),
+          gpxData: BuiltValueNullFieldError.checkNotNull(
+              gpxData, r'TrackDto', 'gpxData'),
+          logData: BuiltValueNullFieldError.checkNotNull(
+              logData, r'TrackDto', 'logData'),
         );
     replace(_$result);
     return _$result;

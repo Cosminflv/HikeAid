@@ -12,7 +12,7 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
   @override
   Future<void> search({required String text, required Function(List<SearchUserEntity> p1) onResult}) async {
     try {
-      final result = await _openapi.getUserApi().apiUserSearchUserGet(querry: text);
+      final result = await _openapi.getUserApi().apiUserSearchUserGet(query: text);
 
       if (result.statusCode == 200) {
         final dtoList = result.data as BuiltList<SearchUserDto>;

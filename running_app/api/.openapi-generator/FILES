@@ -1,6 +1,7 @@
 .gitignore
 README.md
 analysis_options.yaml
+doc/AlertApi.md
 doc/CommentDto.md
 doc/EFriendshipStatus.md
 doc/EGender.md
@@ -19,6 +20,7 @@ doc/UserApi.md
 doc/UserDto.md
 lib/openapi.dart
 lib/src/api.dart
+lib/src/api/alert_api.dart
 lib/src/api/login_api.dart
 lib/src/api/social_post_api.dart
 lib/src/api/track_api.dart
@@ -45,3 +47,4 @@ lib/src/model/update_user_dto.dart
 lib/src/model/user_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/alert_api_test.dart

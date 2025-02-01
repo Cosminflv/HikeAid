@@ -597,7 +597,7 @@ class UserApi {
   /// 
   ///
   /// Parameters:
-  /// * [querry] 
+  /// * [query] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -608,7 +608,7 @@ class UserApi {
   /// Returns a [Future] containing a [Response] with a [BuiltList<SearchUserDto>] as data
   /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<SearchUserDto>>> apiUserSearchUserGet({ 
-    String? querry,
+    String? query,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -636,7 +636,7 @@ class UserApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      if (querry != null) r'querry': encodeQueryParameter(_serializers, querry, const FullType(String)),
+      if (query != null) r'query': encodeQueryParameter(_serializers, query, const FullType(String)),
     };
 
     final _response = await _dio.request<Object>(

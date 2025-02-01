@@ -8,32 +8,43 @@ part of 'search_user_dto.dart';
 
 class _$SearchUserDto extends SearchUserDto {
   @override
-  final int? id;
+  final int id;
   @override
-  final String? name;
+  final String name;
   @override
-  final String? city;
+  final String city;
   @override
-  final String? country;
+  final String country;
   @override
-  final int? commonFriends;
+  final int commonFriends;
   @override
-  final EFriendshipStatus? friendshipStatus;
+  final EFriendshipStatus friendshipStatus;
   @override
-  final String? imageData;
+  final String imageData;
 
   factory _$SearchUserDto([void Function(SearchUserDtoBuilder)? updates]) =>
       (new SearchUserDtoBuilder()..update(updates))._build();
 
   _$SearchUserDto._(
-      {this.id,
-      this.name,
-      this.city,
-      this.country,
-      this.commonFriends,
-      this.friendshipStatus,
-      this.imageData})
-      : super._();
+      {required this.id,
+      required this.name,
+      required this.city,
+      required this.country,
+      required this.commonFriends,
+      required this.friendshipStatus,
+      required this.imageData})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'SearchUserDto', 'id');
+    BuiltValueNullFieldError.checkNotNull(name, r'SearchUserDto', 'name');
+    BuiltValueNullFieldError.checkNotNull(city, r'SearchUserDto', 'city');
+    BuiltValueNullFieldError.checkNotNull(country, r'SearchUserDto', 'country');
+    BuiltValueNullFieldError.checkNotNull(
+        commonFriends, r'SearchUserDto', 'commonFriends');
+    BuiltValueNullFieldError.checkNotNull(
+        friendshipStatus, r'SearchUserDto', 'friendshipStatus');
+    BuiltValueNullFieldError.checkNotNull(
+        imageData, r'SearchUserDto', 'imageData');
+  }
 
   @override
   SearchUserDto rebuild(void Function(SearchUserDtoBuilder) updates) =>
@@ -153,13 +164,19 @@ class SearchUserDtoBuilder
   _$SearchUserDto _build() {
     final _$result = _$v ??
         new _$SearchUserDto._(
-          id: id,
-          name: name,
-          city: city,
-          country: country,
-          commonFriends: commonFriends,
-          friendshipStatus: friendshipStatus,
-          imageData: imageData,
+          id: BuiltValueNullFieldError.checkNotNull(id, r'SearchUserDto', 'id'),
+          name: BuiltValueNullFieldError.checkNotNull(
+              name, r'SearchUserDto', 'name'),
+          city: BuiltValueNullFieldError.checkNotNull(
+              city, r'SearchUserDto', 'city'),
+          country: BuiltValueNullFieldError.checkNotNull(
+              country, r'SearchUserDto', 'country'),
+          commonFriends: BuiltValueNullFieldError.checkNotNull(
+              commonFriends, r'SearchUserDto', 'commonFriends'),
+          friendshipStatus: BuiltValueNullFieldError.checkNotNull(
+              friendshipStatus, r'SearchUserDto', 'friendshipStatus'),
+          imageData: BuiltValueNullFieldError.checkNotNull(
+              imageData, r'SearchUserDto', 'imageData'),
         );
     replace(_$result);
     return _$result;

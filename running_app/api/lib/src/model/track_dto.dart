@@ -18,16 +18,16 @@ part 'track_dto.g.dart';
 @BuiltValue()
 abstract class TrackDto implements Built<TrackDto, TrackDtoBuilder> {
   @BuiltValueField(wireName: r'id')
-  int? get id;
+  int get id;
 
   @BuiltValueField(wireName: r'userId')
-  int? get userId;
+  int get userId;
 
   @BuiltValueField(wireName: r'gpxData')
-  String? get gpxData;
+  String get gpxData;
 
   @BuiltValueField(wireName: r'logData')
-  String? get logData;
+  String get logData;
 
   TrackDto._();
 
@@ -52,34 +52,26 @@ class _$TrackDtoSerializer implements PrimitiveSerializer<TrackDto> {
     TrackDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.id != null) {
-      yield r'id';
-      yield serializers.serialize(
-        object.id,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.userId != null) {
-      yield r'userId';
-      yield serializers.serialize(
-        object.userId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.gpxData != null) {
-      yield r'gpxData';
-      yield serializers.serialize(
-        object.gpxData,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.logData != null) {
-      yield r'logData';
-      yield serializers.serialize(
-        object.logData,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
+    yield r'userId';
+    yield serializers.serialize(
+      object.userId,
+      specifiedType: const FullType(int),
+    );
+    yield r'gpxData';
+    yield serializers.serialize(
+      object.gpxData,
+      specifiedType: const FullType(String),
+    );
+    yield r'logData';
+    yield serializers.serialize(
+      object.logData,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override
@@ -120,17 +112,15 @@ class _$TrackDtoSerializer implements PrimitiveSerializer<TrackDto> {
         case r'gpxData':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.gpxData = valueDes;
           break;
         case r'logData':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.logData = valueDes;
           break;
         default:

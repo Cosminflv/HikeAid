@@ -8,19 +8,29 @@ part of 'comment_dto.dart';
 
 class _$CommentDto extends CommentDto {
   @override
-  final int? postId;
+  final int postId;
   @override
-  final int? userId;
+  final int userId;
   @override
-  final String? content;
+  final String content;
   @override
-  final DateTime? timeStamp;
+  final DateTime timeStamp;
 
   factory _$CommentDto([void Function(CommentDtoBuilder)? updates]) =>
       (new CommentDtoBuilder()..update(updates))._build();
 
-  _$CommentDto._({this.postId, this.userId, this.content, this.timeStamp})
-      : super._();
+  _$CommentDto._(
+      {required this.postId,
+      required this.userId,
+      required this.content,
+      required this.timeStamp})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(postId, r'CommentDto', 'postId');
+    BuiltValueNullFieldError.checkNotNull(userId, r'CommentDto', 'userId');
+    BuiltValueNullFieldError.checkNotNull(content, r'CommentDto', 'content');
+    BuiltValueNullFieldError.checkNotNull(
+        timeStamp, r'CommentDto', 'timeStamp');
+  }
 
   @override
   CommentDto rebuild(void Function(CommentDtoBuilder) updates) =>
@@ -113,10 +123,14 @@ class CommentDtoBuilder implements Builder<CommentDto, CommentDtoBuilder> {
   _$CommentDto _build() {
     final _$result = _$v ??
         new _$CommentDto._(
-          postId: postId,
-          userId: userId,
-          content: content,
-          timeStamp: timeStamp,
+          postId: BuiltValueNullFieldError.checkNotNull(
+              postId, r'CommentDto', 'postId'),
+          userId: BuiltValueNullFieldError.checkNotNull(
+              userId, r'CommentDto', 'userId'),
+          content: BuiltValueNullFieldError.checkNotNull(
+              content, r'CommentDto', 'content'),
+          timeStamp: BuiltValueNullFieldError.checkNotNull(
+              timeStamp, r'CommentDto', 'timeStamp'),
         );
     replace(_$result);
     return _$result;

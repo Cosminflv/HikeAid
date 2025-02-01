@@ -8,13 +8,13 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**name** | **String** |  | [optional] 
-**city** | **String** |  | [optional] 
-**country** | **String** |  | [optional] 
-**commonFriends** | **int** |  | [optional] 
-**friendshipStatus** | [**EFriendshipStatus**](EFriendshipStatus.md) |  | [optional] 
-**imageData** | **String** |  | [optional] 
+**id** | **int** |  | 
+**name** | **String** |  | 
+**city** | **String** |  | 
+**country** | **String** |  | 
+**commonFriends** | **int** |  | 
+**friendshipStatus** | [**EFriendshipStatus**](EFriendshipStatus.md) |  | 
+**imageData** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

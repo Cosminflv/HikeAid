@@ -22,26 +22,26 @@ part 'search_user_dto.g.dart';
 @BuiltValue()
 abstract class SearchUserDto implements Built<SearchUserDto, SearchUserDtoBuilder> {
   @BuiltValueField(wireName: r'id')
-  int? get id;
+  int get id;
 
   @BuiltValueField(wireName: r'name')
-  String? get name;
+  String get name;
 
   @BuiltValueField(wireName: r'city')
-  String? get city;
+  String get city;
 
   @BuiltValueField(wireName: r'country')
-  String? get country;
+  String get country;
 
   @BuiltValueField(wireName: r'commonFriends')
-  int? get commonFriends;
+  int get commonFriends;
 
   @BuiltValueField(wireName: r'friendshipStatus')
-  EFriendshipStatus? get friendshipStatus;
+  EFriendshipStatus get friendshipStatus;
   // enum friendshipStatusEnum {  0,  1,  2,  };
 
   @BuiltValueField(wireName: r'imageData')
-  String? get imageData;
+  String get imageData;
 
   SearchUserDto._();
 
@@ -66,55 +66,41 @@ class _$SearchUserDtoSerializer implements PrimitiveSerializer<SearchUserDto> {
     SearchUserDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.id != null) {
-      yield r'id';
-      yield serializers.serialize(
-        object.id,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.name != null) {
-      yield r'name';
-      yield serializers.serialize(
-        object.name,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.city != null) {
-      yield r'city';
-      yield serializers.serialize(
-        object.city,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.country != null) {
-      yield r'country';
-      yield serializers.serialize(
-        object.country,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.commonFriends != null) {
-      yield r'commonFriends';
-      yield serializers.serialize(
-        object.commonFriends,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.friendshipStatus != null) {
-      yield r'friendshipStatus';
-      yield serializers.serialize(
-        object.friendshipStatus,
-        specifiedType: const FullType(EFriendshipStatus),
-      );
-    }
-    if (object.imageData != null) {
-      yield r'imageData';
-      yield serializers.serialize(
-        object.imageData,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
+    yield r'name';
+    yield serializers.serialize(
+      object.name,
+      specifiedType: const FullType(String),
+    );
+    yield r'city';
+    yield serializers.serialize(
+      object.city,
+      specifiedType: const FullType(String),
+    );
+    yield r'country';
+    yield serializers.serialize(
+      object.country,
+      specifiedType: const FullType(String),
+    );
+    yield r'commonFriends';
+    yield serializers.serialize(
+      object.commonFriends,
+      specifiedType: const FullType(int),
+    );
+    yield r'friendshipStatus';
+    yield serializers.serialize(
+      object.friendshipStatus,
+      specifiedType: const FullType(EFriendshipStatus),
+    );
+    yield r'imageData';
+    yield serializers.serialize(
+      object.imageData,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override
@@ -148,25 +134,22 @@ class _$SearchUserDtoSerializer implements PrimitiveSerializer<SearchUserDto> {
         case r'name':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.name = valueDes;
           break;
         case r'city':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.city = valueDes;
           break;
         case r'country':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.country = valueDes;
           break;
         case r'commonFriends':
@@ -186,9 +169,8 @@ class _$SearchUserDtoSerializer implements PrimitiveSerializer<SearchUserDto> {
         case r'imageData':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.imageData = valueDes;
           break;
         default:

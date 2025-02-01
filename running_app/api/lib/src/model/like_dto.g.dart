@@ -8,14 +8,17 @@ part of 'like_dto.dart';
 
 class _$LikeDto extends LikeDto {
   @override
-  final int? postId;
+  final int postId;
   @override
-  final int? userId;
+  final int userId;
 
   factory _$LikeDto([void Function(LikeDtoBuilder)? updates]) =>
       (new LikeDtoBuilder()..update(updates))._build();
 
-  _$LikeDto._({this.postId, this.userId}) : super._();
+  _$LikeDto._({required this.postId, required this.userId}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(postId, r'LikeDto', 'postId');
+    BuiltValueNullFieldError.checkNotNull(userId, r'LikeDto', 'userId');
+  }
 
   @override
   LikeDto rebuild(void Function(LikeDtoBuilder) updates) =>
@@ -90,8 +93,10 @@ class LikeDtoBuilder implements Builder<LikeDto, LikeDtoBuilder> {
   _$LikeDto _build() {
     final _$result = _$v ??
         new _$LikeDto._(
-          postId: postId,
-          userId: userId,
+          postId: BuiltValueNullFieldError.checkNotNull(
+              postId, r'LikeDto', 'postId'),
+          userId: BuiltValueNullFieldError.checkNotNull(
+              userId, r'LikeDto', 'userId'),
         );
     replace(_$result);
     return _$result;

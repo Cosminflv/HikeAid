@@ -26,38 +26,38 @@ part 'update_user_dto.g.dart';
 @BuiltValue()
 abstract class UpdateUserDto implements Built<UpdateUserDto, UpdateUserDtoBuilder> {
   @BuiltValueField(wireName: r'firstName')
-  String? get firstName;
+  String get firstName;
 
   @BuiltValueField(wireName: r'lastName')
-  String? get lastName;
+  String get lastName;
 
   @BuiltValueField(wireName: r'bio')
-  String? get bio;
+  String get bio;
 
   @BuiltValueField(wireName: r'age')
-  int? get age;
+  int get age;
 
   @BuiltValueField(wireName: r'country')
-  String? get country;
+  String get country;
 
   @BuiltValueField(wireName: r'city')
-  String? get city;
+  String get city;
 
   @BuiltValueField(wireName: r'gender')
-  EGender? get gender;
+  EGender get gender;
   // enum genderEnum {  0,  1,  };
 
   @BuiltValueField(wireName: r'birthDate')
-  DateTime? get birthDate;
+  DateTime get birthDate;
 
   @BuiltValueField(wireName: r'weight')
-  int? get weight;
+  int get weight;
 
   @BuiltValueField(wireName: r'hasDeletedImage')
-  bool? get hasDeletedImage;
+  bool get hasDeletedImage;
 
   @BuiltValueField(wireName: r'imageData')
-  String? get imageData;
+  String get imageData;
 
   UpdateUserDto._();
 
@@ -82,83 +82,61 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
     UpdateUserDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.firstName != null) {
-      yield r'firstName';
-      yield serializers.serialize(
-        object.firstName,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.lastName != null) {
-      yield r'lastName';
-      yield serializers.serialize(
-        object.lastName,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.bio != null) {
-      yield r'bio';
-      yield serializers.serialize(
-        object.bio,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.age != null) {
-      yield r'age';
-      yield serializers.serialize(
-        object.age,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.country != null) {
-      yield r'country';
-      yield serializers.serialize(
-        object.country,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.city != null) {
-      yield r'city';
-      yield serializers.serialize(
-        object.city,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.gender != null) {
-      yield r'gender';
-      yield serializers.serialize(
-        object.gender,
-        specifiedType: const FullType(EGender),
-      );
-    }
-    if (object.birthDate != null) {
-      yield r'birthDate';
-      yield serializers.serialize(
-        object.birthDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.weight != null) {
-      yield r'weight';
-      yield serializers.serialize(
-        object.weight,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.hasDeletedImage != null) {
-      yield r'hasDeletedImage';
-      yield serializers.serialize(
-        object.hasDeletedImage,
-        specifiedType: const FullType(bool),
-      );
-    }
-    if (object.imageData != null) {
-      yield r'imageData';
-      yield serializers.serialize(
-        object.imageData,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
+    yield r'firstName';
+    yield serializers.serialize(
+      object.firstName,
+      specifiedType: const FullType(String),
+    );
+    yield r'lastName';
+    yield serializers.serialize(
+      object.lastName,
+      specifiedType: const FullType(String),
+    );
+    yield r'bio';
+    yield serializers.serialize(
+      object.bio,
+      specifiedType: const FullType(String),
+    );
+    yield r'age';
+    yield serializers.serialize(
+      object.age,
+      specifiedType: const FullType(int),
+    );
+    yield r'country';
+    yield serializers.serialize(
+      object.country,
+      specifiedType: const FullType(String),
+    );
+    yield r'city';
+    yield serializers.serialize(
+      object.city,
+      specifiedType: const FullType(String),
+    );
+    yield r'gender';
+    yield serializers.serialize(
+      object.gender,
+      specifiedType: const FullType(EGender),
+    );
+    yield r'birthDate';
+    yield serializers.serialize(
+      object.birthDate,
+      specifiedType: const FullType(DateTime),
+    );
+    yield r'weight';
+    yield serializers.serialize(
+      object.weight,
+      specifiedType: const FullType(int),
+    );
+    yield r'hasDeletedImage';
+    yield serializers.serialize(
+      object.hasDeletedImage,
+      specifiedType: const FullType(bool),
+    );
+    yield r'imageData';
+    yield serializers.serialize(
+      object.imageData,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override
@@ -185,25 +163,22 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
         case r'firstName':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.firstName = valueDes;
           break;
         case r'lastName':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.lastName = valueDes;
           break;
         case r'bio':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.bio = valueDes;
           break;
         case r'age':
@@ -216,17 +191,15 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
         case r'country':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.country = valueDes;
           break;
         case r'city':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.city = valueDes;
           break;
         case r'gender':
@@ -260,9 +233,8 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
         case r'imageData':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.imageData = valueDes;
           break;
         default:

@@ -24,32 +24,32 @@ part 'user_dto.g.dart';
 @BuiltValue()
 abstract class UserDto implements Built<UserDto, UserDtoBuilder> {
   @BuiltValueField(wireName: r'username')
-  String? get username;
+  String get username;
 
   @BuiltValueField(wireName: r'firstName')
-  String? get firstName;
+  String get firstName;
 
   @BuiltValueField(wireName: r'lastName')
-  String? get lastName;
+  String get lastName;
 
   @BuiltValueField(wireName: r'passwordHash')
-  String? get passwordHash;
+  String get passwordHash;
 
   @BuiltValueField(wireName: r'city')
-  String? get city;
+  String get city;
 
   @BuiltValueField(wireName: r'country')
-  String? get country;
+  String get country;
 
   @BuiltValueField(wireName: r'weight')
-  int? get weight;
+  int get weight;
 
   @BuiltValueField(wireName: r'eGender')
-  EGender? get eGender;
+  EGender get eGender;
   // enum eGenderEnum {  0,  1,  };
 
   @BuiltValueField(wireName: r'birthdate')
-  DateTime? get birthdate;
+  DateTime get birthdate;
 
   UserDto._();
 
@@ -74,69 +74,51 @@ class _$UserDtoSerializer implements PrimitiveSerializer<UserDto> {
     UserDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.username != null) {
-      yield r'username';
-      yield serializers.serialize(
-        object.username,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.firstName != null) {
-      yield r'firstName';
-      yield serializers.serialize(
-        object.firstName,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.lastName != null) {
-      yield r'lastName';
-      yield serializers.serialize(
-        object.lastName,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.passwordHash != null) {
-      yield r'passwordHash';
-      yield serializers.serialize(
-        object.passwordHash,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.city != null) {
-      yield r'city';
-      yield serializers.serialize(
-        object.city,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.country != null) {
-      yield r'country';
-      yield serializers.serialize(
-        object.country,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.weight != null) {
-      yield r'weight';
-      yield serializers.serialize(
-        object.weight,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.eGender != null) {
-      yield r'eGender';
-      yield serializers.serialize(
-        object.eGender,
-        specifiedType: const FullType(EGender),
-      );
-    }
-    if (object.birthdate != null) {
-      yield r'birthdate';
-      yield serializers.serialize(
-        object.birthdate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
+    yield r'username';
+    yield serializers.serialize(
+      object.username,
+      specifiedType: const FullType(String),
+    );
+    yield r'firstName';
+    yield serializers.serialize(
+      object.firstName,
+      specifiedType: const FullType(String),
+    );
+    yield r'lastName';
+    yield serializers.serialize(
+      object.lastName,
+      specifiedType: const FullType(String),
+    );
+    yield r'passwordHash';
+    yield serializers.serialize(
+      object.passwordHash,
+      specifiedType: const FullType(String),
+    );
+    yield r'city';
+    yield serializers.serialize(
+      object.city,
+      specifiedType: const FullType(String),
+    );
+    yield r'country';
+    yield serializers.serialize(
+      object.country,
+      specifiedType: const FullType(String),
+    );
+    yield r'weight';
+    yield serializers.serialize(
+      object.weight,
+      specifiedType: const FullType(int),
+    );
+    yield r'eGender';
+    yield serializers.serialize(
+      object.eGender,
+      specifiedType: const FullType(EGender),
+    );
+    yield r'birthdate';
+    yield serializers.serialize(
+      object.birthdate,
+      specifiedType: const FullType(DateTime),
+    );
   }
 
   @override
@@ -163,49 +145,43 @@ class _$UserDtoSerializer implements PrimitiveSerializer<UserDto> {
         case r'username':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.username = valueDes;
           break;
         case r'firstName':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.firstName = valueDes;
           break;
         case r'lastName':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.lastName = valueDes;
           break;
         case r'passwordHash':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.passwordHash = valueDes;
           break;
         case r'city':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.city = valueDes;
           break;
         case r'country':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.country = valueDes;
           break;
         case r'weight':

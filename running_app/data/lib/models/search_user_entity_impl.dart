@@ -16,14 +16,14 @@ class SearchUserEntityImpl extends SearchUserEntity {
 
   // Factory constructor for creating an instance from DTO
   factory SearchUserEntityImpl.fromDto(SearchUserDto dto) {
-    final image = base64Decode(dto.imageData!);
+    final image = base64Decode(dto.imageData);
     return SearchUserEntityImpl(
-        id: dto.id!,
-        name: dto.name!,
-        city: dto.city!,
-        country: dto.country!,
-        commonFriends: dto.commonFriends!,
+        id: dto.id,
+        name: dto.name,
+        city: dto.city,
+        country: dto.country,
+        commonFriends: dto.commonFriends,
         imageData: image,
-        friendshipStatus: convertToFriendshipStatus(dto.friendshipStatus!));
+        friendshipStatus: convertToFriendshipStatus(dto.friendshipStatus));
   }
 }

@@ -376,7 +376,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiUserSearchUserGet**
-> BuiltList<SearchUserDto> apiUserSearchUserGet(querry)
+> BuiltList<SearchUserDto> apiUserSearchUserGet(query)
 
 
 
@@ -385,10 +385,10 @@ void (empty response body)
 import 'package:openapi/api.dart';
 
 final api = Openapi().getUserApi();
-final String querry = querry_example; // String | 
+final String query = query_example; // String | 
 
 try {
-    final response = api.apiUserSearchUserGet(querry);
+    final response = api.apiUserSearchUserGet(query);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling UserApi->apiUserSearchUserGet: $e\n');
@@ -399,7 +399,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **querry** | **String**|  | [optional] 
+ **query** | **String**|  | [optional] 
 
 ### Return type
 

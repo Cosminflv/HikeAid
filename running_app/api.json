@@ -5,6 +5,100 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Alert/AddAlert": {
+      "post": {
+        "tags": [
+          "Alert"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "AlertType",
+                  "CreatedAt",
+                  "Description",
+                  "ExpiresAt",
+                  "IsActive",
+                  "Latitude",
+                  "Longitude",
+                  "Title"
+                ],
+                "type": "object",
+                "properties": {
+                  "CreatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "ExpiresAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "Title": {
+                    "type": "string"
+                  },
+                  "Description": {
+                    "type": "string"
+                  },
+                  "AlertType": {
+                    "type": "string"
+                  },
+                  "IsActive": {
+                    "type": "boolean"
+                  },
+                  "Latitude": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "Longitude": {
+                    "type": "number",
+                    "format": "double"
+                  },
+                  "ImageFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "CreatedAt": {
+                  "style": "form"
+                },
+                "ExpiresAt": {
+                  "style": "form"
+                },
+                "Title": {
+                  "style": "form"
+                },
+                "Description": {
+                  "style": "form"
+                },
+                "AlertType": {
+                  "style": "form"
+                },
+                "IsActive": {
+                  "style": "form"
+                },
+                "Latitude": {
+                  "style": "form"
+                },
+                "Longitude": {
+                  "style": "form"
+                },
+                "ImageFile": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Login/login": {
       "post": {
         "tags": [
@@ -537,7 +631,7 @@
         ],
         "parameters": [
           {
-            "name": "querry",
+            "name": "query",
             "in": "query",
             "schema": {
               "type": "string"
@@ -840,6 +934,12 @@
   "components": {
     "schemas": {
       "CommentDto": {
+        "required": [
+          "content",
+          "postId",
+          "timeStamp",
+          "userId"
+        ],
         "type": "object",
         "properties": {
           "postId": {
@@ -851,8 +951,8 @@
             "format": "int32"
           },
           "content": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "timeStamp": {
             "type": "string",
@@ -901,6 +1001,10 @@
         "additionalProperties": false
       },
       "LikeDto": {
+        "required": [
+          "postId",
+          "userId"
+        ],
         "type": "object",
         "properties": {
           "postId": {
@@ -915,20 +1019,33 @@
         "additionalProperties": false
       },
       "LoginDto": {
+        "required": [
+          "password",
+          "username"
+        ],
         "type": "object",
         "properties": {
           "username": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "password": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "SearchUserDto": {
+        "required": [
+          "city",
+          "commonFriends",
+          "country",
+          "friendshipStatus",
+          "id",
+          "imageData",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -936,16 +1053,16 @@
             "format": "int32"
           },
           "name": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "country": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "commonFriends": {
             "type": "integer",
@@ -955,13 +1072,18 @@
             "$ref": "#/components/schemas/EFriendshipStatus"
           },
           "imageData": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "SocialPostDto": {
+        "required": [
+          "content",
+          "id",
+          "imageUrl"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -969,12 +1091,12 @@
             "format": "int32"
           },
           "content": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "imageUrl": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -1006,6 +1128,12 @@
         "additionalProperties": false
       },
       "TrackDto": {
+        "required": [
+          "gpxData",
+          "id",
+          "logData",
+          "userId"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1018,43 +1146,54 @@
           },
           "gpxData": {
             "type": "string",
-            "format": "byte",
-            "nullable": true
+            "format": "byte"
           },
           "logData": {
             "type": "string",
-            "format": "byte",
-            "nullable": true
+            "format": "byte"
           }
         },
         "additionalProperties": false
       },
       "UpdateUserDto": {
+        "required": [
+          "age",
+          "bio",
+          "birthDate",
+          "city",
+          "country",
+          "firstName",
+          "gender",
+          "hasDeletedImage",
+          "imageData",
+          "lastName",
+          "weight"
+        ],
         "type": "object",
         "properties": {
           "firstName": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "bio": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "age": {
             "type": "integer",
             "format": "int32"
           },
           "country": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "gender": {
             "$ref": "#/components/schemas/EGender"
@@ -1071,38 +1210,49 @@
             "type": "boolean"
           },
           "imageData": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
       },
       "UserDto": {
+        "required": [
+          "birthdate",
+          "city",
+          "country",
+          "eGender",
+          "firstName",
+          "lastName",
+          "passwordHash",
+          "username",
+          "weight"
+        ],
         "type": "object",
         "properties": {
           "username": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "firstName": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "lastName": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "passwordHash": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "country": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "weight": {
             "type": "integer",

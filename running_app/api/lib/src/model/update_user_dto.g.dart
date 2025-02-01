@@ -8,44 +8,61 @@ part of 'update_user_dto.dart';
 
 class _$UpdateUserDto extends UpdateUserDto {
   @override
-  final String? firstName;
+  final String firstName;
   @override
-  final String? lastName;
+  final String lastName;
   @override
-  final String? bio;
+  final String bio;
   @override
-  final int? age;
+  final int age;
   @override
-  final String? country;
+  final String country;
   @override
-  final String? city;
+  final String city;
   @override
-  final EGender? gender;
+  final EGender gender;
   @override
-  final DateTime? birthDate;
+  final DateTime birthDate;
   @override
-  final int? weight;
+  final int weight;
   @override
-  final bool? hasDeletedImage;
+  final bool hasDeletedImage;
   @override
-  final String? imageData;
+  final String imageData;
 
   factory _$UpdateUserDto([void Function(UpdateUserDtoBuilder)? updates]) =>
       (new UpdateUserDtoBuilder()..update(updates))._build();
 
   _$UpdateUserDto._(
-      {this.firstName,
-      this.lastName,
-      this.bio,
-      this.age,
-      this.country,
-      this.city,
-      this.gender,
-      this.birthDate,
-      this.weight,
-      this.hasDeletedImage,
-      this.imageData})
-      : super._();
+      {required this.firstName,
+      required this.lastName,
+      required this.bio,
+      required this.age,
+      required this.country,
+      required this.city,
+      required this.gender,
+      required this.birthDate,
+      required this.weight,
+      required this.hasDeletedImage,
+      required this.imageData})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(
+        firstName, r'UpdateUserDto', 'firstName');
+    BuiltValueNullFieldError.checkNotNull(
+        lastName, r'UpdateUserDto', 'lastName');
+    BuiltValueNullFieldError.checkNotNull(bio, r'UpdateUserDto', 'bio');
+    BuiltValueNullFieldError.checkNotNull(age, r'UpdateUserDto', 'age');
+    BuiltValueNullFieldError.checkNotNull(country, r'UpdateUserDto', 'country');
+    BuiltValueNullFieldError.checkNotNull(city, r'UpdateUserDto', 'city');
+    BuiltValueNullFieldError.checkNotNull(gender, r'UpdateUserDto', 'gender');
+    BuiltValueNullFieldError.checkNotNull(
+        birthDate, r'UpdateUserDto', 'birthDate');
+    BuiltValueNullFieldError.checkNotNull(weight, r'UpdateUserDto', 'weight');
+    BuiltValueNullFieldError.checkNotNull(
+        hasDeletedImage, r'UpdateUserDto', 'hasDeletedImage');
+    BuiltValueNullFieldError.checkNotNull(
+        imageData, r'UpdateUserDto', 'imageData');
+  }
 
   @override
   UpdateUserDto rebuild(void Function(UpdateUserDtoBuilder) updates) =>
@@ -196,17 +213,28 @@ class UpdateUserDtoBuilder
   _$UpdateUserDto _build() {
     final _$result = _$v ??
         new _$UpdateUserDto._(
-          firstName: firstName,
-          lastName: lastName,
-          bio: bio,
-          age: age,
-          country: country,
-          city: city,
-          gender: gender,
-          birthDate: birthDate,
-          weight: weight,
-          hasDeletedImage: hasDeletedImage,
-          imageData: imageData,
+          firstName: BuiltValueNullFieldError.checkNotNull(
+              firstName, r'UpdateUserDto', 'firstName'),
+          lastName: BuiltValueNullFieldError.checkNotNull(
+              lastName, r'UpdateUserDto', 'lastName'),
+          bio: BuiltValueNullFieldError.checkNotNull(
+              bio, r'UpdateUserDto', 'bio'),
+          age: BuiltValueNullFieldError.checkNotNull(
+              age, r'UpdateUserDto', 'age'),
+          country: BuiltValueNullFieldError.checkNotNull(
+              country, r'UpdateUserDto', 'country'),
+          city: BuiltValueNullFieldError.checkNotNull(
+              city, r'UpdateUserDto', 'city'),
+          gender: BuiltValueNullFieldError.checkNotNull(
+              gender, r'UpdateUserDto', 'gender'),
+          birthDate: BuiltValueNullFieldError.checkNotNull(
+              birthDate, r'UpdateUserDto', 'birthDate'),
+          weight: BuiltValueNullFieldError.checkNotNull(
+              weight, r'UpdateUserDto', 'weight'),
+          hasDeletedImage: BuiltValueNullFieldError.checkNotNull(
+              hasDeletedImage, r'UpdateUserDto', 'hasDeletedImage'),
+          imageData: BuiltValueNullFieldError.checkNotNull(
+              imageData, r'UpdateUserDto', 'imageData'),
         );
     replace(_$result);
     return _$result;

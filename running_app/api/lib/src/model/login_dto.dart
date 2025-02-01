@@ -16,10 +16,10 @@ part 'login_dto.g.dart';
 @BuiltValue()
 abstract class LoginDto implements Built<LoginDto, LoginDtoBuilder> {
   @BuiltValueField(wireName: r'username')
-  String? get username;
+  String get username;
 
   @BuiltValueField(wireName: r'password')
-  String? get password;
+  String get password;
 
   LoginDto._();
 
@@ -44,20 +44,16 @@ class _$LoginDtoSerializer implements PrimitiveSerializer<LoginDto> {
     LoginDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.username != null) {
-      yield r'username';
-      yield serializers.serialize(
-        object.username,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.password != null) {
-      yield r'password';
-      yield serializers.serialize(
-        object.password,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
+    yield r'username';
+    yield serializers.serialize(
+      object.username,
+      specifiedType: const FullType(String),
+    );
+    yield r'password';
+    yield serializers.serialize(
+      object.password,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override
@@ -84,17 +80,15 @@ class _$LoginDtoSerializer implements PrimitiveSerializer<LoginDto> {
         case r'username':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.username = valueDes;
           break;
         case r'password':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.password = valueDes;
           break;
         default:

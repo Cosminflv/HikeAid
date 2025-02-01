@@ -8,14 +8,17 @@ part of 'login_dto.dart';
 
 class _$LoginDto extends LoginDto {
   @override
-  final String? username;
+  final String username;
   @override
-  final String? password;
+  final String password;
 
   factory _$LoginDto([void Function(LoginDtoBuilder)? updates]) =>
       (new LoginDtoBuilder()..update(updates))._build();
 
-  _$LoginDto._({this.username, this.password}) : super._();
+  _$LoginDto._({required this.username, required this.password}) : super._() {
+    BuiltValueNullFieldError.checkNotNull(username, r'LoginDto', 'username');
+    BuiltValueNullFieldError.checkNotNull(password, r'LoginDto', 'password');
+  }
 
   @override
   LoginDto rebuild(void Function(LoginDtoBuilder) updates) =>
@@ -92,8 +95,10 @@ class LoginDtoBuilder implements Builder<LoginDto, LoginDtoBuilder> {
   _$LoginDto _build() {
     final _$result = _$v ??
         new _$LoginDto._(
-          username: username,
-          password: password,
+          username: BuiltValueNullFieldError.checkNotNull(
+              username, r'LoginDto', 'username'),
+          password: BuiltValueNullFieldError.checkNotNull(
+              password, r'LoginDto', 'password'),
         );
     replace(_$result);
     return _$result;

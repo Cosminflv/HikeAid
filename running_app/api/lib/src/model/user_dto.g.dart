@@ -8,38 +8,49 @@ part of 'user_dto.dart';
 
 class _$UserDto extends UserDto {
   @override
-  final String? username;
+  final String username;
   @override
-  final String? firstName;
+  final String firstName;
   @override
-  final String? lastName;
+  final String lastName;
   @override
-  final String? passwordHash;
+  final String passwordHash;
   @override
-  final String? city;
+  final String city;
   @override
-  final String? country;
+  final String country;
   @override
-  final int? weight;
+  final int weight;
   @override
-  final EGender? eGender;
+  final EGender eGender;
   @override
-  final DateTime? birthdate;
+  final DateTime birthdate;
 
   factory _$UserDto([void Function(UserDtoBuilder)? updates]) =>
       (new UserDtoBuilder()..update(updates))._build();
 
   _$UserDto._(
-      {this.username,
-      this.firstName,
-      this.lastName,
-      this.passwordHash,
-      this.city,
-      this.country,
-      this.weight,
-      this.eGender,
-      this.birthdate})
-      : super._();
+      {required this.username,
+      required this.firstName,
+      required this.lastName,
+      required this.passwordHash,
+      required this.city,
+      required this.country,
+      required this.weight,
+      required this.eGender,
+      required this.birthdate})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(username, r'UserDto', 'username');
+    BuiltValueNullFieldError.checkNotNull(firstName, r'UserDto', 'firstName');
+    BuiltValueNullFieldError.checkNotNull(lastName, r'UserDto', 'lastName');
+    BuiltValueNullFieldError.checkNotNull(
+        passwordHash, r'UserDto', 'passwordHash');
+    BuiltValueNullFieldError.checkNotNull(city, r'UserDto', 'city');
+    BuiltValueNullFieldError.checkNotNull(country, r'UserDto', 'country');
+    BuiltValueNullFieldError.checkNotNull(weight, r'UserDto', 'weight');
+    BuiltValueNullFieldError.checkNotNull(eGender, r'UserDto', 'eGender');
+    BuiltValueNullFieldError.checkNotNull(birthdate, r'UserDto', 'birthdate');
+  }
 
   @override
   UserDto rebuild(void Function(UserDtoBuilder) updates) =>
@@ -172,15 +183,23 @@ class UserDtoBuilder implements Builder<UserDto, UserDtoBuilder> {
   _$UserDto _build() {
     final _$result = _$v ??
         new _$UserDto._(
-          username: username,
-          firstName: firstName,
-          lastName: lastName,
-          passwordHash: passwordHash,
-          city: city,
-          country: country,
-          weight: weight,
-          eGender: eGender,
-          birthdate: birthdate,
+          username: BuiltValueNullFieldError.checkNotNull(
+              username, r'UserDto', 'username'),
+          firstName: BuiltValueNullFieldError.checkNotNull(
+              firstName, r'UserDto', 'firstName'),
+          lastName: BuiltValueNullFieldError.checkNotNull(
+              lastName, r'UserDto', 'lastName'),
+          passwordHash: BuiltValueNullFieldError.checkNotNull(
+              passwordHash, r'UserDto', 'passwordHash'),
+          city: BuiltValueNullFieldError.checkNotNull(city, r'UserDto', 'city'),
+          country: BuiltValueNullFieldError.checkNotNull(
+              country, r'UserDto', 'country'),
+          weight: BuiltValueNullFieldError.checkNotNull(
+              weight, r'UserDto', 'weight'),
+          eGender: BuiltValueNullFieldError.checkNotNull(
+              eGender, r'UserDto', 'eGender'),
+          birthdate: BuiltValueNullFieldError.checkNotNull(
+              birthdate, r'UserDto', 'birthdate'),
         );
     replace(_$result);
     return _$result;

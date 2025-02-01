@@ -8,16 +8,23 @@ part of 'social_post_dto.dart';
 
 class _$SocialPostDto extends SocialPostDto {
   @override
-  final int? id;
+  final int id;
   @override
-  final String? content;
+  final String content;
   @override
-  final String? imageUrl;
+  final String imageUrl;
 
   factory _$SocialPostDto([void Function(SocialPostDtoBuilder)? updates]) =>
       (new SocialPostDtoBuilder()..update(updates))._build();
 
-  _$SocialPostDto._({this.id, this.content, this.imageUrl}) : super._();
+  _$SocialPostDto._(
+      {required this.id, required this.content, required this.imageUrl})
+      : super._() {
+    BuiltValueNullFieldError.checkNotNull(id, r'SocialPostDto', 'id');
+    BuiltValueNullFieldError.checkNotNull(content, r'SocialPostDto', 'content');
+    BuiltValueNullFieldError.checkNotNull(
+        imageUrl, r'SocialPostDto', 'imageUrl');
+  }
 
   @override
   SocialPostDto rebuild(void Function(SocialPostDtoBuilder) updates) =>
@@ -103,9 +110,11 @@ class SocialPostDtoBuilder
   _$SocialPostDto _build() {
     final _$result = _$v ??
         new _$SocialPostDto._(
-          id: id,
-          content: content,
-          imageUrl: imageUrl,
+          id: BuiltValueNullFieldError.checkNotNull(id, r'SocialPostDto', 'id'),
+          content: BuiltValueNullFieldError.checkNotNull(
+              content, r'SocialPostDto', 'content'),
+          imageUrl: BuiltValueNullFieldError.checkNotNull(
+              imageUrl, r'SocialPostDto', 'imageUrl'),
         );
     replace(_$result);
     return _$result;

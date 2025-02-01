@@ -16,10 +16,10 @@ part 'like_dto.g.dart';
 @BuiltValue()
 abstract class LikeDto implements Built<LikeDto, LikeDtoBuilder> {
   @BuiltValueField(wireName: r'postId')
-  int? get postId;
+  int get postId;
 
   @BuiltValueField(wireName: r'userId')
-  int? get userId;
+  int get userId;
 
   LikeDto._();
 
@@ -44,20 +44,16 @@ class _$LikeDtoSerializer implements PrimitiveSerializer<LikeDto> {
     LikeDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.postId != null) {
-      yield r'postId';
-      yield serializers.serialize(
-        object.postId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.userId != null) {
-      yield r'userId';
-      yield serializers.serialize(
-        object.userId,
-        specifiedType: const FullType(int),
-      );
-    }
+    yield r'postId';
+    yield serializers.serialize(
+      object.postId,
+      specifiedType: const FullType(int),
+    );
+    yield r'userId';
+    yield serializers.serialize(
+      object.userId,
+      specifiedType: const FullType(int),
+    );
   }
 
   @override

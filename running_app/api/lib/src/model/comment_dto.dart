@@ -18,16 +18,16 @@ part 'comment_dto.g.dart';
 @BuiltValue()
 abstract class CommentDto implements Built<CommentDto, CommentDtoBuilder> {
   @BuiltValueField(wireName: r'postId')
-  int? get postId;
+  int get postId;
 
   @BuiltValueField(wireName: r'userId')
-  int? get userId;
+  int get userId;
 
   @BuiltValueField(wireName: r'content')
-  String? get content;
+  String get content;
 
   @BuiltValueField(wireName: r'timeStamp')
-  DateTime? get timeStamp;
+  DateTime get timeStamp;
 
   CommentDto._();
 
@@ -52,34 +52,26 @@ class _$CommentDtoSerializer implements PrimitiveSerializer<CommentDto> {
     CommentDto object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.postId != null) {
-      yield r'postId';
-      yield serializers.serialize(
-        object.postId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.userId != null) {
-      yield r'userId';
-      yield serializers.serialize(
-        object.userId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.content != null) {
-      yield r'content';
-      yield serializers.serialize(
-        object.content,
-        specifiedType: const FullType.nullable(String),
-      );
-    }
-    if (object.timeStamp != null) {
-      yield r'timeStamp';
-      yield serializers.serialize(
-        object.timeStamp,
-        specifiedType: const FullType(DateTime),
-      );
-    }
+    yield r'postId';
+    yield serializers.serialize(
+      object.postId,
+      specifiedType: const FullType(int),
+    );
+    yield r'userId';
+    yield serializers.serialize(
+      object.userId,
+      specifiedType: const FullType(int),
+    );
+    yield r'content';
+    yield serializers.serialize(
+      object.content,
+      specifiedType: const FullType(String),
+    );
+    yield r'timeStamp';
+    yield serializers.serialize(
+      object.timeStamp,
+      specifiedType: const FullType(DateTime),
+    );
   }
 
   @override
@@ -120,9 +112,8 @@ class _$CommentDtoSerializer implements PrimitiveSerializer<CommentDto> {
         case r'content':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType.nullable(String),
-          ) as String?;
-          if (valueDes == null) continue;
+            specifiedType: const FullType(String),
+          ) as String;
           result.content = valueDes;
           break;
         case r'timeStamp':
