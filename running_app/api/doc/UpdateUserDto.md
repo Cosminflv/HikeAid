@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **firstName** | **String** |  | 
 **lastName** | **String** |  | 
-**bio** | **String** |  | 
+**bio** | **String** |  | [optional] 
 **age** | **int** |  | 
 **country** | **String** |  | 
 **city** | **String** |  | 

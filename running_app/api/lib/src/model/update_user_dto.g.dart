@@ -12,7 +12,7 @@ class _$UpdateUserDto extends UpdateUserDto {
   @override
   final String lastName;
   @override
-  final String bio;
+  final String? bio;
   @override
   final int age;
   @override
@@ -36,7 +36,7 @@ class _$UpdateUserDto extends UpdateUserDto {
   _$UpdateUserDto._(
       {required this.firstName,
       required this.lastName,
-      required this.bio,
+      this.bio,
       required this.age,
       required this.country,
       required this.city,
@@ -50,7 +50,6 @@ class _$UpdateUserDto extends UpdateUserDto {
         firstName, r'UpdateUserDto', 'firstName');
     BuiltValueNullFieldError.checkNotNull(
         lastName, r'UpdateUserDto', 'lastName');
-    BuiltValueNullFieldError.checkNotNull(bio, r'UpdateUserDto', 'bio');
     BuiltValueNullFieldError.checkNotNull(age, r'UpdateUserDto', 'age');
     BuiltValueNullFieldError.checkNotNull(country, r'UpdateUserDto', 'country');
     BuiltValueNullFieldError.checkNotNull(city, r'UpdateUserDto', 'city');
@@ -217,8 +216,7 @@ class UpdateUserDtoBuilder
               firstName, r'UpdateUserDto', 'firstName'),
           lastName: BuiltValueNullFieldError.checkNotNull(
               lastName, r'UpdateUserDto', 'lastName'),
-          bio: BuiltValueNullFieldError.checkNotNull(
-              bio, r'UpdateUserDto', 'bio'),
+          bio: bio,
           age: BuiltValueNullFieldError.checkNotNull(
               age, r'UpdateUserDto', 'age'),
           country: BuiltValueNullFieldError.checkNotNull(

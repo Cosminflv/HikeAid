@@ -32,7 +32,7 @@ abstract class UpdateUserDto implements Built<UpdateUserDto, UpdateUserDtoBuilde
   String get lastName;
 
   @BuiltValueField(wireName: r'bio')
-  String get bio;
+  String? get bio;
 
   @BuiltValueField(wireName: r'age')
   int get age;
@@ -92,11 +92,13 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
       object.lastName,
       specifiedType: const FullType(String),
     );
-    yield r'bio';
-    yield serializers.serialize(
-      object.bio,
-      specifiedType: const FullType(String),
-    );
+    if (object.bio != null) {
+      yield r'bio';
+      yield serializers.serialize(
+        object.bio,
+        specifiedType: const FullType.nullable(String),
+      );
+    }
     yield r'age';
     yield serializers.serialize(
       object.age,
@@ -177,8 +179,9 @@ class _$UpdateUserDtoSerializer implements PrimitiveSerializer<UpdateUserDto> {
         case r'bio':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
+            specifiedType: const FullType.nullable(String),
+          ) as String?;
+          if (valueDes == null) continue;
           result.bio = valueDes;
           break;
         case r'age':

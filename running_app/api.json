@@ -1152,7 +1152,6 @@
       "UpdateUserDto": {
         "required": [
           "age",
-          "bio",
           "birthDate",
           "city",
           "country",
@@ -1174,8 +1173,8 @@
             "type": "string"
           },
           "bio": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "age": {
             "type": "integer",
