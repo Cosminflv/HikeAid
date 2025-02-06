@@ -1,11 +1,11 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:data/models/search_user_entity_impl.dart';
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:domain/repositories/search_users_repository.dart';
+
 import 'package:openapi/openapi.dart';
 import 'package:built_collection/built_collection.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 
 class SearchUserRepositoryImpl extends SearchUsersRepository {
   final Openapi _openapi;

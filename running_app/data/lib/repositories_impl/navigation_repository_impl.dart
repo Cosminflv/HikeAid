@@ -8,6 +8,7 @@ import 'package:domain/entities/route_entity.dart';
 import 'package:domain/repositories/image_cache_repository.dart';
 import 'package:domain/repositories/navigation_repository.dart';
 import 'package:domain/repositories/task_progress_listener.dart';
+
 import 'package:gem_kit/navigation.dart';
 
 class NavigationRepositoryImpl extends NavigationRepository {

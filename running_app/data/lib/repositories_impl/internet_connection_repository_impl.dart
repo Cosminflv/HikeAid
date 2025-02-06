@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:domain/repositories/internet_connection_repository.dart';
 
 import '../utils/debouncer.dart';
+import 'dart:async';
 
 class InternetConnectionRepositoryImpl extends InternetConnectionRepository {
   final _debouncer = Debouncer(milliseconds: 1000);
