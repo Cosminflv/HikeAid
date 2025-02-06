@@ -8,7 +8,7 @@ abstract class SearchUserEntity {
   final String city;
   final String country;
   final int commonFriends;
-  final Uint8List imageData;
+  Uint8List imageData;
   FriendshipStatus friendshipStatus;
 
   SearchUserEntity(

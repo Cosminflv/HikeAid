@@ -99,7 +99,7 @@
         }
       }
     },
-    "/api/Alert/GetAllAlerts": {
+    "/api/Alert/getAllAlerts": {
       "get": {
         "tags": [
           "Alert"
@@ -751,7 +751,7 @@
         ],
         "parameters": [
           {
-            "name": "receiverId",
+            "name": "recivId",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -906,7 +906,7 @@
         }
       }
     },
-    "/api/User/{id}/getProfilePicture": {
+    "/api/User/{userId}/getProfilePicture": {
       "get": {
         "tags": [
           "User"
@@ -914,41 +914,17 @@
         "parameters": [
           {
             "name": "userId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       }
@@ -1078,7 +1054,6 @@
           "country",
           "friendshipStatus",
           "id",
-          "imageData",
           "name"
         ],
         "type": "object",
@@ -1105,10 +1080,6 @@
           },
           "friendshipStatus": {
             "$ref": "#/components/schemas/EFriendshipStatus"
-          },
-          "imageData": {
-            "minLength": 1,
-            "type": "string"
           }
         },
         "additionalProperties": false

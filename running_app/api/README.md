@@ -74,7 +74,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*AlertApi*](doc/AlertApi.md) | [**apiAlertAddAlertPost**](doc/AlertApi.md#apialertaddalertpost) | **POST** /api/Alert/addAlert | 
 [*AlertApi*](doc/AlertApi.md) | [**apiAlertAlertIdImageGet**](doc/AlertApi.md#apialertalertidimageget) | **GET** /api/Alert/{alertId}/image | 
-[*AlertApi*](doc/AlertApi.md) | [**apiAlertGetAllAlertsGet**](doc/AlertApi.md#apialertgetallalertsget) | **GET** /api/Alert/GetAllAlerts | 
+[*AlertApi*](doc/AlertApi.md) | [**apiAlertGetAllAlertsGet**](doc/AlertApi.md#apialertgetallalertsget) | **GET** /api/Alert/getAllAlerts | 
 [*LoginApi*](doc/LoginApi.md) | [**apiLoginLoginPost**](doc/LoginApi.md#apiloginloginpost) | **POST** /api/Login/login | 
 [*LoginApi*](doc/LoginApi.md) | [**apiLoginRegisterPost**](doc/LoginApi.md#apiloginregisterpost) | **POST** /api/Login/register | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostCommentsIdDelete**](doc/SocialPostApi.md#apisocialpostcommentsiddelete) | **DELETE** /api/SocialPost/comments/{id} | 
@@ -97,12 +97,12 @@ Class | Method | HTTP request | Description
 [*UserApi*](doc/UserApi.md) | [**apiUserGetDefaultProfilePictureGet**](doc/UserApi.md#apiusergetdefaultprofilepictureget) | **GET** /api/User/getDefaultProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserGetFriendRequestsGet**](doc/UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdFriendsNumberGet**](doc/UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
-[*UserApi*](doc/UserApi.md) | [**apiUserIdGetProfilePictureGet**](doc/UserApi.md#apiuseridgetprofilepictureget) | **GET** /api/User/{id}/getProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetUserGet**](doc/UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSearchUserGet**](doc/UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSendFriendRequestPost**](doc/UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [*UserApi*](doc/UserApi.md) | [**apiUserUpdateUserPut**](doc/UserApi.md#apiuserupdateuserput) | **PUT** /api/User/updateUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserUploadProfilePictureBase64Post**](doc/UserApi.md#apiuseruploadprofilepicturebase64post) | **POST** /api/User/uploadProfilePictureBase64 | 
+[*UserApi*](doc/UserApi.md) | [**apiUserUserIdGetProfilePictureGet**](doc/UserApi.md#apiuseruseridgetprofilepictureget) | **GET** /api/User/{userId}/getProfilePicture | 
 
 
 ## Documentation For Models

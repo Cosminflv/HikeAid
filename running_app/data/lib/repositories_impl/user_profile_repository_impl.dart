@@ -71,7 +71,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
     try {
       final result = defaultImage
           ? await _openapi.getUserApi().apiUserGetDefaultProfilePictureGet()
-          : await _openapi.getUserApi().apiUserIdGetProfilePictureGet(id: userId.toString(), userId: userId);
+          : await _openapi.getUserApi().apiUserUserIdGetProfilePictureGet(userId: userId);
 
       if (result.statusCode == 200) {
         final data = result.data as String?;

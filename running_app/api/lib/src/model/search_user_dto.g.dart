@@ -19,8 +19,6 @@ class _$SearchUserDto extends SearchUserDto {
   final int commonFriends;
   @override
   final EFriendshipStatus friendshipStatus;
-  @override
-  final String imageData;
 
   factory _$SearchUserDto([void Function(SearchUserDtoBuilder)? updates]) =>
       (new SearchUserDtoBuilder()..update(updates))._build();
@@ -31,8 +29,7 @@ class _$SearchUserDto extends SearchUserDto {
       required this.city,
       required this.country,
       required this.commonFriends,
-      required this.friendshipStatus,
-      required this.imageData})
+      required this.friendshipStatus})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(id, r'SearchUserDto', 'id');
     BuiltValueNullFieldError.checkNotNull(name, r'SearchUserDto', 'name');
@@ -42,8 +39,6 @@ class _$SearchUserDto extends SearchUserDto {
         commonFriends, r'SearchUserDto', 'commonFriends');
     BuiltValueNullFieldError.checkNotNull(
         friendshipStatus, r'SearchUserDto', 'friendshipStatus');
-    BuiltValueNullFieldError.checkNotNull(
-        imageData, r'SearchUserDto', 'imageData');
   }
 
   @override
@@ -62,8 +57,7 @@ class _$SearchUserDto extends SearchUserDto {
         city == other.city &&
         country == other.country &&
         commonFriends == other.commonFriends &&
-        friendshipStatus == other.friendshipStatus &&
-        imageData == other.imageData;
+        friendshipStatus == other.friendshipStatus;
   }
 
   @override
@@ -75,7 +69,6 @@ class _$SearchUserDto extends SearchUserDto {
     _$hash = $jc(_$hash, country.hashCode);
     _$hash = $jc(_$hash, commonFriends.hashCode);
     _$hash = $jc(_$hash, friendshipStatus.hashCode);
-    _$hash = $jc(_$hash, imageData.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -88,8 +81,7 @@ class _$SearchUserDto extends SearchUserDto {
           ..add('city', city)
           ..add('country', country)
           ..add('commonFriends', commonFriends)
-          ..add('friendshipStatus', friendshipStatus)
-          ..add('imageData', imageData))
+          ..add('friendshipStatus', friendshipStatus))
         .toString();
   }
 }
@@ -124,10 +116,6 @@ class SearchUserDtoBuilder
   set friendshipStatus(EFriendshipStatus? friendshipStatus) =>
       _$this._friendshipStatus = friendshipStatus;
 
-  String? _imageData;
-  String? get imageData => _$this._imageData;
-  set imageData(String? imageData) => _$this._imageData = imageData;
-
   SearchUserDtoBuilder() {
     SearchUserDto._defaults(this);
   }
@@ -141,7 +129,6 @@ class SearchUserDtoBuilder
       _country = $v.country;
       _commonFriends = $v.commonFriends;
       _friendshipStatus = $v.friendshipStatus;
-      _imageData = $v.imageData;
       _$v = null;
     }
     return this;
@@ -175,8 +162,6 @@ class SearchUserDtoBuilder
               commonFriends, r'SearchUserDto', 'commonFriends'),
           friendshipStatus: BuiltValueNullFieldError.checkNotNull(
               friendshipStatus, r'SearchUserDto', 'friendshipStatus'),
-          imageData: BuiltValueNullFieldError.checkNotNull(
-              imageData, r'SearchUserDto', 'imageData'),
         );
     replace(_$result);
     return _$result;

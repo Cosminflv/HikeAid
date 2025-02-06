@@ -137,7 +137,7 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   @override
   Future<bool> sendFriendRequest(int receiverId) async {
     try {
-      await _openapi.getUserApi().apiUserSendFriendRequestPost(receiverId: receiverId);
+      await _openapi.getUserApi().apiUserSendFriendRequestPost(recivId: receiverId);
       return true;
     } catch (e) {
       print(e);

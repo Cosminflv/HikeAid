@@ -18,7 +18,6 @@ part 'search_user_dto.g.dart';
 /// * [country] 
 /// * [commonFriends] 
 /// * [friendshipStatus] 
-/// * [imageData] 
 @BuiltValue()
 abstract class SearchUserDto implements Built<SearchUserDto, SearchUserDtoBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -39,9 +38,6 @@ abstract class SearchUserDto implements Built<SearchUserDto, SearchUserDtoBuilde
   @BuiltValueField(wireName: r'friendshipStatus')
   EFriendshipStatus get friendshipStatus;
   // enum friendshipStatusEnum {  0,  1,  2,  };
-
-  @BuiltValueField(wireName: r'imageData')
-  String get imageData;
 
   SearchUserDto._();
 
@@ -95,11 +91,6 @@ class _$SearchUserDtoSerializer implements PrimitiveSerializer<SearchUserDto> {
     yield serializers.serialize(
       object.friendshipStatus,
       specifiedType: const FullType(EFriendshipStatus),
-    );
-    yield r'imageData';
-    yield serializers.serialize(
-      object.imageData,
-      specifiedType: const FullType(String),
     );
   }
 
@@ -165,13 +156,6 @@ class _$SearchUserDtoSerializer implements PrimitiveSerializer<SearchUserDto> {
             specifiedType: const FullType(EFriendshipStatus),
           ) as EFriendshipStatus;
           result.friendshipStatus = valueDes;
-          break;
-        case r'imageData':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.imageData = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiAlertAddAlertPost**](AlertApi.md#apialertaddalertpost) | **POST** /api/Alert/addAlert | 
 [**apiAlertAlertIdImageGet**](AlertApi.md#apialertalertidimageget) | **GET** /api/Alert/{alertId}/image | 
-[**apiAlertGetAllAlertsGet**](AlertApi.md#apialertgetallalertsget) | **GET** /api/Alert/GetAllAlerts | 
+[**apiAlertGetAllAlertsGet**](AlertApi.md#apialertgetallalertsget) | **GET** /api/Alert/getAllAlerts | 
 
 
 # **apiAlertAddAlertPost**

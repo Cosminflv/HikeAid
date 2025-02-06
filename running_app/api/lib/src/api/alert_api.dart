@@ -190,7 +190,7 @@ class AlertApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/Alert/GetAllAlerts';
+    final _path = r'/api/Alert/getAllAlerts';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{

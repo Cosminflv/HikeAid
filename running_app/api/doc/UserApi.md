@@ -16,12 +16,12 @@ Method | HTTP request | Description
 [**apiUserGetDefaultProfilePictureGet**](UserApi.md#apiusergetdefaultprofilepictureget) | **GET** /api/User/getDefaultProfilePicture | 
 [**apiUserGetFriendRequestsGet**](UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
 [**apiUserIdFriendsNumberGet**](UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
-[**apiUserIdGetProfilePictureGet**](UserApi.md#apiuseridgetprofilepictureget) | **GET** /api/User/{id}/getProfilePicture | 
 [**apiUserIdGetUserGet**](UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
 [**apiUserSearchUserGet**](UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [**apiUserSendFriendRequestPost**](UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [**apiUserUpdateUserPut**](UserApi.md#apiuserupdateuserput) | **PUT** /api/User/updateUser | 
 [**apiUserUploadProfilePictureBase64Post**](UserApi.md#apiuseruploadprofilepicturebase64post) | **POST** /api/User/uploadProfilePictureBase64 | 
+[**apiUserUserIdGetProfilePictureGet**](UserApi.md#apiuseruseridgetprofilepictureget) | **GET** /api/User/{userId}/getProfilePicture | 
 
 
 # **apiUserAcceptFriendRequestPost**
@@ -292,49 +292,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiUserIdGetProfilePictureGet**
-> String apiUserIdGetProfilePictureGet(id, userId)
-
-
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-
-final api = Openapi().getUserApi();
-final String id = id_example; // String | 
-final int userId = 56; // int | 
-
-try {
-    final response = api.apiUserIdGetProfilePictureGet(id, userId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling UserApi->apiUserIdGetProfilePictureGet: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**|  | 
- **userId** | **int**|  | [optional] 
-
-### Return type
-
-**String**
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/plain, application/json, text/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **apiUserIdGetUserGet**
 > apiUserIdGetUserGet(id)
 
@@ -417,7 +374,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiUserSendFriendRequestPost**
-> apiUserSendFriendRequestPost(receiverId)
+> apiUserSendFriendRequestPost(recivId)
 
 
 
@@ -426,10 +383,10 @@ Name | Type | Description  | Notes
 import 'package:openapi/api.dart';
 
 final api = Openapi().getUserApi();
-final int receiverId = 56; // int | 
+final int recivId = 56; // int | 
 
 try {
-    api.apiUserSendFriendRequestPost(receiverId);
+    api.apiUserSendFriendRequestPost(recivId);
 } catch on DioException (e) {
     print('Exception when calling UserApi->apiUserSendFriendRequestPost: $e\n');
 }
@@ -439,7 +396,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **receiverId** | **int**|  | [optional] 
+ **recivId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -532,6 +489,46 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json, text/json, application/*+json
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserUserIdGetProfilePictureGet**
+> apiUserUserIdGetProfilePictureGet(userId)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+final int userId = 56; // int | 
+
+try {
+    api.apiUserUserIdGetProfilePictureGet(userId);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserUserIdGetProfilePictureGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **int**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
