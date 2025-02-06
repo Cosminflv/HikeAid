@@ -102,7 +102,9 @@ class _EditUserProfileViewPageState extends State<EditUserProfileViewPage> {
     }
     if (state is UserProfileEditSuccess) {
       AppBlocs.userProfileBloc.add(FetchUserProfileEvent(userId: getSession(context)!.user.id));
-      Navigator.of(context).pop();
+      if (Navigator.of(context).canPop()) {
+        Navigator.of(context).pop();
+      }
     }
     if (state is UserProfileEditFailed) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
