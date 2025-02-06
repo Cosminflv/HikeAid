@@ -94,7 +94,6 @@ Class | Method | HTTP request | Description
 [*UserApi*](doc/UserApi.md) | [**apiUserDeclineFriendRequestPost**](doc/UserApi.md#apiuserdeclinefriendrequestpost) | **POST** /api/User/declineFriendRequest | 
 [*UserApi*](doc/UserApi.md) | [**apiUserDeleteProfilePicturePost**](doc/UserApi.md#apiuserdeleteprofilepicturepost) | **POST** /api/User/deleteProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserGet**](doc/UserApi.md#apiuserget) | **GET** /api/User | 
-[*UserApi*](doc/UserApi.md) | [**apiUserGetDefaultProfilePictureGet**](doc/UserApi.md#apiusergetdefaultprofilepictureget) | **GET** /api/User/getDefaultProfilePicture | 
 [*UserApi*](doc/UserApi.md) | [**apiUserGetFriendRequestsGet**](doc/UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdFriendsNumberGet**](doc/UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetUserGet**](doc/UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 

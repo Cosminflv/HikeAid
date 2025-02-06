@@ -4,7 +4,7 @@ import 'package:domain/entities/user_profile_entity.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
 
 import 'package:openapi/openapi.dart';
-import 'dart:typed_data';
+import 'package:flutter/services.dart';
 import 'dart:convert';
 
 class UserProfileRepositoryImpl extends UserProfileRepository {
@@ -21,7 +21,7 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
         final data = result.data as Map<String, dynamic>;
         final userId = data['id'];
 
-        final imageData = await _getUserImageData(userId, false);
+        final imageData = await _getUserImageData(userId);
         final friendsNumber = await _getUserFriendsNumber(userId);
 
         return UserProfileEntityImpl(
@@ -63,15 +63,14 @@ class UserProfileRepositoryImpl extends UserProfileRepository {
 
   @override
   Future<Uint8List> fetchDefaultUserProfileImage(int id) async {
-    final imageData = await _getUserImageData(id, true);
-    return imageData ?? Uint8List(3);
+    final ByteData data = await rootBundle.load("assets/default_profile.png");
+
+    return data.buffer.asUint8List();
   }
 
-  Future<Uint8List?> _getUserImageData(int userId, bool defaultImage) async {
+  Future<Uint8List?> _getUserImageData(int userId) async {
     try {
-      final result = defaultImage
-          ? await _openapi.getUserApi().apiUserGetDefaultProfilePictureGet()
-          : await _openapi.getUserApi().apiUserUserIdGetProfilePictureGet(userId: userId);
+      final result = await _openapi.getUserApi().apiUserUserIdGetProfilePictureGet(userId: userId);
 
       if (result.statusCode == 200) {
         final data = result.data as String?;

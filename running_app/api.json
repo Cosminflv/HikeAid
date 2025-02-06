@@ -928,18 +928,6 @@
           }
         }
       }
-    },
-    "/api/User/getDefaultProfilePicture": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
     }
   },
   "components": {

@@ -24,7 +24,7 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
         for (final dto in dtoList) {
           users.add(SearchUserEntityImpl.fromDto(dto));
 
-          final imageData = (await _getUserImageData(dto.id, false)) ?? Uint8List(3);
+          final imageData = (await _getUserImageData(dto.id)) ?? Uint8List(3);
           users.last.imageData = imageData;
         }
 
@@ -36,11 +36,9 @@ class SearchUserRepositoryImpl extends SearchUsersRepository {
     }
   }
 
-  Future<Uint8List?> _getUserImageData(int userId, bool defaultImage) async {
+  Future<Uint8List?> _getUserImageData(int userId) async {
     try {
-      final result = defaultImage
-          ? await _openapi.getUserApi().apiUserGetDefaultProfilePictureGet()
-          : await _openapi.getUserApi().apiUserUserIdGetProfilePictureGet(userId: userId);
+      final result = await _openapi.getUserApi().apiUserUserIdGetProfilePictureGet(userId: userId);
 
       if (result.statusCode == 200) {
         final data = result.data as String?;

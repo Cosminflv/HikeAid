@@ -13,7 +13,6 @@ Method | HTTP request | Description
 [**apiUserDeclineFriendRequestPost**](UserApi.md#apiuserdeclinefriendrequestpost) | **POST** /api/User/declineFriendRequest | 
 [**apiUserDeleteProfilePicturePost**](UserApi.md#apiuserdeleteprofilepicturepost) | **POST** /api/User/deleteProfilePicture | 
 [**apiUserGet**](UserApi.md#apiuserget) | **GET** /api/User | 
-[**apiUserGetDefaultProfilePictureGet**](UserApi.md#apiusergetdefaultprofilepictureget) | **GET** /api/User/getDefaultProfilePicture | 
 [**apiUserGetFriendRequestsGet**](UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
 [**apiUserIdFriendsNumberGet**](UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [**apiUserIdGetUserGet**](UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
@@ -155,42 +154,6 @@ try {
     api.apiUserGet();
 } catch on DioException (e) {
     print('Exception when calling UserApi->apiUserGet: $e\n');
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **apiUserGetDefaultProfilePictureGet**
-> apiUserGetDefaultProfilePictureGet()
-
-
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-
-final api = Openapi().getUserApi();
-
-try {
-    api.apiUserGetDefaultProfilePictureGet();
-} catch on DioException (e) {
-    print('Exception when calling UserApi->apiUserGetDefaultProfilePictureGet: $e\n');
 }
 ```
 
