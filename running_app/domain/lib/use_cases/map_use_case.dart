@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
@@ -70,8 +71,7 @@ class MapUseCase {
 
   // Markers and position
 
-  void addMarkers({required CoordinatesEntity coordinates, required Uint8List image}) =>
-      _mapRepository.addMarker(coordinates: coordinates, image: image);
+  Future<void> addAlerts(List<AlertEntity> alerts) async => await _mapRepository.addAlerts(alerts);
   void addPolylineMarker({required List<CoordinatesEntity> coordinates}) =>
       _mapRepository.addPolylineMarker(coordinates: coordinates);
 

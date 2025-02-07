@@ -71,7 +71,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiAlertAlertIdImageGet**
-> apiAlertAlertIdImageGet(alertId)
+> Uint8List apiAlertAlertIdImageGet(alertId)
 
 
 
@@ -83,7 +83,8 @@ final api = Openapi().getAlertApi();
 final int alertId = 56; // int | 
 
 try {
-    api.apiAlertAlertIdImageGet(alertId);
+    final response = api.apiAlertAlertIdImageGet(alertId);
+    print(response);
 } catch on DioException (e) {
     print('Exception when calling AlertApi->apiAlertAlertIdImageGet: $e\n');
 }
@@ -97,7 +98,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**Uint8List**](Uint8List.md)
 
 ### Authorization
 
@@ -106,7 +107,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: image/jpeg
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -3,6 +3,7 @@ import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/models/route_entity_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:data/utils/units_converter.dart';
+import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
@@ -11,6 +12,7 @@ import 'package:domain/repositories/map_repository.dart';
 import 'package:domain/map_controller.dart';
 import 'package:data/repositories_impl/extensions.dart';
 import 'package:domain/settings/general_settings_entity.dart';
+import 'package:flutter/services.dart';
 
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/map.dart';
@@ -248,7 +250,25 @@ class MapRepositoryImpl extends MapRepository {
   void clearHighlights() => _controller.deactivateAllHighlights();
 
   @override
-  void addMarker({required CoordinatesEntity coordinates, required Uint8List image}) {}
+  Future<void> addAlerts(List<AlertEntity> alerts) async {
+    final ByteData alertIconData = await rootBundle.load('assets/poi83.png');
+    final Uint8List alertIcon = alertIconData.buffer.asUint8List();
+    List<MarkerWithRenderSettings> markers = [];
+
+    for (final alert in alerts) {
+      final alertMarker = MarkerJson(coords: [alert.coordinates.toGemCoordinates()], name: alert.id.toString());
+
+      final renderSettings = MarkerRenderSettings(image: GemImage(image: alertIcon, format: ImageFileFormat.png));
+
+      markers.add(MarkerWithRenderSettings(alertMarker, renderSettings));
+
+      final settings = MarkerCollectionRenderSettings();
+      settings.labelGroupTextSize = 2;
+      settings.image = GemImage(image: alertIcon, format: ImageFileFormat.png);
+
+      _controller.preferences.markers.addList(list: markers, settings: settings, name: "Markers");
+    }
+  }
 
   @override
   void addPolylineMarker({required List<CoordinatesEntity> coordinates}) {

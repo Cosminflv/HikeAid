@@ -2,6 +2,7 @@ import 'package:core/di/app_blocs.dart';
 import 'package:core/di/injection_container.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:running_app/alerts/alert_events.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/app/app_state.dart';
 import 'package:running_app/map/map_view_event.dart';
@@ -21,12 +22,15 @@ class AppBlocListener extends StatelessWidget {
         bloc: AppBlocs.appBloc,
         listener: (context, appState) {
           final mapBloc = AppBlocs.mapBloc;
+          final alertBloc = AppBlocs.alertBloc;
 
           mapBloc.add(InitMapViewEvent(
             screenCenter: Sizes.screenCenter,
             mapVisibleAreaFunction: () => Sizes.getMapVisibleArea(context),
             centerOfVisibleAreaFunction: () => Sizes.getCenterOfVisibleArea(context),
           ));
+
+          alertBloc.add(FetchAlertsEvent());
         },
         listenWhen: (previous, current) =>
             previous.status == AppStatus.intializedSDK && current.status == AppStatus.initializedMap,
@@ -35,7 +39,7 @@ class AppBlocListener extends StatelessWidget {
         bloc: AppBlocs.appBloc,
         listener: (context, appState) {
           if (appState.isRecording) {
-            AppBlocs.mapBloc 
+            AppBlocs.mapBloc
               ..add(RemoveAllRoutesEvent())
               ..add(RemoveAllHighlightsEvent())
               ..add(SetIsMapInteractiveEvent(isMapInteractive: false));

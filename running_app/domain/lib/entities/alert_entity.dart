@@ -3,15 +3,24 @@ import 'package:equatable/equatable.dart';
 
 import 'dart:typed_data';
 
-enum EAlertType { dangerousWeather, wildAnimals, roadBlock, personalEmergency, other }
+enum EAlertType {
+  dangerousWeather,
+  wildAnimals,
+  roadBlock,
+  personalEmergency,
+  other;
 
-extension EAlertTypeExtension on EAlertType {
+  /// Convert an enum value to a short string
   String toShortString() {
-    return toString().split('.').last;
+    return name; // `name` gives "dangerousWeather" instead of "EAlertType.dangerousWeather"
   }
 
-  static EAlertType fromString(String value) {
-    return EAlertType.values.firstWhere((e) => e.toShortString() == value);
+  /// Convert a string to an enum value
+  static EAlertType fromInt(int value) {
+    return EAlertType.values.firstWhere(
+      (e) => e.index == value,
+      orElse: () => throw ArgumentError('Invalid alert type: $value'),
+    );
   }
 }
 

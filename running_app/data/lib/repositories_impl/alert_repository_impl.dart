@@ -5,8 +5,6 @@ import 'package:domain/repositories/alert_repository.dart';
 import 'package:flutter/services.dart';
 import 'package:openapi/openapi.dart';
 
-import 'dart:convert';
-
 class AlertRepositoryImpl extends AlertRepository {
   final Openapi _openapi;
   //final GemMapController _mapController;
@@ -33,12 +31,14 @@ class AlertRepositoryImpl extends AlertRepository {
         return [];
       }
 
-      final data = result.data as Map<String, dynamic>;
+      final data = result.data as List<dynamic>;
 
-      final alerts = await Future.wait((data['alerts'] as List).map((e) async {
+      final alerts = await Future.wait(data.map((e) async {
+        e as Map<String, dynamic>;
         final image = await _getAlertImage(e['id']);
+        final authorName = await _getAlertAuthorName(e['authorId']);
 
-        AlertEntityImpl(
+        return AlertEntityImpl(
           id: e['id'],
           title: e['title'],
           description: e['description'],
@@ -49,14 +49,14 @@ class AlertRepositoryImpl extends AlertRepository {
             latitude: e['latitude'],
             longitude: e['longitude'],
           ),
-          alertType: e['alertType'],
+          alertType: EAlertType.fromInt(e['alertType']),
           authorId: e['authorId'],
-          authorName: e['authorName'],
-          confirmationsNumber: e['confirmationsNumber'],
+          authorName: authorName,
+          confirmationsNumber: e['confirmedUserIds'].length,
           image: image,
         );
       }).toList());
-      return alerts as List<AlertEntity>;
+      return alerts;
     } catch (e) {
       print(e);
       return [];
@@ -94,9 +94,24 @@ class AlertRepositoryImpl extends AlertRepository {
       final ByteData data = await rootBundle.load("assets/default_alert.png");
       image = data.buffer.asUint8List();
     } else {
-      final data = result.data as String;
-      image = base64.decode(data);
+      image = Uint8List.fromList(result.data as List<int>);
     }
     return image;
+  }
+
+  Future<String> _getAlertAuthorName(int userId) async {
+    try {
+      final result = await _openapi.getUserApi().apiUserIdGetUserGet(id: userId);
+
+      if (result.statusCode != 200) {
+        return 'Unknown';
+      }
+
+      final data = result.data as Map<String, dynamic>;
+      return data['username'];
+    } catch (e) {
+      print(e);
+      return 'Unknown';
+    }
   }
 }

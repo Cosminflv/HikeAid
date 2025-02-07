@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
@@ -31,7 +32,7 @@ abstract class MapRepository {
   void clearRouteExcept(List<RouteEntity> routes);
 
   // Markers
-  void addMarker({required CoordinatesEntity coordinates, required Uint8List image});
+  Future<void> addAlerts(List<AlertEntity> alerts);
   void addPolylineMarker({required List<CoordinatesEntity> coordinates});
   void clearMarkers();
 

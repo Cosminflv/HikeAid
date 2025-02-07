@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/path_entity.dart';
@@ -62,12 +63,6 @@ class ClearPathsEvent extends MapViewEvent {}
 class SetPositionTracker extends MapViewEvent {
   final bool visibility;
   SetPositionTracker(this.visibility);
-}
-
-class AddMarkerEvent extends MapViewEvent {
-  final CoordinatesEntity coordinates;
-
-  AddMarkerEvent(this.coordinates);
 }
 
 class AddPolylineMarkerEvent extends MapViewEvent {
@@ -165,4 +160,10 @@ class RemoveAllHighlightsEvent extends MapViewEvent {
     this.removeFromMap = true,
     this.removeFromState = true,
   });
+}
+
+class AddAlertsEvent extends MapViewEvent {
+  final List<AlertEntity> alerts;
+
+  AddAlertsEvent({required this.alerts});
 }

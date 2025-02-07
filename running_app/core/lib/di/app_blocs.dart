@@ -19,6 +19,7 @@ import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/home/home_view_bloc.dart';
 import 'package:running_app/navigation_instructions/navigation_instructions_panel_bloc.dart';
 import 'package:running_app/tour_recording/tour_recording_bloc.dart';
+import 'package:running_app/alerts/alert_bloc.dart';
 
 class AppBlocs {
   // Existing Blocs
@@ -84,4 +85,7 @@ class AppBlocs {
 
   // Getter for SearchUsersBloc
   static SearchUsersBloc get searchUsersBloc => sl<SearchUsersBloc>();
+
+  // Getter for AlertBloc
+  static AlertBloc get alertBloc => sl<AlertBloc>();
 }

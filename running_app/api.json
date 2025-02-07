@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "PacePalAPI",
-    "version": "1.0"
+    "title": "HikeAidAPI",
+    "version": "v1"
   },
   "paths": {
     "/api/Alert/addAlert": {
@@ -129,7 +129,15 @@
         ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "image/jpeg": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
           }
         }
       }

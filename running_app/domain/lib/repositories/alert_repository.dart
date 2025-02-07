@@ -5,5 +5,5 @@ abstract class AlertRepository {
   void registerAlertsCallback(Function(List<AlertEntity>) onAlertsUpdated);
 
   void uploadAlert(AlertEntity alert);
-  void confirmAlert(AlertEntity alert);
+  Future<bool> confirmAlert(AlertEntity alert);
 }

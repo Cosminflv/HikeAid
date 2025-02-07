@@ -43,11 +43,11 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<SelectedLandmarkUpdatedEvent>(_selectedLandmarkUpdatedEventHandler);
     on<PresentHighlightEvent>(_handlePresentHighlightEvent);
     on<RemoveHighlightsEvent>(_handleRemoveHighlights);
+    on<AddAlertsEvent>(_handleAddAlerts);
 
     on<SetIsMapInteractiveEvent>(_handleSetIsMapInteractive);
 
     on<ClearPathsEvent>(_handleClearPaths);
-    on<AddMarkerEvent>(_handleAddMarker);
     on<AddPolylineMarkerEvent>(_handleAddPolylineMarker);
     on<ClearMarkersEvent>(_handleClearMarkers);
 
@@ -155,6 +155,10 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     _mapUseCase.removeHighlights(_toShortRange(event.highlightId));
   }
 
+  _handleAddAlerts(AddAlertsEvent event, Emitter<MapViewState> emit) async {
+    await _mapUseCase.addAlerts(event.alerts);
+  }
+
   _defaultLandmarkRouteTapPriorityFunction(LandmarkEntity landmark) => false;
 
   _registerMapGestureCallbacks(
@@ -197,12 +201,6 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       emit(state.copyWith(isMapInteractive: event.isMapInteractive));
 
   _handleClearPaths(ClearPathsEvent event, Emitter<MapViewState> emit) => _mapUseCase.clearPaths();
-
-  _handleAddMarker(AddMarkerEvent event, Emitter<MapViewState> emit) {
-    //_addMarkersDebouncer.run(() {
-    _mapUseCase.addMarkers(coordinates: event.coordinates, image: _pinImage!);
-    //});
-  }
 
   _handleAddPolylineMarker(AddPolylineMarkerEvent event, Emitter<MapViewState> emit) {
     _mapUseCase.addPolylineMarker(coordinates: event.coordinates);

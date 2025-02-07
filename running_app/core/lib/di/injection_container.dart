@@ -22,6 +22,7 @@ import 'package:domain/map_widget_builder.dart';
 import 'package:domain/map_platform.dart';
 import 'package:data/models/asset_bundle_entity_impl.dart';
 import 'package:data/utils/map_platform_impl.dart';
+import 'package:domain/repositories/alert_repository.dart';
 import 'package:domain/repositories/camera_repository.dart';
 import 'package:domain/repositories/friendship_repository.dart';
 import 'package:domain/repositories/image_cache_repository.dart';
@@ -41,6 +42,9 @@ import 'package:domain/repositories/search_users_repository.dart';
 import 'package:domain/repositories/tour_repository.dart';
 import 'package:domain/repositories/tts_repository.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
+import 'package:data/repositories_impl/alert_repository_impl.dart';
+import 'package:domain/use_cases/alert_use_case.dart';
+
 import 'package:domain/use_cases/authentication_session_use_case.dart';
 import 'package:domain/use_cases/authentication_use_case.dart';
 import 'package:domain/use_cases/internet_connection_use_case.dart';
@@ -57,6 +61,7 @@ import 'package:domain/use_cases/tour_use_case.dart';
 import 'package:domain/use_cases/user_profile_use_case.dart';
 import 'package:domain/factories/landmark_factory.dart';
 import 'package:domain/factories/path_factory.dart';
+import 'package:running_app/alerts/alert_bloc.dart';
 
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/home/home_view_bloc.dart';
@@ -130,6 +135,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<NavigationRepository>(() => NavigationRepositoryImpl(sl.get<ImageCacheRepository>()));
   sl.registerLazySingleton<TourRepository>(() => TourRepositoryImpl());
   sl.registerLazySingleton<FriendshipRepository>(() => FriendshipRepositoryImpl(openApi));
+  sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(openApi));
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
 
@@ -151,6 +157,7 @@ initEarlyDependencies(String ipv4Address) {
       () => NavigationUseCase(sl.get<NavigationRepository>(), sl.get<TTSRepository>()));
   sl.registerLazySingleton<TourUseCase>(() => TourUseCase(sl.get<TourRepository>(), sl.get<PermissionRepository>()));
   sl.registerLazySingleton<FriendshipUseCase>(() => FriendshipUseCase(sl.get<FriendshipRepository>()));
+  sl.registerLazySingleton<AlertUseCase>(() => AlertUseCase(sl.get<AlertRepository>()));
 
   //Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
@@ -170,6 +177,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<NavigationInstructionPanelBloc>(() => NavigationInstructionPanelBloc());
   sl.registerLazySingleton<TourRecordingBloc>(() => TourRecordingBloc(sl.get<TourUseCase>()));
   sl.registerLazySingleton<FriendshipsViewBloc>(() => FriendshipsViewBloc(sl.get<FriendshipUseCase>()));
+  sl.registerLazySingleton<AlertBloc>(() => AlertBloc(sl.get<AlertUseCase>()));
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 
