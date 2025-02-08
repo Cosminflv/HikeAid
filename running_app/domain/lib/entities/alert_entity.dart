@@ -24,6 +24,23 @@ enum EAlertType {
   }
 }
 
+extension EAlertTypeExtension on EAlertType {
+  String get alertIconName {
+    switch (this) {
+      case EAlertType.personalEmergency:
+        return 'assets/personal_emergency_alert.png';
+      case EAlertType.wildAnimals:
+        return 'assets/wild_animals_alert.png';
+      case EAlertType.dangerousWeather:
+        return 'assets/dangerous_weather_alert.png';
+      case EAlertType.roadBlock:
+        return 'assets/road_block_alert.png';
+      case EAlertType.other:
+        return 'assets/poi83.png';
+    }
+  }
+}
+
 abstract class AlertEntity extends Equatable {
   final int id;
   final String title;

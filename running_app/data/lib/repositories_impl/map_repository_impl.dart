@@ -251,12 +251,15 @@ class MapRepositoryImpl extends MapRepository {
 
   @override
   Future<void> addAlerts(List<AlertEntity> alerts) async {
-    final ByteData alertIconData = await rootBundle.load('assets/poi83.png');
-    final Uint8List alertIcon = alertIconData.buffer.asUint8List();
     List<MarkerWithRenderSettings> markers = [];
 
     for (final alert in alerts) {
-      final alertMarker = MarkerJson(coords: [alert.coordinates.toGemCoordinates()], name: alert.id.toString());
+      final alertIconPath = alert.alertType.alertIconName;
+
+      final ByteData alertIconData = await rootBundle.load(alertIconPath);
+      final Uint8List alertIcon = alertIconData.buffer.asUint8List();
+
+      final alertMarker = MarkerJson(coords: [alert.coordinates.toGemCoordinates()], name: alert.title);
 
       final renderSettings = MarkerRenderSettings(image: GemImage(image: alertIcon, format: ImageFileFormat.png));
 
@@ -264,7 +267,7 @@ class MapRepositoryImpl extends MapRepository {
 
       final settings = MarkerCollectionRenderSettings();
       settings.labelGroupTextSize = 2;
-      settings.image = GemImage(image: alertIcon, format: ImageFileFormat.png);
+      //settings.image = GemImage(image: alertIcon, format: ImageFileFormat.png);
 
       _controller.preferences.markers.addList(list: markers, settings: settings, name: "Markers");
     }
