@@ -3,6 +3,8 @@ import 'package:core/di/injection_container.dart';
 import 'package:domain/map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:running_app/alerts/alert_events.dart';
+import 'package:running_app/alerts/widgets/add_alert_dialog.dart';
 import 'package:running_app/app/app_events.dart';
 import 'package:running_app/app/app_state.dart';
 import 'package:running_app/bloc_listeners/map_page_bloc_listeners.dart';
@@ -95,7 +97,29 @@ class _MapViewPageState extends State<MapViewPage> {
                   },
                 );
               }),
-              const SignalAlertButton(),
+              // TODO: Only display is location permission is granted
+              SignalAlertButton(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AddAlertDialog(
+                      onSave: (title, description, type, image) {
+                        final locationBloc = AppBlocs.locationBloc;
+                        final alertBloc = AppBlocs.alertBloc;
+                        final currPos = locationBloc.state.currentPosition!.coordinates;
+
+                        alertBloc.add(AddAlertEvent(
+                            title: title,
+                            description: description,
+                            type: type,
+                            latitude: currPos.latitude,
+                            longitude: currPos.longitude,
+                            image: image));
+                      },
+                    ),
+                  );
+                },
+              ),
               const MapActionsButtons(),
               Positioned(
                 top: 0,

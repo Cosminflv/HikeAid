@@ -1,5 +1,6 @@
 import 'package:data/models/alert_entity_impl.dart';
 import 'package:data/models/coordinates_entity_impl.dart';
+import 'package:dio/dio.dart';
 import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/repositories/alert_repository.dart';
 import 'package:flutter/services.dart';
@@ -60,6 +61,31 @@ class AlertRepositoryImpl extends AlertRepository {
     } catch (e) {
       print(e);
       return [];
+    }
+  }
+
+  @override
+  Future<bool> addAlert(
+      String title, String description, EAlertType type, double latitude, double longitude, Uint8List? image) async {
+    try {
+      final result = await _openapi.getAlertApi().apiAlertAddAlertPost(
+          createdAt: DateTime.now().toUtc(),
+          expiresAt: DateTime.now().add(const Duration(days: 2)).toUtc(),
+          title: title,
+          description: description,
+          alertType: type.name,
+          isActive: true,
+          latitude: latitude,
+          longitude: longitude,
+          imageFile: image != null ? MultipartFile.fromBytes(image.toList(), filename: 'image.png') : null);
+
+      if (result.statusCode != 200) {
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
     }
   }
 

@@ -3,7 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/config/theme.dart';
 
 class SignalAlertButton extends StatelessWidget {
-  const SignalAlertButton({super.key});
+  final VoidCallback onPressed;
+  const SignalAlertButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +26,7 @@ class SignalAlertButton extends StatelessWidget {
                 child: IconButton(
                     splashColor: transparentColor,
                     highlightColor: transparentColor,
-                    onPressed: () {
-                      // TODO: Implement onPressed
-                    },
+                    onPressed: onPressed,
                     icon: Icon(FontAwesomeIcons.exclamation, color: Theme.of(context).colorScheme.onSurfaceVariant))),
           ],
         ),

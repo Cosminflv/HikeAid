@@ -11,8 +11,19 @@ enum EAlertType {
   other;
 
   /// Convert an enum value to a short string
-  String toShortString() {
-    return name; // `name` gives "dangerousWeather" instead of "EAlertType.dangerousWeather"
+  String toFormattedString() {
+    switch (this) {
+      case EAlertType.personalEmergency:
+        return 'Personal Emergency';
+      case EAlertType.wildAnimals:
+        return 'Wild Animals';
+      case EAlertType.dangerousWeather:
+        return 'Dangerous Weather';
+      case EAlertType.roadBlock:
+        return 'Road Block';
+      case EAlertType.other:
+        return 'Other';
+    }
   }
 
   /// Convert a string to an enum value

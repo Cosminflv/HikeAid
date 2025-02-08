@@ -137,8 +137,8 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   @override
   Future<bool> sendFriendRequest(int receiverId) async {
     try {
-      await _openapi.getUserApi().apiUserSendFriendRequestPost(recivId: receiverId);
-      return true;
+      final response = await _openapi.getUserApi().apiUserSendFriendRequestPost(recivId: receiverId);
+      return response.statusCode == 200;
     } catch (e) {
       print(e);
       return false;
@@ -148,8 +148,8 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   @override
   Future<bool> acceptFriendRequest(int requestId) async {
     try {
-      await _openapi.getUserApi().apiUserAcceptFriendRequestPost(requestId: requestId);
-      return true;
+      final response = await _openapi.getUserApi().apiUserAcceptFriendRequestPost(requestId: requestId);
+      return response.statusCode == 200;
     } catch (e) {
       print(e);
       return false;
