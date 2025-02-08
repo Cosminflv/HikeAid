@@ -1,42 +1,20 @@
 import 'package:core/di/app_blocs.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
+import 'package:running_app/utils/image_picker_service.dart';
 
-import 'package:image/image.dart' as img;
-import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'dart:typed_data';
 
 Future<void> showEditImageActions(BuildContext context) async {
   final bloc = AppBlocs.editProfileBloc;
-  final _picker = ImagePicker();
+  final _imageCompressorService = ImagePickerService();
 
-  Future<void> _pickImage() async {
-    try {
-      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        File image = File(pickedFile.path);
-        Uint8List imageData = await image.readAsBytes();
-
-        img.Image? originalImage = img.decodeImage(imageData);
-
-        if (originalImage != null) {
-          // Step 3: Resize the image (adjust width and height as needed)
-          img.Image resizedImage = img.copyResize(originalImage, width: 500); // e.g., width of 500px
-
-          // Step 4: Encode the resized image back to bytes (JPEG for compression)
-          Uint8List resizedImageData =
-              Uint8List.fromList(img.encodeJpg(resizedImage, quality: 85)); // quality can be set between 0-100
-          bloc.add(UpdateProfilePictureEvent(imageData: resizedImageData));
-        }
-      }
-    } catch (e) {
-      print("Error picking image: $e");
-    }
+  Future<Uint8List?> _pickImage() async {
+    return await _imageCompressorService.pickAndCompressImage(minHeight: 500, minWidth: 500);
   }
 
   await showModalBottomSheet(
@@ -57,8 +35,12 @@ Future<void> showEditImageActions(BuildContext context) async {
             const SizedBox(height: 16.0),
             CustomElevatedButton(
               onTap: () async {
-                _pickImage();
-                Navigator.of(context).pop();
+                final imageData = await _pickImage();
+                if (imageData != null) bloc.add(UpdateProfilePictureEvent(imageData: imageData));
+
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
               },
               trailing: const Icon(
                 FontAwesomeIcons.upload,

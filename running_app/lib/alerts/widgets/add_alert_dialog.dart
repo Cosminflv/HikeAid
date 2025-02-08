@@ -1,8 +1,8 @@
-import 'dart:io';
-import 'dart:typed_data';
 import 'package:domain/entities/alert_entity.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+
+import 'package:running_app/utils/image_picker_service.dart';
+import 'dart:typed_data';
 
 class AddAlertDialog extends StatefulWidget {
   final Function(String title, String description, EAlertType type, Uint8List? image) onSave;
@@ -19,16 +19,14 @@ class _AddAlertDialogState extends State<AddAlertDialog> {
   final TextEditingController _descriptionController = TextEditingController();
   EAlertType? _selectedAlertType;
   Uint8List? _imageBytes;
+  final ImagePickerService _imageCompressorService = ImagePickerService();
 
   Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      final file = File(pickedFile.path);
-      final bytes = await file.readAsBytes();
+    final Uint8List? compressedImage =
+        await _imageCompressorService.pickAndCompressImage(minHeight: 400, minWidth: 1024);
+    if (compressedImage != null) {
       setState(() {
-        _imageBytes = bytes;
+        _imageBytes = compressedImage;
       });
     }
   }
