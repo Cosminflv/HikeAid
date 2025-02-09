@@ -15,6 +15,9 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
     on<ConfirmAlertEvent>(_handleConfirmAlert);
     on<AddAlertEvent>(_handleAddAlert);
     on<RegisterAlertsSubscription>(_handleRegisterAlertsSubscription);
+
+    on<AlertSelectedEvent>(_handleAlertSelected);
+    on<AlertUnselectedEvent>(_handleAlertUnselected);
   }
 
   _handleFetchAlerts(FetchAlertsEvent event, Emitter<AlertState> emit) async {
@@ -41,5 +44,13 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
     await emit.forEach<List<AlertEntity>>(_alertUpdates.stream, onData: (updatedAlerts) {
       return state.copyWith(alerts: updatedAlerts);
     });
+  }
+
+  _handleAlertSelected(AlertSelectedEvent event, Emitter<AlertState> emit) async {
+    emit(state.copyWith(pickedAlert: event.pickedAlert));
+  }
+
+  _handleAlertUnselected(AlertUnselectedEvent event, Emitter<AlertState> emit) async {
+    emit(state.copyWithNullAlert());
   }
 }

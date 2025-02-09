@@ -34,9 +34,10 @@ class MapUseCase {
   void registerMapGestureCallbacks(
           {required Function(double) onMapAngleUpdated,
           required Function() onMapMove,
-          required Function(LandmarkEntity?, RouteEntity?) onTap}) =>
+          required Function(LandmarkEntity?, RouteEntity?) onTap,
+          required Function(List<CoordinatesEntity>) onMarkerSelected}) =>
       _mapRepository.registerMapGesturesCallbacks(
-          onMapAngleUpdated: onMapAngleUpdated, onMapMove: onMapMove, onTap: onTap);
+          onMapAngleUpdated: onMapAngleUpdated, onMapMove: onMapMove, onTap: onTap, onMarkerSelected: onMarkerSelected);
 
   MapCameraStateEntity? getCameraState() => _mapRepository.getCameraState();
 

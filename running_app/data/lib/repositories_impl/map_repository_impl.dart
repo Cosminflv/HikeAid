@@ -61,6 +61,7 @@ class MapRepositoryImpl extends MapRepository {
     required Function() onMapMove,
     required Function(double) onMapAngleUpdated,
     required Function(LandmarkEntity?, RouteEntity?) onTap,
+    required Function(List<CoordinatesEntity>) onMarkerSelected,
   }) {
     _controller.registerOnMapAngleUpdateCallback(onMapAngleUpdated);
     _controller.registerMoveCallback((p1, p2) => onMapMove());
@@ -72,6 +73,7 @@ class MapRepositoryImpl extends MapRepository {
       Route? selectedRoute;
 
       final landmarks = _controller.cursorSelectionLandmarks();
+      final markers = _controller.cursorSelectionMarkers();
 
       final routes = _controller.cursorSelectionRoutes();
       if (routes.isNotEmpty) {
@@ -80,6 +82,13 @@ class MapRepositoryImpl extends MapRepository {
 
       if (landmarks.isNotEmpty) {
         selectedLandmark = landmarks.first;
+      }
+      if (markers.isNotEmpty) {
+        for (final markerMatch in markers) {
+          final coordinates = markerMatch.getMarker().getCoordinates().map((coord) => coord.toEntity()).toList();
+          onMarkerSelected(coordinates);
+        }
+        return;
       }
 
       final streets = _controller.cursorSelectionStreets();

@@ -8,11 +8,11 @@ import 'package:domain/entities/route_entity.dart';
 
 abstract class MapRepository {
   // Gestures
-  void registerMapGesturesCallbacks({
-    required Function() onMapMove,
-    required Function(double) onMapAngleUpdated,
-    required Function(LandmarkEntity?, RouteEntity?) onTap,
-  });
+  void registerMapGesturesCallbacks(
+      {required Function() onMapMove,
+      required Function(double) onMapAngleUpdated,
+      required Function(LandmarkEntity?, RouteEntity?) onTap,
+      required Function(List<CoordinatesEntity>) onMarkerSelected});
 
   // Center and Distance
   CoordinatesEntity? getCenterCoordinates();

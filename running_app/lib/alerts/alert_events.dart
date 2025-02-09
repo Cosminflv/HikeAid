@@ -10,6 +10,14 @@ class ConfirmAlertEvent extends AlertEvent {}
 
 class RegisterAlertsSubscription extends AlertEvent {}
 
+class AlertSelectedEvent extends AlertEvent {
+  final AlertEntity pickedAlert;
+
+  AlertSelectedEvent({required this.pickedAlert});
+}
+
+class AlertUnselectedEvent extends AlertEvent {}
+
 class AddAlertEvent extends AlertEvent {
   final String title;
   final String description;

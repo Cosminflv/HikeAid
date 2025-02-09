@@ -167,3 +167,11 @@ class AddAlertsEvent extends MapViewEvent {
 
   AddAlertsEvent({required this.alerts});
 }
+
+class SelectedAlertUpdatedEvent extends MapViewEvent {
+  final CoordinatesEntity? markerCoordinate;
+
+  SelectedAlertUpdatedEvent({required this.markerCoordinate});
+}
+
+class UnselectAlertEvent extends MapViewEvent {}

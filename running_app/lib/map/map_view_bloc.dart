@@ -41,6 +41,9 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<CenterOnPathEvent>(_handleCenterOnPath);
 
     on<SelectedLandmarkUpdatedEvent>(_selectedLandmarkUpdatedEventHandler);
+    on<SelectedAlertUpdatedEvent>(_selectedAlertUpdatedEventHandler);
+    on<UnselectAlertEvent>(_unselectAlertEventHandler);
+
     on<PresentHighlightEvent>(_handlePresentHighlightEvent);
     on<RemoveHighlightsEvent>(_handleRemoveHighlights);
     on<AddAlertsEvent>(_handleAddAlerts);
@@ -138,6 +141,14 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     emit(state.copyWith(mapSelectedLandmark: event.landmark));
   }
 
+  _selectedAlertUpdatedEventHandler(SelectedAlertUpdatedEvent event, Emitter<MapViewState> emit) async {
+    emit(state.copyWith(mapSelectedAlertCoords: event.markerCoordinate));
+  }
+
+  _unselectAlertEventHandler(UnselectAlertEvent event, Emitter<MapViewState> emit) async {
+    emit(state.copyWithNullAlert());
+  }
+
   _handlePresentHighlightEvent(PresentHighlightEvent event, Emitter<MapViewState> emit) async {
     _mapUseCase.presentHighlight(event.landmark,
         highlightId: _toShortRange(event.landmark.id),
@@ -167,34 +178,41 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     _mapUseCase.setEnableTouchGestures(isInteractive);
     if (!isInteractive) return;
 
-    _mapUseCase.registerMapGestureCallbacks(onMapAngleUpdated: (angle) {
-      if (isClosed) return;
-      add(CompassAngleUpdatedEvent(angle));
-    }, onMapMove: () {
-      if (isClosed) return;
-      add(ResetCameraEvent());
-      _debouncer.run(() {
+    _mapUseCase.registerMapGestureCallbacks(
+      onMapAngleUpdated: (angle) {
         if (isClosed) return;
-        add(CameraStateUpdatedEvent());
-      });
-    }, onTap: (selectedLandmark, selectedRoute) {
-      if (selectedLandmark != null && selectedRoute != null) {
-        final landmarkTestMethod = _defaultLandmarkRouteTapPriorityFunction;
+        add(CompassAngleUpdatedEvent(angle));
+      },
+      onMapMove: () {
+        if (isClosed) return;
+        add(ResetCameraEvent());
+        _debouncer.run(() {
+          if (isClosed) return;
+          add(CameraStateUpdatedEvent());
+        });
+      },
+      onTap: (selectedLandmark, selectedRoute) {
+        if (selectedLandmark != null && selectedRoute != null) {
+          final landmarkTestMethod = _defaultLandmarkRouteTapPriorityFunction;
 
-        if (landmarkTestMethod(selectedLandmark)) {
-          add(SelectedLandmarkUpdatedEvent(landmark: selectedLandmark, forceCenter: true));
+          if (landmarkTestMethod(selectedLandmark)) {
+            add(SelectedLandmarkUpdatedEvent(landmark: selectedLandmark, forceCenter: true));
+          } else {
+            add(SelectedRouteUpdatedEvent(selectedRoute));
+          }
         } else {
-          add(SelectedRouteUpdatedEvent(selectedRoute));
+          if (selectedLandmark != null) {
+            add(SelectedLandmarkUpdatedEvent(landmark: selectedLandmark, forceCenter: true));
+          }
+          if (selectedRoute != null) {
+            add(SelectedRouteUpdatedEvent(selectedRoute));
+          }
         }
-      } else {
-        if (selectedLandmark != null) {
-          add(SelectedLandmarkUpdatedEvent(landmark: selectedLandmark, forceCenter: true));
-        }
-        if (selectedRoute != null) {
-          add(SelectedRouteUpdatedEvent(selectedRoute));
-        }
-      }
-    });
+      },
+      onMarkerSelected: (markerCoords) {
+        add(SelectedAlertUpdatedEvent(markerCoordinate: markerCoords.first));
+      },
+    );
   }
 
   _handleSetIsMapInteractive(SetIsMapInteractiveEvent event, Emitter<MapViewState> emit) =>
