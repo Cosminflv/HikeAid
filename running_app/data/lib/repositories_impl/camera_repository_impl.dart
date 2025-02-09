@@ -8,8 +8,8 @@ import 'package:domain/entities/view_area_entity.dart';
 import 'package:domain/repositories/camera_repository.dart';
 import 'package:domain/map_controller.dart';
 
-import 'package:gem_kit/core.dart';
 import 'package:gem_kit/map.dart';
+import 'dart:math';
 
 class CameraRepositoryImpl extends CameraRepository {
   final GemMapController _controller;
@@ -28,7 +28,7 @@ class CameraRepositoryImpl extends CameraRepository {
   }) {
     final animation = GemAnimation(type: AnimationType.linear, duration: _animationDuration);
 
-    _controller.preferences.followPositionPreferences.setCameraFocus(XyType(x: pointToCenter.x, y: pointToCenter.y));
+    _controller.preferences.followPositionPreferences.setCameraFocus(Point(pointToCenter.x, pointToCenter.y));
 
     _controller.startFollowingPosition(animation: animation, viewAngle: viewAngle, zoomLevel: zoom);
   }
@@ -51,7 +51,7 @@ class CameraRepositoryImpl extends CameraRepository {
       int? zoom,
       bool withAnimation = true}) {
     _controller.centerOnCoordinates(coordinates.toGemCoordinates(),
-        screenPosition: XyType<int>(x: point.x, y: point.y),
+        screenPosition: Point(point.x, point.y),
         animation: withAnimation
             ? GemAnimation(type: AnimationType.linear, duration: _animationDuration)
             : GemAnimation(type: AnimationType.none),

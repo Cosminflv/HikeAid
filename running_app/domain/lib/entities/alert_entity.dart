@@ -50,6 +50,8 @@ extension EAlertTypeExtension on EAlertType {
         return 'assets/poi83.png';
     }
   }
+
+  String get defaultAlertIcon => 'assets/poi83.png';
 }
 
 abstract class AlertEntity extends Equatable {

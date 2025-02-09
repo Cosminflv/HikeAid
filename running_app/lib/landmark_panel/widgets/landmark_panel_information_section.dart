@@ -38,11 +38,10 @@ class LandmarkPanelInformationSection extends StatelessWidget {
                 ),
             ],
           )),
-          if (landmark.address.trim().isNotEmpty)
-            IconButton(
-              icon: const Icon(FontAwesomeIcons.xmark),
-              onPressed: onCloseTap,
-            ),
+          IconButton(
+            icon: const Icon(FontAwesomeIcons.xmark),
+            onPressed: onCloseTap,
+          ),
         ],
       ),
     );

@@ -19,7 +19,7 @@ class SearchRepositoryImpl extends SearchRepository {
     var progress = TaskProgressListenerImpl();
 
     progress.ref = SearchService.search(text, coordinates.toGemCoordinates(), (err, result) {
-      if (err != GemError.success || result == null) {
+      if (err != GemError.success) {
         onResult(Left(err.code));
         return;
       }
@@ -70,7 +70,7 @@ class SearchRepositoryImpl extends SearchRepository {
 
     progress.ref =
         SearchService.searchAroundPosition(coordinates.toGemCoordinates(), preferences: prefs, (err, result) {
-      if (err != GemError.success || result == null) {
+      if (err != GemError.success) {
         onResult(Left(err.code));
         return;
       }

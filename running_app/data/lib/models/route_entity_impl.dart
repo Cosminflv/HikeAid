@@ -114,7 +114,7 @@ class RouteEntityImpl extends RouteEntity {
   int getTimeAtDistance(int distance) {
     final coords = ref.getCoordinateOnRoute(distance);
     final timeDistance = ref.getTimeDistanceCoordinateOnRoute(coords);
-    return timeDistance.stamp ?? 0;
+    return timeDistance.stamp;
   }
 
   @override
@@ -123,8 +123,7 @@ class RouteEntityImpl extends RouteEntity {
   @override
   double distanceToRoute(CoordinatesEntity coordinates) {
     final timeDistance = ref.getTimeDistanceCoordinateOnRoute(coordinates.toGemCoordinates());
-    if (timeDistance.coords == null) return -1;
-    return _calculateDistance(coordinates, timeDistance.coords!.toEntity());
+    return _calculateDistance(coordinates, timeDistance.coords.toEntity());
   }
 
   double _calculateDistance(CoordinatesEntity coords1, CoordinatesEntity coords2) {

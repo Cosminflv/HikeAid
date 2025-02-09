@@ -43,7 +43,8 @@ class TourRepositoryImpl extends TourRepository {
       List<DataType> array = [];
       array.add(DataType.position);
 
-      _recorderConfiguration = RecorderConfiguration(logsDir: absPath, recordedTypes: array, minDurationSeconds: 0);
+      _recorderConfiguration = RecorderConfiguration(
+          logsDir: absPath, recordedTypes: array, minDurationSeconds: 0, dataSource: DataSource.createLiveDataSource());
 
       _recorder = RecorderEntityImpl(Recorder.create(_recorderConfiguration!));
     }

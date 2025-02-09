@@ -37,7 +37,7 @@ class NavigationRepositoryImpl extends NavigationRepository {
           onTextToSpeechInstruction: onVoiceInstructionUpdated, onRouteUpdated: (updatedRoute) {
         final routeEntity = updatedRoute.toEntityImpl(waypoints: []);
         onRouteUpdated(routeEntity);
-      }, speedMultiplier: demoSpeed);
+      }, speedMultiplier: demoSpeed!);
     } else {
       progress.ref = NavigationService.startNavigation(
         route.ref,

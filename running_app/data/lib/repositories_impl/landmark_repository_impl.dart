@@ -28,7 +28,7 @@ class LandmarkRepositoryImpl extends LandmarkRepository {
     final prefs = SearchPreferences(searchAddresses: false, searchMapPOIs: true, maxMatches: 1);
     SearchService.searchAroundPosition((coordinates as CoordinatesEntityImpl).toGemCoordinates(), preferences: prefs,
         (err, result) async {
-      if (err != GemError.success || result == null || result.isEmpty) {
+      if (err != GemError.success || result.isEmpty) {
         gemLandmarkCompleter.complete(null);
         return;
       }

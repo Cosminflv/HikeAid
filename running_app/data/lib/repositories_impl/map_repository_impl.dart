@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:data/models/camera_state_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/models/route_entity_impl.dart';
@@ -42,6 +44,7 @@ class MapRepositoryImpl extends MapRepository {
     landmarksToHighlight.add(landmarkCopy);
 
     final settings = HighlightRenderSettings(imgSz: 50, textSz: 0, options: {
+      HighlightOptions.showLandmark,
       HighlightOptions.noFading,
       HighlightOptions.overlap,
     });
@@ -85,8 +88,7 @@ class MapRepositoryImpl extends MapRepository {
       }
 
       if (selectedLandmark == null) {
-        final coordinates = _controller.transformScreenToWgs(XyType(x: pos.x, y: pos.y));
-        if (coordinates == null) return;
+        final coordinates = _controller.transformScreenToWgs(Point(pos.x, pos.y));
         Landmark lmk = Landmark();
         lmk.coordinates = coordinates;
         lmk.name = 'Map Pin';
@@ -103,7 +105,7 @@ class MapRepositoryImpl extends MapRepository {
   CoordinatesEntity? getCenterCoordinates() {
     final size = _controller.viewport;
 
-    return _controller.transformScreenToWgs(XyType(x: size.width! ~/ 2, y: size.height! ~/ 2))?.toEntity();
+    return _controller.transformScreenToWgs(Point(size.width ~/ 2, size.height ~/ 2)).toEntity();
   }
 
   @override
@@ -254,9 +256,7 @@ class MapRepositoryImpl extends MapRepository {
     List<MarkerWithRenderSettings> markers = [];
 
     for (final alert in alerts) {
-      final alertIconPath = alert.alertType.alertIconName;
-
-      final ByteData alertIconData = await rootBundle.load(alertIconPath);
+      final ByteData alertIconData = await rootBundle.load(alert.alertType.alertIconName);
       final Uint8List alertIcon = alertIconData.buffer.asUint8List();
 
       final alertMarker = MarkerJson(coords: [alert.coordinates.toGemCoordinates()], name: alert.title);
@@ -265,9 +265,8 @@ class MapRepositoryImpl extends MapRepository {
 
       markers.add(MarkerWithRenderSettings(alertMarker, renderSettings));
 
-      final settings = MarkerCollectionRenderSettings();
+      final settings = MarkerCollectionRenderSettings(pointsGroupingZoomLevel: 0);
       settings.labelGroupTextSize = 2;
-      //settings.image = GemImage(image: alertIcon, format: ImageFileFormat.png);
 
       _controller.preferences.markers.addList(list: markers, settings: settings, name: "Markers");
     }
