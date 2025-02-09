@@ -1,16 +1,22 @@
 import 'package:data/models/alert_entity_impl.dart';
 import 'package:data/models/coordinates_entity_impl.dart';
-import 'package:dio/dio.dart';
+import 'package:data/utils/sse_client.dart';
 import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/repositories/alert_repository.dart';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:openapi/openapi.dart';
+import 'dart:async';
+import 'dart:convert';
 
 class AlertRepositoryImpl extends AlertRepository {
   final Openapi _openapi;
+  final SSEClient _sseClient;
+  StreamSubscription? _sseSubscription;
   //final GemMapController _mapController;
 
-  AlertRepositoryImpl(this._openapi);
+  AlertRepositoryImpl(this._openapi, this._sseClient);
 
   @override
   Future<bool> confirmAlert(AlertEntity alert) async {
@@ -91,7 +97,45 @@ class AlertRepositoryImpl extends AlertRepository {
 
   @override
   void registerAlertsCallback(Function(List<AlertEntity> p1) onAlertsUpdated) {
-    // TODO: implement registerAlertsCallback
+    _sseSubscription = _sseClient.subscribe().listen((data) async {
+      final jsonString = data.trim();
+
+      // Ignore empty or malformed data
+      if (jsonString.isEmpty) {
+        print("Received an empty or invalid event.");
+        return;
+      }
+
+      // Decode JSON into a Map
+      final Map<String, dynamic> jsonData = jsonDecode(jsonString);
+      print(data);
+      final authorName = await _getAlertAuthorName(jsonData['authorId']);
+      final alertImage = await _getAlertImage(jsonData['alertId']);
+
+      final alert = AlertEntityImpl(
+          id: jsonData['alertId'],
+          title: jsonData['alertTitle'],
+          description: jsonData['alertDescription'],
+          createdAt: DateTime.parse(jsonData['alertCreatedAt']),
+          expiresAt: DateTime.parse(jsonData['alertExpiresAt']),
+          isActive: jsonData['alertIsActive'],
+          coordinates:
+              CoordinatesEntityImpl(latitude: jsonData['alertLatitude'], longitude: jsonData['alertLongitude']),
+          alertType: EAlertType.fromInt(jsonData['alertType']),
+          authorId: jsonData['authorId'],
+          image: alertImage,
+          authorName: authorName,
+          confirmationsNumber: jsonData['confirmations']);
+
+      onAlertsUpdated([alert]);
+    });
+  }
+
+  @override
+  void unregisterAlertsCallback() {
+    if (_sseSubscription != null) {
+      _sseSubscription!.cancel();
+    }
   }
 
   @override

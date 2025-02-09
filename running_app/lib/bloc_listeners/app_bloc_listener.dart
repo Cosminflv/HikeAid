@@ -31,6 +31,7 @@ class AppBlocListener extends StatelessWidget {
           ));
 
           alertBloc.add(FetchAlertsEvent());
+          alertBloc.add(RegisterAlertsSubscription());
         },
         listenWhen: (previous, current) =>
             previous.status == AppStatus.intializedSDK && current.status == AppStatus.initializedMap,

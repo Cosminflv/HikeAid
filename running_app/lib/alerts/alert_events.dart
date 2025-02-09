@@ -8,6 +8,8 @@ class FetchAlertsEvent extends AlertEvent {}
 
 class ConfirmAlertEvent extends AlertEvent {}
 
+class RegisterAlertsSubscription extends AlertEvent {}
+
 class AddAlertEvent extends AlertEvent {
   final String title;
   final String description;

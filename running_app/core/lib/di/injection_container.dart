@@ -16,6 +16,7 @@ import 'package:data/repositories_impl/tour_repository_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:data/factories/landmark_factory_impl.dart';
 import 'package:data/factories/path_factory_impl.dart';
+import 'package:data/utils/sse_client.dart';
 
 import 'package:domain/entities/landmark_store_entity.dart';
 import 'package:domain/map_widget_builder.dart';
@@ -112,6 +113,10 @@ initEarlyDependencies(String ipv4Address) {
   };
 
   final openApi = Openapi(dio: dio, interceptors: [BearerAuthInterceptor()]);
+  final sseClient = SSEClient(
+    url: 'http://$ipv4Address:7011/Events/stream',
+    headers: {'Accept': 'text/event-stream'},
+  );
 
   final storage = FlutterSecureStorage();
 
@@ -135,7 +140,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<NavigationRepository>(() => NavigationRepositoryImpl(sl.get<ImageCacheRepository>()));
   sl.registerLazySingleton<TourRepository>(() => TourRepositoryImpl());
   sl.registerLazySingleton<FriendshipRepository>(() => FriendshipRepositoryImpl(openApi));
-  sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(openApi));
+  sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(openApi, sseClient));
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
 
