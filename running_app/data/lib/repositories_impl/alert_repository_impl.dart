@@ -97,38 +97,65 @@ class AlertRepositoryImpl extends AlertRepository {
 
   @override
   void registerAlertsCallback(Function(List<AlertEntity> p1) onAlertsUpdated) {
-    _sseSubscription = _sseClient.subscribe().listen((data) async {
-      final jsonString = data.trim();
+    void startListening() {
+      _sseSubscription?.cancel(); // Cancel previous subscription (if any)
+      _sseSubscription = _sseClient.subscribe().listen(
+        (data) async {
+          try {
+            final jsonString = data.trim();
 
-      // Ignore empty or malformed data
-      if (jsonString.isEmpty) {
-        print("Received an empty or invalid event.");
-        return;
-      }
+            if (jsonString.isEmpty) {
+              print("Received an empty or invalid event.");
+              return;
+            }
 
-      // Decode JSON into a Map
-      final Map<String, dynamic> jsonData = jsonDecode(jsonString);
-      print(data);
-      final authorName = await _getAlertAuthorName(jsonData['authorId']);
-      final alertImage = await _getAlertImage(jsonData['alertId']);
+            final Map<String, dynamic> jsonData = jsonDecode(jsonString);
+            print(data);
 
-      final alert = AlertEntityImpl(
-          id: jsonData['alertId'],
-          title: jsonData['alertTitle'],
-          description: jsonData['alertDescription'],
-          createdAt: DateTime.parse(jsonData['alertCreatedAt']),
-          expiresAt: DateTime.parse(jsonData['alertExpiresAt']),
-          isActive: jsonData['alertIsActive'],
-          coordinates:
-              CoordinatesEntityImpl(latitude: jsonData['alertLatitude'], longitude: jsonData['alertLongitude']),
-          alertType: EAlertType.fromInt(jsonData['alertType']),
-          authorId: jsonData['authorId'],
-          image: alertImage,
-          authorName: authorName,
-          confirmationsNumber: jsonData['confirmations']);
+            final authorName = await _getAlertAuthorName(jsonData['authorId']);
+            final alertImage = await _getAlertImage(jsonData['alertId']);
 
-      onAlertsUpdated([alert]);
-    });
+            final alert = AlertEntityImpl(
+              id: jsonData['alertId'],
+              title: jsonData['alertTitle'],
+              description: jsonData['alertDescription'],
+              createdAt: DateTime.parse(jsonData['alertCreatedAt']),
+              expiresAt: DateTime.parse(jsonData['alertExpiresAt']),
+              isActive: jsonData['alertIsActive'],
+              coordinates: CoordinatesEntityImpl(
+                latitude: jsonData['alertLatitude'],
+                longitude: jsonData['alertLongitude'],
+              ),
+              alertType: EAlertType.fromInt(jsonData['alertType']),
+              authorId: jsonData['authorId'],
+              image: alertImage,
+              authorName: authorName,
+              confirmationsNumber: jsonData['confirmations'],
+            );
+
+            onAlertsUpdated([alert]);
+          } catch (e, stack) {
+            print("Error processing SSE event: $e\n$stack");
+          }
+        },
+        onError: (error) {
+          print("SSE Connection Error: $error");
+          _handleReconnect(startListening);
+        },
+        onDone: () {
+          print("SSE Connection Closed. Attempting to reconnect...");
+          _handleReconnect(startListening);
+        },
+        cancelOnError: true,
+      );
+    }
+
+    startListening(); // Start listening to SSE
+  }
+
+  void _handleReconnect(Function retry) async {
+    await Future.delayed(Duration(seconds: 5)); // Wait before reconnecting
+    retry(); // Retry connection
   }
 
   @override
