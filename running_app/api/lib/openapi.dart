@@ -11,6 +11,7 @@ export 'package:openapi/src/serializers.dart';
 export 'package:openapi/src/model/date.dart';
 
 export 'package:openapi/src/api/alert_api.dart';
+export 'package:openapi/src/api/events_api.dart';
 export 'package:openapi/src/api/login_api.dart';
 export 'package:openapi/src/api/social_post_api.dart';
 export 'package:openapi/src/api/track_api.dart';

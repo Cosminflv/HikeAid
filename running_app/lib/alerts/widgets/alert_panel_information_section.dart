@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:running_app/utils/unit_converters.dart';
 
 class AlertPanelInformationSection extends StatelessWidget {
+  final AlertEntity alert;
+  final Future<int> confirmationsNumber;
   const AlertPanelInformationSection({
     super.key,
     required this.alert,
+    required this.confirmationsNumber,
   });
-
-  final AlertEntity alert;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,27 @@ class AlertPanelInformationSection extends StatelessWidget {
                   "Posted by ${alert.authorName} • ${alert.createdAt.toErgonomicString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall,
                 ),
-                Text(
-                  alert.description,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+                FutureBuilder<int>(
+                  future: confirmationsNumber,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Text("Loading confirmations...");
+                    } else if (snapshot.hasError) {
+                      return const Text("Error loading confirmations");
+                    } else {
+                      return Text(
+                        snapshot.data! == 0
+                            ? "No one has confirmed this alert yet"
+                            : "Confirmed by ${snapshot.data} people",
+                        style: Theme.of(context).textTheme.bodySmall,
+                      );
+                    }
+                  },
                 ),
+                Text(alert.description,
+                    overflow: TextOverflow.ellipsis, maxLines: 2, style: Theme.of(context).textTheme.labelMedium),
               ],
             ),
           ),

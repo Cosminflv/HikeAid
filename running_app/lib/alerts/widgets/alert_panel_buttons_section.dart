@@ -8,14 +8,12 @@ class AlertPanelButtonsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          LandmarkPanelButton(text: "Not valid anymore", onTap: onInvalidButtonTap, isFilled: false),
-          LandmarkPanelButton(text: "Validate", onTap: onValidButtonTap, isFilled: true)
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        LandmarkPanelButton(text: "Not valid anymore", onTap: onInvalidButtonTap, isFilled: false),
+        LandmarkPanelButton(text: "Validate", onTap: onValidButtonTap, isFilled: true)
+      ],
     );
   }
 }

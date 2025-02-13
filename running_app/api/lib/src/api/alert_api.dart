@@ -12,6 +12,7 @@ import 'dart:typed_data';
 import 'package:openapi/src/api_util.dart';
 
 class AlertApi {
+
   final Dio _dio;
 
   final Serializers _serializers;
@@ -19,18 +20,18 @@ class AlertApi {
   const AlertApi(this._dio, this._serializers);
 
   /// apiAlertAddAlertPost
-  ///
+  /// 
   ///
   /// Parameters:
-  /// * [createdAt]
-  /// * [expiresAt]
-  /// * [title]
-  /// * [description]
-  /// * [alertType]
-  /// * [isActive]
-  /// * [latitude]
-  /// * [longitude]
-  /// * [imageFile]
+  /// * [createdAt] 
+  /// * [expiresAt] 
+  /// * [title] 
+  /// * [description] 
+  /// * [alertType] 
+  /// * [isActive] 
+  /// * [latitude] 
+  /// * [longitude] 
+  /// * [imageFile] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -40,7 +41,7 @@ class AlertApi {
   ///
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> apiAlertAddAlertPost({
+  Future<Response<void>> apiAlertAddAlertPost({ 
     required DateTime createdAt,
     required DateTime expiresAt,
     required String title,
@@ -91,9 +92,10 @@ class AlertApi {
         r'Longitude': encodeFormParameter(_serializers, longitude, const FullType(double)),
         if (imageFile != null) r'ImageFile': imageFile,
       });
-    } catch (error, stackTrace) {
+
+    } catch(error, stackTrace) {
       throw DioException(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -115,11 +117,117 @@ class AlertApi {
     return _response;
   }
 
-  /// apiAlertAlertIdImageGet
-  ///
+  /// apiAlertAlertIdConfirmAlertPost
+  /// 
   ///
   /// Parameters:
-  /// * [alertId]
+  /// * [alertId] 
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future]
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<void>> apiAlertAlertIdConfirmAlertPost({ 
+    required int alertId,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/Alert/{alertId}/confirmAlert'.replaceAll('{' r'alertId' '}', encodeQueryParameter(_serializers, alertId, const FullType(int)).toString());
+    final _options = Options(
+      method: r'POST',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'Bearer',
+            'name': 'Bearer',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    return _response;
+  }
+
+  /// apiAlertAlertIdConfirmationsGet
+  /// 
+  ///
+  /// Parameters:
+  /// * [alertId] 
+  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
+  /// * [headers] - Can be used to add additional headers to the request
+  /// * [extras] - Can be used to add flags to the request
+  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
+  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
+  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
+  ///
+  /// Returns a [Future]
+  /// Throws [DioException] if API call or serialization fails
+  Future<Response<void>> apiAlertAlertIdConfirmationsGet({ 
+    required int alertId,
+    CancelToken? cancelToken,
+    Map<String, dynamic>? headers,
+    Map<String, dynamic>? extra,
+    ValidateStatus? validateStatus,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    final _path = r'/api/Alert/{alertId}/confirmations'.replaceAll('{' r'alertId' '}', encodeQueryParameter(_serializers, alertId, const FullType(int)).toString());
+    final _options = Options(
+      method: r'GET',
+      headers: <String, dynamic>{
+        ...?headers,
+      },
+      extra: <String, dynamic>{
+        'secure': <Map<String, String>>[
+          {
+            'type': 'http',
+            'scheme': 'Bearer',
+            'name': 'Bearer',
+          },
+        ],
+        ...?extra,
+      },
+      validateStatus: validateStatus,
+    );
+
+    final _response = await _dio.request<Object>(
+      _path,
+      options: _options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+
+    return _response;
+  }
+
+  /// apiAlertAlertIdImageGet
+  /// 
+  ///
+  /// Parameters:
+  /// * [alertId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -129,7 +237,7 @@ class AlertApi {
   ///
   /// Returns a [Future] containing a [Response] with a [Uint8List] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<Uint8List>> apiAlertAlertIdImageGet({
+  Future<Response<Uint8List>> apiAlertAlertIdImageGet({ 
     required int alertId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -138,8 +246,7 @@ class AlertApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/api/Alert/{alertId}/image'
-        .replaceAll('{' r'alertId' '}', encodeQueryParameter(_serializers, alertId, const FullType(int)).toString());
+    final _path = r'/api/Alert/{alertId}/image'.replaceAll('{' r'alertId' '}', encodeQueryParameter(_serializers, alertId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       responseType: ResponseType.bytes,
@@ -172,6 +279,7 @@ class AlertApi {
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : rawResponse as Uint8List;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -195,7 +303,7 @@ class AlertApi {
   }
 
   /// apiAlertGetAllAlertsGet
-  ///
+  /// 
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -207,7 +315,7 @@ class AlertApi {
   ///
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> apiAlertGetAllAlertsGet({
+  Future<Response<void>> apiAlertGetAllAlertsGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -244,4 +352,5 @@ class AlertApi {
 
     return _response;
   }
+
 }

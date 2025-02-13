@@ -64,8 +64,8 @@ abstract class AlertEntity extends Equatable {
   final CoordinatesEntity coordinates;
   final EAlertType alertType;
   final int authorId;
-  final int confirmationsNumber;
   final String authorName;
+  final int? confirmationsNumber;
   final Uint8List? image;
 
   AlertEntity(
@@ -83,6 +83,7 @@ abstract class AlertEntity extends Equatable {
       this.image});
 
   Future<Uint8List?> loadImage();
+  Future<int> loadConfirmationsNumber();
 
   @override
   List<Object?> get props => [

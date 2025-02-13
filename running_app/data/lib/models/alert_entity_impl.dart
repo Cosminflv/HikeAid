@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:domain/entities/alert_entity.dart';
 
 import 'package:gem_kit/core.dart';
@@ -42,6 +44,27 @@ class AlertEntityImpl extends AlertEntity {
     } catch (e) {
       print('Error fetching image: $e');
       return null;
+    }
+  }
+
+  @override
+  Future<int> loadConfirmationsNumber() async {
+    final baseUrl = "http://$ipv4Address:7011/api/Alert/$id/confirmations";
+
+    try {
+      final response = await http.get(Uri.parse(baseUrl), headers: {'accept': '*/*'});
+
+      if (response.statusCode == 200) {
+        final List<int> resList = List<int>.from(jsonDecode(response.body));
+        return resList.length;
+      } else if (response.statusCode == 404) {
+        return 0;
+      } else {
+        throw Exception('Failed to load image: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching image: $e');
+      return 0;
     }
   }
 }

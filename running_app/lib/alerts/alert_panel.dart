@@ -24,11 +24,13 @@ class AlertPanel extends StatefulWidget {
 
 class _AlertPanelState extends State<AlertPanel> {
   late Future<Uint8List?> alertImageFuture;
+  late Future<int> alertConfirmationsNumber;
 
   @override
   void initState() {
     super.initState();
     alertImageFuture = widget.alert.loadImage();
+    alertConfirmationsNumber = widget.alert.loadConfirmationsNumber();
   }
 
   @override
@@ -52,12 +54,13 @@ class _AlertPanelState extends State<AlertPanel> {
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                 child: Column(
                   children: [
-                    AlertPanelInformationSection(alert: widget.alert),
+                    AlertPanelInformationSection(alert: widget.alert, confirmationsNumber: alertConfirmationsNumber),
                     const SizedBox(height: 10),
                     AlertPanelButtonsSection(
                       onInvalidButtonTap: widget.onInvalidAlertTap,
                       onValidButtonTap: widget.onValidAlertTap,
                     ),
+                    const SizedBox(height: 10),
                   ],
                 ),
               )

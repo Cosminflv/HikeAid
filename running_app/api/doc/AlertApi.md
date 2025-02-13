@@ -10,6 +10,8 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiAlertAddAlertPost**](AlertApi.md#apialertaddalertpost) | **POST** /api/Alert/addAlert | 
+[**apiAlertAlertIdConfirmAlertPost**](AlertApi.md#apialertalertidconfirmalertpost) | **POST** /api/Alert/{alertId}/confirmAlert | 
+[**apiAlertAlertIdConfirmationsGet**](AlertApi.md#apialertalertidconfirmationsget) | **GET** /api/Alert/{alertId}/confirmations | 
 [**apiAlertAlertIdImageGet**](AlertApi.md#apialertalertidimageget) | **GET** /api/Alert/{alertId}/image | 
 [**apiAlertGetAllAlertsGet**](AlertApi.md#apialertgetallalertsget) | **GET** /api/Alert/getAllAlerts | 
 
@@ -66,6 +68,86 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiAlertAlertIdConfirmAlertPost**
+> apiAlertAlertIdConfirmAlertPost(alertId)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getAlertApi();
+final int alertId = 56; // int | 
+
+try {
+    api.apiAlertAlertIdConfirmAlertPost(alertId);
+} catch on DioException (e) {
+    print('Exception when calling AlertApi->apiAlertAlertIdConfirmAlertPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **alertId** | **int**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiAlertAlertIdConfirmationsGet**
+> apiAlertAlertIdConfirmationsGet(alertId)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getAlertApi();
+final int alertId = 56; // int | 
+
+try {
+    api.apiAlertAlertIdConfirmationsGet(alertId);
+} catch on DioException (e) {
+    print('Exception when calling AlertApi->apiAlertAlertIdConfirmationsGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **alertId** | **int**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

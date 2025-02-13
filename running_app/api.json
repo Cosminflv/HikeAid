@@ -99,6 +99,52 @@
         }
       }
     },
+    "/api/Alert/{alertId}/confirmAlert": {
+      "post": {
+        "tags": [
+          "Alert"
+        ],
+        "parameters": [
+          {
+            "name": "alertId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Alert/{alertId}/confirmations": {
+      "get": {
+        "tags": [
+          "Alert"
+        ],
+        "parameters": [
+          {
+            "name": "alertId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Alert/getAllAlerts": {
       "get": {
         "tags": [
@@ -138,6 +184,18 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/Events/stream": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
