@@ -42,7 +42,6 @@ class AlertRepositoryImpl extends AlertRepository {
 
       final alerts = await Future.wait(data.map((e) async {
         e as Map<String, dynamic>;
-        final image = await _getAlertImage(e['id']);
         final authorName = await _getAlertAuthorName(e['authorId']);
 
         return AlertEntityImpl(
@@ -60,7 +59,7 @@ class AlertRepositoryImpl extends AlertRepository {
           authorId: e['authorId'],
           authorName: authorName,
           confirmationsNumber: e['confirmedUserIds'].length,
-          image: image,
+          image: null,
         );
       }).toList());
       return alerts;
@@ -113,7 +112,6 @@ class AlertRepositoryImpl extends AlertRepository {
             print(data);
 
             final authorName = await _getAlertAuthorName(jsonData['authorId']);
-            final alertImage = await _getAlertImage(jsonData['alertId']);
 
             final alert = AlertEntityImpl(
               id: jsonData['alertId'],
@@ -128,7 +126,7 @@ class AlertRepositoryImpl extends AlertRepository {
               ),
               alertType: EAlertType.fromInt(jsonData['alertType']),
               authorId: jsonData['authorId'],
-              image: alertImage,
+              image: null,
               authorName: authorName,
               confirmationsNumber: jsonData['confirmations'],
             );
@@ -184,17 +182,17 @@ class AlertRepositoryImpl extends AlertRepository {
     }
   }
 
-  Future<Uint8List> _getAlertImage(int id) async {
-    final result = await _openapi.getAlertApi().apiAlertAlertIdImageGet(alertId: id);
-    Uint8List image;
-    if (result.statusCode != 200) {
-      final ByteData data = await rootBundle.load("assets/default_alert.png");
-      image = data.buffer.asUint8List();
-    } else {
-      image = Uint8List.fromList(result.data as List<int>);
-    }
-    return image;
-  }
+  // Future<Uint8List> _getAlertImage(int id) async {
+  //   final result = await _openapi.getAlertApi().apiAlertAlertIdImageGet(alertId: id);
+  //   Uint8List image;
+  //   if (result.statusCode != 200) {
+  //     final ByteData data = await rootBundle.load("assets/default_alert.png");
+  //     image = data.buffer.asUint8List();
+  //   } else {
+  //     image = Uint8List.fromList(result.data as List<int>);
+  //   }
+  //   return image;
+  // }
 
   Future<String> _getAlertAuthorName(int userId) async {
     try {

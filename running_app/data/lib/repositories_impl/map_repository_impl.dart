@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:data/models/camera_state_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/models/route_entity_impl.dart';
@@ -18,9 +16,7 @@ import 'package:flutter/services.dart';
 
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/map.dart';
-
-import 'dart:typed_data';
-import 'dart:ui';
+import 'dart:math';
 
 class MapRepositoryImpl extends MapRepository {
   final polylineMarkerCollection = MarkerCollection(markerType: MarkerType.polyline, name: "MarkerLine");

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:domain/entities/alert_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:running_app/alerts/widgets/alert_panel_buttons_section.dart';
@@ -21,6 +23,14 @@ class AlertPanel extends StatefulWidget {
 }
 
 class _AlertPanelState extends State<AlertPanel> {
+  late Future<Uint8List?> alertImageFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    alertImageFuture = widget.alert.loadImage();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -37,7 +47,7 @@ class _AlertPanelState extends State<AlertPanel> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            LandmarkPanelHeader(alert: widget.alert, onCloseTap: widget.onCloseTap),
+            LandmarkPanelHeader(alertImageFuture: alertImageFuture, onCloseTap: widget.onCloseTap),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
               child: Column(

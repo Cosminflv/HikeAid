@@ -82,6 +82,8 @@ abstract class AlertEntity extends Equatable {
       required this.confirmationsNumber,
       this.image});
 
+  Future<Uint8List?> loadImage();
+
   @override
   List<Object?> get props => [
         id,

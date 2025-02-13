@@ -1,5 +1,9 @@
 import 'package:domain/entities/alert_entity.dart';
+
 import 'package:gem_kit/core.dart';
+import 'package:core/config.dart';
+import 'package:http/http.dart' as http;
+import 'dart:typed_data';
 
 class AlertEntityImpl extends AlertEntity {
   AlertEntityImpl(
@@ -17,4 +21,27 @@ class AlertEntityImpl extends AlertEntity {
       required super.confirmationsNumber});
 
   Coordinates toGemCoordinates() => Coordinates(latitude: coordinates.latitude, longitude: coordinates.longitude);
+
+  @override
+  Future<Uint8List?> loadImage() async {
+    final baseUrl = "http://$ipv4Address:7011/api/Alert/$id/image"; // Replace with your API base URL
+
+    try {
+      final response = await http.get(
+        Uri.parse(baseUrl),
+        headers: {'Accept': 'image/jpeg'},
+      );
+
+      if (response.statusCode == 200) {
+        return response.bodyBytes;
+      } else if (response.statusCode == 404) {
+        return null;
+      } else {
+        throw Exception('Failed to load image: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error fetching image: $e');
+      return null;
+    }
+  }
 }
