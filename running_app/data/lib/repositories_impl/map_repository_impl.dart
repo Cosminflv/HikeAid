@@ -53,8 +53,8 @@ class MapRepositoryImpl extends MapRepository {
     _controller.registerOnMapAngleUpdateCallback(onMapAngleUpdated);
     _controller.registerMoveCallback((p1, p2) => onMapMove());
 
-    _controller.registerTouchCallback((pos) {
-      _controller.setCursorScreenPosition(pos);
+    _controller.registerTouchCallback((pos) async {
+      await _controller.setCursorScreenPosition(pos);
 
       Landmark? selectedLandmark;
       Route? selectedRoute;
@@ -72,7 +72,8 @@ class MapRepositoryImpl extends MapRepository {
       }
       if (markers.isNotEmpty) {
         for (final markerMatch in markers) {
-          final coordinates = markerMatch.getMarker().getCoordinates().map((coord) => coord.toEntity()).toList();
+          final markerCoords = markerMatch.getMarker().getCoordinates();
+          final coordinates = markerCoords.map((coord) => coord.toEntity()).toList();
           onMarkerSelected(coordinates);
         }
         return;
