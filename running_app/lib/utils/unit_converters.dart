@@ -286,3 +286,29 @@ String convertGramsIntoKilograms(double grams) {
 double calculateSpeed(int distance, int time) {
   return distance / time;
 }
+
+extension HumanReadableDate on DateTime {
+  String toErgonomicString() {
+    final now = DateTime.now();
+    final difference = now.difference(this);
+
+    if (difference.inDays == 0 && day == now.day) {
+      return "Today at ${DateFormat('HH:mm').format(this)}";
+    } else if (difference.inDays == 1 || (difference.inDays == 0 && now.day != day)) {
+      return "Yesterday at ${DateFormat('HH:mm').format(this)}";
+    } else if (difference.inDays < 7) {
+      return "${difference.inDays} days ago";
+    } else if (difference.inDays < 30) {
+      return "${difference.inWeeks()} weeks ago";
+    } else if (difference.inDays < 365) {
+      return "${difference.inMonths()} months ago";
+    } else {
+      return DateFormat('dd.MM.yyyy').format(this);
+    }
+  }
+}
+
+extension DurationExtensions on Duration {
+  int inWeeks() => (inDays / 7).floor();
+  int inMonths() => (inDays / 30).floor();
+}

@@ -1,5 +1,6 @@
 import 'package:domain/entities/alert_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:running_app/utils/unit_converters.dart';
 
 class AlertPanelInformationSection extends StatelessWidget {
   const AlertPanelInformationSection({
@@ -27,13 +28,14 @@ class AlertPanelInformationSection extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 Text(
-                  "By ${alert.authorName} on ${alert.createdAt}",
+                  "Posted by ${alert.authorName} • ${alert.createdAt.toErgonomicString()}",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
                   alert.description,
                   overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
               ],
             ),

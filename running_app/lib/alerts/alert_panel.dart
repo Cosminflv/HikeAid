@@ -35,7 +35,6 @@ class _AlertPanelState extends State<AlertPanel> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        height: 300,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, boxShadow: [
           BoxShadow(
@@ -44,24 +43,26 @@ class _AlertPanelState extends State<AlertPanel> {
             color: Theme.of(context).colorScheme.brightness == Brightness.light ? Colors.black26 : Colors.black26,
           )
         ]),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            LandmarkPanelHeader(alertImageFuture: alertImageFuture, onCloseTap: widget.onCloseTap),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-              child: Column(
-                children: [
-                  AlertPanelInformationSection(alert: widget.alert),
-                  const SizedBox(height: 10),
-                  AlertPanelButtonsSection(
-                    onInvalidButtonTap: widget.onInvalidAlertTap,
-                    onValidButtonTap: widget.onValidAlertTap,
-                  ),
-                ],
-              ),
-            )
-          ],
+        child: IntrinsicHeight(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              LandmarkPanelHeader(alertImageFuture: alertImageFuture, onCloseTap: widget.onCloseTap),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                child: Column(
+                  children: [
+                    AlertPanelInformationSection(alert: widget.alert),
+                    const SizedBox(height: 10),
+                    AlertPanelButtonsSection(
+                      onInvalidButtonTap: widget.onInvalidAlertTap,
+                      onValidButtonTap: widget.onValidAlertTap,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -210,7 +210,13 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
         }
       },
       onMarkerSelected: (markerCoords) {
-        add(SelectedAlertUpdatedEvent(markerCoordinate: markerCoords.first));
+        _mapUseCase.centerOnCoordinates(
+            coordinates: markerCoords.first,
+            screenPosition: PointEntity<int>(x: Sizes.screenCenter.x, y: Sizes.screenCenter.y ~/ 2),
+            zoom: 90);
+        add(SelectedAlertUpdatedEvent(
+          markerCoordinate: markerCoords.first,
+        ));
       },
     );
   }

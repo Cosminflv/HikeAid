@@ -24,23 +24,28 @@ class LandmarkPanelHeader extends StatelessWidget {
           FutureBuilder<Uint8List?>(
             future: alertImageFuture,
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const NoImageAvailable(height: 140);
-              } else if (snapshot.hasError || !snapshot.hasData || snapshot.data == null) {
-                return const NoImageAvailable(height: 140);
-              } else {
-                return GestureDetector(
-                  onTap: () {
-                    profileImageDialog(context, snapshot.data!);
-                  },
-                  child: Image.memory(
-                    snapshot.data!,
-                    height: 140,
-                    fit: BoxFit.fitWidth,
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                );
-              }
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 500), // Smooth transition duration
+                switchInCurve: Curves.easeInOut, // Animation curve
+                switchOutCurve: Curves.easeInOut,
+                child: snapshot.connectionState == ConnectionState.waiting ||
+                        snapshot.hasError ||
+                        !snapshot.hasData ||
+                        snapshot.data == null
+                    ? const NoImageAvailable(height: 140, key: ValueKey('no_image')) // Unique key for animation
+                    : GestureDetector(
+                        onTap: () {
+                          profileImageDialog(context, snapshot.data!);
+                        },
+                        child: Image.memory(
+                          snapshot.data!,
+                          height: 140,
+                          fit: BoxFit.fitWidth,
+                          width: MediaQuery.of(context).size.width,
+                          key: const ValueKey('image_loaded'), // Key to trigger animation
+                        ),
+                      ),
+              );
             },
           ),
           Positioned(
