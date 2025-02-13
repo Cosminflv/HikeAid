@@ -34,20 +34,11 @@ class MapRepositoryImpl extends MapRepository {
     landmark as LandmarkEntityImpl;
     final List<Landmark> landmarksToHighlight = [];
 
-    final landmarkCopy = Landmark();
+    final settings = HighlightRenderSettings(
+        options: {HighlightOptions.showLandmark, HighlightOptions.showContour, HighlightOptions.overlap});
 
-    landmarkCopy.name = showLabel ? landmark.name : '';
-    landmarkCopy.coordinates = landmark.ref!.coordinates;
-    landmarkCopy.setImage(imageData: image ?? landmark.ref!.getImage(size: Size(129, 128)));
-    landmarkCopy.address = landmark.ref!.address;
-
-    landmarksToHighlight.add(landmarkCopy);
-
-    final settings = HighlightRenderSettings(imgSz: 50, textSz: 0, options: {
-      HighlightOptions.showLandmark,
-      HighlightOptions.noFading,
-      HighlightOptions.overlap,
-    });
+    landmark.ref!.setImage(imageData: image ?? landmark.ref!.getImage(size: Size(128, 128)));
+    landmarksToHighlight.add(landmark.ref!);
 
     _controller.activateHighlight(
       landmarksToHighlight,
