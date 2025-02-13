@@ -13,8 +13,11 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
   AlertBloc(this._alertUseCase) : super(AlertState()) {
     on<FetchAlertsEvent>(_handleFetchAlerts);
     on<ConfirmAlertEvent>(_handleConfirmAlert);
+    on<InvalidateAlertEvent>(_handleInvalidateAlert);
     on<AddAlertEvent>(_handleAddAlert);
     on<RegisterAlertsSubscription>(_handleRegisterAlertsSubscription);
+
+    on<ResetHasConfirmedEvent>(_handleResetHasAdded);
 
     on<AlertSelectedEvent>(_handleAlertSelected);
     on<AlertUnselectedEvent>(_handleAlertUnselected);
@@ -32,9 +35,11 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
   }
 
   _handleConfirmAlert(ConfirmAlertEvent event, Emitter<AlertState> emit) async {
-    // final result = await _alertUseCase.confirmAlert(event.alert);
-    // emit(state.copyWith(isConfirmed: result));
+    final result = await _alertUseCase.confirmAlert(event.alertId);
+    emit(state.copyWith(isConfirmed: result));
   }
+
+  _handleInvalidateAlert(InvalidateAlertEvent event, Emitter<AlertState> emit) async {}
 
   _handleRegisterAlertsSubscription(RegisterAlertsSubscription event, Emitter<AlertState> emit) async {
     _alertUseCase.registerAlertsCallback((alerts) {
@@ -44,6 +49,10 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
     await emit.forEach<List<AlertEntity>>(_alertUpdates.stream, onData: (updatedAlerts) {
       return state.copyWith(alerts: updatedAlerts);
     });
+  }
+
+  _handleResetHasAdded(ResetHasConfirmedEvent event, Emitter<AlertState> emit) async {
+    emit(state.copyWith(isConfirmed: false));
   }
 
   _handleAlertSelected(AlertSelectedEvent event, Emitter<AlertState> emit) async {

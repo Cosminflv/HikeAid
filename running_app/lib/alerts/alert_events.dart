@@ -6,7 +6,19 @@ class AlertEvent {}
 
 class FetchAlertsEvent extends AlertEvent {}
 
-class ConfirmAlertEvent extends AlertEvent {}
+class ConfirmAlertEvent extends AlertEvent {
+  final int alertId;
+
+  ConfirmAlertEvent(this.alertId);
+}
+
+class InvalidateAlertEvent extends AlertEvent {
+  final int alertId;
+
+  InvalidateAlertEvent(this.alertId);
+}
+
+class ResetHasConfirmedEvent extends AlertEvent {}
 
 class RegisterAlertsSubscription extends AlertEvent {}
 

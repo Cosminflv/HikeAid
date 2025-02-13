@@ -10,5 +10,5 @@ abstract class AlertRepository {
   void unregisterAlertsCallback();
 
   void uploadAlert(AlertEntity alert);
-  Future<bool> confirmAlert(AlertEntity alert);
+  Future<bool> confirmAlert(int alertId);
 }

@@ -1,5 +1,10 @@
+import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/alert_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:running_app/alerts/alert_bloc.dart';
+import 'package:running_app/alerts/alert_events.dart';
+import 'package:running_app/alerts/alert_state.dart';
 import 'package:running_app/utils/unit_converters.dart';
 
 class AlertPanelInformationSection extends StatelessWidget {
@@ -42,12 +47,20 @@ class AlertPanelInformationSection extends StatelessWidget {
                     } else if (snapshot.hasError) {
                       return const Text("Error loading confirmations");
                     } else {
-                      return Text(
-                        snapshot.data! == 0
-                            ? "No one has confirmed this alert yet"
-                            : "Confirmed by ${snapshot.data} people",
-                        style: Theme.of(context).textTheme.bodySmall,
-                      );
+                      return BlocBuilder<AlertBloc, AlertState>(
+                          buildWhen: (previous, current) =>
+                              previous.hasConfirmed == false && current.hasConfirmed == true,
+                          builder: (context, alertState) {
+                            int count = snapshot.data!;
+                            if (alertState.hasConfirmed) count += 1;
+                            AppBlocs.alertBloc.add(ResetHasConfirmedEvent());
+                            return Text(
+                              snapshot.data! == 0
+                                  ? "No one has confirmed this alert yet"
+                                  : "Confirmed by $count people",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            );
+                          });
                     }
                   },
                 ),

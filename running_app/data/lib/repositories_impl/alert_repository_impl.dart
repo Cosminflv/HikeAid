@@ -19,12 +19,16 @@ class AlertRepositoryImpl extends AlertRepository {
   AlertRepositoryImpl(this._openapi, this._sseClient);
 
   @override
-  Future<bool> confirmAlert(AlertEntity alert) async {
-    // try {
-    //   final result = await _openapi.getAlertApi().ap (alert.id);
-    // } catch (e) {
-    //   print(e);
-    // }
+  Future<bool> confirmAlert(int alertId) async {
+    try {
+      final result = await _openapi.getAlertApi().apiAlertAlertIdConfirmAlertPost(alertId: alertId);
+
+      if (result.statusCode != 200) return false;
+
+      return (result.data as bool);
+    } catch (e) {
+      print(e);
+    }
 
     return false;
   }

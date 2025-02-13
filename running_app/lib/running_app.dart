@@ -3,6 +3,7 @@ import 'package:core/di/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:running_app/alerts/alert_bloc.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
@@ -56,6 +57,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
         BlocProvider(create: (context) => sl.get<LocationBloc>()),
         BlocProvider(create: (context) => sl.get<UserProfileBloc>()),
         BlocProvider(create: (context) => sl.get<AppBloc>()),
+        BlocProvider(create: (context) => sl.get<AlertBloc>()),
         BlocProvider(create: (context) => sl.get<SearchUsersBloc>()),
         BlocProvider(create: (context) => sl.get<SearchMenuBloc>()),
         BlocProvider(create: (context) => AppBlocs.internetConnectionBloc..add(CheckInternetConnectionEvent())),

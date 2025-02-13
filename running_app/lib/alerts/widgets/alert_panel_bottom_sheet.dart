@@ -26,8 +26,8 @@ class AlertPanelBottomSheet {
           return AlertPanel(
             alert: alertState.mapSelectedAlert!,
             onCloseTap: () => _handleOnCloseTap(context),
-            onInvalidAlertTap: () {},
-            onValidAlertTap: () {},
+            onInvalidAlertTap: () => AppBlocs.alertBloc.add(InvalidateAlertEvent(alertState.mapSelectedAlert!.id)),
+            onValidAlertTap: () => AppBlocs.alertBloc.add(ConfirmAlertEvent(alertState.mapSelectedAlert!.id)),
           );
         },
       ),

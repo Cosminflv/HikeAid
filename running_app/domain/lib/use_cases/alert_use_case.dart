@@ -14,7 +14,7 @@ class AlertUseCase {
           String title, String description, EAlertType type, double latitude, double longitude, Uint8List? image) =>
       _alertRepository.addAlert(title, description, type, latitude, longitude, image);
 
-  Future<bool> confirmAlert(AlertEntity alert) => _alertRepository.confirmAlert(alert);
+  Future<bool> confirmAlert(int alertId) => _alertRepository.confirmAlert(alertId);
 
   void registerAlertsCallback(Function(List<AlertEntity>) onAlertsUpdated) {
     _alertRepository.registerAlertsCallback(onAlertsUpdated);
