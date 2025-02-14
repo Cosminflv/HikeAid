@@ -21,6 +21,7 @@ class PendingAlertsRepositoryImpl extends PendingAlertsRepository {
     final alerts = await _dbHelper.getAllAlerts();
     return alerts.map((snapshot) {
       final data = snapshot.value;
+      final imageData = data['image'] != null ? Uint8List.fromList(List<int>.from(data['image'])) : null;
       return AlertEntityImpl(
         id: data['id'],
         title: data['title'],
@@ -36,7 +37,7 @@ class PendingAlertsRepositoryImpl extends PendingAlertsRepository {
         authorId: data['authorId'],
         authorName: data['authorName'],
         confirmationsNumber: data['confirmationsNumber'],
-        image: data['image'],
+        image: imageData,
       );
     }).toList();
   }
@@ -67,7 +68,7 @@ class PendingAlertsRepositoryImpl extends PendingAlertsRepository {
       'authorId': 0,
       'authorName': 'Unknown',
       'confirmationsNumber': 0,
-      'image': image
+      'image': image?.toList(),
     };
 
     await _dbHelper.insertAlert(alertId.toString(), alertData);
