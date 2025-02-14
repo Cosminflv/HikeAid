@@ -144,11 +144,9 @@ class AlertRepositoryImpl extends AlertRepository {
         },
         onError: (error) {
           print("SSE Connection Error: $error");
-          //_handleReconnect(startListening);
         },
         onDone: () {
-          print("SSE Connection Closed. Attempting to reconnect...");
-          //_handleReconnect(startListening);
+          print("SSE Connection Closed.");
         },
         cancelOnError: true,
       );
@@ -157,15 +155,11 @@ class AlertRepositoryImpl extends AlertRepository {
     await startListening(); // Start listening to SSE
   }
 
-  void _handleReconnect(Function retry) async {
-    await Future.delayed(Duration(seconds: 5)); // Wait before reconnecting
-    retry(); // Retry connection
-  }
-
   @override
   Future<void> unregisterAlertsCallback() async {
     if (_sseSubscription != null) {
       await _sseSubscription!.cancel();
+      _sseSubscription = null;
     }
   }
 
