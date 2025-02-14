@@ -3,14 +3,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/alerts/alert_events.dart';
 import 'package:running_app/alerts/alert_state.dart';
 import 'package:domain/use_cases/alert_use_case.dart';
+import 'package:domain/use_cases/pending_alerts_use_case.dart';
+
+import 'package:running_app/internet_connection/internet_connection_bloc.dart';
 
 import 'dart:async';
 
 class AlertBloc extends Bloc<AlertEvent, AlertState> {
   final AlertUseCase _alertUseCase;
+  final InternetConnectionBloc _internetConnectionBloc;
+  final PendingAlertsUseCase _pendingAlertsUseCase;
+  late StreamSubscription<bool> _connectionSubscription;
   final StreamController<List<AlertEntity>> _alertUpdates = StreamController.broadcast();
 
-  AlertBloc(this._alertUseCase) : super(AlertState()) {
+  AlertBloc(this._alertUseCase, this._internetConnectionBloc, this._pendingAlertsUseCase) : super(AlertState()) {
+    _connectionSubscription = _internetConnectionBloc.stream.listen((isConnected) {
+      if (isConnected) add(RetryPendingAlertsEvent());
+    });
+
     on<FetchAlertsEvent>(_handleFetchAlerts);
     on<ConfirmAlertEvent>(_handleConfirmAlert);
     on<InvalidateAlertEvent>(_handleInvalidateAlert);
@@ -21,6 +31,8 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
 
     on<AlertSelectedEvent>(_handleAlertSelected);
     on<AlertUnselectedEvent>(_handleAlertUnselected);
+
+    on<RetryPendingAlertsEvent>(_handleRetryPendingAlerts);
   }
 
   _handleFetchAlerts(FetchAlertsEvent event, Emitter<AlertState> emit) async {
@@ -29,9 +41,37 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
   }
 
   _handleAddAlert(AddAlertEvent event, Emitter<AlertState> emit) async {
-    final result = await _alertUseCase.addAlert(
-        event.title, event.description, event.type, event.latitude, event.longitude, event.image);
-    emit(state.copyWith(isAdded: result));
+    if (_internetConnectionBloc.state) {
+      // Online: Send immediately
+      final result = await _alertUseCase.addAlert(
+        title: event.title,
+        description: event.description,
+        type: event.type,
+        latitude: event.latitude,
+        longitude: event.longitude,
+        image: event.image,
+      );
+      emit(state.copyWith(isAdded: result));
+    } else {
+      // Offline: Save to pending
+      await _pendingAlertsUseCase.savePendingAlert(
+          event.title, event.description, event.type, event.latitude, event.longitude, event.image);
+      emit(state.copyWith(hasPended: true));
+    }
+  }
+
+  Future<void> _handleRetryPendingAlerts(RetryPendingAlertsEvent event, Emitter<AlertState> emit) async {
+    final pendingAlerts = await _pendingAlertsUseCase.getPendingAlerts();
+    for (var alert in pendingAlerts) {
+      final success = await _alertUseCase.addAlert(
+          title: alert.title,
+          description: alert.description,
+          type: alert.type,
+          latitude: alert.coordinates.latitude,
+          longitude: alert.coordinates.longitude,
+          image: alert.image);
+      if (success) await _pendingAlertsUseCase.deletePendingAlert(alert.id);
+    }
   }
 
   _handleConfirmAlert(ConfirmAlertEvent event, Emitter<AlertState> emit) async {

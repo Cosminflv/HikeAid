@@ -253,7 +253,7 @@ class MapRepositoryImpl extends MapRepository {
     List<MarkerWithRenderSettings> markers = [];
 
     for (final alert in alerts) {
-      final ByteData alertIconData = await rootBundle.load(alert.alertType.alertIconName);
+      final ByteData alertIconData = await rootBundle.load(alert.type.alertIconName);
       final Uint8List alertIcon = alertIconData.buffer.asUint8List();
 
       final alertMarker = MarkerJson(coords: [alert.coordinates.toGemCoordinates()], name: alert.title);

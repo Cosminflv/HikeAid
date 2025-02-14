@@ -11,7 +11,12 @@ class AlertUseCase {
   Future<List<AlertEntity>> getAlerts() => _alertRepository.getAlerts();
 
   Future<bool> addAlert(
-          String title, String description, EAlertType type, double latitude, double longitude, Uint8List? image) =>
+          {required String title,
+          required String description,
+          required EAlertType type,
+          required double latitude,
+          required double longitude,
+          required Uint8List? image}) =>
       _alertRepository.addAlert(title, description, type, latitude, longitude, image);
 
   Future<bool> confirmAlert(int alertId) => _alertRepository.confirmAlert(alertId);

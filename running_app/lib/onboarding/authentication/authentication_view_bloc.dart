@@ -70,17 +70,17 @@ class AuthenticationViewBloc extends Bloc<AuthenticationViewEvent, Authenticatio
 
   _onAuthProgress({required AuthenticationStatus authStatus}) async {
     switch (authStatus.runtimeType) {
-      case const (AuthenticationStarted):
+      case AuthenticationStarted:
         return;
-      case const (AuthenticationSuccesful):
+      case AuthenticationSuccesful:
         authStatus as AuthenticationSuccesful;
         add(AuthenticationSuccesfulEvent(session: authStatus.session));
         return;
-      case const (AuthenticationInProgress):
+      case AuthenticationInProgress:
         add(AuthenticationLoadingEvent());
 
         return;
-      case const (AuthenticationFailed):
+      case AuthenticationFailed:
         authStatus as AuthenticationFailed;
 
         add(AuthenticationFailedEvent(

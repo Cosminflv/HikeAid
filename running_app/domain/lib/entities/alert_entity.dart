@@ -62,7 +62,7 @@ abstract class AlertEntity extends Equatable {
   final DateTime expiresAt;
   final bool isActive;
   final CoordinatesEntity coordinates;
-  final EAlertType alertType;
+  final EAlertType type;
   final int authorId;
   final String authorName;
   final int? confirmationsNumber;
@@ -76,7 +76,7 @@ abstract class AlertEntity extends Equatable {
       required this.expiresAt,
       required this.isActive,
       required this.coordinates,
-      required this.alertType,
+      required this.type,
       required this.authorId,
       required this.authorName,
       required this.confirmationsNumber,
@@ -94,7 +94,7 @@ abstract class AlertEntity extends Equatable {
         expiresAt,
         isActive,
         coordinates,
-        alertType,
+        type,
         image,
         authorId,
         authorName,

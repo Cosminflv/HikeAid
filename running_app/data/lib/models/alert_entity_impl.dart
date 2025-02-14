@@ -16,7 +16,7 @@ class AlertEntityImpl extends AlertEntity {
       required super.expiresAt,
       required super.isActive,
       required super.coordinates,
-      required super.alertType,
+      required super.type,
       required super.authorId,
       required super.image,
       required super.authorName,

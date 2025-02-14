@@ -127,14 +127,14 @@ class EditUserProfileViewBloc extends Bloc<EditUserProfileViewEvent, EditUserPro
 
   _handleOnUpdateProgress({required EditUserProfileStatus status}) {
     switch (status.runtimeType) {
-      case const (EditStarted):
+      case EditStarted:
         return;
-      case const (EditInProgress):
+      case EditInProgress:
         add(UserProfileSavingEvent());
-      case const (EditFailed):
+      case EditFailed:
         status as EditFailed;
         add(UpdateProfileFailedEvent(status.reason));
-      case const (EditSuccess):
+      case EditSuccess:
         add(UpdateProfileSuccessEvent());
     }
   }

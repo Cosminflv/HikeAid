@@ -85,15 +85,15 @@ class RegistrationViewBloc extends Bloc<RegistrationViewEvent, RegistrationViewS
 
   _onRegistrationProgress({required RegistrationStatus registrationStatus}) {
     switch (registrationStatus.runtimeType) {
-      case const (RegistrationStarted):
+      case RegistrationStarted:
         return;
-      case const (RegistrationInProgress):
+      case RegistrationInProgress:
         add(RegistrationLoadingEvent());
         return;
-      case const (RegistrationSuccesfulStatus):
+      case RegistrationSuccesfulStatus:
         add(RegistrationSuccesfulEvent());
 
-      case const (RegistrationFailed):
+      case RegistrationFailed:
         registrationStatus as RegistrationFailed;
         add(RegistrationFailedEvent(reason: registrationStatus.reason));
     }

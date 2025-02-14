@@ -46,3 +46,5 @@ class AddAlertEvent extends AlertEvent {
       required this.longitude,
       required this.image});
 }
+
+class RetryPendingAlertsEvent extends AlertEvent {}
