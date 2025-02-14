@@ -261,12 +261,11 @@ class MapRepositoryImpl extends MapRepository {
       final renderSettings = MarkerRenderSettings(image: GemImage(image: alertIcon, format: ImageFileFormat.png));
 
       markers.add(MarkerWithRenderSettings(alertMarker, renderSettings));
-
-      final settings = MarkerCollectionRenderSettings(pointsGroupingZoomLevel: 0);
-      settings.labelGroupTextSize = 2;
-
-      _controller.preferences.markers.addList(list: markers, settings: settings, name: "Markers");
     }
+    final settings = MarkerCollectionRenderSettings(pointsGroupingZoomLevel: 0);
+    settings.labelGroupTextSize = 2;
+
+    _controller.preferences.markers.addList(list: markers, settings: settings, name: "Markers");
   }
 
   @override

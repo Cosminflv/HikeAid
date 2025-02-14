@@ -55,9 +55,7 @@ class AlertPanelInformationSection extends StatelessWidget {
                             if (alertState.hasConfirmed) count += 1;
                             AppBlocs.alertBloc.add(ResetHasConfirmedEvent());
                             return Text(
-                              snapshot.data! == 0
-                                  ? "No one has confirmed this alert yet"
-                                  : "Confirmed by $count people",
+                              count == 0 ? "No one has confirmed this alert yet" : "Confirmed by $count people",
                               style: Theme.of(context).textTheme.bodySmall,
                             );
                           });

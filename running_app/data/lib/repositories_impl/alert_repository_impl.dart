@@ -77,9 +77,10 @@ class AlertRepositoryImpl extends AlertRepository {
   Future<bool> addAlert(
       String title, String description, EAlertType type, double latitude, double longitude, Uint8List? image) async {
     try {
+      final expireDate = _calculateExpireDate(type);
       final result = await _openapi.getAlertApi().apiAlertAddAlertPost(
           createdAt: DateTime.now().toUtc(),
-          expiresAt: DateTime.now().add(const Duration(days: 2)).toUtc(),
+          expiresAt: expireDate.toUtc(),
           title: title,
           description: description,
           alertType: type.name,
@@ -211,6 +212,22 @@ class AlertRepositoryImpl extends AlertRepository {
     } catch (e) {
       print(e);
       return 'Unknown';
+    }
+  }
+
+  DateTime _calculateExpireDate(EAlertType type) {
+    var date = DateTime.now();
+    switch (type) {
+      case EAlertType.dangerousWeather:
+        return date.add(Duration(days: 3));
+      case EAlertType.roadBlock:
+        return date.add(Duration(days: 1));
+      case EAlertType.wildAnimals:
+        return date.add(Duration(days: 3));
+      case EAlertType.personalEmergency:
+        return date.add(Duration(days: 1));
+      case EAlertType.other:
+        return date.add(Duration(days: 1));
     }
   }
 }

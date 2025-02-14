@@ -43,7 +43,7 @@ extension EAlertTypeExtension on EAlertType {
       case EAlertType.wildAnimals:
         return 'assets/wild_animals_alert.png';
       case EAlertType.dangerousWeather:
-        return 'assets/dangerous_weather_alert.png';
+        return 'assets/weather_alert.png';
       case EAlertType.roadBlock:
         return 'assets/road_block_alert.png';
       case EAlertType.other:
