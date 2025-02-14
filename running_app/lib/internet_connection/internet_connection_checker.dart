@@ -78,7 +78,7 @@ class _InternetConnectionCheckerState extends State<InternetConnectionChecker> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvoked: (willPop) async {
+      onPopInvokedWithResult: (willPop, _) async {
         await bar?.dismiss();
       },
       child: BlocConsumer<InternetConnectionBloc, bool>(
