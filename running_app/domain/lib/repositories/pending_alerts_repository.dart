@@ -13,5 +13,5 @@ abstract class PendingAlertsRepository {
       required Uint8List? image,
       required EAlertType type});
   Future<List<AlertEntity>> getPendingAlerts();
-  Future<void> deletePendingAlert(String id);
+  Future<void> deletePendingAlert(int alertId);
 }

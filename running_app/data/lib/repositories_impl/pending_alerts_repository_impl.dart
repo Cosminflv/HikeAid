@@ -12,8 +12,8 @@ class PendingAlertsRepositoryImpl extends PendingAlertsRepository {
   final _dbHelper = SembastDatabase.instance;
 
   @override
-  Future<void> deletePendingAlert(String id) async {
-    await _dbHelper.deleteAlert(id);
+  Future<void> deletePendingAlert(int alertId) async {
+    await _dbHelper.deleteAlert(alertId.toString());
   }
 
   @override
@@ -52,7 +52,6 @@ class PendingAlertsRepositoryImpl extends PendingAlertsRepository {
     required Uint8List? image,
     required EAlertType type,
   }) async {
-    final alertIdString = generateHash(title, description, createdAt);
     final alertId = generateIntFromDateTime(createdAt);
 
     final alertData = {
@@ -71,7 +70,7 @@ class PendingAlertsRepositoryImpl extends PendingAlertsRepository {
       'image': image
     };
 
-    await _dbHelper.insertAlert(alertIdString, alertData);
+    await _dbHelper.insertAlert(alertId.toString(), alertData);
   }
 
   String generateHash(String title, String description, DateTime createdAt) {

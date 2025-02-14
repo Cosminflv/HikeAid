@@ -23,6 +23,7 @@ class PendingAlertsUseCase {
   Future<List<AlertEntity>> getPendingAlerts() async => await pendingAlertsRepository.getPendingAlerts();
 
   Future<void> deletePendingAlert(int id) async {
+    await pendingAlertsRepository.deletePendingAlert(id);
     // Delete from storage after successful send
   }
 }
