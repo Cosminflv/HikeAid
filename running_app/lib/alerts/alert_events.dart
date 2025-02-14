@@ -18,9 +18,11 @@ class InvalidateAlertEvent extends AlertEvent {
   InvalidateAlertEvent(this.alertId);
 }
 
-class ResetHasConfirmedEvent extends AlertEvent {}
+class ResetStateBooleansEvent extends AlertEvent {}
 
 class RegisterAlertsSubscription extends AlertEvent {}
+
+class CloseAlertsSubscription extends AlertEvent {}
 
 class AlertSelectedEvent extends AlertEvent {
   final AlertEntity pickedAlert;

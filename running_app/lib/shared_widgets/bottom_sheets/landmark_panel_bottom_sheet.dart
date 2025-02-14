@@ -18,11 +18,13 @@ class LandmarkPanelBottomSheet {
       ),
       builder: (context) => BlocBuilder<MapViewBloc, MapViewState>(
         bloc: AppBlocs.mapBloc,
-        buildWhen: (previous, current) => previous.mapSelectedLandmark != current.mapSelectedLandmark && current.mapSelectedLandmark != null,
+        buildWhen: (previous, current) =>
+            previous.mapSelectedLandmark != current.mapSelectedLandmark && current.mapSelectedLandmark != null,
         builder: (context, mapViewState) {
           // final landmarkToDisplay =
           //     routePlanningState.getWaypointForLandmark(mapViewState.mapSelectedLandmark!)?.landmark ??
           //         mapViewState.mapSelectedLandmark!;
+          if (mapViewState.mapSelectedLandmark == null) return const SizedBox.shrink();
           return LandmarkPanel(
             landmark: mapViewState.mapSelectedLandmark!,
             onCloseTap: () => _handleOnCloseTap(context, mapViewState),

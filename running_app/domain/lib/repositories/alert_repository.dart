@@ -6,8 +6,8 @@ abstract class AlertRepository {
   Future<List<AlertEntity>> getAlerts();
   Future<bool> addAlert(
       String title, String description, EAlertType type, double latitude, double longitude, Uint8List? image);
-  void registerAlertsCallback(Function(List<AlertEntity>) onAlertsUpdated);
-  void unregisterAlertsCallback();
+  Future<void> registerAlertsCallback(Function(List<AlertEntity>) onAlertsUpdated);
+  Future<void> unregisterAlertsCallback();
 
   void uploadAlert(AlertEntity alert);
   Future<bool> confirmAlert(int alertId);

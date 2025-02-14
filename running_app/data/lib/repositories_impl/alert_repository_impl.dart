@@ -92,6 +92,7 @@ class AlertRepositoryImpl extends AlertRepository {
       if (result.statusCode != 200) {
         return false;
       }
+      print("RETURNED TRUE addAlert API CALL\n");
       return true;
     } catch (e) {
       print(e);
@@ -100,9 +101,9 @@ class AlertRepositoryImpl extends AlertRepository {
   }
 
   @override
-  void registerAlertsCallback(Function(List<AlertEntity> p1) onAlertsUpdated) {
-    void startListening() {
-      _sseSubscription?.cancel(); // Cancel previous subscription (if any)
+  Future<void> registerAlertsCallback(Function(List<AlertEntity> p1) onAlertsUpdated) async {
+    Future<void> startListening() async {
+      await _sseSubscription?.cancel(); // Cancel previous subscription (if any)
       _sseSubscription = _sseClient.subscribe().listen(
         (data) async {
           try {
@@ -143,17 +144,17 @@ class AlertRepositoryImpl extends AlertRepository {
         },
         onError: (error) {
           print("SSE Connection Error: $error");
-          _handleReconnect(startListening);
+          //_handleReconnect(startListening);
         },
         onDone: () {
           print("SSE Connection Closed. Attempting to reconnect...");
-          _handleReconnect(startListening);
+          //_handleReconnect(startListening);
         },
         cancelOnError: true,
       );
     }
 
-    startListening(); // Start listening to SSE
+    await startListening(); // Start listening to SSE
   }
 
   void _handleReconnect(Function retry) async {
@@ -162,9 +163,9 @@ class AlertRepositoryImpl extends AlertRepository {
   }
 
   @override
-  void unregisterAlertsCallback() {
+  Future<void> unregisterAlertsCallback() async {
     if (_sseSubscription != null) {
-      _sseSubscription!.cancel();
+      await _sseSubscription!.cancel();
     }
   }
 

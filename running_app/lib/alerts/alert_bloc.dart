@@ -25,9 +25,11 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
     on<ConfirmAlertEvent>(_handleConfirmAlert);
     on<InvalidateAlertEvent>(_handleInvalidateAlert);
     on<AddAlertEvent>(_handleAddAlert);
-    on<RegisterAlertsSubscription>(_handleRegisterAlertsSubscription);
 
-    on<ResetHasConfirmedEvent>(_handleResetHasAdded);
+    on<RegisterAlertsSubscription>(_handleRegisterAlertsSubscription);
+    on<CloseAlertsSubscription>(_handleCloseAlertsSubscription);
+
+    on<ResetStateBooleansEvent>(_handleResetStateBooleans);
 
     on<AlertSelectedEvent>(_handleAlertSelected);
     on<AlertUnselectedEvent>(_handleAlertUnselected);
@@ -62,6 +64,7 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
 
   Future<void> _handleRetryPendingAlerts(RetryPendingAlertsEvent event, Emitter<AlertState> emit) async {
     final pendingAlerts = await _pendingAlertsUseCase.getPendingAlerts();
+    print("BEFORE ADDING ALERT: ${pendingAlerts.length}\n");
     for (var alert in pendingAlerts) {
       final success = await _alertUseCase.addAlert(
           title: alert.title,
@@ -70,7 +73,9 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
           latitude: alert.coordinates.latitude,
           longitude: alert.coordinates.longitude,
           image: alert.image);
+      print("ADDED ALERT");
       if (success) await _pendingAlertsUseCase.deletePendingAlert(alert.id);
+      emit(state.copyWith(isAdded: true));
     }
   }
 
@@ -82,7 +87,7 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
   _handleInvalidateAlert(InvalidateAlertEvent event, Emitter<AlertState> emit) async {}
 
   _handleRegisterAlertsSubscription(RegisterAlertsSubscription event, Emitter<AlertState> emit) async {
-    _alertUseCase.registerAlertsCallback((alerts) {
+    await _alertUseCase.registerAlertsCallback((alerts) {
       _alertUpdates.add(List<AlertEntity>.from(state.alerts)..addAll(alerts));
     });
 
@@ -91,8 +96,12 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
     });
   }
 
-  _handleResetHasAdded(ResetHasConfirmedEvent event, Emitter<AlertState> emit) async {
-    emit(state.copyWith(isConfirmed: false));
+  _handleCloseAlertsSubscription(CloseAlertsSubscription event, Emitter<AlertState> emit) async {
+    await _alertUseCase.unregisterAlertsCallback();
+  }
+
+  _handleResetStateBooleans(ResetStateBooleansEvent event, Emitter<AlertState> emit) async {
+    emit(state.copyWith(isConfirmed: false, isAdded: false, hasPended: false));
   }
 
   _handleAlertSelected(AlertSelectedEvent event, Emitter<AlertState> emit) async {

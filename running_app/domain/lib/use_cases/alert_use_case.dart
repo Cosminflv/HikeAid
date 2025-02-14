@@ -21,7 +21,9 @@ class AlertUseCase {
 
   Future<bool> confirmAlert(int alertId) => _alertRepository.confirmAlert(alertId);
 
-  void registerAlertsCallback(Function(List<AlertEntity>) onAlertsUpdated) {
-    _alertRepository.registerAlertsCallback(onAlertsUpdated);
+  Future<void> registerAlertsCallback(Function(List<AlertEntity>) onAlertsUpdated) async {
+    await _alertRepository.registerAlertsCallback(onAlertsUpdated);
   }
+
+  Future<void> unregisterAlertsCallback() async => await _alertRepository.unregisterAlertsCallback();
 }

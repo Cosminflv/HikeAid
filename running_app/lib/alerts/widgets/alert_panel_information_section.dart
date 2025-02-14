@@ -53,7 +53,7 @@ class AlertPanelInformationSection extends StatelessWidget {
                           builder: (context, alertState) {
                             int count = snapshot.data!;
                             if (alertState.hasConfirmed) count += 1;
-                            AppBlocs.alertBloc.add(ResetHasConfirmedEvent());
+                            AppBlocs.alertBloc.add(ResetStateBooleansEvent());
                             return Text(
                               count == 0 ? "No one has confirmed this alert yet" : "Confirmed by $count people",
                               style: Theme.of(context).textTheme.bodySmall,

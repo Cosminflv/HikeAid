@@ -73,6 +73,7 @@ class MapUseCase {
   // Markers and position
 
   Future<void> addAlerts(List<AlertEntity> alerts) async => await _mapRepository.addAlerts(alerts);
+  
   void addPolylineMarker({required List<CoordinatesEntity> coordinates}) =>
       _mapRepository.addPolylineMarker(coordinates: coordinates);
 
