@@ -100,12 +100,17 @@ class _HomeViewPageState extends State<HomeViewPage> {
               index: homeState.type.index,
               children: [
                 const InternetConnectionChecker(
-                    showFullPage: false, canInteract: true, child: AlertNotificationHandler(child: MapViewPage())),
+                    showFullPage: false,
+                    canInteract: true,
+                    child: AlertNotificationHandler(child: MapViewPage())),
                 const TourRecordPage(),
                 InternetConnectionChecker(
-                    child: UserProfileViewPage(
-                  isEditable: true,
-                ))
+                  showFullPage: true,
+                  canInteract: true,
+                  child: UserProfileViewPage(
+                    isEditable: true,
+                  ),
+                )
               ],
             ),
           );

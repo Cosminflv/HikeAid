@@ -4,8 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/alerts/alert_events.dart';
 import 'package:running_app/friendships/friendships_view_events.dart';
 import 'package:running_app/internet_connection/internet_connection_bloc.dart';
+import 'package:running_app/user_profile/user_profile_view_event.dart';
+import 'package:running_app/user_profile/user_profile_view_state.dart';
 import 'package:running_app/utils/session_utils.dart';
 
 import 'internet_connection_page.dart';
@@ -89,8 +92,14 @@ class _InternetConnectionCheckerState extends State<InternetConnectionChecker> {
 
           if (hasInternetConnection) {
             AppBlocs.friendships.add(InitializeNotificationService(userId: getSession(context)!.user.id));
+            AppBlocs.alertBloc.add(RegisterAlertsSubscription());
+            final userProfileBloc = AppBlocs.userProfileBloc;
+            if (userProfileBloc.state is InitialProfileState || userProfileBloc.state is UserProfileLoadFailState) {
+              userProfileBloc.add(FetchUserProfileEvent(userId: getSession(context)!.user.id));
+            }
           } else {
             AppBlocs.friendships.add(CloseNotificationService());
+            AppBlocs.alertBloc.add(CloseAlertsSubscription());
           }
 
           if (widget.showFullPage) return;
