@@ -13,11 +13,10 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
   final AlertUseCase _alertUseCase;
   final InternetConnectionBloc _internetConnectionBloc;
   final PendingAlertsUseCase _pendingAlertsUseCase;
-  late StreamSubscription<bool> _connectionSubscription;
   final StreamController<List<AlertEntity>> _alertUpdates = StreamController.broadcast();
 
   AlertBloc(this._alertUseCase, this._internetConnectionBloc, this._pendingAlertsUseCase) : super(AlertState()) {
-    _connectionSubscription = _internetConnectionBloc.stream.listen((isConnected) {
+    _internetConnectionBloc.stream.listen((isConnected) {
       if (isConnected) add(RetryPendingAlertsEvent());
     });
 
