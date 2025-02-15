@@ -15,9 +15,11 @@ class TourRecordingBlocListener extends StatelessWidget {
     return MultiBlocListener(listeners: [
       BlocListener<TourRecordingBloc, TourRecordingState>(
         bloc: AppBlocs.tourRecordingBloc,
-        listener: (context, locationState) {
+        listener: (context, tourRecordingState) {
           if (AppBlocs.appBloc.state.isRecording) {
-            AppBlocs.mapBloc.add(AddPolylineMarkerEvent(locationState.recordedCoordinates));
+            final tourRecordingCoordinates =
+                tourRecordingState.recordedCoordinates.map((coordinate) => coordinate.latLng).toList();
+            AppBlocs.mapBloc.add(AddPolylineMarkerEvent(tourRecordingCoordinates));
           }
         },
         listenWhen: (previous, current) => previous.recordedCoordinates.length != current.recordedCoordinates.length,

@@ -122,7 +122,7 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
                                   builder: (context, snapshot) {
                                     return MapWidget(
                                       initialCoordinates: state.recordedCoordinates.isNotEmpty
-                                          ? state.recordedCoordinates[(state.recordedCoordinates.length ~/ 2)]
+                                          ? state.recordedCoordinates[(state.recordedCoordinates.length ~/ 2)].latLng
                                           : null,
                                       onMapCreated: (controller) => _onMapCreated(controller, constraints),
                                       showPlaceholder: !snapshot.hasData || snapshot.data == null,
@@ -203,6 +203,8 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
 
   void _performMapActions() {
     final tourRecordingState = AppBlocs.tourRecordingBloc.state;
+    final tourRecordingCoordinates =
+        tourRecordingState.recordedCoordinates.map((coordinate) => coordinate.latLng).toList();
 
     _mapBloc
       ..add(
@@ -227,7 +229,7 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
       //     enabledCategories: [],
       //   ),
       // )
-      ..add(AddPolylineMarkerEvent(tourRecordingState.recordedCoordinates))
+      ..add(AddPolylineMarkerEvent(tourRecordingCoordinates))
       ..add(CenterOnPathEvent(path: tourRecordingState.recordedPath!))
       ..add(
         PresentHighlightEvent(

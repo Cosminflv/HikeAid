@@ -1,11 +1,11 @@
-import 'dart:convert';
 
+import 'package:core/config.dart';
 import 'package:domain/entities/alert_entity.dart';
 
 import 'package:gem_kit/core.dart';
-import 'package:core/config.dart';
 import 'package:http/http.dart' as http;
 import 'dart:typed_data';
+import 'dart:convert';
 
 class AlertEntityImpl extends AlertEntity {
   AlertEntityImpl(
@@ -26,7 +26,7 @@ class AlertEntityImpl extends AlertEntity {
 
   @override
   Future<Uint8List?> loadImage() async {
-    final baseUrl = "http://$ipv4Address:7011/api/Alert/$id/image"; // Replace with your API base URL
+    final baseUrl = "http://$ipv4Address:7011/api/Alert/$id/image";
 
     try {
       final response = await http.get(

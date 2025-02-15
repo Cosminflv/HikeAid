@@ -36,7 +36,7 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
 
     if (DateTime.now().difference(_lastRecordedCoordinatesTimestamp).inMilliseconds > 1000) {
       _lastRecordedCoordinatesTimestamp = DateTime.now();
-      add(AddRecordedCoordinatesEvent(event.position!.coordinates));
+      add(AddRecordedCoordinatesEvent(CoordinatesWithTimestamp.fromPosition(event.position!)));
     }
   }
 
@@ -68,37 +68,37 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
 
 class TourMetricsTracker {
   double _totalDistance = 0;
-  Duration _totalTime = Duration(seconds: 0); // Only time in motion
+  Duration _totalTime = const Duration(seconds: 0);
   double? _averageSpeed;
-  CoordinatesWithTimestamp? _lastCoordinate;
   bool _isPaused = false;
+  CoordinatesWithTimestamp? _lastCoordinate;
 
-  // Set thresholds for significant movement
-  final double minDistanceThreshold = 1.0; // meters
-  final Duration minTimeThreshold = const Duration(seconds: 1); // seconds
-  final Duration maxTimeThreshold = const Duration(seconds: 5); // Exclude large time gaps
+  final double minDistanceThreshold = 1.0;
+  final Duration minTimeThreshold = const Duration(seconds: 1);
+  final Duration maxTimeThreshold = const Duration(seconds: 5);
 
-  // Reset the tracker state
+  double _totalUp = 0;
+  double _totalDown = 0;
+
   void reset() {
     _totalDistance = 0;
+    _totalUp = 0;
+    _totalDown = 0;
     _totalTime = const Duration(seconds: 0);
     _averageSpeed = null;
     _lastCoordinate = null;
     _isPaused = false;
   }
 
-  // Pause tracking
   void pause() {
     _isPaused = true;
   }
 
-  // Resume tracking
   void resume() {
     _isPaused = false;
-    _lastCoordinate = null; // Reset the last coordinate to avoid time discrepancies
+    _lastCoordinate = null;
   }
 
-  // Add a new position
   void addCoordinates(CoordinatesWithTimestamp coordinate) {
     if (_isPaused) return;
 
@@ -113,6 +113,14 @@ class TourMetricsTracker {
     if (coordinate.timestamp.difference(_lastCoordinate!.timestamp) > maxTimeThreshold) {
       _lastCoordinate = coordinate;
       return;
+    }
+
+    final elevationChange = (coordinate.altitude) - (_lastCoordinate!.altitude);
+
+    if (elevationChange > 0) {
+      _totalUp += elevationChange;
+    } else {
+      _totalDown += elevationChange.abs();
     }
 
     if (distance >= minDistanceThreshold &&
@@ -136,4 +144,7 @@ class TourMetricsTracker {
   double? get averageSpeed => _averageSpeed;
   int get traveledDistance => _totalDistance.toInt();
   int get timeInMotion => _totalTime.inSeconds;
+
+  double get totalUp => _totalUp;
+  double get totalDown => _totalDown;
 }

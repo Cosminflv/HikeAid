@@ -43,8 +43,8 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   @override
   Future<bool> declineFriendshipRequest(int requestId) async {
     try {
-      await _openapi.getUserApi().apiUserDeclineFriendRequestPost(requestId: requestId);
-      return true;
+      final response = await _openapi.getUserApi().apiUserDeclineFriendRequestPost(requestId: requestId);
+      return response.statusCode == 200;
     } catch (e) {
       print(e);
       return false;

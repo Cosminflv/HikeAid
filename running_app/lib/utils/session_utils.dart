@@ -10,6 +10,5 @@ AuthSessionEntity? getSession(BuildContext context) {
   if (state is! AuthSessionExistingState) {
     return null;
   }
-
   return state.session;
 }

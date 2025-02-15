@@ -1,7 +1,6 @@
-import 'dart:typed_data';
-
-import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/position_entity.dart';
+import 'package:domain/entities/tour_entity.dart';
+import 'dart:typed_data';
 
 abstract class TourRecordingEvent {}
 
@@ -12,7 +11,7 @@ class UpdatePositionEvent extends TourRecordingEvent {
 }
 
 class AddRecordedCoordinatesEvent extends TourRecordingEvent {
-  final CoordinatesEntity coordinates;
+  final CoordinatesWithTimestamp coordinates;
 
   AddRecordedCoordinatesEvent(this.coordinates);
 }

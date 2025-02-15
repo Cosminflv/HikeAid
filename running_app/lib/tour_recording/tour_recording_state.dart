@@ -1,5 +1,4 @@
 import 'package:core/di/injection_container.dart';
-import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/path_entity.dart';
 import 'package:domain/entities/tour_entity.dart';
@@ -21,20 +20,21 @@ class TourRecordingState extends Equatable {
   final int? distanceTraveled;
   final int? timeInMotion;
 
-  final List<CoordinatesEntity> recordedCoordinates;
+  final List<CoordinatesWithTimestamp> recordedCoordinates;
   final TourEntity? tour;
 
   bool get isValidTour =>
       (distanceTraveled != null && distanceTraveled != 0) && (timeInMotion != null && timeInMotion != 0);
 
   LandmarkEntity? get startLandmark =>
-      recordedCoordinates.isNotEmpty ? sl.get<LandmarkFactory>().produce(recordedCoordinates.first) : null;
+      recordedCoordinates.isNotEmpty ? sl.get<LandmarkFactory>().produce(recordedCoordinates.first.latLng) : null;
 
   LandmarkEntity? get endLandmark =>
-      recordedCoordinates.isNotEmpty ? sl.get<LandmarkFactory>().produce(recordedCoordinates.last) : null;
+      recordedCoordinates.isNotEmpty ? sl.get<LandmarkFactory>().produce(recordedCoordinates.last.latLng) : null;
 
-  PathEntity? get recordedPath =>
-      recordedCoordinates.isNotEmpty ? sl.get<PathFactory>().produce(recordedCoordinates) : null;
+  PathEntity? get recordedPath => recordedCoordinates.isNotEmpty
+      ? sl.get<PathFactory>().produce(recordedCoordinates.map((e) => e.latLng).toList())
+      : null;
 
   const TourRecordingState({
     this.status = RecordingStatus.disabled,
@@ -52,7 +52,7 @@ class TourRecordingState extends Equatable {
     double? averageSpeed,
     int? distanceTraveled,
     int? timeInMotion,
-    List<CoordinatesEntity>? recordedCoordinates,
+    List<CoordinatesWithTimestamp>? recordedCoordinates,
     TourEntity? tour,
   }) =>
       TourRecordingState(
