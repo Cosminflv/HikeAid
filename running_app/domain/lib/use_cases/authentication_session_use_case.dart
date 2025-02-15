@@ -10,4 +10,6 @@ class AuthenticationSessionUseCase {
     final result = await _onboardingRepository.checkForSession();
     return result;
   }
+
+  Future<bool> signOut(int userId) async => _onboardingRepository.signOut(userId);
 }

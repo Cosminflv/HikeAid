@@ -24,6 +24,8 @@ class RegisterAlertsSubscription extends AlertEvent {}
 
 class CloseAlertsSubscription extends AlertEvent {}
 
+class EmptyLoadedAlerts extends AlertEvent {}
+
 class AlertSelectedEvent extends AlertEvent {
   final AlertEntity pickedAlert;
 

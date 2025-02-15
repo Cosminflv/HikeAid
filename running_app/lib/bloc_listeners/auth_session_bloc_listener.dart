@@ -2,6 +2,7 @@ import 'package:core/di/app_blocs.dart';
 import 'package:core/di/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:running_app/alerts/alert_events.dart';
 import 'package:running_app/app/app_events.dart';
 import 'package:running_app/app/app_state.dart';
 import 'package:running_app/config/routes.dart';
@@ -37,10 +38,13 @@ class AuthSessionBlocListener extends StatelessWidget {
               BlocProvider.of<UserProfileBloc>(context).add(FetchUserProfileEvent(userId: state.session.user.id));
               AppBlocs.friendships.add(InitializeNotificationService(userId: state.session.user.id));
               AppBlocs.friendships.add(FetchRequestsEvent(receiverId: state.session.user.id));
+              //AppBlocs.alertBloc.add(FetchAlertsEvent());
             }
             if (state is AuthSessionNotExistingState) {
               Navigator.of(context).pushReplacementNamed(RouteNames.getStartedPage);
               AppBlocs.friendships.add(CloseNotificationService());
+              AppBlocs.alertBloc.add(CloseAlertsSubscription());
+              AppBlocs.alertBloc.add(EmptyLoadedAlerts());
               discardBlocsIfRegistered();
             }
             if (state is AuthSessionFailureState) {

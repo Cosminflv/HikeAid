@@ -32,7 +32,7 @@ class AuthSessionBloc extends Bloc<AuthSessionEvent, AuthSessionState> {
   }
 
   _handleLogout(LogoutEvent event, Emitter<AuthSessionState> emit) async {
-    //await authSessionUseCase.signOut();
+    await authSessionUseCase.signOut((state as AuthSessionExistingState).session.user.id);
     emit(AuthSessionNotExistingState());
   }
 }

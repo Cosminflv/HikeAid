@@ -29,6 +29,7 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
     on<CloseAlertsSubscription>(_handleCloseAlertsSubscription);
 
     on<ResetStateBooleansEvent>(_handleResetStateBooleans);
+    on<EmptyLoadedAlerts>(_handleEmptyLoadedAlerts);
 
     on<AlertSelectedEvent>(_handleAlertSelected);
     on<AlertUnselectedEvent>(_handleAlertUnselected);
@@ -101,6 +102,10 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
 
   _handleResetStateBooleans(ResetStateBooleansEvent event, Emitter<AlertState> emit) async {
     emit(state.copyWith(isConfirmed: false, isAdded: false, hasPended: false));
+  }
+
+  _handleEmptyLoadedAlerts(EmptyLoadedAlerts event, Emitter<AlertState> emit) async {
+    emit(state.copyWith(alerts: []));
   }
 
   _handleAlertSelected(AlertSelectedEvent event, Emitter<AlertState> emit) async {
