@@ -41,6 +41,9 @@ class MapUseCase {
 
   MapCameraStateEntity? getCameraState() => _mapRepository.getCameraState();
 
+  void applyMapStyleByPath({required String path, bool smoothTransition = true}) =>
+      _mapRepository.applyMapStyleByPath(path: path, smoothTransition: smoothTransition);
+
   void presentHighlight(LandmarkEntity landmark, {int? highlightId, bool showLabel = true, Uint8List? image}) =>
       _mapRepository.presentHighlights(landmark, highlightId: highlightId, showLabel: showLabel, image: image);
 
@@ -73,7 +76,7 @@ class MapUseCase {
   // Markers and position
 
   Future<void> addAlerts(List<AlertEntity> alerts) async => await _mapRepository.addAlerts(alerts);
-  
+
   void addPolylineMarker({required List<CoordinatesEntity> coordinates}) =>
       _mapRepository.addPolylineMarker(coordinates: coordinates);
 

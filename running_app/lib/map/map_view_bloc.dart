@@ -30,6 +30,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
   MapViewBloc(this._assetBundleEntity) : super(const MapViewState()) {
     on<InitMapViewEvent>(_initMapViewEventHandler);
+    on<ApplyMapStyleByPathEvent>(_handleApplyMapStyleByPath);
 
     on<CompassAlignNorthEvent>(_handleAlignNorth);
     on<CompassAngleUpdatedEvent>(_handleCompassAngleUpdated);
@@ -76,6 +77,9 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     _setupPositionTracker(true);
     await _loadImages();
   }
+
+  _handleApplyMapStyleByPath(ApplyMapStyleByPathEvent event, Emitter<MapViewState> emit) =>
+      _mapUseCase.applyMapStyleByPath(path: event.path, smoothTransition: event.smoothTransition);
 
   _handleAlignNorth(CompassAlignNorthEvent event, Emitter<MapViewState> emit) {
     _mapUseCase.alignCompassNorth();

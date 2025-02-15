@@ -25,7 +25,7 @@ class AlertEntityImpl extends AlertEntity {
   Coordinates toGemCoordinates() => Coordinates(latitude: coordinates.latitude, longitude: coordinates.longitude);
 
   @override
-  Future<Uint8List?> loadImage() async {
+  Future<Uint8List?> loadImage() async {  
     final baseUrl = "http://$ipv4Address:7011/api/Alert/$id/image";
 
     try {

@@ -14,6 +14,7 @@ import 'package:running_app/map/widgets/map_actions_buttons.dart';
 import 'package:running_app/map/widgets/map_view_top_panel.dart';
 import 'package:running_app/map/widgets/navigation_bottom_controls.dart';
 import 'package:running_app/map/widgets/signal_alert_button.dart';
+import 'package:running_app/map_styles/map_styles_panel_events.dart';
 import 'package:running_app/search/search_menu_events.dart';
 import 'package:running_app/shared_widgets/search_app_bar.dart';
 import 'package:running_app/utils/common_handlers.dart';
@@ -94,6 +95,11 @@ class _MapViewPageState extends State<MapViewPage> {
                     initMapDependecies(controller);
                     locationBloc.add(InitializeLocationEvent());
                     appBloc.add(UpdateAppStatusEvent(AppStatus.initializedMap));
+
+                    final mapStyle =
+                        AppBlocs.mapStylesBloc.state.getStyleByPath('assets/map_styles/styles/Magic_Day_mobile.style');
+
+                    AppBlocs.mapStylesBloc.add(InitLocalMapStylesEvent(mapStyle?.path));
                   },
                 );
               }),

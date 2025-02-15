@@ -249,6 +249,10 @@ class MapRepositoryImpl extends MapRepository {
   void clearHighlights() => _controller.deactivateAllHighlights();
 
   @override
+  void applyMapStyleByPath({required String path, bool smoothTransition = true}) =>
+      _controller.preferences.setMapStyleByPath(path, smoothTransition: smoothTransition);
+
+  @override
   Future<void> addAlerts(List<AlertEntity> alerts) async {
     List<MarkerWithRenderSettings> markers = [];
 

@@ -175,3 +175,10 @@ class SelectedAlertUpdatedEvent extends MapViewEvent {
 }
 
 class UnselectAlertEvent extends MapViewEvent {}
+
+class ApplyMapStyleByPathEvent extends MapViewEvent {
+  final String path;
+  final bool smoothTransition;
+
+  ApplyMapStyleByPathEvent({required this.path, required this.smoothTransition});
+}

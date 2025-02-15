@@ -43,6 +43,9 @@ abstract class MapRepository {
   void setPositionTrackerImage(Uint8List imageData, {double scale = 1.0});
   void alignNorthUp();
 
+  // Styling
+  void applyMapStyleByPath({required String path, bool smoothTransition = true});
+
   void setEnableTouchGestures(bool enable);
 
   Future<Uint8List?> captureImage();

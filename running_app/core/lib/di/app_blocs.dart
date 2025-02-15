@@ -15,11 +15,13 @@ import 'package:running_app/onboarding/registration/registration_view_bloc.dart'
 import 'package:running_app/routing/routing_view_bloc.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
+import 'package:running_app/settings/settings_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/home/home_view_bloc.dart';
 import 'package:running_app/navigation_instructions/navigation_instructions_panel_bloc.dart';
 import 'package:running_app/tour_recording/tour_recording_bloc.dart';
 import 'package:running_app/alerts/alert_bloc.dart';
+import 'package:running_app/map_styles/map_styles_panel_bloc.dart';
 
 class AppBlocs {
   // Existing Blocs
@@ -88,4 +90,10 @@ class AppBlocs {
 
   // Getter for AlertBloc
   static AlertBloc get alertBloc => sl<AlertBloc>();
+
+  // Getter for MapStylesBloc
+  static MapStylesPanelBloc get mapStylesBloc => sl<MapStylesPanelBloc>();
+
+  // Getter for SettingsBloc
+  static SettingsViewBloc get settingsViewBloc => sl<SettingsViewBloc>();
 }

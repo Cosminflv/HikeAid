@@ -12,6 +12,7 @@ import 'package:running_app/internet_connection/internet_connection_events.dart'
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_event.dart';
 import 'package:running_app/config/theme.dart';
+import 'package:running_app/map_styles/map_styles_panel_events.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
@@ -35,6 +36,9 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
 
+    //initBlocs();
+
+    AppBlocs.mapStylesBloc.add(InitLocalMapStylesEvent(null));
     sl.get<AuthSessionBloc>().add(CheckForSessionEvent());
   }
 

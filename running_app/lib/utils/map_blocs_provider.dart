@@ -14,10 +14,12 @@ class MapBlocsProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider.value(value: sl.get<MapViewBloc>()),
+      BlocProvider.value(value: AppBlocs.settingsViewBloc),
       BlocProvider.value(value: AppBlocs.routingBloc),
       BlocProvider.value(value: AppBlocs.navigationBloc),
       BlocProvider.value(value: AppBlocs.navigationInstructionBloc),
       BlocProvider.value(value: sl.get<LandmarkStoreBloc>(instanceName: DLandmarkStoreType.searchHistory.name)),
+      BlocProvider.value(value: AppBlocs.mapStylesBloc),
     ], child: child);
   }
 }
