@@ -13,6 +13,7 @@ import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
 import 'package:running_app/utils/sizes.dart';
+import 'package:running_app/widgets/alerts_notifications.dart';
 
 import 'home_view_state.dart';
 
@@ -98,7 +99,8 @@ class _HomeViewPageState extends State<HomeViewPage> {
             body: IndexedStack(
               index: homeState.type.index,
               children: [
-                const InternetConnectionChecker(showFullPage: false, canInteract: true, child: MapViewPage()),
+                const InternetConnectionChecker(
+                    showFullPage: false, canInteract: true, child: AlertNotificationHandler(child: MapViewPage())),
                 const TourRecordPage(),
                 InternetConnectionChecker(
                     child: UserProfileViewPage(
