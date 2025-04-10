@@ -26,7 +26,7 @@ extension CoordinatesEntityExtension on CoordinatesEntity {
 
 extension GemLandmarkExtension on Landmark {
   LandmarkEntityImpl toEntityImpl({int width = 48, int height = 48, Uint8List? image, bool isPositionBased = false}) {
-    final landmarkImage = image ?? getImage();
+    final landmarkImage = image ?? getImage(size: Size(128, 128), format: ImageFileFormat.png);
 
     return LandmarkEntityImpl(
       ref: this,
@@ -45,7 +45,6 @@ extension LandmarkEntityExtension on LandmarkEntityImpl {
     final landmark = Landmark();
     landmark.coordinates = coordinates.toGemCoordinates();
     landmark.name = name;
-    landmark.setImage(imageData: ref!.getImage()!);
 
     return landmark;
   }
@@ -56,7 +55,7 @@ extension AddressInfoExtension on AddressInfo {
     final country = getField(AddressField.country);
     final city = getField(AddressField.city);
     final street = getField(AddressField.streetName);
-    return '$street $city $country';
+    return '${street ?? ""} ${city ?? ""} ${country ?? ""}';
   }
 }
 

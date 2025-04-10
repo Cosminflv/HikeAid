@@ -48,7 +48,9 @@ class LandmarkEntityImpl extends LandmarkEntity {
   }
 
   @override
-  Uint8List? get extraImage => ref?.getExtraImage(size: Size(128, 128), format: ImageFileFormat.png);
+  Uint8List? get extraImage {
+    return ref?.getImage(size: Size(128, 128), format: ImageFileFormat.png);
+  }
 
   @override
   bool get hasExtraImage {
@@ -67,7 +69,9 @@ class LandmarkEntityImpl extends LandmarkEntity {
   }
 
   @override
-  Uint8List? get image => ref?.getImage(size: Size(128, 128), format: ImageFileFormat.png);
+  Uint8List? get image {
+    return ref?.getImage(size: Size(128, 128), format: ImageFileFormat.png);
+  }
 
   @override
   int get id {

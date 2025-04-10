@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:data/extensions.dart';
 import 'package:data/models/landmark_category_entity_impl.dart';
 import 'package:data/models/task_progress_listener_impl.dart';
@@ -43,7 +45,7 @@ class SearchRepositoryImpl extends SearchRepository {
         var image = imageCache.get(imageUid);
 
         if (image == null) {
-          image = lmk.getImage();
+          image = lmk.getImage(size: Size(128, 128), format: ImageFileFormat.png);
           imageCache.add(imageUid, image!);
         }
         final lmkEntity = lmk.toEntityImpl(width: width, height: height, image: image);
@@ -90,7 +92,7 @@ class SearchRepositoryImpl extends SearchRepository {
         var image = imageCache.get(imageUid);
 
         if (image == null) {
-          image = lmk.getImage();
+          image = lmk.getImage(size: Size(128, 128), format: ImageFileFormat.png);
           imageCache.add(imageUid, image!);
         }
 
