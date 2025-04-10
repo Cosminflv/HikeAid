@@ -8,7 +8,6 @@ import 'package:domain/entities/route_instruction_description_entity.dart';
 
 import 'dart:async';
 import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:gem_kit/core.dart';
 
@@ -118,7 +117,7 @@ class RouteEntityImpl extends RouteEntity {
   }
 
   @override
-  Uint8List exportToGpx() => ref.exportAs(PathFileFormat.gpx);
+  String exportToGpx() => ref.exportAs(PathFileFormat.gpx);
 
   @override
   double distanceToRoute(CoordinatesEntity coordinates) {

@@ -44,7 +44,10 @@ class TourRepositoryImpl extends TourRepository {
       array.add(DataType.position);
 
       _recorderConfiguration = RecorderConfiguration(
-          logsDir: absPath, recordedTypes: array, minDurationSeconds: 0, dataSource: DataSource.createLiveDataSource());
+          logsDir: absPath,
+          recordedTypes: array,
+          minDurationSeconds: 0,
+          dataSource: DataSource.createLiveDataSource()!);
 
       _recorder = RecorderEntityImpl(Recorder.create(_recorderConfiguration!));
     }
@@ -61,7 +64,7 @@ class TourRepositoryImpl extends TourRepository {
     await _ensureDirectoryIsCreated(_tracksDirectoryPath);
 
     final bookmarks = RecorderBookmarks.create(_tracksDirectoryPath);
-    final logList = bookmarks.logsList;
+    final logList = bookmarks!.getLogsList();
 
     final startTimestamp = startRecordingTimestamp.toString();
     final gpxFileName = 'Tour_Record_$startTimestamp';

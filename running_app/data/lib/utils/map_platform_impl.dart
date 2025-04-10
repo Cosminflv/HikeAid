@@ -10,10 +10,10 @@ class MapPlatformImpl extends MapPlatform {
     switch (type) {
       case ThemeType.day:
         return SdkSettings.getImageById(
-            id: EngineMisc.compassEnableSensorOFF.id, size: Size(width.toDouble(), height.toDouble()));
+            id: EngineMisc.compassEnableSensorOFF.id, size: Size(width.toDouble(), height.toDouble()))!;
       case ThemeType.night:
         return SdkSettings.getImageById(
-            id: EngineMisc.compassEnableSensorOFFnight.id, size: Size(width.toDouble(), height.toDouble()));
+            id: EngineMisc.compassEnableSensorOFFnight.id, size: Size(width.toDouble(), height.toDouble()))!;
     }
   }
 }

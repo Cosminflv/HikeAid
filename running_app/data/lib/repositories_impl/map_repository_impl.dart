@@ -33,7 +33,7 @@ class MapRepositoryImpl extends MapRepository {
     final settings = HighlightRenderSettings(
         options: {HighlightOptions.showLandmark, HighlightOptions.showContour, HighlightOptions.overlap});
 
-    landmark.ref!.setImage(imageData: image ?? landmark.ref!.getImage(size: Size(128, 128)));
+    landmark.ref!.setImage(imageData: image ?? landmark.ref!.getImage(size: Size(128, 128))!);
     landmarksToHighlight.add(landmark.ref!);
 
     _controller.activateHighlight(
@@ -50,7 +50,7 @@ class MapRepositoryImpl extends MapRepository {
     required Function(LandmarkEntity?, RouteEntity?) onTap,
     required Function(List<CoordinatesEntity>) onMarkerSelected,
   }) {
-    _controller.registerOnMapAngleUpdateCallback(onMapAngleUpdated);
+    _controller.registerMapAngleUpdateCallback(onMapAngleUpdated);
     _controller.registerMoveCallback((p1, p2) => onMapMove());
 
     _controller.registerTouchCallback((pos) async {

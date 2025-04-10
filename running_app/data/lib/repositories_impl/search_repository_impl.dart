@@ -44,7 +44,7 @@ class SearchRepositoryImpl extends SearchRepository {
 
         if (image == null) {
           image = lmk.getImage();
-          imageCache.add(imageUid, image);
+          imageCache.add(imageUid, image!);
         }
         final lmkEntity = lmk.toEntityImpl(width: width, height: height, image: image);
 
@@ -91,7 +91,7 @@ class SearchRepositoryImpl extends SearchRepository {
 
         if (image == null) {
           image = lmk.getImage();
-          imageCache.add(imageUid, image);
+          imageCache.add(imageUid, image!);
         }
 
         final lmkEntity = lmk.toEntityImpl(width: width, height: height, image: image);

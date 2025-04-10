@@ -1,8 +1,6 @@
 import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/entities/landmark_entity.dart';
 
-import 'dart:typed_data';
-
 import 'package:domain/entities/route_instruction_description_entity.dart';
 
 abstract class RouteEntity {
@@ -40,7 +38,7 @@ abstract class RouteEntity {
 
   CoordinatesEntity get middleCoordinates;
 
-  Uint8List exportToGpx();
+  String exportToGpx();
 
   double distanceToRoute(CoordinatesEntity coordinates);
 }

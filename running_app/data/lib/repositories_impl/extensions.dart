@@ -45,7 +45,7 @@ extension LandmarkEntityExtension on LandmarkEntityImpl {
     final landmark = Landmark();
     landmark.coordinates = coordinates.toGemCoordinates();
     landmark.name = name;
-    landmark.setImage(imageData: ref!.getImage());
+    landmark.setImage(imageData: ref!.getImage()!);
 
     return landmark;
   }
