@@ -284,7 +284,7 @@ class MapRepositoryImpl extends MapRepository {
 
       _controller.preferences.markers.add(polylineMarkerCollection,
           settings: MarkerCollectionRenderSettings(
-            polylineInnerColor: Color.fromARGB(255, 121, 134, 203),
+            polylineInnerColor: Color.fromARGB(255, 19, 116, 48),
             polylineOuterColor: Color.fromARGB(255, 255, 255, 255),
             polylineOuterSize: 1,
             polylineInnerSize: 1.5,
@@ -292,6 +292,8 @@ class MapRepositoryImpl extends MapRepository {
 
       return;
     }
+    final marker = polylineMarkerCollection.getMarkerAt(0);
+    marker.setCoordinates(coordinates.map((e) => e.toGemCoordinates()).toList());
   }
 
   @override

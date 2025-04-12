@@ -53,13 +53,13 @@ class RecorderRepositoryImpl extends RecorderRepository {
       _recorder = RecorderEntityImpl(Recorder.create(_recorderConfiguration!));
     }
 
-    _recorder!.ref.startRecording();
+    await _recorder!.ref.startRecording();
     startRecordingTimestamp = DateTime.now();
   }
 
   @override
   Future<String> stopRecording() async {
-    _recorder!.ref.stopRecording();
+    await _recorder!.ref.stopRecording();
     await _ensureDirectoryIsCreated(_tracksDirectoryPath);
 
     final bookmarks = RecorderBookmarks.create(_tracksDirectoryPath);
