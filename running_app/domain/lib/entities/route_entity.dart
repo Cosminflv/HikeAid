@@ -1,7 +1,6 @@
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
-
 import 'package:domain/entities/route_instruction_description_entity.dart';
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 abstract class RouteEntity {
   final List<LandmarkEntity> waypoints;

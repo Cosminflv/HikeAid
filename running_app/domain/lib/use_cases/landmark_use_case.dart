@@ -1,6 +1,6 @@
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/repositories/landmark_repository.dart';
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 class LandmarkUseCase {
   final LandmarkRepository _landmarkRepository;

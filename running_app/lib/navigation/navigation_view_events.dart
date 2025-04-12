@@ -1,4 +1,4 @@
-import 'package:domain/entities/coordinates_entity.dart';
+import 'package:shared/domain/coordinates_entity.dart';
 import 'package:domain/entities/navigation_instruction_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/repositories/navigation_repository.dart';

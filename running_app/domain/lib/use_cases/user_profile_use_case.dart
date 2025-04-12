@@ -1,8 +1,9 @@
 import 'package:domain/entities/edit_user_profile_status.dart';
-import 'package:domain/entities/user_profile_entity.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
 
 import 'dart:typed_data';
+
+import 'package:shared/domain/user_profile_entity.dart';
 
 class UserProfileUseCase {
   final UserProfileRepository _userProfileRepository;

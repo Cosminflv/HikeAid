@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:domain/entities/edit_user_profile_status.dart';
-import 'package:domain/entities/user_profile_entity.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared/domain/user_profile_entity.dart';
 
 abstract class EditUserProfileViewState extends Equatable {}
 

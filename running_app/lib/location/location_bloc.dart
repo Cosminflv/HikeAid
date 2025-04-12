@@ -1,5 +1,5 @@
 import 'package:core/di/injection_container.dart';
-import 'package:domain/entities/landmark_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 import 'package:domain/use_cases/location_use_case.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:running_app/location/location_event.dart';

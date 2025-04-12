@@ -1,8 +1,4 @@
-import 'package:data/models/coordinates_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
-import 'package:data/repositories_impl/extensions.dart';
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/entities/route_instruction_description_entity.dart';
 
@@ -10,6 +6,10 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:gem_kit/core.dart';
+import 'package:shared/data/coordinates_entity_impl.dart';
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
+import 'package:shared/extensions.dart';
 
 class RouteEntityImpl extends RouteEntity {
   final Route ref;

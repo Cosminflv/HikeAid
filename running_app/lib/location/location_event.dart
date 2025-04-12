@@ -1,4 +1,4 @@
-import 'package:domain/entities/position_entity.dart';
+import 'package:shared/domain/position_entity.dart';
 
 abstract class LocationEvent {}
 

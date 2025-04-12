@@ -1,5 +1,4 @@
 import 'package:data/models/alert_entity_impl.dart';
-import 'package:data/models/coordinates_entity_impl.dart';
 import 'package:data/services/sembast_database.dart';
 import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/repositories/pending_alerts_repository.dart';
@@ -7,6 +6,8 @@ import 'package:domain/repositories/pending_alerts_repository.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
 import 'dart:typed_data';
+
+import 'package:shared/data/coordinates_entity_impl.dart';
 
 class PendingAlertsRepositoryImpl extends PendingAlertsRepository {
   final _dbHelper = SembastDatabase.instance;

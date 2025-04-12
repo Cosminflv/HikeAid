@@ -1,13 +1,15 @@
-import 'package:domain/repositories/permission_repository.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart' as gl;
 import 'package:rxdart/rxdart.dart';
+
+import '../domain/permission_repository.dart';
+import '../domain/permissions.dart';
 
 class PermissionRepositoryImpl extends PermissionRepository {
   final Map<DPermissionType, DAccessStatus> _permissionTypeToStatus = {
     DPermissionType.locationWhenInUse: DAccessStatus.denied,
     DPermissionType.manageExternalStorage: DAccessStatus.denied,
+    DPermissionType.camera: DAccessStatus.denied
   };
 
   final Map<DPermissionType, BehaviorSubject<DAccessStatus>> _permissionStatusControllers = {
@@ -50,7 +52,6 @@ class PermissionRepositoryImpl extends PermissionRepository {
     final locationPermissionStatus = getAccessStatus(permissionType);
 
     if (locationPermissionStatus == DAccessStatus.permanentlyDenied) {
-      await openAppSettings();
       final status = getAccessStatus(permissionType);
       return status == DAccessStatus.granted;
     }
@@ -162,4 +163,7 @@ class PermissionRepositoryImpl extends PermissionRepository {
   Future<bool> openLocationService() async {
     return await gl.Geolocator.openLocationSettings();
   }
+
+  @override
+  Future<void> openApplicationSettings() => openAppSettings();
 }

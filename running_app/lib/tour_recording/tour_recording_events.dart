@@ -1,5 +1,5 @@
-import 'package:domain/entities/position_entity.dart';
-import 'package:domain/entities/tour_entity.dart';
+import 'package:shared/domain/position_entity.dart';
+import 'package:shared/domain/tour_entity.dart';
 import 'dart:typed_data';
 
 abstract class TourRecordingEvent {}

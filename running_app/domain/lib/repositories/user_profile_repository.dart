@@ -1,7 +1,8 @@
 import 'package:domain/entities/edit_user_profile_status.dart';
-import 'package:domain/entities/user_profile_entity.dart';
 
 import 'dart:typed_data';
+
+import 'package:shared/domain/user_profile_entity.dart';
 
 /// A repository interface for managing user profile data.
 ///

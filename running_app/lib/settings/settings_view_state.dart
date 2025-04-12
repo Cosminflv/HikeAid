@@ -1,4 +1,4 @@
-import 'package:domain/entities/coordinates_entity.dart';
+import 'package:shared/domain/coordinates_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class CoordinatesImpl extends CoordinatesEntity {

@@ -1,9 +1,9 @@
-import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/navigation_instruction_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/repositories/navigation_repository.dart';
 import 'package:domain/repositories/task_progress_listener.dart';
 import 'package:domain/repositories/tts_repository.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 class NavigationUseCase {
   final NavigationRepository _navigationRepository;

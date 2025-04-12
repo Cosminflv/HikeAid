@@ -1,325 +1,191 @@
-import 'package:data/models/recorder_entity_impl.dart';
-import 'package:data/utils/tour_builder.dart';
-
-import 'package:domain/entities/tour_entity.dart';
 import 'package:domain/repositories/tour_repository.dart';
-import 'package:gem_kit/sense.dart';
+import 'package:shared/domain/tour_entity.dart';
+import 'package:shared/data/tour_entity_impl.dart';
 
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
 
-import 'dart:io' as io;
-import 'dart:io';
-import 'dart:typed_data';
+import 'package:shared/domain/tour_file_entity.dart';
 
 class TourRepositoryImpl extends TourRepository {
-  RecorderEntityImpl? _recorder;
-  RecorderConfiguration? _recorderConfiguration;
-  DateTime? startRecordingTimestamp;
-  Directory? _documentsDirectory;
+  //TODO: Change to openAPI instance
+  //final Supabase _supabaseInstance;
 
-  TourRepositoryImpl() {
-    if (io.Platform.isAndroid) {
-      getExternalStorageDirectory().then((dir) => _documentsDirectory = dir);
-    } else if (io.Platform.isIOS) {
-      getApplicationDocumentsDirectory().then((dir) => _documentsDirectory = dir);
-    }
+  TourRepositoryImpl();
+
+  @override
+  Future<TourEntityImpl?> insertTour({required TourEntity tour}) async {
+    // try {
+    //   final session = _supabaseInstance.client.auth.currentSession;
+
+    //   if (session == null) return null;
+
+    //   _supabaseInstance.client.rest.setAuth(session.accessToken);
+
+    //   final res = await _supabaseInstance.client.rest.from('tours').insert(tour.toJson(session.user.id)).select();
+
+    //   return TourEntityImpl.fromJson(res.first);
+    // } catch (e) {
+    //   return null;
+    // }
   }
 
   @override
-  Future<void> startRecording() async {
-    if (_recorder != null) {
-      _recorder!.ref.stopRecording();
-      _recorder!.ref.dispose();
-      _recorder = null;
-      _recorderConfiguration = null;
-      startRecordingTimestamp = null;
-    }
+  Future<List<TourEntity>?> readOwnTours() async {
+    // final session = _supabaseInstance.client.auth.currentSession;
 
-    if (_recorder == null && _recorderConfiguration == null) {
-      await _ensureDirectoryIsCreated(_tracksDirectoryPath);
-      final absPath = _tracksDirectoryPath;
+    // if (session == null) return null;
 
-      List<DataType> array = [];
-      array.add(DataType.position);
+    // _supabaseInstance.client.rest.setAuth(session.accessToken);
+    // final id = session.user.id;
 
-      _recorderConfiguration = RecorderConfiguration(
-          logsDir: absPath,
-          recordedTypes: array,
-          minDurationSeconds: 0,
-          dataSource: DataSource.createLiveDataSource()!);
-
-      _recorder = RecorderEntityImpl(Recorder.create(_recorderConfiguration!));
-    }
-
-    _recorder!.ref.startRecording();
-    startRecordingTimestamp = DateTime.now();
+    // final response = await _supabaseInstance.client.rest
+    //     .from('tours')
+    //     .select('*, profiles!public_tours_author_id_fkey(*)')
+    //     .eq('author_id', id);
+    // return response.map((json) => TourEntityImpl.fromJson(json)).toList();
   }
 
   @override
-  Future<TourEntity?> stopRecording({Uint8List? preview}) async {
-    if (_recorder == null) return null;
+  Future<List<TourEntity>?> readTours() async {
+    // final session = _supabaseInstance.client.auth.currentSession;
 
-    _recorder!.ref.stopRecording();
-    await _ensureDirectoryIsCreated(_tracksDirectoryPath);
+    // if (session == null) return null;
 
-    final bookmarks = RecorderBookmarks.create(_tracksDirectoryPath);
-    final logList = bookmarks!.getLogsList();
+    // _supabaseInstance.client.rest.setAuth(session.accessToken);
 
-    final startTimestamp = startRecordingTimestamp.toString();
-    final gpxFileName = 'Tour_Record_$startTimestamp';
+    // final response = await _supabaseInstance.client.rest
+    //     .from('tours')
+    //     .select('*, profiles!public_tours_author_id_fkey(*)')
+    //     .eq('is_public', true);
 
-    if (logList.isEmpty) {
-      return null;
-    }
-
-    bookmarks.exportLog(logList.last, FileType.gpx, exportedFileName: gpxFileName);
-
-    if (preview != null) {
-      await _ensureDirectoryIsCreated(_tracksPreviewPath);
-
-      final fileCompletePath = join(_tracksPreviewPath, '$gpxFileName.jpg');
-      File file = File(fileCompletePath);
-
-      await file.writeAsBytes(preview);
-    }
-
-    final tours = await getRecordedTours();
-    final lastRecordedTour = tours.firstWhere((tour) => tour.name == '$gpxFileName.gpx');
-
-    return lastRecordedTour;
+    // return response.map((json) => TourEntityImpl.fromJson(json)).toList();
   }
-
-  // @override
-  // Future<void> delete(TourEntity tour) async {
-  //   final file = io.File(tour.filePath);
-  //   await file.delete();
-  //   if (tour.type == TourTypes.planned) {
-  //     await file.parent.delete();
-  //   }
-
-  //   final previewName = (tour.type == TourTypes.completed)
-  //       ? '${tour.name.split('.').first}.jpg'
-  //       : _getPreviewWithDate(tour.filePath).replaceAll('gpx', 'jpg');
-  //   final previewFile = io.File('$_tracksPreviewPath/$previewName');
-
-  //   if (await previewFile.exists()) {
-  //     previewFile.delete();
-  //   }
-  // }
 
   @override
-  Future<List<TourEntity>> getRecordedTours() async {
-    await _ensureDirectoryIsCreated(_tracksDirectoryPath);
+  Future<void> delete(TourEntity tour) async {
+    // final session = _supabaseInstance.client.auth.currentSession;
 
-    final io.Directory directory = io.Directory(_tracksDirectoryPath);
-    final List<io.FileSystemEntity> trackDirFiles = await directory.list().toList();
+    // if (session == null) return;
 
-    final recordedTours = <TourEntity>[];
+    // _supabaseInstance.client.rest.setAuth(session.accessToken);
 
-    for (final file in trackDirFiles) {
-      if (file is! io.File || !file.path.toLowerCase().endsWith('.gpx')) continue;
-      final preview = await _readPreviewForGPX(file.path.split('/').last);
-      final tour = await TourBuilder.build(file, preview: preview);
-      if (tour == null) continue;
-
-      recordedTours.add(tour);
-    }
-
-    return recordedTours;
+    // await _supabaseInstance.client.rest.from('tours').delete().eq('id', tour.id);
   }
 
-  // @override
-  // Future<void> rename({required TourEntity tour, required String newName}) async {
-  //   final gpxFile = File(tour.filePath);
-  //   final previewfile = File(tour.getCorrespondingPreviewPath(_tracksPreviewPath));
+  @override
+  Future<void> rename({required TourEntity tour, required String newName}) async {
+    // final session = _supabaseInstance.client.auth.currentSession;
 
-  //   final newGpxNameWithExtension = newName.contains('.gpx') ? newName : '$newName.gpx';
-  //   String newPreviewNameWithExtension = '${newGpxNameWithExtension.split('.').first}.jpg';
+    // if (session == null) return;
 
-  //   if (tour.type == TourTypes.planned) {
-  //     final dateRegExp = RegExp(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}');
-  //     if (!dateRegExp.hasMatch(tour.name)) {
-  //       newPreviewNameWithExtension = '${tour.date}_$newPreviewNameWithExtension';
-  //     }
-  //   }
+    // _supabaseInstance.client.rest.setAuth(session.accessToken);
 
-  //   await _changeFileNameOnly(gpxFile, newGpxNameWithExtension);
-
-  //   await _changeFileNameOnly(previewfile, newPreviewNameWithExtension);
-  // }
-
-  String get _tracksDirectoryPath => "${_documentsDirectory!.path}/Data/Tracks";
-  String get _tracksPreviewPath => "${_documentsDirectory!.path}/Tours/previews";
-  //String get _plannedTracksDirectoryPath => "${_documentsDirectory!.path}/Data/PlannedTracks";
-
-  Future<Uint8List?> _readPreviewForGPX(String name) async {
-    final previewPath = '$_tracksPreviewPath/$name'.replaceAll('gpx', 'jpg');
-
-    final previewfile = File(previewPath);
-
-    final doesFileExist = await previewfile.exists();
-
-    if (doesFileExist) {
-      return previewfile.readAsBytes();
-    }
-
-    return null;
+    // await _supabaseInstance.client.rest.from('tours').update({'name': newName}).eq('id', tour.id);
   }
 
-  // Future<void> _changeFileNameOnly(File file, String newFileName) async {
-  //   if (!(await file.exists())) return;
-  //   var path = file.path;
+  @override
+  Future<void> setVisibility({required TourEntity tour, required bool isPublic}) async {
+    // final session = _supabaseInstance.client.auth.currentSession;
 
-  //   var lastSeparator = path.lastIndexOf(Platform.pathSeparator);
-  //   var newPath = path.substring(0, lastSeparator + 1) + newFileName;
-  //   file.rename(newPath);
-  // }
+    // if (session == null) return;
 
-  Future<void> _ensureDirectoryIsCreated(String path) async {
-    if (_documentsDirectory == null) {
-      if (io.Platform.isAndroid) {
-        _documentsDirectory = await getExternalStorageDirectory();
-      } else if (io.Platform.isIOS) {
-        _documentsDirectory = await getApplicationDocumentsDirectory();
-      }
-    }
+    // _supabaseInstance.client.rest.setAuth(session.accessToken);
 
-    final previewsDirectory = Directory(path);
-
-    if (!(await previewsDirectory.exists())) {
-      await previewsDirectory.create(recursive: true);
-    }
+    // await _supabaseInstance.client.rest.from('tours').update({'is_public': isPublic}).eq('id', tour.id);
   }
 
-  // @override
-  // Future<void> addTourPreview({required TourEntity tour, required Uint8List preview}) async {
-  //   await _ensureDirectoryIsCreated(_tracksPreviewPath);
-  //   File file = File(tour.getCorrespondingPreviewPath(_tracksPreviewPath));
+  @override
+  void registerTourSharingURLReceivedCallback(void Function(TourEntity? tour) onTourReceived) {
+    // StreamSubscription? authLinkSubscription;
+    // authLinkSubscription = AppLinks().uriLinkStream.listen((uri) async {
+    //   final queryParams = uri.queryParameters;
 
-  //   await file.writeAsBytes(preview);
-  // }
+    //   if (uri.pathSegments.contains('share_tour')) {
+    //     final id = queryParams['tour'];
+    //     if (id == null) return;
 
-  // @override
-  // Future<void> shareAsGPX(TourEntity tour) async {
-  //   await Share.shareXFiles([XFile(tour.filePath)]);
-  // }
+    //     final tour = await _getTourById(id);
+    //     onTourReceived(tour);
+    //   }
+    // });
+  }
 
-  // @override
-  // void registerForIncomingGPXIntents(void Function(TourEntity tour) onTourReceived) {
-  //   ReceiveSharingIntent.instance.getMediaStream().listen((value) async {
-  //     if (value.isEmpty) return;
-  //     final importedFile = value.first;
+  Future<TourEntity?> _getTourById(String id) async {
+    // final session = _supabaseInstance.client.auth.currentSession;
 
-  //     final tour = await TourBuilder.build(File(importedFile.path));
-  //     if (tour == null) return;
+    // if (session == null) return null;
 
-  //     onTourReceived(tour);
-  //   }, onError: (err) {});
+    // _supabaseInstance.client.rest.setAuth(session.accessToken);
 
-  //   ReceiveSharingIntent.instance.getInitialMedia().then((value) async {
-  //     if (value.isEmpty) return;
-  //     final importedFile = value.first;
+    // try {
+    //   final res = await _supabaseInstance.client.rest
+    //       .from('tours')
+    //       .select('*, profiles!public_tours_author_id_fkey(*)')
+    //       .eq('id', id);
+    //   if (res.isEmpty) return null;
 
-  //     final tour = await TourBuilder.build(File(importedFile.path));
+    //   return TourEntityImpl.fromJson(res.first);
+    // } catch (e) {
+    //   return null;
+    // }
+  }
 
-  //     if (tour == null) return;
-  //     ReceiveSharingIntent.instance.reset();
-  //   });
-  // }
+  @override
+  Future<TourEntity?> checkForTourSharingURL() async {
+    // final uri = await AppLinks().getInitialLink();
 
-  // @override
-  // Future<void> saveTour(TourEntity tour) async {
-  //   final tempfile = File(tour.filePath);
-  //   await tempfile.copy('$_tracksDirectoryPath/${tour.name}');
-  // }
+    // if (uri == null) return null;
 
-  // @override
-  // Future<TourEntity?> addPlannedTour(RouteEntity route, String name) async {
-  //   await _ensureDirectoryIsCreated(_plannedTracksDirectoryPath);
+    // final queryParams = uri.queryParameters;
 
-  //   final timestamp = DateTime.now().toIso8601String();
-  //   String folderFileName = 'Planned_Tour_$timestamp';
+    // if (uri.pathSegments.contains('share_tour')) {
+    //   final id = queryParams['tour'];
+    //   if (id == null) return null;
 
-  //   final directory = Directory('$_plannedTracksDirectoryPath/$folderFileName');
-  //   if (!await directory.exists()) {
-  //     await directory.create(recursive: true);
-  //   }
+    //   return await _getTourById(id);
+    // }
+    // return null;
+  }
 
-  //   final gpxFileName = '$folderFileName/$name';
-  //   final fileCompletePath = join(_plannedTracksDirectoryPath, '$gpxFileName.gpx');
+  @override
+  Future<List<String>?> insertTourImages({required TourEntity tour, required List<TourFileEntity> images}) async {
+    // final session = _supabaseInstance.client.auth.currentSession;
 
-  //   final gpxData = route.exportToGpx();
-  //   String gpxString = utf8.decode(gpxData);
+    // if (session == null) return null;
 
-  //   Uint8List decodedGpxData = base64.decode(gpxString);
+    // _supabaseInstance.client.rest.setAuth(session.accessToken);
 
-  //   io.File file = await io.File(fileCompletePath).create();
-  //   file.writeAsBytes(decodedGpxData);
+    // try {
+    //   final imagesToInsert = images
+    //       .map((e) => {
+    //             'distance_on_tour': e.distance,
+    //             'tour_id': tour.id,
+    //           })
+    //       .toList();
+    //   final res = await _supabaseInstance.client.rest.from('tour_files').insert(imagesToInsert).select('file_name');
+    //   if (res.isEmpty) return null;
 
-  //   final tours = await getPlannedTours();
+    //   return res.map((e) => e['file_name'] as String).toList();
+    // } catch (e) {
+    //   return null;
+    // }
+  }
 
-  //   final lastRecordedTour = tours.firstWhere((tour) => tour.date == timestamp);
+  @override
+  Future<List<TourFileEntity>?> readTourFiles(TourEntity tour) async {
+    //   final session = _supabaseInstance.client.auth.currentSession;
 
-  //   return lastRecordedTour;
-  // }
+    //   if (session == null) return null;
 
-  // @override
-  // Future<List<TourEntity>> getPlannedTours() async {
-  //   await _ensureDirectoryIsCreated(_plannedTracksDirectoryPath);
+    //   _supabaseInstance.client.rest.setAuth(session.accessToken);
 
-  //   final io.Directory directory = io.Directory(_plannedTracksDirectoryPath);
-  //   final List<io.FileSystemEntity> trackDirEntities = await directory.list().toList();
+    //   try {
+    //     final res = await _supabaseInstance.client.rest.from('tour_files').select().eq('tour_id', tour.id);
+    //     if (res.isEmpty) return null;
 
-  //   final recordedTours = <TourEntity>[];
-
-  //   for (final entity in trackDirEntities) {
-  //     if (entity is! io.Directory) continue;
-
-  //     final List<io.FileSystemEntity> filesInDir = await entity.list().toList();
-
-  //     io.File? gpxFile;
-  //     for (final file in filesInDir) {
-  //       if (file is io.File && file.path.toLowerCase().endsWith('.gpx')) {
-  //         gpxFile = file;
-  //         break;
-  //       }
-  //     }
-  //     if (gpxFile != null) {
-  //       final preview = await _readPreviewForGPX(_getPreviewWithDate(gpxFile.path));
-  //       final tour = await TourBuilder.build(gpxFile, preview: preview);
-  //       if (tour == null) continue;
-  //       recordedTours.add(tour);
-  //     }
-  //   }
-
-  //   return recordedTours;
-  // }
-
-  // String _getPreviewWithDate(gpxFilePath) {
-  //   String fileName = gpxFilePath.split('/').last;
-
-  //   final dateRegExp = RegExp(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+');
-  //   String? dateMatch = dateRegExp.stringMatch(gpxFilePath);
-  //   if (dateMatch == null) {
-  //     throw Exception('Name of planned tour is not as it should be');
-  //   }
-
-  //   return '${dateMatch}_$fileName';
-  // }
-
-  // @override
-  // Future<TourEntity?> importTour() async {
-  //   final result = await fp.FilePicker.platform.pickFiles(
-  //     type: Platform.isAndroid ? fp.FileType.any : fp.FileType.custom,
-  //     allowedExtensions: Platform.isAndroid ? null : ['gpx'],
-  //   );
-
-  //   if (result == null) return null;
-  //   if (result.files.isEmpty) return null;
-  //   if (result.files.first.extension != 'gpx') return null;
-
-  //   final pickedFile = result.files.first;
-  //   return await TourBuilder.build(File(pickedFile.path!));
-  // }
+    //     return res.map((e) => TourFileEntityImpl.fromJson(e)).toList();
+    //   } catch (e) {
+    //     return null;
+    //   }
+    // }
+  }
 }

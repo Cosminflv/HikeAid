@@ -1,8 +1,8 @@
 import 'package:core/di/app_blocs.dart';
-import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_event.dart';
+import 'package:shared/domain/user_profile_entity.dart';
 
 class CupertinoEnumPickerDialog extends StatefulWidget {
   final EGenderEntity currentGender;

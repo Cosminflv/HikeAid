@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:domain/entities/alert_entity.dart';
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
-import 'package:domain/entities/path_entity.dart';
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
+import 'package:shared/domain/path_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
 import 'package:domain/settings/general_settings_entity.dart';

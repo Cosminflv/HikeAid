@@ -1,5 +1,6 @@
-import 'package:domain/entities/tour_entity.dart';
+import 'package:shared/domain/tour_entity.dart';
 import 'package:domain/use_cases/tour_use_case.dart';
+import 'package:domain/use_cases/recorder_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/tour_recording/tour_recording_state.dart';
 
@@ -10,9 +11,11 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
 
   final TourMetricsTracker _averageSpeedTracker = TourMetricsTracker();
 
-  final TourUseCase _gpxUseCase;
+  final RecorderUseCase _gpxUseCase;
+  final TourUsecase _remoteTourUsecase;
+  //final UserFilesManagementUsecase _userFilesManagementUsecase;
 
-  TourRecordingBloc(this._gpxUseCase) : super(const TourRecordingState()) {
+  TourRecordingBloc(this._gpxUseCase, this._remoteTourUsecase) : super(const TourRecordingState()) {
     on<UpdatePositionEvent>(_handleUpdatePosition);
     on<AddRecordedCoordinatesEvent>(_handleAddRecordedCoordinates);
     on<StartRecordingEvent>(_handleStartRecording);
@@ -59,10 +62,43 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
       emit(state.copyWith(status: RecordingStatus.paused));
 
   _handleSaveTour(SaveTourEvent event, Emitter<TourRecordingState> emit) async {
-    final tour = await _gpxUseCase.stopRecording(preview: event.preview);
-    if (tour == null) return;
+    final gmPath = await _gpxUseCase.stopRecording();
 
-    emit(state.copyWith(status: RecordingStatus.tourSaved, tour: tour.copyWith(duration: state.timeInMotion)));
+    // final tour = sl.get<TourFactory>().produce(
+    //       date: DateTime.now(),
+    //       name: 'Cycling',
+    //       distance: state.distanceTraveled!,
+    //       duration: state.timeInMotion!,
+    //       totalUp: _averageSpeedTracker.totalUp.toInt(),
+    //       totalDown: _averageSpeedTracker.totalDown.toInt(),
+    //       coordinates: state.recordedCoordinates,
+    //       type: TourType.completed,
+    //       isPublic: false, // TODO: add attribute in event
+    //     );
+
+    // final insertedTour = await _remoteTourUsecase.insertTour(tour: tour);
+    // if (insertedTour == null) return;
+
+    // final insertImageNames = await _remoteTourUsecase.insertTourImages(tour: insertedTour, images: event.files);
+    // if (insertImageNames!.length != event.files.length) return;
+
+    // final filesToUpload = [
+    //   for (int i = 0; i < event.files.length; i++) event.files[i].copyWithName(insertImageNames[i])
+    // ];
+
+    // for (final fileEntity in filesToUpload) {
+    //   if (fileEntity.localPath == null) return;
+    //   final file = File(fileEntity.localPath!);
+    //   await _userFilesManagementUsecase.uploadTourImage(
+    //       tour: insertedTour, remoteName: fileEntity.remoteName!, imageFile: file);
+    // }
+
+    // if (event.preview == null) return;
+
+    // await _userFilesManagementUsecase.uploadTour(
+    //     remoteName: insertedTour.fileId, gmFile: File(gmPath), previewImage: event.preview!);
+
+    emit(state.copyWith(status: RecordingStatus.tourSaved));
   }
 }
 

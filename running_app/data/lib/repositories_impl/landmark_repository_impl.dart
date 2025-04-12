@@ -1,15 +1,17 @@
-import 'package:data/extensions.dart';
-import 'package:data/models/coordinates_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
+import 'package:data/repositories_impl/extensions.dart';
 
 import 'package:domain/repositories/landmark_repository.dart';
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
 
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/search.dart';
 
 import 'dart:async';
+
+import 'package:shared/data/coordinates_entity_impl.dart';
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
+import 'package:shared/extensions.dart';
 
 class LandmarkRepositoryImpl extends LandmarkRepository {
   @override

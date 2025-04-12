@@ -1,6 +1,5 @@
-import 'package:data/models/coordinates_entity_impl.dart';
-
-import 'package:domain/entities/tour_entity.dart';
+import 'package:shared/data/coordinates_entity_impl.dart';
+import 'package:shared/domain/tour_entity.dart';
 import 'package:xml/xml.dart' as xml;
 
 class GPXRoutePoint {

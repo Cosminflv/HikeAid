@@ -2,7 +2,6 @@ import 'package:data/models/route_entity_impl.dart';
 import 'package:data/models/task_progress_listener_impl.dart';
 import 'package:data/repositories_impl/extensions.dart';
 
-import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/navigation_instruction_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/repositories/image_cache_repository.dart';
@@ -10,6 +9,7 @@ import 'package:domain/repositories/navigation_repository.dart';
 import 'package:domain/repositories/task_progress_listener.dart';
 
 import 'package:gem_kit/navigation.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 class NavigationRepositoryImpl extends NavigationRepository {
   final ImageCacheRepository _imageCacheRepository;

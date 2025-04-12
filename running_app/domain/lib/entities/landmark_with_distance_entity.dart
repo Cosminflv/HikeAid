@@ -1,9 +1,9 @@
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
-
 import 'package:equatable/equatable.dart';
 
 import 'dart:typed_data';
+
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 class LandmarkWithDistanceEntity extends Equatable {
   final LandmarkEntity landmark;

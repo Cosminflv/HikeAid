@@ -1,6 +1,5 @@
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_category_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 import 'package:domain/entities/landmark_with_distance_entity.dart';
 import 'package:domain/entities/search_status.dart';
 
@@ -11,13 +10,6 @@ class SearchTextEvent extends SearchMenuEvent {
   final CoordinatesEntity coordinates;
 
   SearchTextEvent({required this.text, required this.coordinates});
-}
-
-class SearchCategoryEvent extends SearchMenuEvent {
-  final LandmarkCategoryEntity category;
-  final CoordinatesEntity coordinates;
-
-  SearchCategoryEvent({required this.category, required this.coordinates});
 }
 
 class SearchSuccessfulEvent extends SearchMenuEvent {

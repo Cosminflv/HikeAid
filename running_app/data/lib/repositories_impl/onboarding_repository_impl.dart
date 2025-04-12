@@ -3,7 +3,7 @@ import 'package:data/models/user_entity_impl.dart';
 import 'package:domain/entities/auth_session_entity.dart';
 import 'package:domain/entities/authentication_status.dart';
 import 'package:domain/entities/registration_status.dart';
-import 'package:domain/entities/user_profile_entity.dart';
+import 'package:shared/domain/user_profile_entity.dart';
 import 'package:domain/repositories/onboarding_repository.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';

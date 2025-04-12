@@ -1,5 +1,4 @@
 import 'package:data/models/alert_entity_impl.dart';
-import 'package:data/models/coordinates_entity_impl.dart';
 import 'package:data/utils/sse_client.dart';
 import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/repositories/alert_repository.dart';
@@ -9,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:openapi/openapi.dart';
 import 'dart:async';
 import 'dart:convert';
+
+import 'package:shared/data/coordinates_entity_impl.dart';
 
 class AlertRepositoryImpl extends AlertRepository {
   final Openapi _openapi;

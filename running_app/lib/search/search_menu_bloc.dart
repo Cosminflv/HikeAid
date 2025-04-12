@@ -15,7 +15,6 @@ class SearchMenuBloc extends Bloc<SearchMenuEvent, SearchMenuState> {
 
   SearchMenuBloc({this.type = DSearchType.aroundPosition}) : super(const SearchMenuState()) {
     on<SearchTextEvent>(_handleSearchText);
-    on<SearchCategoryEvent>(_handleSearchCategory);
 
     on<SearchSuccessfulEvent>(_handleSearchSuccessful);
     on<SearchStatusUpdatedEvent>(_handleSearchStatusUpdated);
@@ -24,7 +23,6 @@ class SearchMenuBloc extends Bloc<SearchMenuEvent, SearchMenuState> {
   }
 
   _handleSearchText(SearchTextEvent event, Emitter<SearchMenuState> emit) {
-    emit(state.copyWithNullLandmarkCategory());
     if (event.text.isEmpty) {
       _searchUseCase.clear();
       add(SearchStatusUpdatedEvent(SearchStatus.none));
@@ -36,16 +34,7 @@ class SearchMenuBloc extends Bloc<SearchMenuEvent, SearchMenuState> {
     _searchUseCase.search(text: event.text, referenceCoordinates: event.coordinates, onResult: _onSearchCompleted);
   }
 
-  _handleSearchCategory(SearchCategoryEvent event, Emitter<SearchMenuState> emit) {
-    emit(state.copyWith(selectedLandmarkCategory: event.category));
-    add(SearchStatusUpdatedEvent(SearchStatus.started));
-
-    _searchUseCase.searchWithCategory(
-        category: event.category, referenceCoordinates: event.coordinates, onResult: _onSearchCompleted);
-  }
-
   _handleClearSearch(ClearSearchEvent event, Emitter<SearchMenuState> emit) {
-    emit(state.copyWithNullLandmarkCategory());
     _searchUseCase.clear();
     emit(state.copyWith(results: [], status: SearchStatus.none));
   }

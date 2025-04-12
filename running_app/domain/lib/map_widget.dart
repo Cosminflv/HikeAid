@@ -1,9 +1,9 @@
-import 'package:domain/entities/coordinates_entity.dart';
 import 'package:domain/map_widget_builder.dart';
 import 'package:domain/map_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:core/di/injection_container.dart';
+import 'package:shared/domain/coordinates_entity.dart';
 
 class MapWidget extends StatelessWidget {
   final CoordinatesEntity? initialCoordinates;

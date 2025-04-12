@@ -1,5 +1,5 @@
 import 'package:core/di/app_blocs.dart';
-import 'package:domain/entities/landmark_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 import 'package:flutter/widgets.dart';
 import 'package:running_app/map/map_view_event.dart';
 

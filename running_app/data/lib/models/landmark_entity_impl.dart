@@ -1,13 +1,12 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:data/models/coordinates_entity_impl.dart';
 import 'package:data/repositories_impl/extensions.dart';
-
-import 'package:domain/entities/landmark_entity.dart';
 
 import 'package:gem_kit/core.dart';
 import 'package:image/image.dart' as img;
+import 'package:shared/data/coordinates_entity_impl.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 class LandmarkEntityImpl extends LandmarkEntity {
   final Landmark? ref;

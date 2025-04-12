@@ -1,5 +1,4 @@
 import 'package:core/di/app_blocs.dart';
-import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -18,6 +17,7 @@ import 'package:running_app/shared_widgets/dialogs/image_action_dialog.dart';
 import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/utils/converters.dart';
 import 'package:running_app/utils/session_utils.dart';
+import 'package:shared/domain/user_profile_entity.dart';
 
 class EditUserProfileViewPage extends StatefulWidget {
   final UserProfileEntity profile;

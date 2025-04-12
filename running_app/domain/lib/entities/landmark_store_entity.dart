@@ -1,5 +1,4 @@
-import 'package:domain/entities/landmark_category_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 enum DLandmarkStoreType {
   searchHistory("searchHistory"),
@@ -22,8 +21,8 @@ abstract class LandmarkStoreEntity {
   int get size;
 
   bool add(LandmarkEntity landmark);
-  List<LandmarkEntity> getItems({LandmarkCategoryEntity? category});
   bool contains(LandmarkEntity landmark);
+  List<LandmarkEntity> getItems();
   bool removeLandmark(LandmarkEntity landmark);
 
   bool removeAll(LandmarkEntity landmark);

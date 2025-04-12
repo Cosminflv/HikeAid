@@ -1,5 +1,5 @@
-import 'package:domain/entities/coordinates_entity.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared/domain/coordinates_entity.dart';
 
 class MapCameraStateEntity extends Equatable {
   final CoordinatesEntity coordinates;

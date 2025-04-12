@@ -1,15 +1,17 @@
-import 'package:data/models/path_entity_impl.dart';
 import 'package:data/repositories_impl/extensions.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/path_entity.dart';
 
 import 'package:domain/entities/view_area_entity.dart';
 import 'package:domain/repositories/camera_repository.dart';
 import 'package:domain/map_controller.dart';
 
 import 'package:gem_kit/map.dart';
+import 'package:shared/data/path_entity_impl.dart';
 import 'dart:math';
+
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/path_entity.dart';
+import 'package:shared/extensions.dart';
 
 class CameraRepositoryImpl extends CameraRepository {
   final GemMapController _controller;

@@ -1,6 +1,6 @@
 import 'package:domain/entities/camera_state_entity.dart';
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:running_app/settings/settings_view_state.dart';

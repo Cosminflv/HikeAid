@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:domain/entities/landmark_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:running_app/routing/routing_view_state.dart';
 import 'package:running_app/utils/assets_utils.dart';

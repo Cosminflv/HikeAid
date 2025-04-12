@@ -1,6 +1,6 @@
-import 'package:data/extensions.dart';
-import 'package:domain/entities/coordinates_entity.dart';
 import 'package:gem_kit/core.dart';
+
+import '../domain/coordinates_entity.dart';
 
 class CoordinatesEntityImpl extends CoordinatesEntity {
   CoordinatesEntityImpl({required super.latitude, required super.longitude});
@@ -15,7 +15,7 @@ class CoordinatesEntityImpl extends CoordinatesEntity {
 
   @override
   double getDistanceTo(CoordinatesEntity coords) {
-    return toGemCoordinates().distance(coords.toGemCoordinates());
+    return toGemCoordinates().distance(Coordinates(latitude: coords.latitude, longitude: coords.longitude));
   }
 
   Map<String, double> toJson() => {'lat': latitude, 'lon': longitude};

@@ -1,6 +1,6 @@
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/path_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/path_entity.dart';
 
 enum DFollowPositionStatus { entered, exited }
 

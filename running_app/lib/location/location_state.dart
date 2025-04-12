@@ -1,5 +1,5 @@
-import 'package:domain/entities/position_entity.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared/domain/position_entity.dart';
 
 class LocationState extends Equatable {
   final bool isLocationEnabled;

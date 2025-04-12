@@ -1,9 +1,7 @@
-import 'package:domain/entities/coordinates_entity.dart';
-
 import 'package:dartz/dartz.dart';
-import 'package:domain/entities/landmark_category_entity.dart';
 import 'package:domain/entities/landmark_with_distance_entity.dart';
 import 'package:domain/repositories/task_progress_listener.dart';
+import 'package:shared/domain/coordinates_entity.dart';
 
 /// A repository interface for performing advanced search operations.
 ///
@@ -28,26 +26,6 @@ abstract class SearchRepository {
   ///   - [SomeSpecificException] if the search fails due to network or processing errors.
   TaskProgressListener search({
     required String text,
-    required CoordinatesEntity coordinates,
-    required Function(SearchResult) onResult,
-  });
-
-  /// Searches for landmarks within a specified [category] and near the provided [coordinates].
-  ///
-  /// - Parameters:
-  ///   - [category]: A [LandmarkCategoryEntity] representing the category of landmarks to search for.
-  ///   - [coordinates]: A [CoordinatesEntity] representing the geographical location
-  ///     to narrow the search results.
-  ///   - [onResult]: A callback function that is invoked with a [SearchResult].
-  ///     The result is an [Either<int, List<LandmarkWithDistanceEntity>>], where:
-  ///     - `Left<int>` represents an error code.
-  ///     - `Right<List<LandmarkWithDistanceEntity>>` contains the search results.
-  /// - Returns: A [TaskProgressListener] that can be used to monitor or cancel the
-  ///   search operation.
-  /// - Throws:
-  ///   - [SomeSpecificException] if the search fails due to network or processing errors.
-  TaskProgressListener searchWithCategory({
-    required LandmarkCategoryEntity category,
     required CoordinatesEntity coordinates,
     required Function(SearchResult) onResult,
   });

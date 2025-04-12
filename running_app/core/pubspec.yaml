@@ -21,6 +21,9 @@ dependencies:
     path: ../data
   openapi:
     path: ../api
+
+  shared:
+    path: ../shared
   
 
   dio: '^5.2.0'

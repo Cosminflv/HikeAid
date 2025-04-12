@@ -1,5 +1,5 @@
 import 'package:domain/entities/registration_status.dart';
-import 'package:domain/entities/user_profile_entity.dart';
+import 'package:shared/domain/user_profile_entity.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class RegistrationViewState extends Equatable {

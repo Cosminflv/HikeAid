@@ -1,7 +1,7 @@
 import 'package:core/di/injection_container.dart';
-import 'package:domain/entities/landmark_entity.dart';
-import 'package:domain/entities/path_entity.dart';
-import 'package:domain/entities/tour_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
+import 'package:shared/domain/path_entity.dart';
+import 'package:shared/domain/tour_entity.dart';
 import 'package:domain/factories/landmark_factory.dart';
 import 'package:domain/factories/path_factory.dart';
 import 'package:equatable/equatable.dart';

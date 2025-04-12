@@ -8,8 +8,9 @@ import 'package:data/repositories_impl/onboarding_repository_impl.dart';
 import 'package:data/repositories_impl/camera_repository_impl.dart';
 import 'package:data/repositories_impl/map_repository_impl.dart';
 import 'package:data/repositories_impl/pending_alerts_repository_impl.dart';
-import 'package:data/repositories_impl/permission_repository_impl.dart';
+
 import 'package:data/repositories_impl/position_repository_impl.dart';
+import 'package:data/repositories_impl/recorder_repository_impl.dart';
 import 'package:data/repositories_impl/route_repository_impl.dart';
 import 'package:data/repositories_impl/search_repository_impl.dart';
 import 'package:data/repositories_impl/settings_repository_impl.dart';
@@ -38,10 +39,10 @@ import 'package:domain/repositories/map_repository.dart';
 import 'package:domain/repositories/navigation_repository.dart';
 import 'package:domain/repositories/onboarding_repository.dart';
 import 'package:domain/repositories/pending_alerts_repository.dart';
-import 'package:domain/repositories/permission_repository.dart';
 import 'package:data/repositories_impl/landmark_repository_impl.dart';
 import 'package:data/repositories_impl/search_user_repository_impl.dart';
 import 'package:domain/repositories/position_repository.dart';
+import 'package:domain/repositories/recorder_repository.dart';
 import 'package:domain/repositories/route_repository.dart';
 import 'package:domain/repositories/search_repository.dart';
 import 'package:domain/repositories/search_users_repository.dart';
@@ -64,6 +65,7 @@ import 'package:domain/use_cases/friendship_use_case.dart';
 import 'package:domain/use_cases/map_use_case.dart';
 import 'package:domain/use_cases/navigation_use_case.dart';
 import 'package:domain/use_cases/pending_alerts_use_case.dart';
+import 'package:domain/use_cases/recorder_use_case.dart';
 import 'package:domain/use_cases/routing_use_case.dart';
 import 'package:domain/use_cases/search_use_case.dart';
 import 'package:domain/use_cases/search_users_use_case.dart';
@@ -100,6 +102,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:openapi/openapi.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:shared/data/permission_repository_impl.dart';
+import 'package:shared/domain/permission_repository.dart';
 
 final sl = GetIt.instance;
 
@@ -168,6 +172,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<FriendshipRepository>(() => FriendshipRepositoryImpl(openApi));
   sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(openApi, sseClient));
   sl.registerLazySingleton<PendingAlertsRepository>(() => PendingAlertsRepositoryImpl());
+  sl.registerLazySingleton<RecorderRepository>(() => RecorderRepositoryImpl());
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
 
@@ -187,10 +192,12 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<RoutingUseCase>(() => RoutingUseCase(sl.get<RouteRepository>()));
   sl.registerLazySingleton<NavigationUseCase>(
       () => NavigationUseCase(sl.get<NavigationRepository>(), sl.get<TTSRepository>()));
-  sl.registerLazySingleton<TourUseCase>(() => TourUseCase(sl.get<TourRepository>(), sl.get<PermissionRepository>()));
+  sl.registerLazySingleton<TourUsecase>(() => TourUsecase(sl.get<TourRepository>()));
   sl.registerLazySingleton<FriendshipUseCase>(() => FriendshipUseCase(sl.get<FriendshipRepository>()));
   sl.registerLazySingleton<AlertUseCase>(() => AlertUseCase(sl.get<AlertRepository>()));
   sl.registerLazySingleton<PendingAlertsUseCase>(() => PendingAlertsUseCase(sl.get<PendingAlertsRepository>()));
+  sl.registerLazySingleton<RecorderUseCase>(
+      () => RecorderUseCase(sl.get<RecorderRepository>(), sl.get<PermissionRepository>()));
 
   // Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
@@ -208,7 +215,8 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<NavigationViewBloc>(() => NavigationViewBloc());
   sl.registerLazySingleton<HomeViewBloc>(() => HomeViewBloc());
   sl.registerLazySingleton<NavigationInstructionPanelBloc>(() => NavigationInstructionPanelBloc());
-  sl.registerLazySingleton<TourRecordingBloc>(() => TourRecordingBloc(sl.get<TourUseCase>()));
+  sl.registerLazySingleton<TourRecordingBloc>(
+      () => TourRecordingBloc(sl.get<RecorderUseCase>(), sl.get<TourUsecase>()));
   sl.registerLazySingleton<FriendshipsViewBloc>(() => FriendshipsViewBloc(sl.get<FriendshipUseCase>()));
   sl.registerLazySingleton<AlertBloc>(
       () => AlertBloc(sl.get<AlertUseCase>(), sl.get<InternetConnectionBloc>(), sl.get<PendingAlertsUseCase>()));

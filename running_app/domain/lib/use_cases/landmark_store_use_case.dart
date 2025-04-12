@@ -1,7 +1,6 @@
-import 'package:domain/entities/landmark_category_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/landmark_store_entity.dart';
 import 'package:domain/repositories/landmark_store_repository.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 class LandmarkStoreUseCase {
   final LandmarkStoreEntity _searchHistoryStore;
@@ -13,7 +12,7 @@ class LandmarkStoreUseCase {
       : _searchHistoryStore = landmarkStoreRepository.getLandmarkStore(DLandmarkStoreType.searchHistory),
         _savedPlacesStore = landmarkStoreRepository.getLandmarkStore(DLandmarkStoreType.savedPlaces);
 
-  List<LandmarkEntity> getLandmarks(DLandmarkStoreType type, {LandmarkCategoryEntity? category}) {
+  List<LandmarkEntity> getLandmarks(DLandmarkStoreType type) {
     final store = _getStoreByType(type);
     return store.getItems();
   }

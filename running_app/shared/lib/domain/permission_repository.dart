@@ -1,6 +1,4 @@
-enum DAccessStatus { denied, granted, permanentlyDenied, restricted }
-
-enum DPermissionType { locationWhenInUse, camera, manageExternalStorage }
+import 'permissions.dart';
 
 abstract class PermissionRepository {
   // Streams
@@ -11,6 +9,7 @@ abstract class PermissionRepository {
   Future<bool> askPermission(DPermissionType permissionType);
   Future<bool> openLocationService();
   Future<void> updatePermissionsStatus();
+  Future<void> openApplicationSettings();
 
   // Access Status
   DAccessStatus getAccessStatus(DPermissionType permissionType);

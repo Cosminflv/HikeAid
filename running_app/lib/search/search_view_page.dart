@@ -26,9 +26,6 @@ class SearchViewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchMenuBloc = AppBlocs.searchMenuBloc;
-    _controller.text = searchMenuBloc.state.selectedLandmarkCategory != null
-        ? searchMenuBloc.state.selectedLandmarkCategory!.name
-        : '';
     return MapBlocsProvider(
       child: BlocBuilder<LandmarkStoreBloc, LandmarkStoreState>(builder: (context, storeState) {
         return Scaffold(

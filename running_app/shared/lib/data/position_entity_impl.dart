@@ -1,5 +1,6 @@
-import 'package:domain/entities/position_entity.dart';
 import 'package:gem_kit/position.dart';
+
+import '../domain/position_entity.dart';
 
 class PositionEntityImpl extends PositionEntity {
   final GemPosition ref;
@@ -11,6 +12,5 @@ class PositionEntityImpl extends PositionEntity {
   }
 
   @override
-  // TODO: implement hasSpeed
   bool get hasSpeed => ref.hasSpeed;
 }

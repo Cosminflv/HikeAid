@@ -1,28 +1,20 @@
 import 'dart:typed_data';
 import 'dart:ui';
 
-import 'package:data/models/coordinates_entity_impl.dart';
 import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/models/navigation_instruction_entity_impl.dart';
 import 'package:data/models/route_entity_impl.dart';
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/transport_means.dart';
 import 'package:domain/entities/view_area_entity.dart';
 import 'package:domain/settings/bike_preferences_entity.dart';
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/navigation.dart';
+import 'package:gem_kit/position.dart';
 import 'package:gem_kit/routing.dart';
-
-extension CoordinatesEntityExtension on CoordinatesEntity {
-  Coordinates toGemCoordinates() => Coordinates(latitude: latitude, longitude: longitude);
-
-  Future<Landmark> toGemLandmark() async {
-    final lmk = Landmark();
-    lmk.coordinates = toGemCoordinates();
-    return lmk;
-  }
-}
+import 'package:shared/data/coordinates_entity_impl.dart';
+import 'package:shared/data/position_entity_impl.dart';
+import 'package:shared/domain/landmark_entity.dart';
+import 'package:shared/extensions.dart';
 
 extension GemLandmarkExtension on Landmark {
   LandmarkEntityImpl toEntityImpl({int width = 48, int height = 48, Uint8List? image, bool isPositionBased = false}) {
@@ -92,6 +84,13 @@ extension GemRouteExtension on Route {
       ref: this,
       isTourBased: isTourBased,
     );
+  }
+}
+
+extension GemPositionExtension on GemPosition {
+  PositionEntityImpl? toEntityImpl() {
+    if (!hasCoordinates) return null;
+    return PositionEntityImpl(ref: this, coordinates: coordinates.toEntityImpl(), speed: speed, altitude: altitude);
   }
 }
 

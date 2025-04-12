@@ -1,9 +1,9 @@
 import 'package:data/models/camera_state_entity_impl.dart';
-import 'package:data/models/coordinates_entity_impl.dart';
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/repositories/settings_repository.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared/data/coordinates_entity_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:async';

@@ -1,5 +1,5 @@
 import 'package:core/di/app_blocs.dart';
-import 'package:domain/entities/landmark_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:running_app/landmark_panel/widgets/landmark_panel_information_section.dart';
 import 'package:running_app/landmark_panel/widgets/landmark_panel_button.dart';

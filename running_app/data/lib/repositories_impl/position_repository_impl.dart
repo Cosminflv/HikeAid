@@ -1,11 +1,11 @@
-import 'package:data/extensions.dart';
-import 'package:domain/entities/position_entity.dart';
+import 'package:data/repositories_impl/extensions.dart';
 import 'package:domain/repositories/position_repository.dart';
 
 import 'package:gem_kit/sense.dart';
 import 'package:gem_kit/src/position/gem_position_listener_impl.dart';
 
 import 'package:rxdart/rxdart.dart';
+import 'package:shared/domain/position_entity.dart';
 
 class PositionRepositoryImpl extends PositionRepository {
   final BehaviorSubject<PositionEntity?> _positionStreamController = BehaviorSubject.seeded(null);

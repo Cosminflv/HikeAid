@@ -2,12 +2,12 @@ import 'package:data/models/landmark_entity_impl.dart';
 import 'package:data/models/task_progress_listener_impl.dart';
 import 'package:data/repositories_impl/extensions.dart';
 
-import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/repositories/route_repository.dart';
 import 'package:domain/repositories/task_progress_listener.dart';
 import 'package:domain/settings/bike_preferences_entity.dart';
 import 'package:domain/utils/failures.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/routing.dart';

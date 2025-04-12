@@ -1,6 +1,5 @@
 import 'package:domain/entities/friendship_entity.dart';
 import 'package:domain/entities/search_user_entity.dart';
-import 'package:domain/entities/user_profile_entity.dart';
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_page.dart';
@@ -16,6 +15,7 @@ import 'package:running_app/search/search_history/search_history_view_page.dart'
 import 'package:running_app/search/search_view_page.dart';
 import 'package:running_app/search_users/search_users_view_page.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
+import 'package:shared/domain/user_profile_entity.dart';
 
 class RouteNames {
   @pragma('Startup')

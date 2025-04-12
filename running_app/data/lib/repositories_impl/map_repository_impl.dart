@@ -5,8 +5,7 @@ import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:data/utils/units_converter.dart';
 import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/entities/camera_state_entity.dart';
-import 'package:domain/entities/coordinates_entity.dart';
-import 'package:domain/entities/landmark_entity.dart';
+import 'package:shared/domain/coordinates_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/repositories/map_repository.dart';
 import 'package:domain/map_controller.dart';
@@ -16,7 +15,10 @@ import 'package:flutter/services.dart';
 
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/map.dart';
+import 'package:shared/domain/landmark_entity.dart';
 import 'dart:math';
+
+import 'package:shared/extensions.dart';
 
 class MapRepositoryImpl extends MapRepository {
   final polylineMarkerCollection = MarkerCollection(markerType: MarkerType.polyline, name: "MarkerLine");
@@ -73,7 +75,7 @@ class MapRepositoryImpl extends MapRepository {
       if (markers.isNotEmpty) {
         for (final markerMatch in markers) {
           final markerCoords = markerMatch.getMarker().getCoordinates();
-          final coordinates = markerCoords.map((coord) => coord.toEntity()).toList();
+          final coordinates = markerCoords.map((coord) => coord.toEntityImpl()).toList();
           onMarkerSelected(coordinates);
         }
         return;
@@ -102,7 +104,7 @@ class MapRepositoryImpl extends MapRepository {
   CoordinatesEntity? getCenterCoordinates() {
     final size = _controller.viewport;
 
-    return _controller.transformScreenToWgs(Point(size.width ~/ 2, size.height ~/ 2)).toEntity();
+    return _controller.transformScreenToWgs(Point(size.width ~/ 2, size.height ~/ 2)).toEntityImpl();
   }
 
   @override

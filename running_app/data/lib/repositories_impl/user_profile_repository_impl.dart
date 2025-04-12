@@ -1,11 +1,12 @@
 import 'package:data/models/user_profile_entity_impl.dart';
 import 'package:domain/entities/edit_user_profile_status.dart';
-import 'package:domain/entities/user_profile_entity.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
 
 import 'package:openapi/openapi.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+
+import 'package:shared/domain/user_profile_entity.dart';
 
 class UserProfileRepositoryImpl extends UserProfileRepository {
   final Openapi _openapi;

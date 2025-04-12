@@ -1,4 +1,4 @@
-import 'package:domain/entities/landmark_entity.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 import 'package:equatable/equatable.dart';
 

@@ -1,4 +1,4 @@
-import 'package:domain/entities/user_profile_entity.dart';
+import 'package:shared/domain/user_profile_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:running_app/edit_user_profile/dialogs/profile_item_picker.dart';

@@ -1,6 +1,5 @@
-import 'package:data/models/coordinates_entity_impl.dart';
-
 import 'package:domain/entities/camera_state_entity.dart';
+import 'package:shared/data/coordinates_entity_impl.dart';
 
 class MapCameraStateEntityImpl extends MapCameraStateEntity {
   MapCameraStateEntityImpl({required super.coordinates, required super.zoom});

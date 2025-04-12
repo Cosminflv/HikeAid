@@ -1,4 +1,3 @@
-import 'package:domain/entities/landmark_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/entities/transport_means.dart';
 import 'package:domain/repositories/route_repository.dart';
@@ -9,6 +8,7 @@ import 'package:domain/settings/bike_preferences_entity.dart';
 import 'dart:async';
 
 import 'package:domain/utils/failures.dart';
+import 'package:shared/domain/landmark_entity.dart';
 
 enum RouteBuildStatus { none, building, succes, failed, canceled }
 

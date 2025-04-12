@@ -1,10 +1,11 @@
-import 'package:domain/entities/position_entity.dart';
-import 'package:domain/repositories/permission_repository.dart';
+import 'package:shared/domain/permission_repository.dart';
 import 'package:domain/repositories/position_repository.dart';
 
 import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
+import 'package:shared/domain/permissions.dart';
+import 'package:shared/domain/position_entity.dart';
 
 class LocationUseCase {
   final PermissionRepository _permissionRepository;
