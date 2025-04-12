@@ -2,7 +2,6 @@ import 'package:domain/repositories/tour_repository.dart';
 import 'package:shared/domain/tour_entity.dart';
 import 'package:shared/data/tour_entity_impl.dart';
 
-
 import 'package:shared/domain/tour_file_entity.dart';
 
 class TourRepositoryImpl extends TourRepository {

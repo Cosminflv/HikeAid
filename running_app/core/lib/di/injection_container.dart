@@ -104,6 +104,8 @@ import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:shared/data/permission_repository_impl.dart';
 import 'package:shared/domain/permission_repository.dart';
+import 'package:shared/factories/tour_factory.dart';
+import 'package:shared/factories/tour_factory_impl.dart';
 
 final sl = GetIt.instance;
 
@@ -226,6 +228,7 @@ initEarlyDependencies(String ipv4Address) {
 
   //Factories
   sl.registerLazySingleton<PathFactory>(() => PathFactoryImpl());
+  sl.registerLazySingleton<TourFactory>(() => TourFactoryImpl());
   sl.registerLazySingleton<LandmarkFactory>(() => LandmarkFactoryImpl());
 }
 

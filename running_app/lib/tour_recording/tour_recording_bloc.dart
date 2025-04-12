@@ -1,4 +1,7 @@
+import 'package:core/di/injection_container.dart';
+import 'package:running_app/utils/session_utils.dart';
 import 'package:shared/domain/tour_entity.dart';
+import 'package:shared/factories/tour_factory.dart';
 import 'package:domain/use_cases/tour_use_case.dart';
 import 'package:domain/use_cases/recorder_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,39 +67,23 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
   _handleSaveTour(SaveTourEvent event, Emitter<TourRecordingState> emit) async {
     final gmPath = await _gpxUseCase.stopRecording();
 
-    // final tour = sl.get<TourFactory>().produce(
-    //       date: DateTime.now(),
-    //       name: 'Cycling',
-    //       distance: state.distanceTraveled!,
-    //       duration: state.timeInMotion!,
-    //       totalUp: _averageSpeedTracker.totalUp.toInt(),
-    //       totalDown: _averageSpeedTracker.totalDown.toInt(),
-    //       coordinates: state.recordedCoordinates,
-    //       type: TourType.completed,
-    //       isPublic: false, // TODO: add attribute in event
-    //     );
+    final tour = sl.get<TourFactory>().produce(
+          authorId: event.userId,
+          date: DateTime.now(),
+          name: 'Recorded_track_${DateTime.now().toIso8601String()}',
+          distance: state.distanceTraveled!,
+          duration: state.timeInMotion!,
+          totalUp: _averageSpeedTracker.totalUp.toInt(),
+          totalDown: _averageSpeedTracker.totalDown.toInt(),
+          coordinates: state.recordedCoordinates,
+          type: TourType.completed,
+          previewImage: event.preview!,
+          isPublic: false, // TODO: add attribute in event
+        );
 
+    // TODO: Uncomment when remote repository is ready
     // final insertedTour = await _remoteTourUsecase.insertTour(tour: tour);
     // if (insertedTour == null) return;
-
-    // final insertImageNames = await _remoteTourUsecase.insertTourImages(tour: insertedTour, images: event.files);
-    // if (insertImageNames!.length != event.files.length) return;
-
-    // final filesToUpload = [
-    //   for (int i = 0; i < event.files.length; i++) event.files[i].copyWithName(insertImageNames[i])
-    // ];
-
-    // for (final fileEntity in filesToUpload) {
-    //   if (fileEntity.localPath == null) return;
-    //   final file = File(fileEntity.localPath!);
-    //   await _userFilesManagementUsecase.uploadTourImage(
-    //       tour: insertedTour, remoteName: fileEntity.remoteName!, imageFile: file);
-    // }
-
-    // if (event.preview == null) return;
-
-    // await _userFilesManagementUsecase.uploadTour(
-    //     remoteName: insertedTour.fileId, gmFile: File(gmPath), previewImage: event.preview!);
 
     emit(state.copyWith(status: RecordingStatus.tourSaved));
   }

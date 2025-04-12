@@ -74,6 +74,7 @@ class TourBuilder {
       totalUp: totalUp.toInt(),
       totalDown: totalDown.toInt(),
       type: TourType.completed,
+      previewImage: preview ?? Uint8List(0),
       date: DateTime.now(),
     );
   }

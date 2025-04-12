@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:intl/intl.dart';
 import 'package:gem_kit/core.dart';
 import 'package:shared/data/landmark_entity_impl.dart';
@@ -13,7 +15,7 @@ class TourEntityImpl extends TourEntity {
   TourEntityImpl({
     super.id = -1,
     super.fileId = '',
-    super.authorId = '',
+    super.authorId = 0,
     super.files = const [],
     required super.name,
     required super.date,
@@ -22,6 +24,7 @@ class TourEntityImpl extends TourEntity {
     required super.totalUp,
     required super.totalDown,
     required super.coordinates,
+    required super.previewImage,
     required super.type,
     this.author,
   });
@@ -47,8 +50,9 @@ class TourEntityImpl extends TourEntity {
   TourEntity copyWith({
     String? name,
     String? fileId,
-    String? authorId,
+    int? authorId,
     bool? isPublic,
+    Uint8List? previewImage,
     List<TourFileEntity>? files,
   }) =>
       TourEntityImpl(
@@ -62,6 +66,7 @@ class TourEntityImpl extends TourEntity {
         totalUp: totalUp,
         totalDown: totalDown,
         coordinates: coordinates,
+        previewImage: previewImage ?? this.previewImage,
         type: type,
         author: author,
         files: files ?? this.files,
@@ -109,6 +114,7 @@ class TourEntityImpl extends TourEntity {
         totalUp: json['totalUp'],
         totalDown: json['totalDown'],
         coordinates: (json['coordinates'] as List<dynamic>).map((e) => CoordinatesWithTimestamp.fromJson(e)).toList(),
+        previewImage: (json['preview_image'] as Uint8List),
         type: TourType.fromString(json['type']),
         author: null, //TODO: CHANGE THIS TO AUTHOR PROFILE ENTITY
       );
@@ -117,7 +123,7 @@ class TourEntityImpl extends TourEntity {
   String get shareURL => 'https://generalmagic.com/share_tour?tour=$id';
 
   @override
-  bool isOwn(String id) => id == authorId;
+  bool isOwn(int id) => id == authorId;
 
   @override
   UserProfileEntity? get authorProfile => author;

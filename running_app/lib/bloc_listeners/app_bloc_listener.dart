@@ -60,9 +60,9 @@ class AppBlocListener extends StatelessWidget {
                 .get<TourRecordingBloc>()
                 .add(appState.isRecording ? StartRecordingEvent(recordGpx: true) : StopRecordingEvent());
 
-            if (!appState.isRecording) {
-              AppBlocs.tourRecordingBloc.add(SaveTourEvent());
-            }
+            // if (!appState.isRecording) {
+            //   AppBlocs.tourRecordingBloc.add(SaveTourEvent());
+            // }
           }
         },
         listenWhen: (previous, current) => previous.isRecording != current.isRecording,

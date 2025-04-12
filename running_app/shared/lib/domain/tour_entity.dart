@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:shared/data/coordinates_entity_impl.dart';
 import 'package:shared/domain/coordinates_entity.dart';
 import 'package:shared/domain/path_entity.dart';
@@ -28,7 +30,7 @@ enum TourType {
 abstract class TourEntity {
   final int id;
   final String fileId;
-  final String authorId;
+  final int authorId;
   final String name;
   final DateTime date;
   final int distance;
@@ -36,6 +38,7 @@ abstract class TourEntity {
   final int totalUp;
   final int totalDown;
   final List<CoordinatesWithTimestamp> coordinates;
+  final Uint8List previewImage;
   final List<TourFileEntity> files;
 
   final TourType type;
@@ -51,6 +54,7 @@ abstract class TourEntity {
     required this.totalUp,
     required this.totalDown,
     required this.coordinates,
+    required this.previewImage,
     required this.type,
     this.files = const [],
   });
@@ -61,7 +65,7 @@ abstract class TourEntity {
 
   String getCorrespondingPreviewPath(String previewsDirectory);
 
-  TourEntity copyWith({String? name, String? fileId, String? authorId, bool? isPublic, List<TourFileEntity>? files});
+  TourEntity copyWith({String? name, String? fileId, int? authorId, bool? isPublic, List<TourFileEntity>? files});
 
   LandmarkEntity get startLandmark;
   LandmarkEntity get endLandmark;
@@ -74,7 +78,7 @@ abstract class TourEntity {
 
   String get shareURL;
 
-  bool isOwn(String id);
+  bool isOwn(int id);
 
   UserProfileEntity? get authorProfile;
 }

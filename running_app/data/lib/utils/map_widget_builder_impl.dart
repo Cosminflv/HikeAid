@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:data/utils/map_widget_impl.dart';
 import 'package:domain/map_controller.dart';
 import 'package:domain/map_widget_builder.dart';
@@ -10,6 +12,12 @@ import 'package:shared/domain/coordinates_entity.dart';
 class MapControllerImpl extends MapController {
   final GemMapController ref;
   MapControllerImpl(this.ref);
+
+  @override
+  Future<Uint8List?> captureImage() async {
+    final image = await ref.captureImage();
+    return image;
+  }
 }
 
 class MapWidgetBuilderImpl extends MapWidgetBuilder {

@@ -32,6 +32,7 @@ class PauseRecordingEvent extends TourRecordingEvent {}
 
 class SaveTourEvent extends TourRecordingEvent {
   final Uint8List? preview;
+  int userId;
 
-  SaveTourEvent({this.preview});
+  SaveTourEvent({required this.userId, this.preview});
 }

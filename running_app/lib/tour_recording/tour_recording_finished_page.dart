@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:core/di/app_blocs.dart';
 import 'package:core/di/injection_container.dart';
 import 'package:domain/entities/view_area_entity.dart';
@@ -15,6 +17,7 @@ import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/routing/route_waypoint.dart';
 import 'package:running_app/tour_recording/tour_recording_events.dart';
 import 'package:running_app/tours/tour_scaffold_template.dart';
+import 'package:running_app/utils/session_utils.dart';
 
 import '../map/map_view_bloc.dart';
 import '../shared_widgets/custom_text_button.dart';
@@ -182,12 +185,24 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
     );
   }
 
-  void _onDoneTap() {
+  Future<void> _onDoneTap() async {
     setState(() => isLoading = true);
+
+    // final image = await sl.get<MapUseCase>(instanceName: 'tourDetails').captureImage();
+    // final base64Img = base64Encode(image!);
+    // print("IMG: $base64Img");
+    // print("IMGLAST: ${base64Img[base64Img.length - 1]}");
+    // AppBlocs.tourRecordingBloc.add(SaveTourEvent(preview: image));
 
     sl.get<MapUseCase>(instanceName: 'tourDetails').captureImage().then((image) {
       setState(() => isLoading = false);
-      AppBlocs.tourRecordingBloc.add(SaveTourEvent(preview: image));
+      final base64Img = base64Encode(image!);
+      print("IMG: $base64Img");
+      AppBlocs.tourRecordingBloc.add(SaveTourEvent(
+        // ignore: use_build_context_synchronously
+        userId: 3,
+        preview: image,
+      ));
 
       if (!mounted) return;
       Navigator.of(context).pop();
@@ -198,10 +213,10 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
     initMapDependecies(controller, instanceName: 'tourDetails');
 
     await mapCompleter.future;
-    _performMapActions();
+    await _performMapActions(controller);
   }
 
-  void _performMapActions() {
+  Future<void> _performMapActions(MapController controller) async {
     final tourRecordingState = AppBlocs.tourRecordingBloc.state;
     final tourRecordingCoordinates =
         tourRecordingState.recordedCoordinates.map((coordinate) => coordinate.latLng).toList();
