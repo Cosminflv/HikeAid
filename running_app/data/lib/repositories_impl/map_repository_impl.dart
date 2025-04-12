@@ -284,7 +284,7 @@ class MapRepositoryImpl extends MapRepository {
 
       _controller.preferences.markers.add(polylineMarkerCollection,
           settings: MarkerCollectionRenderSettings(
-            polylineInnerColor: Color.fromARGB(255, 19, 116, 48),
+            polylineInnerColor: Color.fromARGB(255, 92, 150, 68),
             polylineOuterColor: Color.fromARGB(255, 255, 255, 255),
             polylineOuterSize: 1,
             polylineInnerSize: 1.5,

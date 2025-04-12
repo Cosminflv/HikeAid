@@ -36,6 +36,8 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<CompassAngleUpdatedEvent>(_handleCompassAngleUpdated);
     on<CompassLockCameraEvent>(_handleCompassLockCamera);
 
+    on<SetPositionTracker>(_handleSetPositionTracker);
+
     on<FollowPositionEvent>(_followPositionEventHandler);
     on<ResetCameraEvent>(_handleResetCamera);
     on<CenterOnRoutesEvent>(_handleCenterOnRoutes);
@@ -98,6 +100,10 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     emit(state.copyWith(isFollowPositionFixed: !state.isFollowPositionFixed));
   }
 
+  _handleSetPositionTracker(SetPositionTracker event, Emitter<MapViewState> emit) {
+    _setupPositionTracker(event.visibility);
+  }
+
   _followPositionEventHandler(FollowPositionEvent event, Emitter<MapViewState> emit) async {
     int zoom = event.shouldZoomCamera ? 80 : 70;
     final angle = event.shouldTiltCamera ? 60.0 : 0.0;
@@ -110,7 +116,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
         if (isClosed) return;
         add(CameraStateUpdatedEvent());
       },
-      pointToCenter: pointToCenter,
+      pointToCenter: PointEntity(x: pointToCenter.x, y: pointToCenter.y + Sizes.screenCenter.y ~/ 2),
     );
 
     emit(state.copyWith(isFollowingPosition: true, isCenteredOnRoutes: false));

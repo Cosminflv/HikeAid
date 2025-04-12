@@ -230,7 +230,6 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
       //   ),
       // )
       ..add(AddPolylineMarkerEvent(tourRecordingCoordinates))
-      ..add(CenterOnPathEvent(path: tourRecordingState.recordedPath!))
       ..add(
         PresentHighlightEvent(
           landmark: tourRecordingState.startLandmark!,
@@ -245,5 +244,7 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
           image: AppBlocs.routingBloc.waypointImages[RouteWaypointName.destination],
         ),
       );
+    Future.delayed(Durations.medium1)
+        .then((val) => _mapBloc.add(CenterOnPathEvent(path: tourRecordingState.recordedPath!)));
   }
 }
