@@ -1,10 +1,10 @@
 import 'package:domain/repositories/tour_repository.dart';
 import 'package:shared/domain/tour_entity.dart';
 
-class TourUsecase {
+class TourUseCase {
   final TourRepository _repository;
 
-  TourUsecase(this._repository);
+  TourUseCase(this._repository);
 
   void registerTourLinkSharingCallback(void Function(TourEntity? tour) onTourReceived) =>
       _repository.registerTourSharingURLReceivedCallback(onTourReceived);

@@ -15,7 +15,7 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
   final TourMetricsTracker _averageSpeedTracker = TourMetricsTracker();
 
   final RecorderUseCase _gpxUseCase;
-  final TourUsecase _remoteTourUsecase;
+  final TourUseCase _remoteTourUsecase;
   //final UserFilesManagementUsecase _userFilesManagementUsecase;
 
   TourRecordingBloc(this._gpxUseCase, this._remoteTourUsecase) : super(const TourRecordingState()) {

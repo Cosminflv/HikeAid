@@ -194,7 +194,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<RoutingUseCase>(() => RoutingUseCase(sl.get<RouteRepository>()));
   sl.registerLazySingleton<NavigationUseCase>(
       () => NavigationUseCase(sl.get<NavigationRepository>(), sl.get<TTSRepository>()));
-  sl.registerLazySingleton<TourUsecase>(() => TourUsecase(sl.get<TourRepository>()));
+  sl.registerLazySingleton<TourUseCase>(() => TourUseCase(sl.get<TourRepository>()));
   sl.registerLazySingleton<FriendshipUseCase>(() => FriendshipUseCase(sl.get<FriendshipRepository>()));
   sl.registerLazySingleton<AlertUseCase>(() => AlertUseCase(sl.get<AlertRepository>()));
   sl.registerLazySingleton<PendingAlertsUseCase>(() => PendingAlertsUseCase(sl.get<PendingAlertsRepository>()));
@@ -218,7 +218,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<HomeViewBloc>(() => HomeViewBloc());
   sl.registerLazySingleton<NavigationInstructionPanelBloc>(() => NavigationInstructionPanelBloc());
   sl.registerLazySingleton<TourRecordingBloc>(
-      () => TourRecordingBloc(sl.get<RecorderUseCase>(), sl.get<TourUsecase>()));
+      () => TourRecordingBloc(sl.get<RecorderUseCase>(), sl.get<TourUseCase>()));
   sl.registerLazySingleton<FriendshipsViewBloc>(() => FriendshipsViewBloc(sl.get<FriendshipUseCase>()));
   sl.registerLazySingleton<AlertBloc>(
       () => AlertBloc(sl.get<AlertUseCase>(), sl.get<InternetConnectionBloc>(), sl.get<PendingAlertsUseCase>()));

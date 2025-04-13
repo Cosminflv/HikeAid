@@ -158,7 +158,7 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
                                             : const Icon(FontAwesomeIcons.bookmark),
                                         textColor: Theme.of(context).colorScheme.onPrimary,
                                         alignment: MainAxisAlignment.center,
-                                        onTap: isLoading ? null : _onDoneTap,
+                                        onTap: isLoading ? null : () => _onDoneTap(getSession(context)!.user.id),
                                       ),
                                     )),
                                 Container(
@@ -185,7 +185,7 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
     );
   }
 
-  Future<void> _onDoneTap() async {
+  void _onDoneTap(int userId) {
     setState(() => isLoading = true);
 
     // final image = await sl.get<MapUseCase>(instanceName: 'tourDetails').captureImage();
@@ -199,8 +199,7 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
       final base64Img = base64Encode(image!);
       print("IMG: $base64Img");
       AppBlocs.tourRecordingBloc.add(SaveTourEvent(
-        // ignore: use_build_context_synchronously
-        userId: 3,
+        userId: userId,
         preview: image,
       ));
 
