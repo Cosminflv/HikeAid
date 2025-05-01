@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:shared/domain/tour_entity.dart';
 import 'package:shared/domain/tour_file_entity.dart';
 
@@ -6,7 +8,7 @@ abstract class TourRepository {
 
   void registerTourSharingURLReceivedCallback(void Function(TourEntity? tour) onTourReceived);
 
-  Future<TourEntity?> insertTour({required TourEntity tour});
+  Future<bool> insertTour({required TourEntity tour, required Uint8List previewImageBytes});
 
   //Future<List<String>?> insertTourImages({required TourEntity tour, required List<TourFileEntity> images});
 

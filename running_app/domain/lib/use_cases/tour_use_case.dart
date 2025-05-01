@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:domain/repositories/tour_repository.dart';
 import 'package:shared/domain/tour_entity.dart';
 
@@ -11,7 +13,8 @@ class TourUseCase {
 
   Future<TourEntity?> checkForTourSharingURL() => _repository.checkForTourSharingURL();
 
-  Future<TourEntity?> insertTour({required TourEntity tour}) => _repository.insertTour(tour: tour);
+  Future<bool> insertTour({required TourEntity tour, required Uint8List previewImageBytes}) =>
+      _repository.insertTour(tour: tour, previewImageBytes: previewImageBytes);
 
   // Future<List<String>?> insertTourImages({required TourEntity tour, required List<TourFileEntity> images}) =>
   //     _repository.insertTourImages(tour: tour, images: images);

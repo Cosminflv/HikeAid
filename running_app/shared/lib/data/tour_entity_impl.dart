@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:intl/intl.dart';
 import 'package:gem_kit/core.dart';
 import 'package:shared/data/landmark_entity_impl.dart';
@@ -24,7 +22,7 @@ class TourEntityImpl extends TourEntity {
     required super.totalUp,
     required super.totalDown,
     required super.coordinates,
-    required super.previewImage,
+    required super.previewImageUrl,
     required super.type,
     this.author,
   });
@@ -52,7 +50,7 @@ class TourEntityImpl extends TourEntity {
     String? fileId,
     int? authorId,
     bool? isPublic,
-    Uint8List? previewImage,
+    String? previewImageUrl,
     List<TourFileEntity>? files,
   }) =>
       TourEntityImpl(
@@ -66,7 +64,7 @@ class TourEntityImpl extends TourEntity {
         totalUp: totalUp,
         totalDown: totalDown,
         coordinates: coordinates,
-        previewImage: previewImage ?? this.previewImage,
+        previewImageUrl: previewImageUrl ?? this.previewImageUrl,
         type: type,
         author: author,
         files: files ?? this.files,
@@ -83,10 +81,6 @@ class TourEntityImpl extends TourEntity {
   @override
   LandmarkEntity get startLandmark =>
       LandmarkEntityImpl(ref: Landmark()..coordinates = coordinates.first.latLng.toGemCoordinates());
-
-  @override
-  String get previewImageUrl =>
-      'https://sb.services.generalmagicsdk.com/storage/v1/object/public/tours/$authorId/$fileId/$fileId.png';
 
   @override
   String get formattedDate => DateFormat('MMMM d, y, hh:mm a').format(date);
@@ -114,7 +108,7 @@ class TourEntityImpl extends TourEntity {
         totalUp: json['totalUp'],
         totalDown: json['totalDown'],
         coordinates: (json['coordinates'] as List<dynamic>).map((e) => CoordinatesWithTimestamp.fromJson(e)).toList(),
-        previewImage: (json['preview_image'] as Uint8List),
+        previewImageUrl: (json['preview_image_url'] as String),
         type: TourType.fromString(json['type']),
         author: null, //TODO: CHANGE THIS TO AUTHOR PROFILE ENTITY
       );

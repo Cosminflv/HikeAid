@@ -69,6 +69,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
         BlocProvider(create: (context) => sl.get<EditUserProfileViewBloc>())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "Running App",
         theme: (MediaQuery.of(context).platformBrightness == Brightness.light) ? lightThemeData : darkThemeData,
         home: const GetStartedPage(),

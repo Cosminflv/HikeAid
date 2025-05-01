@@ -1,5 +1,4 @@
 import 'package:core/di/injection_container.dart';
-import 'package:running_app/utils/session_utils.dart';
 import 'package:shared/domain/tour_entity.dart';
 import 'package:shared/factories/tour_factory.dart';
 import 'package:domain/use_cases/tour_use_case.dart';
@@ -15,10 +14,10 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
   final TourMetricsTracker _averageSpeedTracker = TourMetricsTracker();
 
   final RecorderUseCase _gpxUseCase;
-  final TourUseCase _remoteTourUsecase;
+  final TourUseCase _tourUseCase;
   //final UserFilesManagementUsecase _userFilesManagementUsecase;
 
-  TourRecordingBloc(this._gpxUseCase, this._remoteTourUsecase) : super(const TourRecordingState()) {
+  TourRecordingBloc(this._gpxUseCase, this._tourUseCase) : super(const TourRecordingState()) {
     on<UpdatePositionEvent>(_handleUpdatePosition);
     on<AddRecordedCoordinatesEvent>(_handleAddRecordedCoordinates);
     on<StartRecordingEvent>(_handleStartRecording);
@@ -77,13 +76,11 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
           totalDown: _averageSpeedTracker.totalDown.toInt(),
           coordinates: state.recordedCoordinates,
           type: TourType.completed,
-          previewImage: event.preview!,
           isPublic: false, // TODO: add attribute in event
         );
 
-    // TODO: Uncomment when remote repository is ready
-    // final insertedTour = await _remoteTourUsecase.insertTour(tour: tour);
-    // if (insertedTour == null) return;
+    final insertedTour = await _tourUseCase.insertTour(tour: tour, previewImageBytes: event.preview!);
+    if (!insertedTour) return;
 
     emit(state.copyWith(status: RecordingStatus.tourSaved));
   }

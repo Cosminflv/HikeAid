@@ -15,7 +15,6 @@ abstract class TourFactory {
     required int totalDown,
     required List<CoordinatesWithTimestamp> coordinates,
     required TourType type,
-    required Uint8List previewImage,
     required bool isPublic,
   });
 }

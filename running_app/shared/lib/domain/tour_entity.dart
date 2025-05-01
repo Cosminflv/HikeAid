@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:shared/data/coordinates_entity_impl.dart';
 import 'package:shared/domain/coordinates_entity.dart';
 import 'package:shared/domain/path_entity.dart';
@@ -38,7 +36,7 @@ abstract class TourEntity {
   final int totalUp;
   final int totalDown;
   final List<CoordinatesWithTimestamp> coordinates;
-  final Uint8List previewImage;
+  final String previewImageUrl;
   final List<TourFileEntity> files;
 
   final TourType type;
@@ -54,7 +52,7 @@ abstract class TourEntity {
     required this.totalUp,
     required this.totalDown,
     required this.coordinates,
-    required this.previewImage,
+    required this.previewImageUrl,
     required this.type,
     this.files = const [],
   });
@@ -71,8 +69,6 @@ abstract class TourEntity {
   LandmarkEntity get endLandmark;
 
   PathEntity get path;
-
-  String get previewImageUrl;
 
   String get formattedDate;
 

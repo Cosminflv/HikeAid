@@ -107,6 +107,9 @@ import 'package:shared/domain/permission_repository.dart';
 import 'package:shared/factories/tour_factory.dart';
 import 'package:shared/factories/tour_factory_impl.dart';
 
+import 'package:cloudinary_flutter/cloudinary_context.dart';
+import 'package:cloudinary_url_gen/cloudinary.dart';
+
 final sl = GetIt.instance;
 
 initBlocs() {
@@ -145,6 +148,7 @@ initEarlyDependencies(String ipv4Address) {
   );
 
   final storage = FlutterSecureStorage();
+  CloudinaryContext.cloudinary = Cloudinary.fromCloudName(cloudName: 'desccolsj');
 
   sl.allowReassignment = true;
 

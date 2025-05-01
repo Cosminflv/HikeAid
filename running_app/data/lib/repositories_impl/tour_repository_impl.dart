@@ -1,8 +1,11 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:domain/repositories/tour_repository.dart';
 import 'package:shared/domain/tour_entity.dart';
-import 'package:shared/data/tour_entity_impl.dart';
 
 import 'package:shared/domain/tour_file_entity.dart';
+import 'package:http/http.dart' as http;
 
 class TourRepositoryImpl extends TourRepository {
   //TODO: Change to openAPI instance
@@ -11,20 +14,30 @@ class TourRepositoryImpl extends TourRepository {
   TourRepositoryImpl();
 
   @override
-  Future<TourEntityImpl?> insertTour({required TourEntity tour}) async {
-    // try {
-    //   final session = _supabaseInstance.client.auth.currentSession;
+  Future<bool> insertTour({required TourEntity tour, required Uint8List previewImageBytes}) async {
+    try {
+      final fileName = '${tour.authorId}${DateTime.now().millisecondsSinceEpoch}${tour.previewImageUrl.hashCode}.jpg';
+      final imageUploadUrl = Uri.parse('https://api.cloudinary.com/v1_1/desccolsj/image/upload');
+      final request = http.MultipartRequest('POST', imageUploadUrl)
+        ..fields['upload_preset'] = 'hikeaid'
+        ..files.add(http.MultipartFile.fromBytes(
+          'file',
+          previewImageBytes,
+          filename: fileName,
+        ));
+      final response = await request.send();
+      final responseData = await response.stream.toBytes();
+      final responseString = String.fromCharCodes(responseData);
+      final jsonMap = jsonDecode(responseString);
+      final _uploadedUrl = jsonMap['url'] as String?;
 
-    //   if (session == null) return null;
+      // Next upload the tour to the database
 
-    //   _supabaseInstance.client.rest.setAuth(session.accessToken);
-
-    //   final res = await _supabaseInstance.client.rest.from('tours').insert(tour.toJson(session.user.id)).select();
-
-    //   return TourEntityImpl.fromJson(res.first);
-    // } catch (e) {
-    //   return null;
-    // }
+      return true;
+    } catch (e) {
+      print("Error inserting tour: $e");
+      return false;
+    }
   }
 
   @override
