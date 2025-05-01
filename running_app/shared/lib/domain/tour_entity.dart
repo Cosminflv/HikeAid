@@ -27,7 +27,6 @@ enum TourType {
 
 abstract class TourEntity {
   final int id;
-  final String fileId;
   final int authorId;
   final String name;
   final DateTime date;
@@ -37,13 +36,11 @@ abstract class TourEntity {
   final int totalDown;
   final List<CoordinatesWithTimestamp> coordinates;
   final String previewImageUrl;
-  final List<TourFileEntity> files;
 
   final TourType type;
 
   TourEntity({
     required this.id,
-    required this.fileId,
     required this.authorId,
     required this.name,
     required this.date,
@@ -54,7 +51,6 @@ abstract class TourEntity {
     required this.coordinates,
     required this.previewImageUrl,
     required this.type,
-    this.files = const [],
   });
 
   Map<String, dynamic> toJson(String authorId);

@@ -12,9 +12,7 @@ import 'package:shared/extensions.dart';
 class TourEntityImpl extends TourEntity {
   TourEntityImpl({
     super.id = -1,
-    super.fileId = '',
     super.authorId = 0,
-    super.files = const [],
     required super.name,
     required super.date,
     required super.distance,
@@ -55,7 +53,6 @@ class TourEntityImpl extends TourEntity {
   }) =>
       TourEntityImpl(
         id: id,
-        fileId: fileId ?? this.fileId,
         authorId: authorId ?? this.authorId,
         name: name ?? this.name,
         date: date,
@@ -67,7 +64,6 @@ class TourEntityImpl extends TourEntity {
         previewImageUrl: previewImageUrl ?? this.previewImageUrl,
         type: type,
         author: author,
-        files: files ?? this.files,
       );
 
   @override
@@ -99,7 +95,6 @@ class TourEntityImpl extends TourEntity {
 
   factory TourEntityImpl.fromJson(Map<String, dynamic> json) => TourEntityImpl(
         id: json['id'],
-        fileId: json['file_id'],
         authorId: json['author_id'],
         name: json['name'] as String,
         date: DateTime.parse(json['created_at'] as String),

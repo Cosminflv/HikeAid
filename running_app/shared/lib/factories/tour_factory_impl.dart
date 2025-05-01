@@ -20,7 +20,6 @@ class TourFactoryImpl extends TourFactory {
   }) =>
       TourEntityImpl(
         id: id,
-        fileId: fileId,
         authorId: authorId,
         name: name,
         date: date,
