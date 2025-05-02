@@ -51,7 +51,6 @@ class SearchUsersViewPage extends StatelessWidget {
                     child: SearchUsersTextField(
                       controller: _controller,
                       onChanged: (text) {
-
                         searchUsersBloc.add(SearchUserEvent(text: text));
                         if (text.isEmpty) {
                           searchUsersBloc.add(ClearSearchEvent());
@@ -84,6 +83,7 @@ class SearchUsersViewPage extends StatelessWidget {
                       users: displayedItems,
                       onItemTap: (user) {
                         AppBlocs.userProfileBloc.add(FetchUserProfileEvent(userId: user.id));
+                        AppBlocs.userProfileBloc.add(FetchUserTours(userId: user.id));
                         Navigator.of(context).pushNamed(
                           RouteNames.userProfilePage,
                           arguments: {'isEditable': false, 'friendshipStatus': user.friendshipStatus},

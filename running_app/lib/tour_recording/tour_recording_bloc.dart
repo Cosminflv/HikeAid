@@ -15,7 +15,6 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
 
   final RecorderUseCase _gpxUseCase;
   final TourUseCase _tourUseCase;
-  //final UserFilesManagementUsecase _userFilesManagementUsecase;
 
   TourRecordingBloc(this._gpxUseCase, this._tourUseCase) : super(const TourRecordingState()) {
     on<UpdatePositionEvent>(_handleUpdatePosition);
@@ -64,7 +63,8 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
       emit(state.copyWith(status: RecordingStatus.paused));
 
   _handleSaveTour(SaveTourEvent event, Emitter<TourRecordingState> emit) async {
-    final gmPath = await _gpxUseCase.stopRecording();
+    //final gmPath =
+    await _gpxUseCase.stopRecording();
 
     final tour = sl.get<TourFactory>().produce(
           authorId: event.userId,

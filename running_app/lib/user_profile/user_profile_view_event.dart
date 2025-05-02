@@ -5,3 +5,9 @@ class FetchUserProfileEvent extends UserProfileEvent {
 
   FetchUserProfileEvent({required this.userId});
 }
+
+class FetchUserTours extends UserProfileEvent {
+  final int userId;
+
+  FetchUserTours({required this.userId});
+}

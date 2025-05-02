@@ -11,7 +11,10 @@ import 'package:running_app/home/home_view_events.dart';
 import 'package:running_app/internet_connection/internet_connection_checker.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/map/map_view_page.dart';
+import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
+import 'package:running_app/user_profile/user_profile_view_state.dart';
+import 'package:running_app/utils/session_utils.dart';
 import 'package:running_app/utils/sizes.dart';
 import 'package:running_app/widgets/alerts_notifications.dart';
 
@@ -72,6 +75,10 @@ class _HomeViewPageState extends State<HomeViewPage> {
                       }
 
                       AppBlocs.homeViewBloc.add(SetCurrentHomeViewEvent(HomePageType.values[index]));
+
+                      if (index == 2) {
+                        AppBlocs.userProfileBloc.add(FetchUserTours(userId: getSession(context)!.user.id));
+                      }
                     },
                     items: [
                       BottomNavigationBarItem(
@@ -87,10 +94,11 @@ class _HomeViewPageState extends State<HomeViewPage> {
                         label: "Record",
                       ),
                       BottomNavigationBarItem(
-                          icon: Icon(homeState.type == HomePageType.profile
-                              ? FontAwesomeIcons.solidUser
-                              : FontAwesomeIcons.user),
-                          label: AppLocalizations.of(context)!.profile)
+                        icon: Icon(homeState.type == HomePageType.profile
+                            ? FontAwesomeIcons.solidUser
+                            : FontAwesomeIcons.user),
+                        label: AppLocalizations.of(context)!.profile,
+                      )
                     ],
                   ),
                 ),
@@ -100,9 +108,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
               index: homeState.type.index,
               children: [
                 const InternetConnectionChecker(
-                    showFullPage: false,
-                    canInteract: true,
-                    child: AlertNotificationHandler(child: MapViewPage())),
+                    showFullPage: false, canInteract: true, child: AlertNotificationHandler(child: MapViewPage())),
                 const TourRecordPage(),
                 InternetConnectionChecker(
                   showFullPage: true,

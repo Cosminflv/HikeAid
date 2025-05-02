@@ -1,4 +1,5 @@
 import 'package:domain/entities/edit_user_profile_status.dart';
+import 'package:shared/domain/tour_entity.dart';
 
 import 'dart:typed_data';
 
@@ -19,6 +20,8 @@ abstract class UserProfileRepository {
   /// - Throws:
   ///   - [SomeSpecificException] if the retrieval fails due to connectivity issues.
   Future<UserProfileEntity?> getAuthenticatedUserProfile(int userId);
+
+  Future<List<TourEntity>> getUserTours(int userId);
 
   /// Updates the user's profile with the provided details.
   ///

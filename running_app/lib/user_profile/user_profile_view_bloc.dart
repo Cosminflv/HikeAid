@@ -9,6 +9,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileViewState> {
 
   UserProfileBloc() : super(InitialProfileState()) {
     on<FetchUserProfileEvent>(_handleFetchUserProfile);
+    on<FetchUserTours>(_handleFetchUserTours);
   }
 
   _handleFetchUserProfile(FetchUserProfileEvent event, Emitter<UserProfileViewState> emit) async {
@@ -16,12 +17,26 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileViewState> {
 
     // Determine whether to fetch authenticated user's profile or another user's profile.
     final profile = await _userProfileUseCase.getUserProfile(event.userId);
+    final tours = await _userProfileUseCase.getUserTours(event.userId);
 
     if (profile == null) {
       emit(UserProfileLoadFailState());
       return;
     }
 
-    emit(UserProfileLoadedState(profile: profile));
+    emit(UserProfileLoadedState(profile: profile, tours: tours));
+  }
+
+  _handleFetchUserTours(FetchUserTours event, Emitter<UserProfileViewState> emit) async {
+    if (state is! UserProfileLoadedState) {
+      return; // Ensure that the state is loaded before fetching tours.
+    }
+    final loadedProfile = (state as UserProfileLoadedState).profile;
+    emit(UserProfileLoadingState());
+
+    // Fetch the user's tours using the userId from the event.
+    final tours = await _userProfileUseCase.getUserTours(event.userId);
+
+    emit(UserProfileLoadedState(profile: loadedProfile, tours: tours));
   }
 }

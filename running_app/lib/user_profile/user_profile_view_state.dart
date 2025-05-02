@@ -1,3 +1,4 @@
+import 'package:shared/domain/tour_entity.dart';
 import 'package:shared/domain/user_profile_entity.dart';
 import 'package:equatable/equatable.dart';
 
@@ -20,9 +21,10 @@ class UserProfileLoadingState extends UserProfileViewState {
 
 class UserProfileLoadedState extends UserProfileViewState {
   final UserProfileEntity profile;
+  final List<TourEntity> tours;
 
-  UserProfileLoadedState({required this.profile});
+  UserProfileLoadedState({required this.profile, required this.tours});
 
   @override
-  List<Object?> get props => [profile];
+  List<Object?> get props => [profile, tours];
 }

@@ -1,5 +1,6 @@
 import 'package:domain/entities/edit_user_profile_status.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
+import 'package:shared/domain/tour_entity.dart';
 
 import 'dart:typed_data';
 
@@ -13,6 +14,11 @@ class UserProfileUseCase {
   Future<UserProfileEntity?> getUserProfile(int userId) async {
     final user = await _userProfileRepository.getAuthenticatedUserProfile(userId);
     return user;
+  }
+
+  Future<List<TourEntity>> getUserTours(int userId) async {
+    final tours = await _userProfileRepository.getUserTours(userId);
+    return tours;
   }
 
   Future<void> updateUserProfile({

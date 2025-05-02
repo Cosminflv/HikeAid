@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:core/di/app_blocs.dart';
 import 'package:core/di/injection_container.dart';
 import 'package:domain/entities/view_area_entity.dart';
@@ -26,6 +24,7 @@ import 'tour_recording_bloc.dart';
 import 'tour_recording_state.dart';
 
 import 'dart:async';
+import 'dart:convert';
 
 class TourRecordingFinishedPage extends StatefulWidget {
   const TourRecordingFinishedPage({super.key});

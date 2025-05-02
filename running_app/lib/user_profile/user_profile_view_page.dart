@@ -21,6 +21,7 @@ import 'package:running_app/user_profile/user_profile_view_state.dart';
 import 'package:running_app/user_profile/widgets/friend_status_button.dart';
 import 'package:running_app/user_profile/widgets/profile_image_dialog.dart';
 import 'package:running_app/user_profile/widgets/remove_friend_dialog.dart';
+import 'package:running_app/user_profile/widgets/tour_card.dart';
 
 // ignore: must_be_immutable
 class UserProfileViewPage extends StatefulWidget {
@@ -241,6 +242,56 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                     ),
                   ),
                 ),
+              ),
+              BlocBuilder<UserProfileBloc, UserProfileViewState>(
+                buildWhen: (previous, current) =>
+                    previous is UserProfileLoadedState &&
+                    current is UserProfileLoadedState &&
+                    previous.tours.length != current.tours.length,
+                builder: (context, state) {
+                  if (state is UserProfileLoadedState) {
+                    // Show a placeholder when there are no recorded hikes
+                    if (state.tours.isEmpty) {
+                      return const Expanded(
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.directions_walk,
+                                size: 64,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(height: 16),
+                              Text(
+                                'No recorded hikes',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+
+                    // Show the list of tours when available
+                    return Expanded(
+                      child: ListView.separated(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: state.tours.length,
+                        separatorBuilder: (_, __) => const SizedBox(height: 12),
+                        itemBuilder: (context, index) {
+                          final tour = state.tours[index];
+                          return TourCard(tour: tour);
+                        },
+                      ),
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
               ),
             ],
           );
