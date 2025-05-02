@@ -15,7 +15,6 @@ class TourFactoryImpl extends TourFactory {
     required int totalUp,
     required int totalDown,
     required List<CoordinatesWithTimestamp> coordinates,
-    required TourType type,
     required bool isPublic,
   }) =>
       TourEntityImpl(
@@ -29,6 +28,5 @@ class TourFactoryImpl extends TourFactory {
         totalDown: totalDown,
         coordinates: coordinates,
         previewImageUrl: "not_available",
-        type: type,
       );
 }

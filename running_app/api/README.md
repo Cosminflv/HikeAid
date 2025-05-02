@@ -91,8 +91,8 @@ Class | Method | HTTP request | Description
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostPostIdCommentsGet**](doc/SocialPostApi.md#apisocialpostpostidcommentsget) | **GET** /api/SocialPost/{postId}/comments | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostPostIdLikePost**](doc/SocialPostApi.md#apisocialpostpostidlikepost) | **POST** /api/SocialPost/{postId}/like | 
 [*SocialPostApi*](doc/SocialPostApi.md) | [**apiSocialPostUserUserIdGet**](doc/SocialPostApi.md#apisocialpostuseruseridget) | **GET** /api/SocialPost/user/{userId} | 
-[*TrackApi*](doc/TrackApi.md) | [**apiTrackIdUploadTrackPost**](doc/TrackApi.md#apitrackiduploadtrackpost) | **POST** /api/Track/{id}/uploadTrack | 
-[*TrackApi*](doc/TrackApi.md) | [**apiTrackIdUserTracksGet**](doc/TrackApi.md#apitrackidusertracksget) | **GET** /api/Track/{id}/userTracks | 
+[*TourApi*](doc/TourApi.md) | [**apiTourIdUploadTourPost**](doc/TourApi.md#apitouriduploadtourpost) | **POST** /api/Tour/{id}/uploadTour | 
+[*TourApi*](doc/TourApi.md) | [**apiTourIdUserToursGet**](doc/TourApi.md#apitouridusertoursget) | **GET** /api/Tour/{id}/userTours | 
 [*UserApi*](doc/UserApi.md) | [**apiUserAcceptFriendRequestPost**](doc/UserApi.md#apiuseracceptfriendrequestpost) | **POST** /api/User/acceptFriendRequest | 
 [*UserApi*](doc/UserApi.md) | [**apiUserDeclineFriendRequestPost**](doc/UserApi.md#apiuserdeclinefriendrequestpost) | **POST** /api/User/declineFriendRequest | 
 [*UserApi*](doc/UserApi.md) | [**apiUserDeleteProfilePicturePost**](doc/UserApi.md#apiuserdeleteprofilepicturepost) | **POST** /api/User/deleteProfilePicture | 
@@ -118,7 +118,8 @@ Class | Method | HTTP request | Description
  - [SearchUserDto](doc/SearchUserDto.md)
  - [SocialPostDto](doc/SocialPostDto.md)
  - [SocialPostModel](doc/SocialPostModel.md)
- - [TrackDto](doc/TrackDto.md)
+ - [TourCoordinatesDto](doc/TourCoordinatesDto.md)
+ - [TourDto](doc/TourDto.md)
  - [UpdateUserDto](doc/UpdateUserDto.md)
  - [UserDto](doc/UserDto.md)
 

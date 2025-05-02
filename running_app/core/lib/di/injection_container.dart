@@ -174,7 +174,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<RouteRepository>(() => RouteRepositoryImpl());
   sl.registerLazySingleton<ImageCacheRepository>(() => ImageCacheRepositoryImpl());
   sl.registerLazySingleton<NavigationRepository>(() => NavigationRepositoryImpl(sl.get<ImageCacheRepository>()));
-  sl.registerLazySingleton<TourRepository>(() => TourRepositoryImpl());
+  sl.registerLazySingleton<TourRepository>(() => TourRepositoryImpl(openApi));
   sl.registerLazySingleton<FriendshipRepository>(() => FriendshipRepositoryImpl(openApi));
   sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(openApi, sseClient));
   sl.registerLazySingleton<PendingAlertsRepository>(() => PendingAlertsRepositoryImpl());

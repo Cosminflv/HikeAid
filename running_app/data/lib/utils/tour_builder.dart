@@ -73,7 +73,6 @@ class TourBuilder {
       duration: (totalTime.inSeconds == 0) ? totalDuration : totalTime.inSeconds,
       totalUp: totalUp.toInt(),
       totalDown: totalDown.toInt(),
-      type: TourType.completed,
       previewImageUrl: "not_available",
       date: DateTime.now(),
     );

@@ -1,17 +1,20 @@
+import 'package:built_collection/built_collection.dart';
+import 'package:domain/repositories/tour_repository.dart';
+import 'package:shared/data/coordinates_entity_impl.dart';
+import 'package:shared/data/tour_entity_impl.dart';
+import 'package:shared/domain/coordinates_entity.dart';
+import 'package:shared/domain/tour_entity.dart';
+
+import 'package:openapi/openapi.dart';
+import 'package:http/http.dart' as http;
+
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:domain/repositories/tour_repository.dart';
-import 'package:shared/domain/tour_entity.dart';
-
-import 'package:shared/domain/tour_file_entity.dart';
-import 'package:http/http.dart' as http;
-
 class TourRepositoryImpl extends TourRepository {
-  //TODO: Change to openAPI instance
-  //final Supabase _supabaseInstance;
+  final Openapi _openapi;
 
-  TourRepositoryImpl();
+  TourRepositoryImpl(this._openapi);
 
   @override
   Future<bool> insertTour({required TourEntity tour, required Uint8List previewImageBytes}) async {
@@ -29,11 +32,42 @@ class TourRepositoryImpl extends TourRepository {
       final responseData = await response.stream.toBytes();
       final responseString = String.fromCharCodes(responseData);
       final jsonMap = jsonDecode(responseString);
-      final _uploadedUrl = jsonMap['url'] as String?;
+      final uploadedUrl = jsonMap['url'] as String;
 
-      // Next upload the tour to the database
+      TourDto tourDto = TourDto(
+        (builder) {
+          builder.name = tour.name;
+          builder.authorId = tour.authorId;
+          builder.previewImageUrl = uploadedUrl;
+          builder.distance = tour.distance;
+          builder.duration = tour.duration;
+          builder.totalUp = tour.totalUp;
+          builder.totalDown = tour.totalDown;
+          builder.date = tour.date.toUtc();
+          builder.coordinates = ListBuilder<TourCoordinatesDto>(
+            tour.coordinates.map((e) => TourCoordinatesDto((b) {
+                  b.latitude = e.latLng.latitude;
+                  b.longitude = e.latLng.longitude;
+                  b.speed = e.speed;
+                  b.altitude = e.altitude;
+                  b.timestamp = e.timestamp.toUtc();
+                })),
+          );
+        },
+      );
 
-      return true;
+      try {
+        final result =
+            await _openapi.getTourApi().apiTourIdUploadTourPost(id: tour.authorId.toString(), tourDto: tourDto);
+
+        if (result.statusCode != 200) return false;
+
+        final response = result.data as bool;
+        return response;
+      } catch (e) {
+        print("Error uploading tour: $e");
+        return false;
+      }
     } catch (e) {
       print("Error inserting tour: $e");
       return false;
@@ -41,35 +75,55 @@ class TourRepositoryImpl extends TourRepository {
   }
 
   @override
-  Future<List<TourEntity>?> readOwnTours() async {
-    // final session = _supabaseInstance.client.auth.currentSession;
+  Future<List<TourEntity>?> readTours(int userId) async {
+    try {
+      final result = await _openapi.getTourApi().apiTourIdUserToursGet(id: userId.toString());
 
-    // if (session == null) return null;
+      if (result.statusCode == 200) {
+        final response = result.data;
+        if (response == null) return null;
 
-    // _supabaseInstance.client.rest.setAuth(session.accessToken);
-    // final id = session.user.id;
-
-    // final response = await _supabaseInstance.client.rest
-    //     .from('tours')
-    //     .select('*, profiles!public_tours_author_id_fkey(*)')
-    //     .eq('author_id', id);
-    // return response.map((json) => TourEntityImpl.fromJson(json)).toList();
+        return response.map((e) => mapTourDtoToEntity(e)).toList();
+      }
+      return null;
+    } catch (e) {
+      print("Error reading own tours: $e");
+      return null;
+    }
   }
 
-  @override
-  Future<List<TourEntity>?> readTours() async {
-    // final session = _supabaseInstance.client.auth.currentSession;
+  TourEntity mapTourDtoToEntity(TourDto dto) {
+    // Safely pull the built_value list (which may be null) into a regular Dart list
+    final BuiltList<TourCoordinatesDto> dtoCoords = dto.coordinates ?? BuiltList<TourCoordinatesDto>();
 
-    // if (session == null) return null;
+    // Map each TourCoordinatesDto to CoordinatesWithTimestamp
+    final List<CoordinatesWithTimestamp> coords = dtoCoords.map((c) {
+      // Build the lat/lng entity
+      final latLng = CoordinatesEntityImpl(
+        latitude: c.latitude ?? 0.0,
+        longitude: c.longitude ?? 0.0,
+      );
 
-    // _supabaseInstance.client.rest.setAuth(session.accessToken);
+      return CoordinatesWithTimestamp(
+        latLng as CoordinatesEntity,
+        c.speed,
+        c.altitude ?? 0,
+        c.timestamp ?? DateTime.fromMillisecondsSinceEpoch(0),
+      );
+    }).toList();
 
-    // final response = await _supabaseInstance.client.rest
-    //     .from('tours')
-    //     .select('*, profiles!public_tours_author_id_fkey(*)')
-    //     .eq('is_public', true);
-
-    // return response.map((json) => TourEntityImpl.fromJson(json)).toList();
+    return TourEntityImpl(
+      id: dto.id ?? 0,
+      authorId: dto.authorId ?? 0,
+      name: dto.name ?? '',
+      date: dto.date ?? DateTime.fromMillisecondsSinceEpoch(0),
+      distance: dto.distance ?? 0,
+      duration: dto.duration ?? 0,
+      totalUp: dto.totalUp ?? 0,
+      totalDown: dto.totalDown ?? 0,
+      previewImageUrl: dto.previewImageUrl ?? '',
+      coordinates: coords,
+    );
   }
 
   @override
@@ -92,112 +146,5 @@ class TourRepositoryImpl extends TourRepository {
     // _supabaseInstance.client.rest.setAuth(session.accessToken);
 
     // await _supabaseInstance.client.rest.from('tours').update({'name': newName}).eq('id', tour.id);
-  }
-
-  @override
-  Future<void> setVisibility({required TourEntity tour, required bool isPublic}) async {
-    // final session = _supabaseInstance.client.auth.currentSession;
-
-    // if (session == null) return;
-
-    // _supabaseInstance.client.rest.setAuth(session.accessToken);
-
-    // await _supabaseInstance.client.rest.from('tours').update({'is_public': isPublic}).eq('id', tour.id);
-  }
-
-  @override
-  void registerTourSharingURLReceivedCallback(void Function(TourEntity? tour) onTourReceived) {
-    // StreamSubscription? authLinkSubscription;
-    // authLinkSubscription = AppLinks().uriLinkStream.listen((uri) async {
-    //   final queryParams = uri.queryParameters;
-
-    //   if (uri.pathSegments.contains('share_tour')) {
-    //     final id = queryParams['tour'];
-    //     if (id == null) return;
-
-    //     final tour = await _getTourById(id);
-    //     onTourReceived(tour);
-    //   }
-    // });
-  }
-
-  Future<TourEntity?> _getTourById(String id) async {
-    // final session = _supabaseInstance.client.auth.currentSession;
-
-    // if (session == null) return null;
-
-    // _supabaseInstance.client.rest.setAuth(session.accessToken);
-
-    // try {
-    //   final res = await _supabaseInstance.client.rest
-    //       .from('tours')
-    //       .select('*, profiles!public_tours_author_id_fkey(*)')
-    //       .eq('id', id);
-    //   if (res.isEmpty) return null;
-
-    //   return TourEntityImpl.fromJson(res.first);
-    // } catch (e) {
-    //   return null;
-    // }
-  }
-
-  @override
-  Future<TourEntity?> checkForTourSharingURL() async {
-    // final uri = await AppLinks().getInitialLink();
-
-    // if (uri == null) return null;
-
-    // final queryParams = uri.queryParameters;
-
-    // if (uri.pathSegments.contains('share_tour')) {
-    //   final id = queryParams['tour'];
-    //   if (id == null) return null;
-
-    //   return await _getTourById(id);
-    // }
-    // return null;
-  }
-
-  @override
-  Future<List<String>?> insertTourImages({required TourEntity tour, required List<TourFileEntity> images}) async {
-    // final session = _supabaseInstance.client.auth.currentSession;
-
-    // if (session == null) return null;
-
-    // _supabaseInstance.client.rest.setAuth(session.accessToken);
-
-    // try {
-    //   final imagesToInsert = images
-    //       .map((e) => {
-    //             'distance_on_tour': e.distance,
-    //             'tour_id': tour.id,
-    //           })
-    //       .toList();
-    //   final res = await _supabaseInstance.client.rest.from('tour_files').insert(imagesToInsert).select('file_name');
-    //   if (res.isEmpty) return null;
-
-    //   return res.map((e) => e['file_name'] as String).toList();
-    // } catch (e) {
-    //   return null;
-    // }
-  }
-
-  @override
-  Future<List<TourFileEntity>?> readTourFiles(TourEntity tour) async {
-    //   final session = _supabaseInstance.client.auth.currentSession;
-
-    //   if (session == null) return null;
-
-    //   _supabaseInstance.client.rest.setAuth(session.accessToken);
-
-    //   try {
-    //     final res = await _supabaseInstance.client.rest.from('tour_files').select().eq('tour_id', tour.id);
-    //     if (res.isEmpty) return null;
-
-    //     return res.map((e) => TourFileEntityImpl.fromJson(e)).toList();
-    //   } catch (e) {
-    //     return null;
-    //   }
-    // }
   }
 }

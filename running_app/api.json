@@ -562,10 +562,10 @@
         }
       }
     },
-    "/api/Track/{id}/userTracks": {
+    "/api/Tour/{id}/userTours": {
       "get": {
         "tags": [
-          "Track"
+          "Tour"
         ],
         "parameters": [
           {
@@ -593,7 +593,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TrackDto"
+                    "$ref": "#/components/schemas/TourDto"
                   }
                 }
               },
@@ -601,7 +601,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TrackDto"
+                    "$ref": "#/components/schemas/TourDto"
                   }
                 }
               },
@@ -609,7 +609,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TrackDto"
+                    "$ref": "#/components/schemas/TourDto"
                   }
                 }
               }
@@ -618,10 +618,10 @@
         }
       }
     },
-    "/api/Track/{id}/uploadTrack": {
+    "/api/Tour/{id}/uploadTour": {
       "post": {
         "tags": [
-          "Track"
+          "Tour"
         ],
         "parameters": [
           {
@@ -637,17 +637,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TrackDto"
+                "$ref": "#/components/schemas/TourDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TrackDto"
+                "$ref": "#/components/schemas/TourDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TrackDto"
+                "$ref": "#/components/schemas/TourDto"
               }
             }
           }
@@ -1187,30 +1187,78 @@
         },
         "additionalProperties": false
       },
-      "TrackDto": {
-        "required": [
-          "gpxData",
-          "id",
-          "logData",
-          "userId"
-        ],
+      "TourCoordinatesDto": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "speed": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "altitude": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TourDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "userId": {
+          "authorId": {
             "type": "integer",
             "format": "int32"
           },
-          "gpxData": {
+          "name": {
             "type": "string",
-            "format": "byte"
+            "nullable": true
           },
-          "logData": {
+          "date": {
             "type": "string",
-            "format": "byte"
+            "format": "date-time"
+          },
+          "distance": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalUp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalDown": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "previewImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "coordinates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TourCoordinatesDto"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1337,7 +1385,7 @@
   },
   "security": [
     {
-      "Bearer": []
+      "Bearer": [ ]
     }
   ]
 }

@@ -7,24 +7,6 @@ import 'package:shared/domain/user_profile_entity.dart';
 import 'landmark_entity.dart';
 import 'position_entity.dart';
 
-enum TourType {
-  planned,
-  completed;
-
-  factory TourType.fromString(String name) {
-    switch (name) {
-      case 'planned':
-        return TourType.planned;
-      case 'completed':
-        return TourType.completed;
-    }
-    throw UnsupportedError('Name is not supported');
-  }
-
-  @override
-  String toString() => this == TourType.planned ? 'planned' : 'completed';
-}
-
 abstract class TourEntity {
   final int id;
   final int authorId;
@@ -37,8 +19,6 @@ abstract class TourEntity {
   final List<CoordinatesWithTimestamp> coordinates;
   final String previewImageUrl;
 
-  final TourType type;
-
   TourEntity({
     required this.id,
     required this.authorId,
@@ -50,14 +30,11 @@ abstract class TourEntity {
     required this.totalDown,
     required this.coordinates,
     required this.previewImageUrl,
-    required this.type,
   });
 
   Map<String, dynamic> toJson(String authorId);
 
   double get averageSpeed => distance / duration;
-
-  String getCorrespondingPreviewPath(String previewsDirectory);
 
   TourEntity copyWith({String? name, String? fileId, int? authorId, bool? isPublic, List<TourFileEntity>? files});
 
@@ -85,15 +62,13 @@ class CoordinatesWithTimestamp {
     this.latLng,
     this.speed,
     this.altitude,
-  ) : timestamp = DateTime.now();
+    this.timestamp,
+  );
 
   CoordinatesWithTimestamp.custom({required this.latLng, this.speed, required this.altitude, required this.timestamp});
 
-  factory CoordinatesWithTimestamp.fromPosition(PositionEntity position) => CoordinatesWithTimestamp(
-        position.coordinates,
-        position.speed,
-        position.altitude.toInt(),
-      );
+  factory CoordinatesWithTimestamp.fromPosition(PositionEntity position) =>
+      CoordinatesWithTimestamp(position.coordinates, position.speed, position.altitude.toInt(), DateTime.now());
 
   factory CoordinatesWithTimestamp.fromJson(Map<String, dynamic> json) => CoordinatesWithTimestamp.custom(
         latLng: CoordinatesEntityImpl(latitude: json['latitude'], longitude: json['longitude']),

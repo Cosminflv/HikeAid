@@ -21,7 +21,6 @@ class TourEntityImpl extends TourEntity {
     required super.totalDown,
     required super.coordinates,
     required super.previewImageUrl,
-    required super.type,
     this.author,
   });
 
@@ -29,18 +28,6 @@ class TourEntityImpl extends TourEntity {
 
   @override
   double get averageSpeed => distance / duration;
-
-  @override
-  String getCorrespondingPreviewPath(String previewsDirectory) {
-    if (type == TourType.completed) return '$previewsDirectory/${name.replaceFirst('gpx', 'jpg')}';
-    final dateRegExp = RegExp(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}');
-    String newName = name;
-
-    if (!dateRegExp.hasMatch(name)) {
-      newName = '${date}_$name';
-    }
-    return '$previewsDirectory/${newName.replaceFirst('gpx', 'jpg')}';
-  }
 
   @override
   TourEntity copyWith({
@@ -62,7 +49,6 @@ class TourEntityImpl extends TourEntity {
         totalDown: totalDown,
         coordinates: coordinates,
         previewImageUrl: previewImageUrl ?? this.previewImageUrl,
-        type: type,
         author: author,
       );
 
@@ -90,7 +76,6 @@ class TourEntityImpl extends TourEntity {
         'totalUp': totalUp,
         'totalDown': totalDown,
         'coordinates': coordinates.map((e) => e.toJson()).toList(),
-        'type': type.toString(),
       };
 
   factory TourEntityImpl.fromJson(Map<String, dynamic> json) => TourEntityImpl(
@@ -104,7 +89,6 @@ class TourEntityImpl extends TourEntity {
         totalDown: json['totalDown'],
         coordinates: (json['coordinates'] as List<dynamic>).map((e) => CoordinatesWithTimestamp.fromJson(e)).toList(),
         previewImageUrl: (json['preview_image_url'] as String),
-        type: TourType.fromString(json['type']),
         author: null, //TODO: CHANGE THIS TO AUTHOR PROFILE ENTITY
       );
 

@@ -75,7 +75,6 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
           totalUp: _averageSpeedTracker.totalUp.toInt(),
           totalDown: _averageSpeedTracker.totalDown.toInt(),
           coordinates: state.recordedCoordinates,
-          type: TourType.completed,
           isPublic: false, // TODO: add attribute in event
         );
 

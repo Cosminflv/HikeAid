@@ -13,7 +13,7 @@ import 'package:openapi/src/api/alert_api.dart';
 import 'package:openapi/src/api/events_api.dart';
 import 'package:openapi/src/api/login_api.dart';
 import 'package:openapi/src/api/social_post_api.dart';
-import 'package:openapi/src/api/track_api.dart';
+import 'package:openapi/src/api/tour_api.dart';
 import 'package:openapi/src/api/user_api.dart';
 
 class Openapi {
@@ -94,10 +94,10 @@ class Openapi {
     return SocialPostApi(dio, serializers);
   }
 
-  /// Get TrackApi instance, base route and serializer can be overridden by a given but be careful,
+  /// Get TourApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
-  TrackApi getTrackApi() {
-    return TrackApi(dio, serializers);
+  TourApi getTourApi() {
+    return TourApi(dio, serializers);
   }
 
   /// Get UserApi instance, base route and serializer can be overridden by a given but be careful,

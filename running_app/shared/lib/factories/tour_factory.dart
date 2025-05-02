@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:shared/domain/tour_entity.dart';
 
 abstract class TourFactory {
@@ -14,7 +12,6 @@ abstract class TourFactory {
     required int totalUp,
     required int totalDown,
     required List<CoordinatesWithTimestamp> coordinates,
-    required TourType type,
     required bool isPublic,
   });
 }

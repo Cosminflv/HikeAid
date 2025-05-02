@@ -23,7 +23,8 @@ import 'package:openapi/src/model/login_dto.dart';
 import 'package:openapi/src/model/search_user_dto.dart';
 import 'package:openapi/src/model/social_post_dto.dart';
 import 'package:openapi/src/model/social_post_model.dart';
-import 'package:openapi/src/model/track_dto.dart';
+import 'package:openapi/src/model/tour_coordinates_dto.dart';
+import 'package:openapi/src/model/tour_dto.dart';
 import 'package:openapi/src/model/update_user_dto.dart';
 import 'package:openapi/src/model/user_dto.dart';
 
@@ -39,18 +40,19 @@ part 'serializers.g.dart';
   SearchUserDto,
   SocialPostDto,
   SocialPostModel,
-  TrackDto,
+  TourCoordinatesDto,
+  TourDto,
   UpdateUserDto,
   UserDto,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(SearchUserDto)]),
-        () => ListBuilder<SearchUserDto>(),
+        const FullType(BuiltList, [FullType(TourDto)]),
+        () => ListBuilder<TourDto>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(TrackDto)]),
-        () => ListBuilder<TrackDto>(),
+        const FullType(BuiltList, [FullType(SearchUserDto)]),
+        () => ListBuilder<SearchUserDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(FriendshipDto)]),

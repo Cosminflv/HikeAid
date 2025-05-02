@@ -14,8 +14,9 @@ doc/SearchUserDto.md
 doc/SocialPostApi.md
 doc/SocialPostDto.md
 doc/SocialPostModel.md
-doc/TrackApi.md
-doc/TrackDto.md
+doc/TourApi.md
+doc/TourCoordinatesDto.md
+doc/TourDto.md
 doc/UpdateUserDto.md
 doc/UserApi.md
 doc/UserDto.md
@@ -25,7 +26,7 @@ lib/src/api/alert_api.dart
 lib/src/api/events_api.dart
 lib/src/api/login_api.dart
 lib/src/api/social_post_api.dart
-lib/src/api/track_api.dart
+lib/src/api/tour_api.dart
 lib/src/api/user_api.dart
 lib/src/api_util.dart
 lib/src/auth/api_key_auth.dart
@@ -44,8 +45,12 @@ lib/src/model/login_dto.dart
 lib/src/model/search_user_dto.dart
 lib/src/model/social_post_dto.dart
 lib/src/model/social_post_model.dart
-lib/src/model/track_dto.dart
+lib/src/model/tour_coordinates_dto.dart
+lib/src/model/tour_dto.dart
 lib/src/model/update_user_dto.dart
 lib/src/model/user_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
+test/tour_api_test.dart
+test/tour_coordinates_dto_test.dart
+test/tour_dto_test.dart
