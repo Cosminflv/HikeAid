@@ -13,7 +13,6 @@ import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
-import 'package:running_app/user_profile/user_profile_view_state.dart';
 import 'package:running_app/utils/session_utils.dart';
 import 'package:running_app/utils/sizes.dart';
 import 'package:running_app/widgets/alerts_notifications.dart';
@@ -98,7 +97,7 @@ class _HomeViewPageState extends State<HomeViewPage> {
                             ? FontAwesomeIcons.solidUser
                             : FontAwesomeIcons.user),
                         label: AppLocalizations.of(context)!.profile,
-                      )
+                      ),
                     ],
                   ),
                 ),

@@ -8,7 +8,7 @@ import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/config/routes.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/friendships/friendships_view_bloc.dart';
-import 'package:running_app/internet_connection/internet_connection_events.dart';
+import 'package:running_app/internet_connection/device_info_events.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_event.dart';
 import 'package:running_app/config/theme.dart';
@@ -64,7 +64,7 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
         BlocProvider(create: (context) => sl.get<AlertBloc>()),
         BlocProvider(create: (context) => sl.get<SearchUsersBloc>()),
         BlocProvider(create: (context) => sl.get<SearchMenuBloc>()),
-        BlocProvider(create: (context) => AppBlocs.internetConnectionBloc..add(CheckInternetConnectionEvent())),
+        BlocProvider(create: (context) => AppBlocs.deviceInfo..add(CheckInternetConnectionEvent())),
         BlocProvider(create: (context) => AppBlocs.tourRecordingBloc),
         BlocProvider(create: (context) => sl.get<EditUserProfileViewBloc>())
       ],

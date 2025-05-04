@@ -23,6 +23,7 @@ import 'package:data/factories/path_factory_impl.dart';
 import 'package:data/utils/sse_client.dart';
 
 import 'package:domain/entities/landmark_store_entity.dart';
+import 'package:domain/entities/view_area_entity.dart';
 import 'package:domain/map_widget_builder.dart';
 import 'package:domain/map_platform.dart';
 import 'package:data/models/asset_bundle_entity_impl.dart';
@@ -78,7 +79,7 @@ import 'package:running_app/alerts/alert_bloc.dart';
 
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/home/home_view_bloc.dart';
-import 'package:running_app/internet_connection/internet_connection_bloc.dart';
+import 'package:running_app/internet_connection/device_info_bloc.dart';
 import 'package:running_app/landmark_store/landmark_store_bloc.dart';
 import 'package:running_app/map_styles/map_styles_panel_bloc.dart';
 import 'package:running_app/navigation/navigation_view_bloc.dart';
@@ -90,6 +91,7 @@ import 'package:running_app/onboarding/registration/registration_view_bloc.dart'
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/app/app_bloc.dart';
+import 'package:running_app/settings/content_store_view/content_store_bloc.dart';
 import 'package:running_app/settings/settings_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/routing/routing_view_bloc.dart';
@@ -154,7 +156,7 @@ initEarlyDependencies(String ipv4Address) {
 
   // Misc
   sl.registerLazySingleton<FlutterSecureStorage>(() => storage);
-  sl.registerLazySingleton<ContentStoreRepository>(() => ContentStoreRepositoryImpl());
+  sl.registerLazySingleton<ContentStoreRepository>(() => ContentStoreRepositoryImpl(sl.get<ImageCacheRepository>()));
   sl.registerSingleton<SettingsRepository>(SettingsRepositoryImpl());
 
   sl.registerLazySingleton<SettingsUseCase>(() => SettingsUseCase(sl.get<SettingsRepository>()));
@@ -172,7 +174,8 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<InternetConnectionRepository>(() => InternetConnectionRepositoryImpl());
   sl.registerLazySingleton<TTSRepository>(() => TTSRepositoryImpl());
   sl.registerLazySingleton<RouteRepository>(() => RouteRepositoryImpl());
-  sl.registerLazySingleton<ImageCacheRepository>(() => ImageCacheRepositoryImpl());
+  sl.registerLazySingleton<ImageCacheRepository>(
+      () => ImageCacheRepositoryImpl(const PointEntity(x: 128, y: 128), const PointEntity(x: 256, y: 166)));
   sl.registerLazySingleton<NavigationRepository>(() => NavigationRepositoryImpl(sl.get<ImageCacheRepository>()));
   sl.registerLazySingleton<TourRepository>(() => TourRepositoryImpl(openApi));
   sl.registerLazySingleton<FriendshipRepository>(() => FriendshipRepositoryImpl(openApi));
@@ -193,8 +196,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<SearchUsersUseCase>(() => SearchUsersUseCase(sl.get<SearchUsersRepository>()));
   sl.registerLazySingleton<SearchUseCase>(() => SearchUseCase(sl.get<SearchRepository>()));
   sl.registerLazySingleton<LandmarkStoreUseCase>(() => LandmarkStoreUseCase(sl.get<LandmarkStoreRepository>()));
-  sl.registerLazySingleton<InternetConnectionUseCase>(
-      () => InternetConnectionUseCase(sl.get<InternetConnectionRepository>()));
+  sl.registerLazySingleton<DeviceUseCase>(() => DeviceUseCase(sl.get<InternetConnectionRepository>()));
   sl.registerLazySingleton<RoutingUseCase>(() => RoutingUseCase(sl.get<RouteRepository>()));
   sl.registerLazySingleton<NavigationUseCase>(
       () => NavigationUseCase(sl.get<NavigationRepository>(), sl.get<TTSRepository>()));
@@ -207,6 +209,7 @@ initEarlyDependencies(String ipv4Address) {
 
   // Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
+  sl.registerLazySingleton<ContentStoreBloc>(() => ContentStoreBloc());
   sl.registerLazySingleton<RegistrationViewBloc>(() => RegistrationViewBloc());
   sl.registerLazySingleton<MapViewBloc>(() => MapViewBloc(AssetBundleEntityImpl()));
   sl.registerLazySingleton<LocationBloc>(() => LocationBloc());
@@ -216,7 +219,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<EditUserProfileViewBloc>(() => EditUserProfileViewBloc());
   sl.registerLazySingleton<SearchUsersBloc>(() => SearchUsersBloc());
   sl.registerLazySingleton<SearchMenuBloc>(() => SearchMenuBloc());
-  sl.registerLazySingleton<InternetConnectionBloc>(() => InternetConnectionBloc());
+  sl.registerLazySingleton<DeviceInfoBloc>(() => DeviceInfoBloc(sl.get<DeviceUseCase>()));
   sl.registerLazySingleton<RoutingViewBloc>(() => RoutingViewBloc());
   sl.registerLazySingleton<NavigationViewBloc>(() => NavigationViewBloc());
   sl.registerLazySingleton<HomeViewBloc>(() => HomeViewBloc());
@@ -225,7 +228,7 @@ initEarlyDependencies(String ipv4Address) {
       () => TourRecordingBloc(sl.get<RecorderUseCase>(), sl.get<TourUseCase>()));
   sl.registerLazySingleton<FriendshipsViewBloc>(() => FriendshipsViewBloc(sl.get<FriendshipUseCase>()));
   sl.registerLazySingleton<AlertBloc>(
-      () => AlertBloc(sl.get<AlertUseCase>(), sl.get<InternetConnectionBloc>(), sl.get<PendingAlertsUseCase>()));
+      () => AlertBloc(sl.get<AlertUseCase>(), sl.get<DeviceInfoBloc>(), sl.get<PendingAlertsUseCase>()));
   sl.registerLazySingleton<MapStylesPanelBloc>(() => MapStylesPanelBloc());
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());

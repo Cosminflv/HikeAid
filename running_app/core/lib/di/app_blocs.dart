@@ -2,7 +2,7 @@ import 'package:domain/entities/landmark_store_entity.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/edit_user_profile/edit_user_profile_view_bloc.dart';
 import 'package:running_app/friendships/friendships_view_bloc.dart';
-import 'package:running_app/internet_connection/internet_connection_bloc.dart';
+import 'package:running_app/internet_connection/device_info_bloc.dart';
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/landmark_store/landmark_store_bloc.dart';
 
@@ -22,6 +22,7 @@ import 'package:running_app/navigation_instructions/navigation_instructions_pane
 import 'package:running_app/tour_recording/tour_recording_bloc.dart';
 import 'package:running_app/alerts/alert_bloc.dart';
 import 'package:running_app/map_styles/map_styles_panel_bloc.dart';
+import 'package:running_app/settings/content_store_view/content_store_bloc.dart';
 
 class AppBlocs {
   // Existing Blocs
@@ -74,7 +75,7 @@ class AppBlocs {
   static FriendshipsViewBloc get friendships => sl<FriendshipsViewBloc>();
 
   // Getter for InternetConnectionBloc
-  static InternetConnectionBloc get internetConnectionBloc => sl<InternetConnectionBloc>();
+  static DeviceInfoBloc get deviceInfo => sl<DeviceInfoBloc>();
 
   // Getter for SearchMenuBloc
   static SearchMenuBloc get searchMenuBloc => sl<SearchMenuBloc>();
@@ -96,4 +97,7 @@ class AppBlocs {
 
   // Getter for SettingsBloc
   static SettingsViewBloc get settingsViewBloc => sl<SettingsViewBloc>();
+
+  // Getter for ContentStoreBloc
+  static ContentStoreBloc get contentStore => sl<ContentStoreBloc>();
 }

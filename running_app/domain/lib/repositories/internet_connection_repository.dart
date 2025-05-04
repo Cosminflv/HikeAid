@@ -1,5 +1,9 @@
-abstract class InternetConnectionRepository {
-  Future<bool> isConnected();
+import '../entities/connectivity_status.dart';
 
-  void registerOnConnectioStatusUpdated(Function(bool isConnected) onConnectionUpdated);
+abstract class InternetConnectionRepository {
+  Future<DConnectivityStatus> get internetConnectionStatus;
+
+  void registerOnConnectioStatusUpdated(Function(DConnectivityStatus status) onConnectivityChangedCallback);
+
+  void unregister();
 }

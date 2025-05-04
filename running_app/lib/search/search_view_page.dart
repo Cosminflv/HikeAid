@@ -74,7 +74,7 @@ class SearchViewPage extends StatelessWidget {
                   var displayedItems = state.results;
 
                   if (state.status == SearchStatus.started && displayedItems.isEmpty) {
-                    if (!AppBlocs.internetConnectionBloc.state) return const SearchNoResultsPage();
+                    if (!AppBlocs.deviceInfo.state.hasInternetConnection) return const SearchNoResultsPage();
                     return const SearchLoadingScreen();
                   }
                   if (state.status == SearchStatus.none) {

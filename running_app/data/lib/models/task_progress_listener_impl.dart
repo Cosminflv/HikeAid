@@ -7,3 +7,10 @@ class TaskProgressListenerImpl extends TaskProgressListener {
 
   TaskProgressListenerImpl({this.ref}) : shouldCancel = false;
 }
+
+class TaskProgressListenerImpl2 extends TaskProgressListener2 {
+  ProgressListener? ref;
+  bool shouldCancel;
+
+  TaskProgressListenerImpl2({this.ref}) : shouldCancel = false;
+}

@@ -29,6 +29,9 @@ class Sizes {
   static int get screenWidth => physicalScreenWidth ~/ devicePixelRatio;
   static int get screenHeight => physicalScreenHeight ~/ devicePixelRatio;
 
+  static get countryFlagImageSize => const PointEntity(x: 128, y: 128);
+  static get stylePreviewImageSize => const PointEntity(x: 256, y: 166);
+
   static PointEntity get screenCenter => PointEntity(x: physicalScreenWidth ~/ 2, y: physicalScreenHeight ~/ 2);
 
   static PointEntity<double> getCenterOfVisibleArea(BuildContext context) {

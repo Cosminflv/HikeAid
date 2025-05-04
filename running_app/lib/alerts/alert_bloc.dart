@@ -1,23 +1,28 @@
 import 'package:domain/entities/alert_entity.dart';
+import 'package:domain/entities/connectivity_status.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/alerts/alert_events.dart';
 import 'package:running_app/alerts/alert_state.dart';
 import 'package:domain/use_cases/alert_use_case.dart';
 import 'package:domain/use_cases/pending_alerts_use_case.dart';
 
-import 'package:running_app/internet_connection/internet_connection_bloc.dart';
+import 'package:running_app/internet_connection/device_info_bloc.dart';
 
 import 'dart:async';
 
 class AlertBloc extends Bloc<AlertEvent, AlertState> {
   final AlertUseCase _alertUseCase;
-  final InternetConnectionBloc _internetConnectionBloc;
+  final DeviceInfoBloc _internetConnectionBloc;
   final PendingAlertsUseCase _pendingAlertsUseCase;
   final StreamController<List<AlertEntity>> _alertUpdates = StreamController.broadcast();
 
   AlertBloc(this._alertUseCase, this._internetConnectionBloc, this._pendingAlertsUseCase) : super(AlertState()) {
-    _internetConnectionBloc.stream.listen((isConnected) {
-      if (isConnected) add(RetryPendingAlertsEvent());
+    _internetConnectionBloc.stream.listen((deviceState) {
+      if (deviceState.connectivityStatus == DConnectivityStatus.ethernet ||
+          deviceState.connectivityStatus == DConnectivityStatus.mobile ||
+          deviceState.connectivityStatus == DConnectivityStatus.wifi) {
+        add(RetryPendingAlertsEvent());
+      }
     });
 
     on<FetchAlertsEvent>(_handleFetchAlerts);
@@ -43,7 +48,9 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
   }
 
   _handleAddAlert(AddAlertEvent event, Emitter<AlertState> emit) async {
-    if (_internetConnectionBloc.state) {
+    if (_internetConnectionBloc.state.connectivityStatus == DConnectivityStatus.ethernet ||
+        _internetConnectionBloc.state.connectivityStatus == DConnectivityStatus.mobile ||
+        _internetConnectionBloc.state.connectivityStatus == DConnectivityStatus.wifi) {
       // Online: Send immediately
       final result = await _alertUseCase.addAlert(
         title: event.title,

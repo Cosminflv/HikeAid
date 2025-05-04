@@ -1,12 +1,14 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:core/di/app_blocs.dart';
+import 'package:domain/entities/connectivity_status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:running_app/alerts/alert_events.dart';
 import 'package:running_app/friendships/friendships_view_events.dart';
-import 'package:running_app/internet_connection/internet_connection_bloc.dart';
+import 'package:running_app/internet_connection/device_info_bloc.dart';
+import 'package:running_app/internet_connection/device_info_state.dart';
 import 'package:running_app/user_profile/user_profile_view_event.dart';
 import 'package:running_app/user_profile/user_profile_view_state.dart';
 import 'package:running_app/utils/session_utils.dart';
@@ -20,9 +22,12 @@ class InternetConnectionAbsorbPointer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<InternetConnectionBloc, bool>(
-      builder: (context, hasInternetConnection) => AbsorbPointer(
-        absorbing: !hasInternetConnection,
+    return BlocBuilder<DeviceInfoBloc, DeviceInfoState>(
+      builder: (context, deviceInfoState) => AbsorbPointer(
+        absorbing: !(deviceInfoState.connectivityStatus == DConnectivityStatus.ethernet ||
+            deviceInfoState.connectivityStatus == DConnectivityStatus.mobile ||
+            deviceInfoState.connectivityStatus == DConnectivityStatus.wifi),
+        //!hasInternetConnection,
         child: child,
       ),
     );
@@ -84,13 +89,18 @@ class _InternetConnectionCheckerState extends State<InternetConnectionChecker> {
       onPopInvokedWithResult: (willPop, _) async {
         await bar?.dismiss();
       },
-      child: BlocConsumer<InternetConnectionBloc, bool>(
-        listener: (context, hasInternetConnection) {
-          if (hasInternetConnection && widget.onInternetConnectionRestored != null) {
+      child: BlocConsumer<DeviceInfoBloc, DeviceInfoState>(
+        listener: (context, deviceInfoState) {
+          if (deviceInfoState.connectivityStatus == DConnectivityStatus.ethernet ||
+              deviceInfoState.connectivityStatus == DConnectivityStatus.mobile ||
+              deviceInfoState.connectivityStatus == DConnectivityStatus.wifi &&
+                  widget.onInternetConnectionRestored != null) {
             widget.onInternetConnectionRestored!();
           }
 
-          if (hasInternetConnection) {
+          if (deviceInfoState.connectivityStatus == DConnectivityStatus.ethernet ||
+              deviceInfoState.connectivityStatus == DConnectivityStatus.mobile ||
+              deviceInfoState.connectivityStatus == DConnectivityStatus.wifi) {
             AppBlocs.friendships.add(InitializeNotificationService(userId: getSession(context)!.user.id));
             AppBlocs.alertBloc.add(RegisterAlertsSubscription());
             final userProfileBloc = AppBlocs.userProfileBloc;
@@ -106,23 +116,35 @@ class _InternetConnectionCheckerState extends State<InternetConnectionChecker> {
 
           if (bar != null && bar!.isShowing()) {
             bar!.dismiss().then((_) {
-              if (!hasInternetConnection) {
+              if (!(deviceInfoState.connectivityStatus == DConnectivityStatus.ethernet ||
+                  deviceInfoState.connectivityStatus == DConnectivityStatus.mobile ||
+                  deviceInfoState.connectivityStatus == DConnectivityStatus.wifi)) {
                 bar!.show(context);
               }
             });
-          } else if (!hasInternetConnection) {
+          } else if (!(deviceInfoState.connectivityStatus == DConnectivityStatus.ethernet ||
+              deviceInfoState.connectivityStatus == DConnectivityStatus.mobile ||
+              deviceInfoState.connectivityStatus == DConnectivityStatus.wifi)) {
             bar!.show(context);
           }
         },
-        builder: (context, hasInternetConnection) => Stack(
+        builder: (context, deviceInfoState) => Stack(
           children: [
             Positioned.fill(
               child: AbsorbPointer(
-                absorbing: widget.canInteract ? false : !hasInternetConnection,
+                absorbing: widget.canInteract
+                    ? false
+                    : !(deviceInfoState.connectivityStatus == DConnectivityStatus.ethernet ||
+                        deviceInfoState.connectivityStatus == DConnectivityStatus.mobile ||
+                        deviceInfoState.connectivityStatus == DConnectivityStatus.wifi),
                 child: widget.child,
               ),
             ),
-            if (!hasInternetConnection && widget.showFullPage) const NoInternetConnectionPage()
+            if (!(deviceInfoState.connectivityStatus == DConnectivityStatus.ethernet ||
+                    deviceInfoState.connectivityStatus == DConnectivityStatus.mobile ||
+                    deviceInfoState.connectivityStatus == DConnectivityStatus.wifi) &&
+                widget.showFullPage)
+              const NoInternetConnectionPage()
           ],
         ),
       ),

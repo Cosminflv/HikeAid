@@ -1,3 +1,4 @@
+import 'package:domain/entities/content_store_item_entity.dart';
 import 'package:domain/entities/friendship_entity.dart';
 import 'package:domain/entities/search_user_entity.dart';
 import 'package:flutter/widgets.dart';
@@ -14,6 +15,7 @@ import 'package:running_app/onboarding/user_preferences_setup/user_preferences_w
 import 'package:running_app/search/search_history/search_history_view_page.dart';
 import 'package:running_app/search/search_view_page.dart';
 import 'package:running_app/search_users/search_users_view_page.dart';
+import 'package:running_app/settings/content_store_view/content_store_page.dart';
 import 'package:running_app/tour_recording/tour_recording_finished_page.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
 import 'package:shared/domain/user_profile_entity.dart';
@@ -33,6 +35,7 @@ class RouteNames {
   static const searchPage = '$defaultPage/search_view_page';
   static const searchHistoryPage = '$defaultPage/search_history_page';
   static const tourFinished = '$mapPage/tour_finished';
+  static const contentStore = '$mapPage/content_store_page';
 
   @pragma('Personal')
   static const editProfilePage = '$defaultPage/edit_user_profile_view_page';
@@ -70,6 +73,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return FadeRoute(page: const SearchHistoryViewPage());
     case RouteNames.tourFinished:
       page = const TourRecordingFinishedPage();
+    case RouteNames.contentStore:
+      page = const ContentStoreViewPage(type: DContentStoreItemType.roadMap);
 
     // Personal
     case RouteNames.editProfilePage:

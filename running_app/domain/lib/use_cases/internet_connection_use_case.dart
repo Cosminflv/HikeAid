@@ -1,18 +1,18 @@
+import 'package:domain/entities/connectivity_status.dart';
 import 'package:domain/repositories/internet_connection_repository.dart';
 
-class InternetConnectionUseCase {
-  final InternetConnectionRepository _repository;
+class DeviceUseCase {
+  final InternetConnectionRepository _connectivityRepository;
 
-  InternetConnectionUseCase(this._repository);
+  DeviceUseCase(this._connectivityRepository);
 
-  bool _hasRegistered = false;
+  Future<DConnectivityStatus> get internetConnectionStatus => _connectivityRepository.internetConnectionStatus;
 
-  Future<bool> isConnected() => _repository.isConnected();
+  void registerForConnectivityStatus(void Function(DConnectivityStatus status) onConnectivityChangedCallback) {
+    _connectivityRepository.registerOnConnectioStatusUpdated(onConnectivityChangedCallback);
+  }
 
-  void registerOnConnectioStatusUpdated(Function(bool isConnected) onConnectionUpdated) {
-    if (!_hasRegistered) {
-      _repository.registerOnConnectioStatusUpdated(onConnectionUpdated);
-      _hasRegistered = true;
-    }
+  void unregister() {
+    _connectivityRepository.unregister();
   }
 }
