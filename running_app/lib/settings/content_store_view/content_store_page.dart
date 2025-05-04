@@ -11,6 +11,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:running_app/internet_connection/device_info_bloc.dart';
 import 'package:running_app/internet_connection/device_info_state.dart';
+import 'package:running_app/settings/content_store_view/widgets/search_row.dart';
 
 import 'content_store_bloc.dart';
 import 'content_store_events.dart';
@@ -108,6 +109,21 @@ class ContentStoreViewPageState extends State<ContentStoreViewPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          widget.type != DContentStoreItemType.mapStyleHighRes &&
+                                  widget.type != DContentStoreItemType.mapStyleLowRes
+                              ? SearchRow(
+                                  backgroundColor: Colors.grey,
+                                  onChanged: (query) => bloc.add(UpdateFilterTextEvent(query: query)),
+                                  onCancelTap: () {
+                                    bloc.add(UpdateFilterTextEvent(query: ''));
+                                    searchController.clear();
+                                  },
+                                  textEditingController: searchController,
+                                  shouldShowCancel: bloc.state.query.isNotEmpty,
+                                  placeholderText: _getHintText(widget.type, contentStoreState.currentMapsVersion),
+                                  hasHighlight: false,
+                                )
+                              : Container(),
                           BlocBuilder<DeviceInfoBloc, DeviceInfoState>(
                             builder: (context, connectionState) {
                               return BlocBuilder<ContentStoreBloc, ContentStoreState>(
@@ -271,6 +287,18 @@ class ContentStoreViewPageState extends State<ContentStoreViewPage> {
         );
       },
     );
+  }
+
+  String _getHintText(DContentStoreItemType type, String? mapVersion) {
+    switch (type) {
+      case DContentStoreItemType.roadMap:
+        if (mapVersion != null) return "Map Version: $mapVersion";
+        return 'Search a map';
+      case DContentStoreItemType.humanVoice:
+        return 'Search';
+      default:
+        return "unknown";
+    }
   }
 }
 
