@@ -124,8 +124,6 @@ initBlocs() {
   sl.registerLazySingleton<MapViewBloc>(() => MapViewBloc(AssetBundleEntityImpl()));
 
   AppBlocs.settingsViewBloc.add(LoadSettingsEvent());
-
-  int x = 3;
 }
 
 discardBlocsIfRegistered() {
