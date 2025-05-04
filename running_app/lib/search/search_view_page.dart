@@ -38,7 +38,7 @@ class SearchViewPage extends StatelessWidget {
                   return SearchTextField(
                     controller: _controller,
                     onChanged: (text) {
-                      final coordinates = AppBlocs.mapBloc.state.cameraState.coordinates;
+                      final coordinates = AppBlocs.mapBloc.state.cameraState!.coordinates;
                       searchMenuBloc.add(SearchTextEvent(text: text, coordinates: coordinates));
                       if (text.isEmpty) {
                         searchMenuBloc.add(ClearSearchEvent());

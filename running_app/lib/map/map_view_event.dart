@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:domain/entities/alert_entity.dart';
+import 'package:domain/entities/camera_state_entity.dart';
 import 'package:shared/domain/coordinates_entity.dart';
 import 'package:shared/domain/landmark_entity.dart';
 import 'package:shared/domain/path_entity.dart';
@@ -76,6 +77,25 @@ class CenterOnPathEvent extends MapViewEvent {
   final ViewAreaEntity? viewArea;
 
   CenterOnPathEvent({required this.path, this.viewArea});
+}
+
+class CenterOnCoordinatesEvent extends MapViewEvent {
+  final CoordinatesEntity coordinates;
+  final PointEntity screenPosition;
+  final int? zoomLevel;
+  final bool withAnimation;
+  CenterOnCoordinatesEvent({
+    required this.coordinates,
+    required this.screenPosition,
+    this.zoomLevel,
+    this.withAnimation = true,
+  });
+}
+
+class SetCameraStateEvent extends MapViewEvent {
+  final MapCameraStateEntity cameraState;
+
+  SetCameraStateEvent({required this.cameraState});
 }
 
 class ClearMarkersEvent extends MapViewEvent {}

@@ -31,7 +31,8 @@ class SettingsRepositoryImpl extends SettingsRepository {
 
     final mapCameraJsonStr = box.get('savedScreenCenterCoords') as String?;
     if (mapCameraJsonStr == null) {
-      return MapCameraStateEntityImpl(coordinates: CoordinatesEntityImpl(latitude: 46.7, longitude: 8.7), zoom: 40);
+      return MapCameraStateEntityImpl(
+          coordinates: CoordinatesEntityImpl(latitude: 46.7, longitude: 8.7), zoom: 40, isFollowingPositon: false);
     }
 
     final mapCameraStateJson = jsonDecode(mapCameraJsonStr);

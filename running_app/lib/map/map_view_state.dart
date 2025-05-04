@@ -3,7 +3,6 @@ import 'package:shared/domain/coordinates_entity.dart';
 import 'package:shared/domain/landmark_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:equatable/equatable.dart';
-import 'package:running_app/settings/settings_view_state.dart';
 
 class MapViewState extends Equatable {
   final bool isMapCreated;
@@ -22,7 +21,7 @@ class MapViewState extends Equatable {
   final RouteEntity? mapSelectedRoute;
   final CoordinatesEntity? mapSelectedAlertCoords;
 
-  final MapCameraStateEntity cameraState;
+  final MapCameraStateEntity? cameraState;
 
   const MapViewState(
       {this.isMapCreated = false,
@@ -30,8 +29,7 @@ class MapViewState extends Equatable {
       this.isFollowingPosition = false,
       this.isCenteredOnRoutes = false,
       this.compassAngle = 0.0,
-      this.cameraState =
-          const MapCameraStateEntity(coordinates: CoordinatesImpl(latitude: 45, longitude: 25), zoom: 60),
+      this.cameraState,
       this.routes = const [],
       this.isMapInteractive = true,
       this.mapSelectedLandmark,

@@ -42,6 +42,9 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<ResetCameraEvent>(_handleResetCamera);
     on<CenterOnRoutesEvent>(_handleCenterOnRoutes);
     on<CenterOnPathEvent>(_handleCenterOnPath);
+    on<CenterOnCoordinatesEvent>(_handleCenterOnCoordinates);
+
+    on<SetCameraStateEvent>(_handleSetCameraState);
 
     on<SelectedLandmarkUpdatedEvent>(_selectedLandmarkUpdatedEventHandler);
     on<SelectedAlertUpdatedEvent>(_selectedAlertUpdatedEventHandler);
@@ -78,6 +81,8 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
     _setupPositionTracker(true);
     await _loadImages();
+
+    emit(state.copyWith(isMapCreated: true));
   }
 
   _handleApplyMapStyleByPath(ApplyMapStyleByPathEvent event, Emitter<MapViewState> emit) =>
@@ -134,6 +139,16 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   _handleCenterOnPath(CenterOnPathEvent event, Emitter<MapViewState> emit) {
     _mapUseCase.centerOnPath(event.path, event.viewArea);
   }
+
+  _handleCenterOnCoordinates(CenterOnCoordinatesEvent event, Emitter<MapViewState> emit) =>
+      _mapUseCase.centerOnCoordinates(
+        coordinates: event.coordinates,
+        zoom: event.zoomLevel ?? 40,
+        screenPosition: event.screenPosition,
+      );
+
+  _handleSetCameraState(SetCameraStateEvent event, Emitter<MapViewState> emit) =>
+      emit(state.copyWith(cameraState: event.cameraState));
 
   _selectedLandmarkUpdatedEventHandler(SelectedLandmarkUpdatedEvent event, Emitter<MapViewState> emit) async {
     if (state.mapSelectedLandmark != null) _mapUseCase.removeHighlights(_toShortRange(state.mapSelectedLandmark!.id));

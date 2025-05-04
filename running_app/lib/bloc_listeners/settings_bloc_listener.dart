@@ -29,14 +29,6 @@ class _SettingsBlocListenerState extends State<SettingsBlocListener> {
         },
         listenWhen: (prev, curr) => prev.prefferedMapStylePath != curr.prefferedMapStylePath,
       ),
-      // AppBloc when receiving first screen coordinates
-      // BlocListener<SettingsBloc, SettingsState>(
-      //   listener: (context, settingsState) {
-      //     _mapBloc.add(CenterOnCoordinatesEvent(settingsState.screenCenterCoordinates));
-      //   },
-      //   listenWhen: (previous, current) => previous.isInitialized != current.isInitialized,
-      // ),
-      // AppBloc when application is initialized (Map is created)
     ], child: widget.child);
   }
 }

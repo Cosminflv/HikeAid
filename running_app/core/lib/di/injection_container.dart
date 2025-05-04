@@ -93,6 +93,7 @@ import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/settings/content_store_view/content_store_bloc.dart';
 import 'package:running_app/settings/settings_view_bloc.dart';
+import 'package:running_app/settings/settings_view_events.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
 import 'package:running_app/routing/routing_view_bloc.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
@@ -121,6 +122,10 @@ initBlocs() {
   sl.registerLazySingleton<LandmarkStoreBloc>(() => LandmarkStoreBloc(DLandmarkStoreType.searchHistory),
       instanceName: DLandmarkStoreType.searchHistory.name);
   sl.registerLazySingleton<MapViewBloc>(() => MapViewBloc(AssetBundleEntityImpl()));
+
+  AppBlocs.settingsViewBloc.add(LoadSettingsEvent());
+
+  int x = 3;
 }
 
 discardBlocsIfRegistered() {
@@ -135,7 +140,7 @@ discardBlocsIfRegistered() {
   sl.unregister<SettingsViewBloc>();
 }
 
-initEarlyDependencies(String ipv4Address) {
+initEarlyDependencies(String ipv4Address) async {
   Dio dio = Dio(BaseOptions(baseUrl: "http://$ipv4Address:7011/", connectTimeout: Duration(seconds: 10)));
 
   dio.options.validateStatus = (status) {
@@ -229,6 +234,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<AlertBloc>(
       () => AlertBloc(sl.get<AlertUseCase>(), sl.get<DeviceInfoBloc>(), sl.get<PendingAlertsUseCase>()));
   sl.registerLazySingleton<MapStylesPanelBloc>(() => MapStylesPanelBloc());
+  sl.registerLazySingleton<SettingsViewBloc>(() => SettingsViewBloc());
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 
@@ -236,6 +242,8 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<PathFactory>(() => PathFactoryImpl());
   sl.registerLazySingleton<TourFactory>(() => TourFactoryImpl());
   sl.registerLazySingleton<LandmarkFactory>(() => LandmarkFactoryImpl());
+
+  await sl.get<SettingsUseCase>().init();
 }
 
 initMapDependecies(MapController controller, {String? instanceName}) async {

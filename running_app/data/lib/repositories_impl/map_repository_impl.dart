@@ -113,7 +113,8 @@ class MapRepositoryImpl extends MapRepository {
 
     if (coordinates == null) return null;
 
-    return MapCameraStateEntityImpl(coordinates: coordinates, zoom: _controller.zoomLevel);
+    return MapCameraStateEntityImpl(
+        coordinates: coordinates, zoom: _controller.zoomLevel, isFollowingPositon: _controller.isFollowingPosition);
   }
 
   @override

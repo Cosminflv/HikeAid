@@ -85,7 +85,7 @@ class SearchHistoryViewPage extends StatelessWidget {
   List<LandmarkWithDistanceEntity> _getHistoryLandmarkWithDistance(BuildContext context) {
     final landmarkStoreBloc = AppBlocs.searchHistoryLandmarkStoreBloc;
     final lmks = landmarkStoreBloc.state.landmarks;
-    final coordinates = AppBlocs.mapBloc.state.cameraState.coordinates;
+    final coordinates = AppBlocs.mapBloc.state.cameraState!.coordinates;
     return lmks.map((lmk) => LandmarkWithDistanceEntity(lmk, coordinates)).toList();
   }
 

@@ -96,7 +96,7 @@ class AppBlocs {
   static MapStylesPanelBloc get mapStylesBloc => sl<MapStylesPanelBloc>();
 
   // Getter for SettingsBloc
-  static SettingsViewBloc get settingsViewBloc => sl<SettingsViewBloc>();
+  static SettingsViewBloc get settingsViewBloc => sl.get<SettingsViewBloc>();
 
   // Getter for ContentStoreBloc
   static ContentStoreBloc get contentStore => sl<ContentStoreBloc>();
