@@ -47,7 +47,6 @@ class ContentStoreViewItem extends StatefulWidget {
 class _ContentStoreViewItemState extends State<ContentStoreViewItem> {
   int _progress = 0;
   DContentStoreItemStatus _status = DContentStoreItemStatus.unavailable;
-  bool _isSelected = false;
 
   @override
   void initState() {
@@ -56,7 +55,6 @@ class _ContentStoreViewItemState extends State<ContentStoreViewItem> {
 
     widget.controller.setProgress = _setProgress;
     widget.controller.setStatus = _setStatus;
-    widget.controller.setSelected = _setSelected;
 
     super.initState();
   }
@@ -70,7 +68,6 @@ class _ContentStoreViewItemState extends State<ContentStoreViewItem> {
 
     widget.controller.setProgress = _setProgress;
     widget.controller.setStatus = _setStatus;
-    widget.controller.setSelected = _setSelected;
   }
 
   void _setProgress(int progress) {
@@ -87,22 +84,12 @@ class _ContentStoreViewItemState extends State<ContentStoreViewItem> {
     });
   }
 
-  void _setSelected(bool value) {
-    if (!mounted) return;
-    setState(() {
-      _isSelected = value && widget.isSelectable;
-    });
-  }
-
   _onTap() async {
     widget.onTap();
   }
 
   @override
   Widget build(BuildContext context) {
-    final item = widget.item;
-
-    final previewWidth = 50.0;
     final imgSize = Sizes.countryFlagImageSize;
 
     return ClipRRect(
@@ -119,7 +106,7 @@ class _ContentStoreViewItemState extends State<ContentStoreViewItem> {
                 child: Row(
                   children: [
                     SizedBox(
-                      width: previewWidth,
+                      width: 50,
                       child: AspectRatio(
                         aspectRatio: imgSize.x / imgSize.y,
                         child: Container(
@@ -222,7 +209,7 @@ class _ContentStoreViewItemState extends State<ContentStoreViewItem> {
               ),
               if (!widget.isLast)
                 Divider(
-                  indent: previewWidth + 10,
+                  indent: 60,
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                   height: 0,
                 ),

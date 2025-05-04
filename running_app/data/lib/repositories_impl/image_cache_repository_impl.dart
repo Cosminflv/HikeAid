@@ -9,15 +9,12 @@ import 'dart:ui';
 
 class ImageCacheRepositoryImpl extends ImageCacheRepository {
   final PointEntity _flagSize;
-  final PointEntity _styleSize;
 
   final Map<String, Uint8List> _countryImages;
-  final Map<int, Uint8List> _styleImages;
   final Map<int, Uint8List> _navigationInstructionsImages;
 
-  ImageCacheRepositoryImpl(this._flagSize, this._styleSize)
+  ImageCacheRepositoryImpl(this._flagSize)
       : _countryImages = {},
-        _styleImages = {},
         _navigationInstructionsImages = {};
 
   @override
@@ -35,20 +32,7 @@ class ImageCacheRepositoryImpl extends ImageCacheRepository {
   }
 
   @override
-  void setStyleImage(int styleID, Uint8List rawImage) {
-    _styleImages[styleID] = rawImage;
-  }
-
-  @override
-  Uint8List? getStyleImageById(int styleID) {
-    return _styleImages[styleID];
-  }
-
-  @override
   PointEntity get flagSize => _flagSize;
-
-  @override
-  PointEntity get styleSize => _styleSize;
 
   @override
   void setNavigationInstructionImage(int imageUid, Uint8List? image) {

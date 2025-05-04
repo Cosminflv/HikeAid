@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:typed_data';
-
 import 'package:data/gen/assets.gen.dart';
 import 'package:data/models/content_store_entity_impl.dart';
 import 'package:data/models/content_store_item_entity_impl.dart';
@@ -13,11 +10,13 @@ import 'package:domain/entities/country_entity.dart';
 import 'package:domain/entities/local_map_style_entity.dart';
 import 'package:domain/repositories/content_store_repository.dart';
 import 'package:domain/repositories/image_cache_repository.dart';
-import 'package:flutter/services.dart';
 import 'package:gem_kit/content_store.dart';
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/map.dart';
 import 'package:gem_kit/search.dart';
+
+import 'package:flutter/services.dart';
+import 'dart:async';
 
 class ContentStoreRepositoryImpl extends ContentStoreRepository {
   final Map<(DContentStoreItemType, bool, DStyleColorTheme), ContentStoreEntityImpl> _contentStores = {};
@@ -99,20 +98,7 @@ class ContentStoreRepositoryImpl extends ContentStoreRepository {
 
     Uint8List? image;
 
-    final contentType = gemItem.type;
-
-    if (contentType == ContentType.viewStyleHighRes || contentType == ContentType.viewStyleLowRes) {
-      image = _imageCache.getStyleImageById(gemItem.id);
-
-      if (image == null) {
-        image = gemItem.getImagePreview(size: Size(128, 128));
-        if (image != null) {
-          _imageCache.setStyleImage(gemItem.id, image);
-        }
-      }
-    } else if (contentType == ContentType.roadMap || contentType == ContentType.humanVoice) {
-      image = _imageCache.getCountryImage(gemItem.countryCodes[0]);
-    }
+    image = _imageCache.getCountryImage(gemItem.countryCodes[0]);
 
     return image;
   }

@@ -174,8 +174,7 @@ initEarlyDependencies(String ipv4Address) {
   sl.registerLazySingleton<InternetConnectionRepository>(() => InternetConnectionRepositoryImpl());
   sl.registerLazySingleton<TTSRepository>(() => TTSRepositoryImpl());
   sl.registerLazySingleton<RouteRepository>(() => RouteRepositoryImpl());
-  sl.registerLazySingleton<ImageCacheRepository>(
-      () => ImageCacheRepositoryImpl(const PointEntity(x: 128, y: 128), const PointEntity(x: 256, y: 166)));
+  sl.registerLazySingleton<ImageCacheRepository>(() => ImageCacheRepositoryImpl(const PointEntity(x: 128, y: 128)));
   sl.registerLazySingleton<NavigationRepository>(() => NavigationRepositoryImpl(sl.get<ImageCacheRepository>()));
   sl.registerLazySingleton<TourRepository>(() => TourRepositoryImpl(openApi));
   sl.registerLazySingleton<FriendshipRepository>(() => FriendshipRepositoryImpl(openApi));
