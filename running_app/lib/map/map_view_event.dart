@@ -72,6 +72,16 @@ class AddPolylineMarkerEvent extends MapViewEvent {
   AddPolylineMarkerEvent(this.coordinates);
 }
 
+class PresentPathEvent extends MapViewEvent {
+  final PathEntity path;
+  final ViewAreaEntity? viewArea;
+
+  PresentPathEvent({
+    required this.path,
+    this.viewArea,
+  });
+}
+
 class CenterOnPathEvent extends MapViewEvent {
   final PathEntity path;
   final ViewAreaEntity? viewArea;

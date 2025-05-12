@@ -61,3 +61,4 @@ flutter:
     - assets/
     - assets/map_styles/styles/
     - assets/map_styles/previews/
+    - assets/gpx_files/

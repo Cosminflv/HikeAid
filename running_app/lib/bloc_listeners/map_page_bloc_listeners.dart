@@ -6,6 +6,7 @@ import 'package:running_app/bloc_listeners/location_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/map_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/map_styles_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/navigation_bloc_listener.dart';
+import 'package:running_app/bloc_listeners/position_prediction_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/routing_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/settings_bloc_listener.dart';
 import 'package:running_app/bloc_listeners/tour_recording_bloc_listener.dart';
@@ -25,8 +26,10 @@ class MapPageBlocListeners extends StatelessWidget {
                 child: TourRecordingBlocListener(
                   child: NavigationBlocListener(
                     child: SettingsBlocListener(
-                      child: MapBlocListener(
-                        child: child,
+                      child: PositionPredictionBlocListener(
+                        child: MapBlocListener(
+                          child: child,
+                        ),
                       ),
                     ),
                   ),

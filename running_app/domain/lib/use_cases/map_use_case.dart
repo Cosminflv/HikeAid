@@ -56,6 +56,10 @@ class MapUseCase {
     }
   }
 
+  void presentPath(PathEntity path) {
+    _mapRepository.presentPath(path);
+  }
+
   void clearPaths() => _mapRepository.clearPaths();
 
   void centerOnMapRoutes(ViewAreaEntity viewArea, bool withAnimation, bool addCenterPadding) => _cameraRepository

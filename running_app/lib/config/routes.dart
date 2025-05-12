@@ -16,6 +16,7 @@ import 'package:running_app/search/search_history/search_history_view_page.dart'
 import 'package:running_app/search/search_view_page.dart';
 import 'package:running_app/search_users/search_users_view_page.dart';
 import 'package:running_app/settings/content_store_view/content_store_page.dart';
+import 'package:running_app/settings/settings_view_page.dart';
 import 'package:running_app/tour_recording/tour_recording_finished_page.dart';
 import 'package:running_app/user_profile/user_profile_view_page.dart';
 import 'package:shared/domain/user_profile_entity.dart';
@@ -46,6 +47,7 @@ class RouteNames {
 
   @pragma('MISC')
   static const homePage = '${defaultPage}home_page';
+  static const settingsPage = '$defaultPage/settings_view_page';
 }
 
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
@@ -98,6 +100,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     // MISC
     case RouteNames.homePage:
       page = const HomeViewPage();
+    case RouteNames.settingsPage:
+      page = const SettingsViewPage();
   }
 
   return page != null ? PageTransition(child: page, type: PageTransitionType.leftToRight) : null;

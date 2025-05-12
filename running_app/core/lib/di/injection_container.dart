@@ -38,6 +38,7 @@ import 'package:domain/repositories/landmark_store_repository.dart';
 import 'package:domain/repositories/map_repository.dart';
 import 'package:domain/repositories/navigation_repository.dart';
 import 'package:domain/repositories/onboarding_repository.dart';
+import 'package:domain/repositories/position_prediction_repository.dart';
 import 'package:domain/repositories/pending_alerts_repository.dart';
 import 'package:data/repositories_impl/landmark_repository_impl.dart';
 import 'package:data/repositories_impl/search_user_repository_impl.dart';
@@ -52,6 +53,7 @@ import 'package:domain/repositories/tts_repository.dart';
 import 'package:domain/repositories/user_profile_repository.dart';
 import 'package:data/repositories_impl/alert_repository_impl.dart';
 import 'package:data/repositories_impl/content_store_repository_impl.dart';
+import 'package:data/repositories_impl/position_prediction_repository_impl.dart';
 import 'package:domain/use_cases/alert_use_case.dart';
 
 import 'package:domain/use_cases/authentication_session_use_case.dart';
@@ -72,6 +74,7 @@ import 'package:domain/use_cases/search_users_use_case.dart';
 import 'package:domain/use_cases/settings_use_case.dart';
 import 'package:domain/use_cases/tour_use_case.dart';
 import 'package:domain/use_cases/user_profile_use_case.dart';
+import 'package:domain/use_cases/position_prediction_use_case.dart';
 import 'package:domain/factories/landmark_factory.dart';
 import 'package:domain/factories/path_factory.dart';
 import 'package:running_app/alerts/alert_bloc.dart';
@@ -90,6 +93,7 @@ import 'package:running_app/onboarding/registration/registration_view_bloc.dart'
 import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/app/app_bloc.dart';
+import 'package:running_app/position_prediction/position_prediction_bloc.dart';
 import 'package:running_app/settings/content_store_view/content_store_bloc.dart';
 import 'package:running_app/settings/settings_view_bloc.dart';
 import 'package:running_app/settings/settings_view_events.dart';
@@ -181,6 +185,7 @@ initEarlyDependencies(String ipv4Address) async {
   sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(openApi));
   sl.registerLazySingleton<PendingAlertsRepository>(() => PendingAlertsRepositoryImpl());
   sl.registerLazySingleton<RecorderRepository>(() => RecorderRepositoryImpl());
+  sl.registerLazySingleton<PositionPredictionRepository>(() => PositionPredictionRepositoryImpl());
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
 
@@ -205,6 +210,8 @@ initEarlyDependencies(String ipv4Address) async {
   sl.registerLazySingleton<PendingAlertsUseCase>(() => PendingAlertsUseCase(sl.get<PendingAlertsRepository>()));
   sl.registerLazySingleton<RecorderUseCase>(
       () => RecorderUseCase(sl.get<RecorderRepository>(), sl.get<PermissionRepository>()));
+  sl.registerLazySingleton<PositionPredictionUseCase>(
+      () => PositionPredictionUseCase(sl.get<PositionPredictionRepository>()));
 
   // Blocs
   sl.registerLazySingleton<AuthenticationViewBloc>(() => AuthenticationViewBloc());
@@ -230,6 +237,7 @@ initEarlyDependencies(String ipv4Address) async {
       () => AlertBloc(sl.get<AlertUseCase>(), sl.get<DeviceInfoBloc>(), sl.get<PendingAlertsUseCase>()));
   sl.registerLazySingleton<MapStylesPanelBloc>(() => MapStylesPanelBloc());
   sl.registerLazySingleton<SettingsViewBloc>(() => SettingsViewBloc());
+  sl.registerLazySingleton<PositionPredictionBloc>(() => PositionPredictionBloc(sl.get<PositionPredictionUseCase>()));
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 

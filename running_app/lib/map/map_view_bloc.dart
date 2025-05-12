@@ -52,11 +52,12 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
     on<PresentHighlightEvent>(_handlePresentHighlightEvent);
     on<RemoveHighlightsEvent>(_handleRemoveHighlights);
+    on<PresentPathEvent>(_presentPathEventHandler);
+    on<ClearPathsEvent>(_handleClearPaths);
     on<AddAlertsEvent>(_handleAddAlerts);
 
     on<SetIsMapInteractiveEvent>(_handleSetIsMapInteractive);
 
-    on<ClearPathsEvent>(_handleClearPaths);
     on<AddPolylineMarkerEvent>(_handleAddPolylineMarker);
     on<ClearMarkersEvent>(_handleClearMarkers);
 
@@ -189,6 +190,12 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
 
   _handleRemoveHighlights(RemoveHighlightsEvent event, Emitter<MapViewState> emit) {
     _mapUseCase.removeHighlights(_toShortRange(event.highlightId));
+  }
+
+  _presentPathEventHandler(PresentPathEvent event, Emitter<MapViewState> emit) async {
+    _mapUseCase.presentPath(event.path);
+    await Future.delayed(const Duration(milliseconds: 200));
+    add(CenterOnPathEvent(path: event.path, viewArea: event.viewArea));
   }
 
   _handleAddAlerts(AddAlertsEvent event, Emitter<MapViewState> emit) async {

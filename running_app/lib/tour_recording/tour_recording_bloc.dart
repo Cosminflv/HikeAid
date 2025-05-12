@@ -29,6 +29,7 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
     if (event.position == null) return;
 
     if (state.status == RecordingStatus.disabled || state.status == RecordingStatus.paused) return;
+    
     _averageSpeedTracker.addCoordinates(CoordinatesWithTimestamp.fromPosition(event.position!));
 
     emit(state.copyWith(

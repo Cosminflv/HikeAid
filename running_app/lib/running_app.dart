@@ -20,6 +20,7 @@ import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/position_prediction/position_prediction_bloc.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
 import 'package:running_app/user_profile/user_profile_view_bloc.dart';
@@ -66,7 +67,8 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
         BlocProvider(create: (context) => sl.get<SearchMenuBloc>()),
         BlocProvider(create: (context) => AppBlocs.deviceInfo..add(CheckInternetConnectionEvent())),
         BlocProvider(create: (context) => AppBlocs.tourRecordingBloc),
-        BlocProvider(create: (context) => sl.get<EditUserProfileViewBloc>())
+        BlocProvider(create: (context) => sl.get<EditUserProfileViewBloc>()),
+        BlocProvider(create: (context) => sl.get<PositionPredictionBloc>())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

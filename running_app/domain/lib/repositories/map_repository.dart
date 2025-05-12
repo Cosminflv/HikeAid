@@ -5,6 +5,7 @@ import 'package:domain/entities/camera_state_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:shared/domain/coordinates_entity.dart';
 import 'package:shared/domain/landmark_entity.dart';
+import 'package:shared/domain/path_entity.dart';
 
 abstract class MapRepository {
   // Gestures
@@ -37,6 +38,7 @@ abstract class MapRepository {
   void clearMarkers();
 
   // Path
+  void presentPath(PathEntity path);
   void clearPaths();
 
   // Miscellaneous

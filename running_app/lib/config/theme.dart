@@ -147,6 +147,7 @@ ThemeData lightThemeData = ThemeData(
   textTheme: GoogleFonts.robotoCondensedTextTheme().copyWith(
     displayMedium: TextStyle(fontSize: 34, fontWeight: FontWeight.w700, color: lightColorScheme.onSurface),
     headlineMedium: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: lightColorScheme.onSurface),
+    titleLarge: TextStyle(fontSize: 20, color: lightColorScheme.onSurface),
     titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: lightColorScheme.onSurface),
     titleSmall: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: lightColorScheme.onSurface),
     labelMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: lightColorScheme.onSurface),
@@ -170,6 +171,7 @@ ThemeData darkThemeData = ThemeData(
   textTheme: GoogleFonts.robotoCondensedTextTheme().copyWith(
     displayMedium: TextStyle(fontSize: 34, fontWeight: FontWeight.w700, color: darkColorScheme.onSurface),
     headlineMedium: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: darkColorScheme.onSurface),
+    titleLarge: TextStyle(fontSize: 20, color: darkColorScheme.onSurface),
     titleMedium: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: darkColorScheme.onSurface),
     titleSmall: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: darkColorScheme.onSurface),
     labelMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: darkColorScheme.onSurface),

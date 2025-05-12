@@ -34,7 +34,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
             IconButton(
               icon: const Icon(FontAwesomeIcons.gear),
               onPressed: () {
-                Navigator.of(context).pushNamed(RouteNames.contentStore);
+                Navigator.of(context).pushNamed(RouteNames.settingsPage);
               },
             ),
           ],

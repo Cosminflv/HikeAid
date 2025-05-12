@@ -5,6 +5,7 @@ import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:data/utils/units_converter.dart';
 import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/entities/camera_state_entity.dart';
+import 'package:shared/data/path_entity_impl.dart';
 import 'package:shared/domain/coordinates_entity.dart';
 import 'package:domain/entities/route_entity.dart';
 import 'package:domain/repositories/map_repository.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:gem_kit/core.dart';
 import 'package:gem_kit/map.dart';
 import 'package:shared/domain/landmark_entity.dart';
+import 'package:shared/domain/path_entity.dart';
 import 'dart:math';
 
 import 'package:shared/extensions.dart';
@@ -309,4 +311,10 @@ class MapRepositoryImpl extends MapRepository {
 
   @override
   void clearPaths() => _controller.preferences.paths.clear();
+
+  @override
+  void presentPath(PathEntity path) {
+    path as PathEntityImpl;
+    _controller.preferences.paths.add(path.ref);
+  }
 }
