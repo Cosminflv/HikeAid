@@ -31,8 +31,8 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
     await _friendshipUseCase.sendFriendshipRequest(event.receiverId);
   }
 
-  _handleCloseNotificationService(CloseNotificationService event, Emitter<FriendshipsViewState> emit) {
-    _friendshipUseCase.closeNotificationsConnection();
+  _handleCloseNotificationService(CloseNotificationService event, Emitter<FriendshipsViewState> emit) async {
+    await _friendshipUseCase.closeNotificationsConnection();
     //_friendshipUpdates.close();
     emit(state.copyWith(isInitialized: false));
   }
@@ -52,7 +52,7 @@ class FriendshipsViewBloc extends Bloc<FriendshipsViewEvent, FriendshipsViewStat
   _handleInitializeNotificationService(InitializeNotificationService event, Emitter<FriendshipsViewState> emit) async {
     if (state.isInitialized) return;
 
-    _friendshipUseCase.initializeNotificationConnection(event.userId, (err, entity) {
+    await _friendshipUseCase.initializeNotificationConnection(event.userId, (err, entity) {
       if (err != 'success') {
         print('Error: $err');
         return;

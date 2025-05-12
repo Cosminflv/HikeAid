@@ -20,7 +20,11 @@ class InvalidateAlertEvent extends AlertEvent {
 
 class ResetStateBooleansEvent extends AlertEvent {}
 
-class RegisterAlertsSubscription extends AlertEvent {}
+class RegisterAlertsSubscription extends AlertEvent {
+  final int userId;
+
+  RegisterAlertsSubscription(this.userId);
+}
 
 class CloseAlertsSubscription extends AlertEvent {}
 

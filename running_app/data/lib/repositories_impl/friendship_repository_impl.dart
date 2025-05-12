@@ -1,12 +1,12 @@
+import 'dart:async';
+
 import 'package:built_collection/built_collection.dart';
 import 'package:data/models/friendship_entity_impl.dart';
+import 'package:data/utils/sse_client.dart';
 import 'package:domain/entities/friendship_entity.dart';
 import 'package:domain/repositories/friendship_repository.dart';
 import 'package:openapi/openapi.dart';
 
-import 'package:flutter/foundation.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:core/config.dart';
 
 import 'dart:convert';
@@ -14,12 +14,10 @@ import 'dart:convert';
 class FriendshipRepositoryImpl extends FriendshipRepository {
   final Openapi _openapi;
 
+  late SSEClient _sseClient;
+  StreamSubscription? _sseSubscription;
+
   FriendshipRepositoryImpl(this._openapi);
-
-  IOWebSocketChannel? _ioChannel;
-  WebSocketChannel? _webChannel;
-
-  bool _isClosing = false; // Flag to indicate intentional closure
 
   @override
   Future<List<FriendshipEntity>> fetchRequests() async {
@@ -52,86 +50,58 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   }
 
   @override
-  void establishNotificationsConnection(
-      int userId, Function(String err, FriendshipEntity? entity) onNotificationReceived) {
-    _isClosing = false; // Reset the flag
+  Future<void> establishNotificationsConnection(
+      int userId, Function(String err, FriendshipEntity? entity) onNotificationReceived) async {
+    _sseClient = SSEClient(
+      url: 'http://$ipv4Address:7011/Events/stream/friendships?userId=$userId',
+      headers: {'Accept': 'text/event-stream'},
+    );
 
-    // Connect to the WebSocket server
-    if (!kIsWeb) {
-      _ioChannel = IOWebSocketChannel.connect(
-        Uri.parse('ws://$ipv4Address:7011/ws?userId=$userId'),
-      );
-    } else {
-      _webChannel = WebSocketChannel.connect(Uri.parse('ws://$ipv4Address:7011/ws?userId=$userId'));
-    }
+    Future<void> startListening() async {
+      await _sseSubscription?.cancel(); // Cancel previous subscription (if any)
+      _sseSubscription = _sseClient.subscribe().listen(
+        (data) async {
+          try {
+            final lines = data.split('\n');
 
-    // Listen for incoming messages
-    if (!kIsWeb) {
-      _ioChannel!.stream.listen(
-        (message) {
-          final decodedMessage = jsonDecode(message);
-          onNotificationReceived(
-              "success",
-              FriendshipEntityImpl(
-                id: decodedMessage['id'],
-                requesterId: decodedMessage['requesterId'],
-                receiverId: decodedMessage['receiverId'],
-                requesterName: decodedMessage['requesterName'],
-              ));
-        },
-        onError: (error) {
-          onNotificationReceived("Error: $error", null);
-          print('WebSocket error: $error');
-          if (!(error as WebSocketChannelException).message!.contains('errno = 103')) {
-            _reconnect(userId, onNotificationReceived);
+            // Extract lines starting with "data: " and remove the prefix
+            final jsonString = lines
+                .where((line) => line.startsWith('data: '))
+                .map((line) => line.substring(6)) // Remove "data: " prefix
+                .join('\n') // Rebuild JSON string
+                .trim();
+
+            if (jsonString.isEmpty) {
+              print("Received empty data payload");
+              return;
+            }
+
+            final Map<String, dynamic> jsonData = jsonDecode(jsonString);
+
+            onNotificationReceived(
+                "success",
+                FriendshipEntityImpl(
+                  id: jsonData['id'],
+                  requesterId: jsonData['requesterId'],
+                  receiverId: jsonData['receiverId'],
+                  requesterName: jsonData['requesterName'],
+                ));
+            print(data);
+          } catch (e) {
+            print("Error parsing SSE data: $e");
           }
         },
-        onDone: () {
-          print('WebSocket closed');
-        },
-      );
-    } else {
-      _webChannel!.stream.listen(
-        (message) {
-          var decodedMessage = jsonDecode(message);
-          onNotificationReceived(
-              "success",
-              FriendshipEntityImpl(
-                id: decodedMessage['id'],
-                requesterId: decodedMessage['requesterId'],
-                receiverId: decodedMessage['receiverId'],
-                requesterName: decodedMessage['requesterName'],
-              ));
-        },
         onError: (error) {
-          onNotificationReceived(
-              "Error: $error",
-              FriendshipEntityImpl(
-                id: 0,
-                requesterId: 0,
-                receiverId: 0,
-                requesterName: "err",
-              ));
-          print('WebSocket error: $error');
-          if (!(error as WebSocketChannelException).message!.contains('errno = 103')) {
-            _reconnect(userId, onNotificationReceived);
-          }
+          print("SSE Connection Error: $error");
         },
         onDone: () {
-          onNotificationReceived("Socket closed", null);
-          print('WebSocket closed');
+          print("SSE Connection Closed.");
         },
+        cancelOnError: true,
       );
     }
-  }
 
-  void _reconnect(int userId, Function(String err, FriendshipEntity? entity) onNotificationReceived) {
-    if (_isClosing) return; // Do not reconnect if the disconnection is intentional
-
-    // Retry connection after 5 seconds
-    Future.delayed(const Duration(seconds: 5), () {
-      establishNotificationsConnection(userId, onNotificationReceived);
-    });
+    await startListening(); // Start listening to SSE
   }
 
   @override
@@ -157,17 +127,10 @@ class FriendshipRepositoryImpl extends FriendshipRepository {
   }
 
   @override
-  void closeNotificationsConnection() {
-    _isClosing = true;
-
-    if (_ioChannel != null) {
-      _ioChannel!.sink.close();
-      _ioChannel = null;
-    }
-
-    if (_webChannel != null) {
-      _webChannel!.sink.close();
-      _webChannel = null;
+  Future<void> closeNotificationsConnection() async {
+    if (_sseSubscription != null) {
+      await _sseSubscription!.cancel();
+      _sseSubscription = null;
     }
   }
 }

@@ -34,7 +34,7 @@ class InternetConnectionRepositoryImpl extends InternetConnectionRepository {
       onConnectivityChangedCallback(result.first.toStatus);
     });
   }
-  
+
   @override
   void unregister() {
     // TODO: implement unregister

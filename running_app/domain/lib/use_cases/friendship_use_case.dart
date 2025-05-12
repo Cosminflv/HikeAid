@@ -8,12 +8,11 @@ class FriendshipUseCase {
 
   Future<List<FriendshipEntity>> fetchRequests() async => await _friendshipRepository.fetchRequests();
 
-  void initializeNotificationConnection(
-      int userId, Function(String err, FriendshipEntity? friendshipEntity) onNotificationReceived) {
-    _friendshipRepository.establishNotificationsConnection(userId, onNotificationReceived);
-  }
+  Future<void> initializeNotificationConnection(
+          int userId, Function(String err, FriendshipEntity? friendshipEntity) onNotificationReceived) async =>
+      await _friendshipRepository.establishNotificationsConnection(userId, onNotificationReceived);
 
-  void closeNotificationsConnection() => _friendshipRepository.closeNotificationsConnection();
+  Future<void> closeNotificationsConnection() async => await _friendshipRepository.closeNotificationsConnection();
 
   Future<bool> declineFriendshipRequest(int requestId) async =>
       await _friendshipRepository.declineFriendshipRequest(requestId);

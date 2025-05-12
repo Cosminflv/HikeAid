@@ -102,7 +102,7 @@ class _InternetConnectionCheckerState extends State<InternetConnectionChecker> {
               deviceInfoState.connectivityStatus == DConnectivityStatus.mobile ||
               deviceInfoState.connectivityStatus == DConnectivityStatus.wifi) {
             AppBlocs.friendships.add(InitializeNotificationService(userId: getSession(context)!.user.id));
-            AppBlocs.alertBloc.add(RegisterAlertsSubscription());
+            AppBlocs.alertBloc.add(RegisterAlertsSubscription(getSession(context)!.user.id));
             final userProfileBloc = AppBlocs.userProfileBloc;
             if (userProfileBloc.state is InitialProfileState || userProfileBloc.state is UserProfileLoadFailState) {
               userProfileBloc.add(FetchUserProfileEvent(userId: getSession(context)!.user.id));

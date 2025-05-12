@@ -11,13 +11,15 @@ import 'dart:convert';
 
 import 'package:shared/data/coordinates_entity_impl.dart';
 
+import 'package:core/config.dart';
+
 class AlertRepositoryImpl extends AlertRepository {
   final Openapi _openapi;
-  final SSEClient _sseClient;
+  late SSEClient _sseClient;
   StreamSubscription? _sseSubscription;
   //final GemMapController _mapController;
 
-  AlertRepositoryImpl(this._openapi, this._sseClient);
+  AlertRepositoryImpl(this._openapi);
 
   @override
   Future<bool> confirmAlert(int alertId) async {
@@ -102,16 +104,28 @@ class AlertRepositoryImpl extends AlertRepository {
   }
 
   @override
-  Future<void> registerAlertsCallback(Function(List<AlertEntity> p1) onAlertsUpdated) async {
+  Future<void> registerAlertsCallback(int userId, Function(List<AlertEntity> p1) onAlertsUpdated) async {
+    _sseClient = SSEClient(
+      url: 'http://$ipv4Address:7011/Events/stream/alerts?userId=$userId',
+      headers: {'Accept': 'text/event-stream'},
+    );
+
     Future<void> startListening() async {
       await _sseSubscription?.cancel(); // Cancel previous subscription (if any)
       _sseSubscription = _sseClient.subscribe().listen(
         (data) async {
           try {
-            final jsonString = data.trim();
+            final lines = data.split('\n');
+
+            // Extract lines starting with "data: " and remove the prefix
+            final jsonString = lines
+                .where((line) => line.startsWith('data: '))
+                .map((line) => line.substring(6)) // Remove "data: " prefix
+                .join('\n') // Rebuild JSON string
+                .trim();
 
             if (jsonString.isEmpty) {
-              print("Received an empty or invalid event.");
+              print("Received empty data payload");
               return;
             }
 

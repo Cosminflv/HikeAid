@@ -94,7 +94,7 @@ class AlertBloc extends Bloc<AlertEvent, AlertState> {
   _handleInvalidateAlert(InvalidateAlertEvent event, Emitter<AlertState> emit) async {}
 
   _handleRegisterAlertsSubscription(RegisterAlertsSubscription event, Emitter<AlertState> emit) async {
-    await _alertUseCase.registerAlertsCallback((alerts) {
+    await _alertUseCase.registerAlertsCallback(event.userId, (alerts) {
       _alertUpdates.add(List<AlertEntity>.from(state.alerts)..addAll(alerts));
     });
 

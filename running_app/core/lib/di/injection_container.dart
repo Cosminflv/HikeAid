@@ -20,7 +20,6 @@ import 'package:data/repositories_impl/tour_repository_impl.dart';
 import 'package:data/utils/map_widget_builder_impl.dart';
 import 'package:data/factories/landmark_factory_impl.dart';
 import 'package:data/factories/path_factory_impl.dart';
-import 'package:data/utils/sse_client.dart';
 
 import 'package:domain/entities/landmark_store_entity.dart';
 import 'package:domain/entities/view_area_entity.dart';
@@ -147,10 +146,6 @@ initEarlyDependencies(String ipv4Address) async {
   };
 
   final openApi = Openapi(dio: dio, interceptors: [BearerAuthInterceptor()]);
-  final sseClient = SSEClient(
-    url: 'http://$ipv4Address:7011/Events/stream',
-    headers: {'Accept': 'text/event-stream'},
-  );
 
   final storage = FlutterSecureStorage();
   CloudinaryContext.cloudinary = Cloudinary.fromCloudName(cloudName: 'desccolsj');
@@ -180,8 +175,10 @@ initEarlyDependencies(String ipv4Address) async {
   sl.registerLazySingleton<ImageCacheRepository>(() => ImageCacheRepositoryImpl(const PointEntity(x: 128, y: 128)));
   sl.registerLazySingleton<NavigationRepository>(() => NavigationRepositoryImpl(sl.get<ImageCacheRepository>()));
   sl.registerLazySingleton<TourRepository>(() => TourRepositoryImpl(openApi));
-  sl.registerLazySingleton<FriendshipRepository>(() => FriendshipRepositoryImpl(openApi));
-  sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(openApi, sseClient));
+  sl.registerLazySingleton<FriendshipRepository>(() => FriendshipRepositoryImpl(
+        openApi,
+      ));
+  sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(openApi));
   sl.registerLazySingleton<PendingAlertsRepository>(() => PendingAlertsRepositoryImpl());
   sl.registerLazySingleton<RecorderRepository>(() => RecorderRepositoryImpl());
 
