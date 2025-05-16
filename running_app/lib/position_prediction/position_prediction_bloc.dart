@@ -19,6 +19,9 @@ class PositionPredictionBloc extends Bloc<PositionPredictionEvent, PositionPredi
   }
 
   void _handleConfirmHike(ConfirmHikeEvent event, Emitter<PositionPredictionState> emit) {
+    if (event.hasConfirmedHike) {
+      _positionPredictionUseCase.confirmHike(state.importedGPXPath!);
+    }
     // Handle the confirm hike event
     emit(state.copyWith(hasConfirmedHike: event.hasConfirmedHike));
   }

@@ -18,6 +18,7 @@ export 'package:openapi/src/api/tour_api.dart';
 export 'package:openapi/src/api/user_api.dart';
 
 export 'package:openapi/src/model/comment_dto.dart';
+export 'package:openapi/src/model/coordinates_dto.dart';
 export 'package:openapi/src/model/e_friendship_status.dart';
 export 'package:openapi/src/model/e_gender.dart';
 export 'package:openapi/src/model/friendship_dto.dart';
@@ -28,6 +29,7 @@ export 'package:openapi/src/model/social_post_dto.dart';
 export 'package:openapi/src/model/social_post_model.dart';
 export 'package:openapi/src/model/tour_coordinates_dto.dart';
 export 'package:openapi/src/model/tour_dto.dart';
+export 'package:openapi/src/model/track_point_dto.dart';
 export 'package:openapi/src/model/update_user_dto.dart';
 export 'package:openapi/src/model/user_dto.dart';
 

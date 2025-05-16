@@ -9,11 +9,11 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**eventsStreamGet**](EventsApi.md#eventsstreamget) | **GET** /Events/stream | 
+[**eventsStreamChannelGet**](EventsApi.md#eventsstreamchannelget) | **GET** /Events/stream/{channel} | 
 
 
-# **eventsStreamGet**
-> eventsStreamGet()
+# **eventsStreamChannelGet**
+> eventsStreamChannelGet(channel, userId)
 
 
 
@@ -22,16 +22,22 @@ Method | HTTP request | Description
 import 'package:openapi/api.dart';
 
 final api = Openapi().getEventsApi();
+final String channel = channel_example; // String | 
+final String userId = userId_example; // String | 
 
 try {
-    api.eventsStreamGet();
+    api.eventsStreamChannelGet(channel, userId);
 } catch on DioException (e) {
-    print('Exception when calling EventsApi->eventsStreamGet: $e\n');
+    print('Exception when calling EventsApi->eventsStreamChannelGet: $e\n');
 }
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **channel** | **String**|  | 
+ **userId** | **String**|  | [optional] 
 
 ### Return type
 

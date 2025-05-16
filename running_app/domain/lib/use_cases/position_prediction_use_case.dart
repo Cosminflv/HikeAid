@@ -7,4 +7,6 @@ class PositionPredictionUseCase {
   PositionPredictionUseCase(this._repository);
 
   Future<PathEntity> importGPXDemo(String assetsFilePath) async => await _repository.importGPXDemo(assetsFilePath);
+
+  Future<bool> confirmHike(PathEntity pathEntity) async => await _repository.confirmHike(pathEntity);
 }

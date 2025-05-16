@@ -8,6 +8,7 @@ part of 'serializers.dart';
 
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CommentDto.serializer)
+      ..add(CoordinatesDto.serializer)
       ..add(EFriendshipStatus.serializer)
       ..add(EGender.serializer)
       ..add(FriendshipDto.serializer)
@@ -18,6 +19,7 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(SocialPostModel.serializer)
       ..add(TourCoordinatesDto.serializer)
       ..add(TourDto.serializer)
+      ..add(TrackPointDto.serializer)
       ..add(UpdateUserDto.serializer)
       ..add(UserDto.serializer)
       ..addBuilderFactory(

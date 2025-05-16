@@ -3,6 +3,7 @@ README.md
 analysis_options.yaml
 doc/AlertApi.md
 doc/CommentDto.md
+doc/CoordinatesDto.md
 doc/EFriendshipStatus.md
 doc/EGender.md
 doc/EventsApi.md
@@ -17,6 +18,7 @@ doc/SocialPostModel.md
 doc/TourApi.md
 doc/TourCoordinatesDto.md
 doc/TourDto.md
+doc/TrackPointDto.md
 doc/UpdateUserDto.md
 doc/UserApi.md
 doc/UserDto.md
@@ -36,6 +38,7 @@ lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
 lib/src/model/comment_dto.dart
+lib/src/model/coordinates_dto.dart
 lib/src/model/date.dart
 lib/src/model/e_friendship_status.dart
 lib/src/model/e_gender.dart
@@ -47,10 +50,10 @@ lib/src/model/social_post_dto.dart
 lib/src/model/social_post_model.dart
 lib/src/model/tour_coordinates_dto.dart
 lib/src/model/tour_dto.dart
+lib/src/model/track_point_dto.dart
 lib/src/model/update_user_dto.dart
 lib/src/model/user_dto.dart
 lib/src/serializers.dart
 pubspec.yaml
-test/tour_api_test.dart
-test/tour_coordinates_dto_test.dart
-test/tour_dto_test.dart
+test/coordinates_dto_test.dart
+test/track_point_dto_test.dart

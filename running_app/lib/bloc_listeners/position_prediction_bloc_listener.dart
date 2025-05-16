@@ -6,7 +6,6 @@ import 'package:running_app/position_prediction/position_prediction_bloc.dart';
 import 'package:running_app/position_prediction/position_prediction_state.dart';
 import 'package:running_app/routing/routing_view_events.dart';
 import 'package:running_app/shared_widgets/dialogs/start_simulation_dialog.dart';
-import 'package:shared/extensions.dart';
 
 class PositionPredictionBlocListener extends StatelessWidget {
   final Widget child;

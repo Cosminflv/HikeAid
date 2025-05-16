@@ -8,6 +8,7 @@ import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
+import 'package:openapi/src/api_util.dart';
 
 class EventsApi {
 
@@ -17,10 +18,12 @@ class EventsApi {
 
   const EventsApi(this._dio, this._serializers);
 
-  /// eventsStreamGet
+  /// eventsStreamChannelGet
   /// 
   ///
   /// Parameters:
+  /// * [channel] 
+  /// * [userId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -30,7 +33,9 @@ class EventsApi {
   ///
   /// Returns a [Future]
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<void>> eventsStreamGet({ 
+  Future<Response<void>> eventsStreamChannelGet({ 
+    required String channel,
+    String? userId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -38,7 +43,7 @@ class EventsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/Events/stream';
+    final _path = r'/Events/stream/{channel}'.replaceAll('{' r'channel' '}', encodeQueryParameter(_serializers, channel, const FullType(String)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -57,9 +62,14 @@ class EventsApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      if (userId != null) r'userId': encodeQueryParameter(_serializers, userId, const FullType(String)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

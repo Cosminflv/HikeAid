@@ -185,7 +185,7 @@ initEarlyDependencies(String ipv4Address) async {
   sl.registerLazySingleton<AlertRepository>(() => AlertRepositoryImpl(openApi));
   sl.registerLazySingleton<PendingAlertsRepository>(() => PendingAlertsRepositoryImpl());
   sl.registerLazySingleton<RecorderRepository>(() => RecorderRepositoryImpl());
-  sl.registerLazySingleton<PositionPredictionRepository>(() => PositionPredictionRepositoryImpl());
+  sl.registerLazySingleton<PositionPredictionRepository>(() => PositionPredictionRepositoryImpl(openApi));
 
   sl.registerLazySingleton<MapWidgetBuilder>(() => MapWidgetBuilderImpl());
 

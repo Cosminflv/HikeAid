@@ -10,12 +10,14 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**apiUserAcceptFriendRequestPost**](UserApi.md#apiuseracceptfriendrequestpost) | **POST** /api/User/acceptFriendRequest | 
+[**apiUserConfirmHikePost**](UserApi.md#apiuserconfirmhikepost) | **POST** /api/User/confirmHike | 
 [**apiUserDeclineFriendRequestPost**](UserApi.md#apiuserdeclinefriendrequestpost) | **POST** /api/User/declineFriendRequest | 
 [**apiUserDeleteProfilePicturePost**](UserApi.md#apiuserdeleteprofilepicturepost) | **POST** /api/User/deleteProfilePicture | 
 [**apiUserGet**](UserApi.md#apiuserget) | **GET** /api/User | 
 [**apiUserGetFriendRequestsGet**](UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
 [**apiUserIdFriendsNumberGet**](UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [**apiUserIdGetUserGet**](UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
+[**apiUserPredictDistancePost**](UserApi.md#apiuserpredictdistancepost) | **POST** /api/User/predictDistance | 
 [**apiUserSearchUserGet**](UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [**apiUserSendFriendRequestPost**](UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [**apiUserUpdateUserPut**](UserApi.md#apiuserupdateuserput) | **PUT** /api/User/updateUser | 
@@ -59,6 +61,46 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserConfirmHikePost**
+> apiUserConfirmHikePost(coordinatesDto)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+final BuiltList<CoordinatesDto> coordinatesDto = ; // BuiltList<CoordinatesDto> | 
+
+try {
+    api.apiUserConfirmHikePost(coordinatesDto);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserConfirmHikePost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **coordinatesDto** | [**BuiltList&lt;CoordinatesDto&gt;**](CoordinatesDto.md)|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -291,6 +333,46 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserPredictDistancePost**
+> apiUserPredictDistancePost(trackPointDto)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+final BuiltList<TrackPointDto> trackPointDto = ; // BuiltList<TrackPointDto> | 
+
+try {
+    api.apiUserPredictDistancePost(trackPointDto);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserPredictDistancePost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **trackPointDto** | [**BuiltList&lt;TrackPointDto&gt;**](TrackPointDto.md)|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
