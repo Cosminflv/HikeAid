@@ -801,5 +801,25 @@
     "updateFailed": "Update failed",
   "@updateFailed": {
     "description": "Message indicating that the update process failed"
+  },
+    "consentPositionTitle": "Enable Real‑Time Location Sharing",
+  "@consentPositionTitle": {
+    "description": "Title of the popup asking the user to consent to real‑time location sharing"
+  },
+  "consentPositionSubtitle": "Allow us to send your live position to our servers so that emergency teams or trusted contacts can locate you if you lose connection.",
+  "@consentPositionSubtitle": {
+    "description": "Subtitle explaining why we need to share the user’s location"
+  },
+  "consentPositionSteps": "How it works:",
+  "@consentPositionSteps": {
+    "description": "Header for the list of steps explaining real‑time position sharing"
+  },
+  "consentPositionStepsDetail": "1. Tap “Share Location” to begin streaming your GPS data securely.\n2. Your data is encrypted in transit and at rest.\n3. Data sharing will automatically stop as soon as you complete or cancel your hike.",
+  "@consentPositionStepsDetail": {
+    "description": "Detailed steps for how the real‑time location sharing works"
+  },
+  "consentPositionButton": "Share Location",
+  "@consentPositionButton": {
+    "description": "Label of the button to start real‑time location sharing"
   }
 }

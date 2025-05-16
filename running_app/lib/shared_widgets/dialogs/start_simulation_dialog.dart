@@ -3,33 +3,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:running_app/config/routes.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/position_prediction/position_prediction_events.dart';
+import 'package:running_app/utils/session_utils.dart';
 
-Future<bool> showStartSimulationDialog(BuildContext context) async {
-  final isIos = isCupertino(context);
+Future<bool> showStartSimulationDialog(BuildContext parentContext) async {
+  final isIos = isCupertino(parentContext);
 
   return await (isIos
           ? showCupertinoModalBottomSheet(
-              context: context,
+              context: parentContext,
               backgroundColor: Colors.transparent,
               shadow: const BoxShadow(color: Colors.transparent),
               builder: (context) => CupertinoActionSheet(
-                title: Text(AppLocalizations.of(context)!.logoutTitle),
-                message: Text(AppLocalizations.of(context)!.logout),
+                title: Text(AppLocalizations.of(parentContext)!.logoutTitle),
+                message: Text(AppLocalizations.of(parentContext)!.logout),
                 cancelButton: CupertinoActionSheetAction(
-                  child: Text(AppLocalizations.of(context)!.cancel,
-                      style: Theme.of(context)
+                  child: Text(AppLocalizations.of(parentContext)!.cancel,
+                      style: Theme.of(parentContext)
                           .textTheme
                           .titleMedium!
-                          .copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                          .copyWith(color: Theme.of(parentContext).colorScheme.onSurface)),
                   onPressed: () => Navigator.pop(context, false),
                 ),
                 actions: [
                   CupertinoActionSheetAction(
-                    onPressed: () => Navigator.pop(context, true),
+                    onPressed: () {
+                      Navigator.pop(context, true); // Close bottom sheet
+                      // Use parentContext to navigate after closing
+                      Navigator.of(parentContext).pushNamed(RouteNames.askPositionTransferPage).then((value) {
+                        if (value == true) {
+                          AppBlocs.positionPredictionBloc.add(ReisterPositionTransferEvent(
+                            getSession(parentContext)!.user.id,
+                          ));
+                        }
+                      });
+                    },
                     isDestructiveAction: true,
                     child: const Text("Transport Mode"),
                   ),
@@ -37,12 +48,12 @@ Future<bool> showStartSimulationDialog(BuildContext context) async {
               ),
             )
           : showModalBottomSheet(
-              context: context,
+              context: parentContext,
               barrierColor: Colors.transparent,
               builder: (context) => Wrap(
                 children: [
                   ListTile(
-                    title: Center(child: Text(AppLocalizations.of(context)!.logoutTitle)),
+                    title: Center(child: Text(AppLocalizations.of(parentContext)!.logoutTitle)),
                     subtitle: const Center(child: Text("How will you travel?")),
                   ),
                   ListTile(
@@ -54,11 +65,19 @@ Future<bool> showStartSimulationDialog(BuildContext context) async {
                           onPressed: () {
                             AppBlocs.mapBloc.add(ClearPathsEvent());
                             AppBlocs.positionPredictionBloc.add(ConfirmHikeEvent(true));
-                            Navigator.pop(context, true);
+                            Navigator.pop(context, true); // Close bottom sheet first
+                            // Use parentContext to navigate after closing
+                            Navigator.of(parentContext).pushNamed(RouteNames.askPositionTransferPage).then((value) {
+                              if (value == true) {
+                                AppBlocs.positionPredictionBloc.add(ReisterPositionTransferEvent(
+                                  getSession(parentContext)!.user.id,
+                                ));
+                              }
+                            });
                           },
                           child: Text(
                             "Start Simulation",
-                            style: Theme.of(context).textTheme.labelMedium!,
+                            style: Theme.of(parentContext).textTheme.labelMedium!,
                           ),
                         ),
                         TextButton(
@@ -68,10 +87,10 @@ Future<bool> showStartSimulationDialog(BuildContext context) async {
                             Navigator.pop(context, false);
                           },
                           child: Text("Cancel",
-                              style: Theme.of(context)
+                              style: Theme.of(parentContext)
                                   .textTheme
                                   .labelMedium!
-                                  .copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                                  .copyWith(color: Theme.of(parentContext).colorScheme.onSurface)),
                         ),
                       ],
                     ),

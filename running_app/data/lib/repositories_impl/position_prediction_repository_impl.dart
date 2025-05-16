@@ -1,13 +1,16 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:data/utils/web_socket_service.dart';
 import 'package:domain/repositories/position_prediction_repository.dart';
 import 'package:gem_kit/core.dart';
 import 'package:openapi/openapi.dart';
 import 'package:shared/data/path_entity_impl.dart';
 import 'package:shared/domain/path_entity.dart';
 import 'package:flutter/services.dart';
+import 'package:shared/domain/tour_entity.dart';
 
 class PositionPredictionRepositoryImpl extends PositionPredictionRepository {
   final Openapi _openapi;
+  late WebSocketService _webSocketService;
 
   PositionPredictionRepositoryImpl(this._openapi);
 
@@ -55,5 +58,29 @@ class PositionPredictionRepositoryImpl extends PositionPredictionRepository {
       print(e);
       return false;
     }
+  }
+
+  @override
+  Future<void> registerPositionTransfer(int userId) async {
+    _webSocketService = WebSocketService(userId: userId);
+
+    _webSocketService.connect();
+  }
+
+  @override
+  void unregisterPositionTransfer() {
+    _webSocketService.dispose();
+  }
+
+  @override
+  void sendCoordinates(CoordinatesWithTimestamp coordinates) {
+    _webSocketService.sendCoordinate(
+      CoordinatePredictionDto(
+        latitude: coordinates.latLng.latitude,
+        longitude: coordinates.latLng.longitude,
+        elevation: coordinates.altitude.toDouble(),
+        time: coordinates.timestamp.toUtc(),
+      ),
+    );
   }
 }

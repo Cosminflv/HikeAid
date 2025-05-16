@@ -8,6 +8,7 @@ import 'package:running_app/friendships/friendships_view_page.dart';
 import 'package:running_app/home/home_view_page.dart';
 import 'package:running_app/map/map_view_page.dart';
 import 'package:running_app/map/widgets/ask_permission_popup.dart';
+import 'package:running_app/map/widgets/ask_position_transfer_popup.dart';
 import 'package:running_app/onboarding/authentication/authentication_page.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_page.dart';
@@ -33,6 +34,7 @@ class RouteNames {
   @pragma('Maps & Navigation')
   static const mapPage = '$defaultPage/map_page';
   static const askPermissionPage = '$defaultPage/ask_permission_popup';
+  static const askPositionTransferPage = '$defaultPage/ask_position_transfer_popup';
   static const searchPage = '$defaultPage/search_view_page';
   static const searchHistoryPage = '$defaultPage/search_history_page';
   static const tourFinished = '$mapPage/tour_finished';
@@ -69,6 +71,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       page = const MapViewPage();
     case RouteNames.askPermissionPage:
       return FadeRoute(page: const AskPermissionPopup());
+    case RouteNames.askPositionTransferPage:
+      return FadeRoute(page: const AskPositionTransferPopup());
     case RouteNames.searchPage:
       return FadeRoute(page: SearchViewPage());
     case RouteNames.searchHistoryPage:
