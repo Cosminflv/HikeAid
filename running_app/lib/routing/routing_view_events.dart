@@ -5,6 +5,7 @@ import 'package:domain/entities/route_entity.dart';
 import 'package:domain/entities/transport_means.dart';
 import 'package:domain/use_cases/routing_use_case.dart';
 import 'package:running_app/routing/routing_view_state.dart';
+import 'package:shared/domain/path_entity.dart';
 
 abstract class RoutingViewEvent {}
 
@@ -13,6 +14,12 @@ class BuildRouteEvent extends RoutingViewEvent {
   final CoordinatesEntity? departureCoordinates;
 
   BuildRouteEvent({required this.waypoints, this.departureCoordinates});
+}
+
+class BuildRouteFromPathEvent extends RoutingViewEvent {
+  final PathEntity path;
+
+  BuildRouteFromPathEvent({required this.path});
 }
 
 class SelectedTransportModeEvent extends RoutingViewEvent {

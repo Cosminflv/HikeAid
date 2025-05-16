@@ -75,9 +75,13 @@ class RouteActionsPanel extends StatelessWidget {
                     isFilled: false,
                     text: AppLocalizations.of(context)!.cancel,
                     onTap: () {
+                      final mapSelectedLandmark = AppBlocs.mapBloc.state.mapSelectedLandmark;
                       AppBlocs.mapBloc.add(RemoveAllRoutesEvent());
-                      AppBlocs.mapBloc
-                          .add(RemoveHighlightsEvent(highlightId: AppBlocs.mapBloc.state.mapSelectedLandmark!.id));
+
+                      if (mapSelectedLandmark != null) {
+                        AppBlocs.mapBloc.add(RemoveHighlightsEvent(highlightId: mapSelectedLandmark.id));
+                      }
+
                       AppBlocs.routingBloc.add(ResetRoutingStateEvent());
                       Navigator.of(context).pop();
                     },

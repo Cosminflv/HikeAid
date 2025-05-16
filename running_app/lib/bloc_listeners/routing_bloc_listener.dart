@@ -7,6 +7,7 @@ import 'package:running_app/app/app_events.dart';
 import 'package:running_app/app/app_state.dart';
 import 'package:running_app/home/home_view_state.dart';
 import 'package:running_app/map/map_view_event.dart';
+import 'package:running_app/position_prediction/position_prediction_events.dart';
 import 'package:running_app/routing/routing_view_bloc.dart';
 import 'package:running_app/routing/routing_view_state.dart';
 import 'package:running_app/shared_widgets/bottom_sheets/route_actions_bottom_sheet.dart';
@@ -40,6 +41,8 @@ class RoutingBlocListener extends StatelessWidget {
                 shouldCenter: !AppBlocs.appBloc.state.isNavigating && !routingState.routes.first.isTourBased,
               ))
               ..add(RemoveAllRoutesExceptEvent(routingState.routes));
+
+            AppBlocs.positionPredictionBloc.add(ConfirmHikeEvent(false));
 
             // if (AppBlocs.appBloc.state.isNavigating) {
             //   AppBlocs.navigationBloc.add(NavigationStatusUpdatedEvent(NavigationStatus.restarting));

@@ -13,6 +13,8 @@ import 'package:gem_kit/core.dart';
 import 'package:gem_kit/routing.dart';
 
 import 'package:dartz/dartz.dart';
+import 'package:shared/domain/path_entity.dart';
+import 'package:shared/extensions.dart';
 
 class RouteRepositoryImpl extends RouteRepository {
   @override
@@ -102,5 +104,46 @@ class RouteRepositoryImpl extends RouteRepository {
     if (progressListener.shouldCancel) return;
 
     onResult(Right(routeEntities));
+  }
+
+  @override
+  TaskProgressListener routeFromPath(
+      {required PathEntity path,
+      required Function(RouteResult p1) onResult,
+      required RoutePreferencesEntity preferences}) {
+    var progressListener = TaskProgressListenerImpl();
+    List<Landmark> landmarkWaypoints = [];
+
+    final prefs = preferences.toGemRoutePreferences();
+
+    prefs.resultDetails = RouteResultDetails.full;
+
+    final waypoints = path.coordinates.skip(50).map((e) {
+      return LandmarkEntityImpl(
+        ref: e.toGemLandmark(),
+        isPositionBased: false,
+      );
+    }).toList();
+
+    for (final wp in waypoints) {
+      landmarkWaypoints.add(wp.toGemLandmark());
+    }
+
+    try {
+      progressListener.ref = RoutingService.calculateRoute(landmarkWaypoints, prefs, (err, result) => _routeCalculationHandler(
+          err: err.code,
+          result: result,
+          waypoints: waypoints,
+          onResult: onResult,
+          progressListener: progressListener,
+          isPositionBased: true,
+          isFingerDrawn: false,
+          isTourBased: false,
+        ));
+    } catch (e) {
+      onResult(Left(RouteError.routeTooLong.index));
+    }
+
+    return progressListener;
   }
 }

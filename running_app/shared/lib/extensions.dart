@@ -7,7 +7,7 @@ import 'domain/coordinates_entity.dart';
 extension CoordinatesEntityExtension on CoordinatesEntity {
   Coordinates toGemCoordinates() => Coordinates(latitude: latitude, longitude: longitude);
 
-  Future<Landmark> toGemLandmark() async {
+  Landmark toGemLandmark() {
     final lmk = Landmark();
     lmk.coordinates = toGemCoordinates();
     return lmk;

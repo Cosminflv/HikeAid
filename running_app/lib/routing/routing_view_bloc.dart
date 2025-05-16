@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:core/di/injection_container.dart';
+import 'package:domain/entities/transport_means.dart';
 import 'package:shared/domain/landmark_entity.dart';
 import 'package:domain/use_cases/landmark_use_case.dart';
 import 'package:domain/use_cases/routing_use_case.dart';
@@ -27,6 +28,7 @@ class RoutingViewBloc extends Bloc<RoutingViewEvent, RoutingViewState> {
     on<SelectedTransportModeEvent>(_handleSelectedTransport);
 
     on<BuildRouteEvent>(_handleBuildRoute);
+    on<BuildRouteFromPathEvent>(_handleBuildRouteFromPath);
     on<RebuildRouteEvent>(_handleRebuildRoute);
 
     on<CancelBuildRouteEvent>(_handleCancelBuildRoute);
@@ -66,6 +68,33 @@ class RoutingViewBloc extends Bloc<RoutingViewEvent, RoutingViewState> {
     await _routingUseCase.buildRoute(
         transportMeans: state.transportMeans!,
         waypoints: waypoints,
+        onResult: (result) {
+          if (isClosed) return;
+
+          if (result is Left) {
+            if (getRouteErrorFromGemError((result as Left).value) == RouteError.canceled) return;
+            add(RouteBuildFinishedEvent(null));
+          } else {
+            final routes = (result as Right).value;
+            add(RouteBuildFinishedEvent(routes));
+          }
+        });
+  }
+
+  _handleBuildRouteFromPath(BuildRouteFromPathEvent event, Emitter<RoutingViewState> emit) async {
+    if (event.path.coordinates.isEmpty) {
+      return;
+    }
+
+    if (isClosed) return;
+
+    add(RouteBuildStatusUpdatedEvent(RouteBuildStatus.building));
+
+    emit(state.copyWith(destinationName: "Vf Moldoveanu"));
+
+    await _routingUseCase.buildRouteFromPath(
+        transportMeans: DTransportMeans.pedestrian,
+        path: event.path,
         onResult: (result) {
           if (isClosed) return;
 

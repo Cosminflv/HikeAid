@@ -9,6 +9,7 @@ import 'dart:async';
 
 import 'package:domain/utils/failures.dart';
 import 'package:shared/domain/landmark_entity.dart';
+import 'package:shared/domain/path_entity.dart';
 
 enum RouteBuildStatus { none, building, succes, failed, canceled }
 
@@ -32,6 +33,24 @@ class RoutingUseCase {
 
     _currentRouteProgressListener = _routeRepository.route(
         waypoints: waypoints,
+        preferences: preferences,
+        onResult: (result) {
+          _currentRouteProgressListener = null;
+          onResult(result);
+        });
+  }
+
+  Future<void> buildRouteFromPath(
+      {required PathEntity path,
+      required Function(RouteResult) onResult,
+      required DTransportMeans transportMeans,
+      bool isFingerDrawn = false}) async {
+    cancelDurationsTo();
+
+    final preferences = RoutePreferencesEntity(transportMeans: transportMeans);
+
+    _currentRouteProgressListener = _routeRepository.routeFromPath(
+        path: path,
         preferences: preferences,
         onResult: (result) {
           _currentRouteProgressListener = null;
