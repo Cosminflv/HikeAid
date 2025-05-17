@@ -5,9 +5,14 @@ import 'package:domain/map_controller.dart';
 import 'package:domain/map_widget.dart';
 import 'package:domain/utils/asset_bundle_entity_impl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
+import 'package:running_app/position_prediction/position_prediction_bloc.dart';
+import 'package:running_app/position_prediction/position_prediction_state.dart';
+
 import 'package:running_app/routing/route_waypoint.dart';
 
 import 'dart:async';
@@ -60,11 +65,47 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: const SafeArea(child: SizedBox()),
+      body: Stack(
+        children: [
+          // 1) Your map goes *underneath*
+          MapWidget(
+            onMapCreated: _onMapCreated,
+          ),
+
+          // 2) Then your bar on top
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              // so it doesn’t collide with status bar / notch
+              child: Container(
+                height: 56, // or whatever height you want
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                alignment: Alignment.center,
+                child: BlocBuilder<PositionPredictionBloc, PositionPredictionState>(
+                  buildWhen: (previous, current) => previous.currentUserHike != current.currentUserHike,
+                  builder: (context, state) {
+                    if (state.currentUserHike == null) {
+                      return const CircularProgressIndicator();
+                    }
+                    return Text(
+                      "Last updated position: "
+                      "${DateFormat('d/M/y H:mm:ss').format(state.currentUserHike!.lastCoordinateTimestamp)}",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  void _onMapCreated(MapController controller, BoxConstraints constraints) async {
+  void _onMapCreated(MapController controller) async {
     initMapDependecies(controller, instanceName: 'userHike');
 
     await mapCompleter.future;

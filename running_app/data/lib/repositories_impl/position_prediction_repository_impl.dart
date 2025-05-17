@@ -1,8 +1,11 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:data/factories/path_factory_impl.dart';
 import 'package:data/utils/web_socket_service.dart';
+import 'package:domain/factories/path_factory.dart';
 import 'package:domain/repositories/position_prediction_repository.dart';
 import 'package:gem_kit/core.dart';
 import 'package:openapi/openapi.dart';
+import 'package:shared/data/coordinates_entity_impl.dart';
 import 'package:shared/data/path_entity_impl.dart';
 import 'package:shared/domain/hike_entity.dart';
 import 'package:shared/domain/path_entity.dart';
@@ -13,8 +16,11 @@ import 'package:shared/domain/tour_entity.dart';
 class PositionPredictionRepositoryImpl extends PositionPredictionRepository {
   final Openapi _openapi;
   late WebSocketService _webSocketService;
+  late PathFactory _pathFactory;
 
-  PositionPredictionRepositoryImpl(this._openapi);
+  PositionPredictionRepositoryImpl(this._openapi) {
+    _pathFactory = PathFactoryImpl();
+  }
 
   @override
   Future<PathEntity> importGPXDemo(String assetsPath) async {
@@ -91,17 +97,31 @@ class PositionPredictionRepositoryImpl extends PositionPredictionRepository {
     try {
       final result = await _openapi.getUserApi().apiUserUserIdGetUserConfirmedHikeGet(userId: userId);
       if (result.statusCode == 200) {
-        // TODO: TEST
         final data = result.data as Map<String, dynamic>;
 
-        final trkCoords = data['TrackCoordinates'];
-        final progressCoords = data['UserProgressCoordinates'];
+        //final trkCoordsMapList = data['trackCoordinates'] as List<Map<String, List<Map<String, double>>>>;
+        //final progressCoordsMapList = data['userProgressCoordinates'] as List<Map<String, double>>;
 
-        final hikeDto = result.data;
+        final trkCoords = (data['trackCoordinates'] as List<dynamic>).map((e) => e as Map<String, dynamic>).map((map) {
+          // cast to num first to handle both int and double, then toDouble()
+          final lat = (map['latitude'] as num).toDouble();
+          final lon = (map['longitude'] as num).toDouble();
+          return CoordinatesEntityImpl(latitude: lat, longitude: lon);
+        }).toList();
+
+// 2) User progress coordinates
+        final progressCoords =
+            (data['userProgressCoordinates'] as List<dynamic>).map((e) => e as Map<String, dynamic>).map((map) {
+          final lat = (map['latitude'] as num).toDouble();
+          final lon = (map['longitude'] as num).toDouble();
+          return CoordinatesEntityImpl(latitude: lat, longitude: lon);
+        }).toList();
+
+        final trackPath = _pathFactory.produce(trkCoords);
 
         return HikeEntityImpl(
-          lastCoordinateTimestamp: DateTime.parse(data['lastCoordinateTimestamp']),
-          trackPath: trkCoords,
+          lastCoordinateTimestamp: DateTime.parse(data['lastCoordinateTimeStamp']),
+          trackPath: trackPath,
           progressCoordinates: progressCoords,
         );
       }

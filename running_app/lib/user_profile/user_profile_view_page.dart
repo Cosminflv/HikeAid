@@ -13,6 +13,7 @@ import 'package:running_app/friendships/friendships_view_state.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/auth_session/auth_session_events.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_event.dart';
+import 'package:running_app/position_prediction/position_prediction_events.dart';
 import 'package:running_app/search_users/search_users_view_event.dart';
 import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:running_app/shared_widgets/dialogs/logout_confirm_dialog.dart';
@@ -239,6 +240,9 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                               ),
                             if (widget.friendshipStatus != null)
                               ViewHikeButton(onPressed: () {
+                                AppBlocs.positionPredictionBloc.add(
+                                  GetCurrentHikeEvent(state.profile.id),
+                                );
                                 Navigator.of(context).pushNamed(RouteNames.userCurrentHikePage,
                                     arguments: {"userName": state.profile.username});
                               }),
