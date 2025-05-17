@@ -13,6 +13,7 @@ import 'package:running_app/onboarding/authentication/authentication_page.dart';
 import 'package:running_app/onboarding/get_started_page.dart';
 import 'package:running_app/onboarding/registration/registration_page.dart';
 import 'package:running_app/onboarding/user_preferences_setup/user_preferences_wizard_page.dart';
+import 'package:running_app/position_prediction/position_prediction_view_page.dart';
 import 'package:running_app/search/search_history/search_history_view_page.dart';
 import 'package:running_app/search/search_view_page.dart';
 import 'package:running_app/search_users/search_users_view_page.dart';
@@ -45,7 +46,8 @@ class RouteNames {
   static const searchUsersPage = '$defaultPage/search_users_view_page';
   static const userProfilePage = '$defaultPage/user_profile_view_page';
   static const userPreferencesWizardPage = '$defaultPage/user_preferences_wizard_page';
-  static const friendshipRequests = '$defaultPage/friendships_view_page';
+  static const friendshipRequests = '$defaultPage/friendships_view_page'; //TODO: Add page to route name
+  static const userCurrentHikePage = '$defaultPage/position_prediction_view_page';
 
   @pragma('MISC')
   static const homePage = '${defaultPage}home_page';
@@ -100,6 +102,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       page = const UserPreferencesWizardPage();
     case RouteNames.friendshipRequests:
       page = const FriendshipsViewPage();
+    case RouteNames.userCurrentHikePage:
+      final args = settings.arguments as Map<String, dynamic>;
+      final userName = args['userName'] as String;
+      page = PositionPredictionViewPage(userName: userName);
 
     // MISC
     case RouteNames.homePage:

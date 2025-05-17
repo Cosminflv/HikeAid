@@ -1012,35 +1012,39 @@
         }
       }
     },
-    "/api/User/predictDistance": {
+    "/api/User/{userId}/predictDistance": {
       "post": {
         "tags": [
           "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/TrackPointDto"
-                }
+                "type": "integer",
+                "format": "int32"
               }
             },
             "text/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/TrackPointDto"
-                }
+                "type": "integer",
+                "format": "int32"
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/TrackPointDto"
-                }
+                "type": "integer",
+                "format": "int32"
               }
             }
           }
@@ -1085,6 +1089,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User/{userId}/getUserConfirmedHike": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -1370,28 +1397,6 @@
               "$ref": "#/components/schemas/TourCoordinatesDto"
             },
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "TrackPointDto": {
-        "type": "object",
-        "properties": {
-          "latitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "longitude": {
-            "type": "number",
-            "format": "double"
-          },
-          "elevation": {
-            "type": "number",
-            "format": "double"
-          },
-          "time": {
-            "type": "string",
-            "format": "date-time"
           }
         },
         "additionalProperties": false

@@ -19,7 +19,6 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(SocialPostModel.serializer)
       ..add(TourCoordinatesDto.serializer)
       ..add(TourDto.serializer)
-      ..add(TrackPointDto.serializer)
       ..add(UpdateUserDto.serializer)
       ..add(UserDto.serializer)
       ..addBuilderFactory(

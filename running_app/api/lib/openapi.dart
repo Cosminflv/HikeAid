@@ -29,7 +29,6 @@ export 'package:openapi/src/model/social_post_dto.dart';
 export 'package:openapi/src/model/social_post_model.dart';
 export 'package:openapi/src/model/tour_coordinates_dto.dart';
 export 'package:openapi/src/model/tour_dto.dart';
-export 'package:openapi/src/model/track_point_dto.dart';
 export 'package:openapi/src/model/update_user_dto.dart';
 export 'package:openapi/src/model/user_dto.dart';
 

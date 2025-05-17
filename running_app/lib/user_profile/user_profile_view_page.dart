@@ -22,6 +22,7 @@ import 'package:running_app/user_profile/widgets/friend_status_button.dart';
 import 'package:running_app/user_profile/widgets/profile_image_dialog.dart';
 import 'package:running_app/user_profile/widgets/remove_friend_dialog.dart';
 import 'package:running_app/user_profile/widgets/tour_card.dart';
+import 'package:running_app/user_profile/widgets/view_hike_button.dart';
 
 // ignore: must_be_immutable
 class UserProfileViewPage extends StatefulWidget {
@@ -236,6 +237,11 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                                       context, "${state.profile.firstName} ${state.profile.lastName}");
                                 },
                               ),
+                            if (widget.friendshipStatus != null)
+                              ViewHikeButton(onPressed: () {
+                                Navigator.of(context).pushNamed(RouteNames.userCurrentHikePage,
+                                    arguments: {"userName": state.profile.username});
+                              }),
                           ],
                         ),
                       ],

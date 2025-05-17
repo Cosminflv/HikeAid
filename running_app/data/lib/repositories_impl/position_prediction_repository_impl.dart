@@ -4,7 +4,9 @@ import 'package:domain/repositories/position_prediction_repository.dart';
 import 'package:gem_kit/core.dart';
 import 'package:openapi/openapi.dart';
 import 'package:shared/data/path_entity_impl.dart';
+import 'package:shared/domain/hike_entity.dart';
 import 'package:shared/domain/path_entity.dart';
+import 'package:shared/data/hike_entity_impl.dart';
 import 'package:flutter/services.dart';
 import 'package:shared/domain/tour_entity.dart';
 
@@ -82,5 +84,31 @@ class PositionPredictionRepositoryImpl extends PositionPredictionRepository {
         time: coordinates.timestamp.toUtc(),
       ),
     );
+  }
+
+  @override
+  Future<HikeEntity?> getCurrentHike(int userId) async {
+    try {
+      final result = await _openapi.getUserApi().apiUserUserIdGetUserConfirmedHikeGet(userId: userId);
+      if (result.statusCode == 200) {
+        // TODO: TEST
+        final data = result.data as Map<String, dynamic>;
+
+        final trkCoords = data['TrackCoordinates'];
+        final progressCoords = data['UserProgressCoordinates'];
+
+        final hikeDto = result.data;
+
+        return HikeEntityImpl(
+          lastCoordinateTimestamp: DateTime.parse(data['lastCoordinateTimestamp']),
+          trackPath: trkCoords,
+          progressCoordinates: progressCoords,
+        );
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
+    }
   }
 }

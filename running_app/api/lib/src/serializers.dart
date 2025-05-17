@@ -26,7 +26,6 @@ import 'package:openapi/src/model/social_post_dto.dart';
 import 'package:openapi/src/model/social_post_model.dart';
 import 'package:openapi/src/model/tour_coordinates_dto.dart';
 import 'package:openapi/src/model/tour_dto.dart';
-import 'package:openapi/src/model/track_point_dto.dart';
 import 'package:openapi/src/model/update_user_dto.dart';
 import 'package:openapi/src/model/user_dto.dart';
 
@@ -45,7 +44,6 @@ part 'serializers.g.dart';
   SocialPostModel,
   TourCoordinatesDto,
   TourDto,
-  TrackPointDto,
   UpdateUserDto,
   UserDto,
 ])
@@ -53,10 +51,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(CoordinatesDto)]),
         () => ListBuilder<CoordinatesDto>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(TrackPointDto)]),
-        () => ListBuilder<TrackPointDto>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TourDto)]),

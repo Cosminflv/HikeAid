@@ -101,12 +101,13 @@ Class | Method | HTTP request | Description
 [*UserApi*](doc/UserApi.md) | [**apiUserGetFriendRequestsGet**](doc/UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdFriendsNumberGet**](doc/UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [*UserApi*](doc/UserApi.md) | [**apiUserIdGetUserGet**](doc/UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
-[*UserApi*](doc/UserApi.md) | [**apiUserPredictDistancePost**](doc/UserApi.md#apiuserpredictdistancepost) | **POST** /api/User/predictDistance | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSearchUserGet**](doc/UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserSendFriendRequestPost**](doc/UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [*UserApi*](doc/UserApi.md) | [**apiUserUpdateUserPut**](doc/UserApi.md#apiuserupdateuserput) | **PUT** /api/User/updateUser | 
 [*UserApi*](doc/UserApi.md) | [**apiUserUploadProfilePictureBase64Post**](doc/UserApi.md#apiuseruploadprofilepicturebase64post) | **POST** /api/User/uploadProfilePictureBase64 | 
 [*UserApi*](doc/UserApi.md) | [**apiUserUserIdGetProfilePictureGet**](doc/UserApi.md#apiuseruseridgetprofilepictureget) | **GET** /api/User/{userId}/getProfilePicture | 
+[*UserApi*](doc/UserApi.md) | [**apiUserUserIdGetUserConfirmedHikeGet**](doc/UserApi.md#apiuseruseridgetuserconfirmedhikeget) | **GET** /api/User/{userId}/getUserConfirmedHike | 
+[*UserApi*](doc/UserApi.md) | [**apiUserUserIdPredictDistancePost**](doc/UserApi.md#apiuseruseridpredictdistancepost) | **POST** /api/User/{userId}/predictDistance | 
 
 
 ## Documentation For Models
@@ -123,7 +124,6 @@ Class | Method | HTTP request | Description
  - [SocialPostModel](doc/SocialPostModel.md)
  - [TourCoordinatesDto](doc/TourCoordinatesDto.md)
  - [TourDto](doc/TourDto.md)
- - [TrackPointDto](doc/TrackPointDto.md)
  - [UpdateUserDto](doc/UpdateUserDto.md)
  - [UserDto](doc/UserDto.md)
 

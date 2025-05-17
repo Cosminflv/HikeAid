@@ -14,6 +14,7 @@ class PositionPredictionBloc extends Bloc<PositionPredictionEvent, PositionPredi
   PositionPredictionBloc(this._positionPredictionUseCase) : super(const PositionPredictionState()) {
     on<ImportGPXDemoEvent>(_handleImportGPXDemo);
     on<ConfirmHikeEvent>(_handleConfirmHike);
+    on<GetCurrentHikeEvent>(_handleGetCurrentHike);
 
     on<ReisterPositionTransferEvent>(_handleRegisterPositionTransfer);
     on<UnregisterPositionTransferEvent>(_handleUnregisterPositionTransfer);
@@ -34,6 +35,12 @@ class PositionPredictionBloc extends Bloc<PositionPredictionEvent, PositionPredi
     }
     // Handle the confirm hike event
     emit(state.copyWith(hasConfirmedHike: event.hasConfirmedHike));
+  }
+
+  void _handleGetCurrentHike(GetCurrentHikeEvent event, Emitter<PositionPredictionState> emit) async {
+    // Handle the get current hike event
+    final hike = await _positionPredictionUseCase.getCurrentHike(event.userId);
+    emit(state.copyWith(currentUserHike: hike));
   }
 
   void _handleRegisterPositionTransfer(

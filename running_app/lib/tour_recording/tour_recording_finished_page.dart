@@ -187,12 +187,6 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
   void _onDoneTap(int userId) {
     setState(() => isLoading = true);
 
-    // final image = await sl.get<MapUseCase>(instanceName: 'tourDetails').captureImage();
-    // final base64Img = base64Encode(image!);
-    // print("IMG: $base64Img");
-    // print("IMGLAST: ${base64Img[base64Img.length - 1]}");
-    // AppBlocs.tourRecordingBloc.add(SaveTourEvent(preview: image));
-
     sl.get<MapUseCase>(instanceName: 'tourDetails').captureImage().then((image) {
       setState(() => isLoading = false);
       final base64Img = base64Encode(image!);

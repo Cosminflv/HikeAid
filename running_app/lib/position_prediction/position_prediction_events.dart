@@ -14,6 +14,12 @@ class ConfirmHikeEvent extends PositionPredictionEvent {
   ConfirmHikeEvent(this.hasConfirmedHike);
 }
 
+class GetCurrentHikeEvent extends PositionPredictionEvent {
+  final int userId;
+
+  GetCurrentHikeEvent(this.userId);
+}
+
 class ReisterPositionTransferEvent extends PositionPredictionEvent {
   final int userId;
 

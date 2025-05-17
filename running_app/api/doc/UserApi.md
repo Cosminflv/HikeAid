@@ -17,12 +17,13 @@ Method | HTTP request | Description
 [**apiUserGetFriendRequestsGet**](UserApi.md#apiusergetfriendrequestsget) | **GET** /api/User/getFriendRequests | 
 [**apiUserIdFriendsNumberGet**](UserApi.md#apiuseridfriendsnumberget) | **GET** /api/User/{id}/friendsNumber | 
 [**apiUserIdGetUserGet**](UserApi.md#apiuseridgetuserget) | **GET** /api/User/{id}/getUser | 
-[**apiUserPredictDistancePost**](UserApi.md#apiuserpredictdistancepost) | **POST** /api/User/predictDistance | 
 [**apiUserSearchUserGet**](UserApi.md#apiusersearchuserget) | **GET** /api/User/searchUser | 
 [**apiUserSendFriendRequestPost**](UserApi.md#apiusersendfriendrequestpost) | **POST** /api/User/sendFriendRequest | 
 [**apiUserUpdateUserPut**](UserApi.md#apiuserupdateuserput) | **PUT** /api/User/updateUser | 
 [**apiUserUploadProfilePictureBase64Post**](UserApi.md#apiuseruploadprofilepicturebase64post) | **POST** /api/User/uploadProfilePictureBase64 | 
 [**apiUserUserIdGetProfilePictureGet**](UserApi.md#apiuseruseridgetprofilepictureget) | **GET** /api/User/{userId}/getProfilePicture | 
+[**apiUserUserIdGetUserConfirmedHikeGet**](UserApi.md#apiuseruseridgetuserconfirmedhikeget) | **GET** /api/User/{userId}/getUserConfirmedHike | 
+[**apiUserUserIdPredictDistancePost**](UserApi.md#apiuseruseridpredictdistancepost) | **POST** /api/User/{userId}/predictDistance | 
 
 
 # **apiUserAcceptFriendRequestPost**
@@ -337,46 +338,6 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **apiUserPredictDistancePost**
-> apiUserPredictDistancePost(trackPointDto)
-
-
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-
-final api = Openapi().getUserApi();
-final BuiltList<TrackPointDto> trackPointDto = ; // BuiltList<TrackPointDto> | 
-
-try {
-    api.apiUserPredictDistancePost(trackPointDto);
-} catch on DioException (e) {
-    print('Exception when calling UserApi->apiUserPredictDistancePost: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **trackPointDto** | [**BuiltList&lt;TrackPointDto&gt;**](TrackPointDto.md)|  | [optional] 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/json, application/*+json
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **apiUserSearchUserGet**
 > BuiltList<SearchUserDto> apiUserSearchUserGet(query)
 
@@ -574,6 +535,88 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserUserIdGetUserConfirmedHikeGet**
+> apiUserUserIdGetUserConfirmedHikeGet(userId)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+final int userId = 56; // int | 
+
+try {
+    api.apiUserUserIdGetUserConfirmedHikeGet(userId);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserUserIdGetUserConfirmedHikeGet: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **int**|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **apiUserUserIdPredictDistancePost**
+> apiUserUserIdPredictDistancePost(userId, body)
+
+
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getUserApi();
+final String userId = userId_example; // String | 
+final int body = 56; // int | 
+
+try {
+    api.apiUserUserIdPredictDistancePost(userId, body);
+} catch on DioException (e) {
+    print('Exception when calling UserApi->apiUserUserIdPredictDistancePost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **String**|  | 
+ **body** | **int**|  | [optional] 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/json, application/*+json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
