@@ -11,6 +11,7 @@ import 'package:running_app/navigation/navigation_view_bloc.dart';
 import 'package:running_app/navigation/navigation_view_events.dart';
 import 'package:running_app/navigation/navigation_view_state.dart';
 import 'package:running_app/navigation_instructions/navigation_instructions_panel_event.dart';
+import 'package:running_app/position_prediction/position_prediction_events.dart';
 import 'package:running_app/routing/routing_view_events.dart';
 import 'package:running_app/shared_widgets/bottom_sheets/route_actions_bottom_sheet.dart';
 
@@ -91,6 +92,7 @@ class NavigationBlocListener extends StatelessWidget {
                 ..add(RemoveAllRoutesEvent())
                 ..add(RemoveAllHighlightsEvent());
               AppBlocs.appBloc.add(UpdateAppStatusEvent(AppStatus.initializedMap));
+              AppBlocs.positionPredictionBloc.add(UnregisterPositionTransferEvent());
               //AppBlocs.routePlanningBloc.add(ResetRoutePlanningEvent());
             } else if (navigationState.status == NavigationStatus.stopped) {
               // navigation stopped or stopped for recalculation with new waypoint
