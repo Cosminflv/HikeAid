@@ -239,10 +239,15 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                                 },
                               ),
                             if (widget.friendshipStatus != null)
-                              ViewHikeButton(onPressed: () {
+                              ViewHikeButton(onPressed: () async {
                                 AppBlocs.positionPredictionBloc.add(
                                   GetCurrentHikeEvent(state.profile.id),
                                 );
+                                // wait until the bloc emits a state where `currentUserHike` is non-null
+                                await AppBlocs.positionPredictionBloc.stream.firstWhere(
+                                  (s) => s.currentUserHike != null,
+                                );
+
                                 Navigator.of(context).pushNamed(RouteNames.userCurrentHikePage,
                                     arguments: {"userName": state.profile.username, "userId": state.profile.id});
                               }),
