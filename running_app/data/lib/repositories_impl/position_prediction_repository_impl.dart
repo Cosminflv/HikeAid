@@ -24,7 +24,7 @@ class PositionPredictionRepositoryImpl extends PositionPredictionRepository {
 
   @override
   Future<PathEntity> importGPXDemo(String assetsPath) async {
-    final fileBytes = await rootBundle.load('assets/gpx_files/gpx_file1.gpx');
+    final fileBytes = await rootBundle.load('assets/gpx_files/gpx_file4.gpx');
     final buffer = fileBytes.buffer;
     final pathData = buffer.asUint8List(
       fileBytes.offsetInBytes,

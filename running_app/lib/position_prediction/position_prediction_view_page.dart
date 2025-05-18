@@ -132,7 +132,7 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
   Future<void> _performMapActions(MapController controller) async {
     final positionPredictionState = AppBlocs.positionPredictionBloc.state;
     final currentUserHike = positionPredictionState.currentUserHike;
-    final routingBloc = AppBlocs.routingBloc.add(BuildRouteFromPathEvent(path: currentUserHike!.trackPath));
+    AppBlocs.routingBloc.add(BuildRouteFromPathEvent(path: currentUserHike!.trackPath));
 
     _mapBloc
       ..add(
@@ -148,6 +148,7 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
         ),
       )
       ..add(SetPositionTracker(false))
+      ..add(AddPolylineMarkerEvent(currentUserHike.progressCoordinates))
       ..add(
         PresentHighlightEvent(
           landmark: currentUserHike.startLandmark,
@@ -162,6 +163,5 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
           image: AppBlocs.routingBloc.waypointImages[RouteWaypointName.destination],
         ),
       );
-    Future.delayed(Durations.medium1).then((val) => _mapBloc.add(CenterOnPathEvent(path: currentUserHike.trackPath)));
   }
 }
