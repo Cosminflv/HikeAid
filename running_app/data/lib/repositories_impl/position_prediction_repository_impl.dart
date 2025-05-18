@@ -87,7 +87,7 @@ class PositionPredictionRepositoryImpl extends PositionPredictionRepository {
         latitude: coordinates.latLng.latitude,
         longitude: coordinates.latLng.longitude,
         elevation: coordinates.altitude.toDouble(),
-        time: coordinates.timestamp.toUtc(),
+        time: coordinates.timestamp,
       ),
     );
   }
