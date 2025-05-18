@@ -32,6 +32,7 @@ Future<bool> showStartSimulationDialog(BuildContext parentContext) async {
                   CupertinoActionSheetAction(
                     onPressed: () {
                       Navigator.pop(context, true); // Close bottom sheet
+                      
                       // Use parentContext to navigate after closing
                       Navigator.of(parentContext).pushNamed(RouteNames.askPositionTransferPage).then((value) {
                         if (value == true) {

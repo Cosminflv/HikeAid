@@ -6,6 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:running_app/app/app_events.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/navigation/navigation_view_events.dart';
+import 'package:running_app/position_prediction/position_prediction_events.dart';
 import 'package:running_app/tour_recording/tour_recording_events.dart';
 import 'package:running_app/utils/sizes_calculator.dart';
 
@@ -74,6 +75,10 @@ class NavigationBottomControls extends StatelessWidget {
                           if (AppBlocs.appBloc.state.status == AppStatus.navigation) {
                             final navigationBloc = AppBlocs.navigationBloc;
                             navigationBloc.add(StopNavigationEvent());
+
+                            if (AppBlocs.positionPredictionBloc.state.isPositionTransferEnabled) {
+                              AppBlocs.positionPredictionBloc.add(UnregisterPositionTransferEvent());
+                            }
                           } else {
                             final recordingBloc = AppBlocs.tourRecordingBloc;
                             recordingBloc.add(StopRecordingEvent());
