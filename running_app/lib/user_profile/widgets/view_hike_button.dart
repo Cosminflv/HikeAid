@@ -15,7 +15,7 @@ class ViewHikeButton extends StatelessWidget {
       ),
       label: Text(
         "View Hike",
-        style: Theme.of(context).textTheme.labelSmall,
+        style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary,

@@ -56,12 +56,12 @@ class FriendshipButton extends StatelessWidget {
       onPressed: onPressed,
       icon: Icon(
         icon,
-        color: Colors.white,
-        size: 20,
+        color: Theme.of(context).colorScheme.onPrimary,
+        size: 15,
       ),
       label: Text(
         label,
-        style: Theme.of(context).textTheme.labelSmall,
+        style: Theme.of(context).textTheme.labelSmall!.copyWith(color: Theme.of(context).colorScheme.onPrimary),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).colorScheme.primary,

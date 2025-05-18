@@ -238,7 +238,7 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                                       context, "${state.profile.firstName} ${state.profile.lastName}");
                                 },
                               ),
-                            if (widget.friendshipStatus != null)
+                            if (widget.friendshipStatus == FriendshipStatus.friends)
                               ViewHikeButton(onPressed: () async {
                                 AppBlocs.positionPredictionBloc.add(
                                   GetCurrentHikeEvent(state.profile.id),
@@ -265,6 +265,31 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                     previous.tours.length != current.tours.length,
                 builder: (context, state) {
                   if (state is UserProfileLoadedState) {
+                    if (widget.friendshipStatus != null && widget.friendshipStatus != FriendshipStatus.friends) {
+                      return const Expanded(
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.directions_walk,
+                                size: 64,
+                                color: Colors.grey,
+                              ),
+                              SizedBox(height: 16),
+                              Text(
+                                'No public hikes',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+
                     // Show a placeholder when there are no recorded hikes
                     if (state.tours.isEmpty) {
                       return const Expanded(

@@ -64,32 +64,28 @@ class _UserListItemState extends State<UserListItem> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 40,
-                width: 90,
-                child: FriendshipButton(
-                  status: widget.user.friendshipStatus,
-                  onAddFriend: () {
-                    AppBlocs.searchUsersBloc.add(AddFriendEvent(widget.user.id));
-                    setState(() {
-                      widget.user.friendshipStatus = FriendshipStatus.pending;
-                    });
-                  },
-                  onAcceptRequest: () {
-                    // TODO: Search for the existing friend request in order to accept it
+              FriendshipButton(
+                status: widget.user.friendshipStatus,
+                onAddFriend: () {
+                  AppBlocs.searchUsersBloc.add(AddFriendEvent(widget.user.id));
+                  setState(() {
+                    widget.user.friendshipStatus = FriendshipStatus.pending;
+                  });
+                },
+                onAcceptRequest: () {
+                  // TODO: Search for the existing friend request in order to accept it
 
-                    // AppBlocs.friendships.add(AcceptFriendshipRequestEvent(request: widget.friendRequest!));
-                    // setState(() {
-                    //   widget.user.friendshipStatus = FriendshipStatus.friends;
-                    // });
-                  },
-                  onCancelRequest: () {
-                    setState(() {
-                      widget.user.friendshipStatus = FriendshipStatus.none;
-                    });
-                  },
-                  onRemoveFriend: () {},
-                ),
+                  // AppBlocs.friendships.add(AcceptFriendshipRequestEvent(request: widget.friendRequest!));
+                  // setState(() {
+                  //   widget.user.friendshipStatus = FriendshipStatus.friends;
+                  // });
+                },
+                onCancelRequest: () {
+                  setState(() {
+                    widget.user.friendshipStatus = FriendshipStatus.none;
+                  });
+                },
+                onRemoveFriend: () {},
               ),
             ],
           ),
