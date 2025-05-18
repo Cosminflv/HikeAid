@@ -83,9 +83,9 @@ class NavigationBottomControls extends StatelessWidget {
                         child: Row(
                           children: [
                             Icon(FontAwesomeIcons.stop, color: Theme.of(context).colorScheme.onPrimary, size: 25),
-                            const SizedBox(width: 10),
+                            const SizedBox(width: 15),
                             Text(
-                              "Cancel",
+                              "Stop",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall

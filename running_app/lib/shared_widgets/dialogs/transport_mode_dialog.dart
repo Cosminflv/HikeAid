@@ -16,7 +16,7 @@ Future<bool> showTransportModeChoice(BuildContext context) async {
               backgroundColor: Colors.transparent,
               shadow: const BoxShadow(color: Colors.transparent),
               builder: (context) => CupertinoActionSheet(
-                title: Text(AppLocalizations.of(context)!.logoutTitle),
+                title: const Text("Transport Mode"),
                 message: Text(AppLocalizations.of(context)!.logout),
                 cancelButton: CupertinoActionSheetAction(
                   child: Text(AppLocalizations.of(context)!.cancel,
@@ -39,9 +39,9 @@ Future<bool> showTransportModeChoice(BuildContext context) async {
               context: context,
               builder: (context) => Wrap(
                 children: [
-                  ListTile(
-                    title: Center(child: Text(AppLocalizations.of(context)!.logoutTitle)),
-                    subtitle: const Center(child: Text("How will you travel?")),
+                  const ListTile(
+                    title: Center(child: Text("Transport Mode")),
+                    subtitle: Center(child: Text("How will you travel?")),
                   ),
                   ListTile(
                     title: Row(

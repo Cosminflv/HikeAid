@@ -52,9 +52,9 @@ Future<bool> showStartSimulationDialog(BuildContext parentContext) async {
               barrierColor: Colors.transparent,
               builder: (context) => Wrap(
                 children: [
-                  ListTile(
-                    title: Center(child: Text(AppLocalizations.of(parentContext)!.logoutTitle)),
-                    subtitle: const Center(child: Text("How will you travel?")),
+                  const ListTile(
+                    title: Center(child: Text("Hike Preview")),
+                    subtitle: Center(child: Text("Stâna lui Burnei - Vf. Moldoveanu")),
                   ),
                   ListTile(
                     title: Row(
@@ -76,7 +76,7 @@ Future<bool> showStartSimulationDialog(BuildContext parentContext) async {
                             });
                           },
                           child: Text(
-                            "Start Simulation",
+                            "Calculate Route",
                             style: Theme.of(parentContext).textTheme.labelMedium!,
                           ),
                         ),
