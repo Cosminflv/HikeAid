@@ -63,6 +63,7 @@ extension LandmarkStoreExtenstion on LandmarkStore {
 extension BikePreferencesEntityExtension on RoutePreferencesEntity {
   RoutePreferences toGemRoutePreferences() {
     final prefs = RoutePreferences(
+      buildTerrainProfile: BuildTerrainProfile(enable: true),
       transportMode: transportMeans == DTransportMeans.car ? RouteTransportMode.car : RouteTransportMode.pedestrian,
     );
 
