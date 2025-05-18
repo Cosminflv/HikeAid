@@ -28,17 +28,21 @@ class _FriendshipRequestsListState extends State<FriendshipRequestsList> {
             AppBlocs.userProfileBloc.add(FetchUserProfileEvent(userId: request.requesterId));
             Navigator.of(context).pushNamed(
               RouteNames.userProfilePage,
-              arguments: {'isEditable': false, 'friendshipStatus': FriendshipStatus.waitingAccept, 'friendRequest': request},
+              arguments: {
+                'isEditable': false,
+                'friendshipStatus': FriendshipStatus.waitingAccept,
+                'friendRequest': request
+              },
             );
           },
           child: Card(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               leading: CircleAvatar(
                 child: Text(request.requesterName[0]), // Initial of requester name
               ),
               title: Text(request.requesterName),
-              subtitle: Text('ID: ${request.requesterId}'),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min, // This ensures buttons are side by side
                 children: [

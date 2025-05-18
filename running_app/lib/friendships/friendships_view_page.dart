@@ -23,6 +23,7 @@ class _FriendshipsViewPageState extends State<FriendshipsViewPage> {
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.primary,
         leading: IconButton(
+            color: Theme.of(context).colorScheme.onPrimary,
             onPressed: () {
               AppBlocs.userProfileBloc.add(FetchUserProfileEvent(userId: getSession(context)!.user.id));
               Navigator.of(context).pop(true);
@@ -30,7 +31,7 @@ class _FriendshipsViewPageState extends State<FriendshipsViewPage> {
             icon: const Icon(FontAwesomeIcons.arrowLeft)),
         title: Text(
           "Friendship requests",
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Theme.of(context).colorScheme.surface),
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white),
         ),
         iconTheme: IconThemeData(
           color: Theme.of(context).colorScheme.surface,

@@ -32,6 +32,7 @@ class SearchAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: title),
           actions: [
             IconButton(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
               icon: const Icon(FontAwesomeIcons.gear),
               onPressed: () {
                 Navigator.of(context).pushNamed(RouteNames.settingsPage);

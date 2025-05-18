@@ -83,13 +83,13 @@ class SettingsViewPage extends StatelessWidget {
             ),
           ),
           CustomElevatedButton(
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            textColor: Theme.of(context).colorScheme.onPrimaryContainer,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            textColor: Theme.of(context).colorScheme.onPrimary,
             text: buttonText,
             leading: Icon(
               icon,
               size: 24,
-              color: Theme.of(context).colorScheme.onPrimaryContainer,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
             alignment: MainAxisAlignment.center,
             onTap: onPressed,
