@@ -7,11 +7,11 @@ import 'package:domain/utils/asset_bundle_entity_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/position_prediction/position_prediction_bloc.dart';
 import 'package:running_app/position_prediction/position_prediction_state.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:running_app/routing/route_waypoint.dart';
 
@@ -90,9 +90,10 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
                     if (state.currentUserHike == null) {
                       return const CircularProgressIndicator();
                     }
+                    final last = state.currentUserHike!.lastCoordinateTimestamp;
+                    final ago = timeago.format(last, locale: 'en'); // or 'ro' for Romanian
                     return Text(
-                      "Last updated position: "
-                      "${DateFormat('d/M/y H:mm:ss').format(state.currentUserHike!.lastCoordinateTimestamp)}",
+                      "Last updated: $ago",
                       style: Theme.of(context).textTheme.bodyMedium,
                     );
                   },
