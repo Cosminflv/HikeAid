@@ -51,6 +51,7 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
     on<UnselectAlertEvent>(_unselectAlertEventHandler);
 
     on<PresentHighlightEvent>(_handlePresentHighlightEvent);
+    on<PresentHighlightsEvent>(_handlePresentHighlightsEvent);
     on<RemoveHighlightsEvent>(_handleRemoveHighlights);
     on<PresentPathEvent>(_presentPathEventHandler);
     on<ClearPathsEvent>(_handleClearPaths);
@@ -185,6 +186,15 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
       _mapUseCase.centerOnCoordinates(
           coordinates: event.landmark.coordinates, screenPosition: event.screenPosition!, zoom: 70);
       emit(state.copyWith(isFollowingPosition: false));
+    }
+  }
+
+  _handlePresentHighlightsEvent(PresentHighlightsEvent event, Emitter<MapViewState> emit) async {
+    for (final landmark in event.landmarks) {
+      _mapUseCase.presentHighlight(landmark,
+          highlightId: _toShortRange(landmark.id),
+          showLabel: event.showLabel,
+          image: event.isPin ? _pinImage : event.image);
     }
   }
 

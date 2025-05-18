@@ -33,3 +33,11 @@ class SendCoordinatesEvent extends PositionPredictionEvent {
 
   SendCoordinatesEvent(this.coordinates);
 }
+
+class RequestPositionPredictionEvent extends PositionPredictionEvent {
+  final int userId;
+
+  RequestPositionPredictionEvent(this.userId);
+}
+
+class ClearPredictionsEvent extends PositionPredictionEvent {}

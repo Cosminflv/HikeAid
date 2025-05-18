@@ -6,12 +6,15 @@ class PositionPredictionState extends Equatable {
   final PathEntity? importedGPXPath;
   final HikeEntity? currentUserHike;
 
+  final List<double> predictedPositions;
+
   final bool hasConfirmedHike;
   final bool isPositionTransferEnabled;
 
   const PositionPredictionState({
     this.importedGPXPath,
     this.currentUserHike,
+    this.predictedPositions = const [],
     this.hasConfirmedHike = false,
     this.isPositionTransferEnabled = false,
   });
@@ -19,12 +22,14 @@ class PositionPredictionState extends Equatable {
   PositionPredictionState copyWith({
     PathEntity? importedGPXPath,
     HikeEntity? currentUserHike,
+    List<double>? predictedPositions,
     bool? hasConfirmedHike,
     bool? isPositionTransferEnabled,
   }) {
     return PositionPredictionState(
       importedGPXPath: importedGPXPath ?? this.importedGPXPath,
       currentUserHike: currentUserHike ?? this.currentUserHike,
+      predictedPositions: predictedPositions ?? this.predictedPositions,
       hasConfirmedHike: hasConfirmedHike ?? this.hasConfirmedHike,
       isPositionTransferEnabled: isPositionTransferEnabled ?? this.isPositionTransferEnabled,
     );
@@ -34,6 +39,7 @@ class PositionPredictionState extends Equatable {
   List<Object?> get props => [
         importedGPXPath,
         currentUserHike,
+        predictedPositions,
         hasConfirmedHike,
         isPositionTransferEnabled,
       ];

@@ -16,6 +16,9 @@ class PositionPredictionBloc extends Bloc<PositionPredictionEvent, PositionPredi
     on<ConfirmHikeEvent>(_handleConfirmHike);
     on<GetCurrentHikeEvent>(_handleGetCurrentHike);
 
+    on<RequestPositionPredictionEvent>(_handleRequestPositionPrediction);
+    on<ClearPredictionsEvent>(_handleClearPredictions);
+
     on<ReisterPositionTransferEvent>(_handleRegisterPositionTransfer);
     on<UnregisterPositionTransferEvent>(_handleUnregisterPositionTransfer);
 
@@ -43,11 +46,23 @@ class PositionPredictionBloc extends Bloc<PositionPredictionEvent, PositionPredi
     emit(state.copyWith(currentUserHike: hike));
   }
 
+  void _handleRequestPositionPrediction(
+      RequestPositionPredictionEvent event, Emitter<PositionPredictionState> emit) async {
+    // Handle the request position prediction event
+    final positions = await _positionPredictionUseCase.predictPositions(event.userId);
+    emit(state.copyWith(predictedPositions: positions));
+  }
+
   void _handleRegisterPositionTransfer(
       ReisterPositionTransferEvent event, Emitter<PositionPredictionState> emit) async {
     // Handle the register position transfer event
     await _positionPredictionUseCase.registerPositionTransfer(event.userId);
     emit(state.copyWith(isPositionTransferEnabled: true));
+  }
+
+  void _handleClearPredictions(ClearPredictionsEvent event, Emitter<PositionPredictionState> emit) {
+    // Handle the clear predictions event
+    emit(state.copyWith(predictedPositions: []));
   }
 
   void _handleUnregisterPositionTransfer(UnregisterPositionTransferEvent event, Emitter<PositionPredictionState> emit) {

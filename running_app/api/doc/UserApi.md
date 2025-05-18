@@ -580,7 +580,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **apiUserUserIdPredictDistancePost**
-> apiUserUserIdPredictDistancePost(userId, body)
+> apiUserUserIdPredictDistancePost(userId)
 
 
 
@@ -589,11 +589,10 @@ void (empty response body)
 import 'package:openapi/api.dart';
 
 final api = Openapi().getUserApi();
-final String userId = userId_example; // String | 
-final int body = 56; // int | 
+final int userId = 56; // int | 
 
 try {
-    api.apiUserUserIdPredictDistancePost(userId, body);
+    api.apiUserUserIdPredictDistancePost(userId);
 } catch on DioException (e) {
     print('Exception when calling UserApi->apiUserUserIdPredictDistancePost: $e\n');
 }
@@ -603,8 +602,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | **String**|  | 
- **body** | **int**|  | [optional] 
+ **userId** | **int**|  | 
 
 ### Return type
 
@@ -616,7 +614,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json, text/json, application/*+json
+ - **Content-Type**: Not defined
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

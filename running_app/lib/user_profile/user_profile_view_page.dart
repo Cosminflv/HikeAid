@@ -244,7 +244,7 @@ class _UserProfileViewPageState extends State<UserProfileViewPage> {
                                   GetCurrentHikeEvent(state.profile.id),
                                 );
                                 Navigator.of(context).pushNamed(RouteNames.userCurrentHikePage,
-                                    arguments: {"userName": state.profile.username});
+                                    arguments: {"userName": state.profile.username, "userId": state.profile.id});
                               }),
                           ],
                         ),

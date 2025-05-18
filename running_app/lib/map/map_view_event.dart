@@ -55,6 +55,22 @@ class PresentHighlightEvent extends MapViewEvent {
   });
 }
 
+class PresentHighlightsEvent extends MapViewEvent {
+  final List<LandmarkEntity> landmarks;
+  final PointEntity? screenPosition;
+  final bool showLabel;
+  final bool isPin;
+  final Uint8List? image;
+
+  PresentHighlightsEvent({
+    required this.landmarks,
+    this.image,
+    this.screenPosition,
+    this.showLabel = true,
+    this.isPin = false,
+  });
+}
+
 class RemoveHighlightsEvent extends MapViewEvent {
   final int highlightId;
   RemoveHighlightsEvent({required this.highlightId});

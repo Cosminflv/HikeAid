@@ -105,7 +105,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case RouteNames.userCurrentHikePage:
       final args = settings.arguments as Map<String, dynamic>;
       final userName = args['userName'] as String;
-      page = PositionPredictionViewPage(userName: userName);
+      final userId = args['userId'] as int;
+      page = PositionPredictionViewPage(userName: userName, userId: userId);
 
     // MISC
     case RouteNames.homePage:

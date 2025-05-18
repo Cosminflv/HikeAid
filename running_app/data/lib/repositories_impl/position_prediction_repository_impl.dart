@@ -43,16 +43,10 @@ class PositionPredictionRepositoryImpl extends PositionPredictionRepository {
     final path = pathEntity as PathEntityImpl;
     final coordinates = path.coordinates;
 
-    final coordinatesDto = coordinates
-        .skip(50)
-        .toList()
-        .asMap()
-        .entries
-        .where((entry) => entry.key % 2 == 0) // keep even-indexed elements after skipping 50
-        .map((entry) => CoordinatesDto((b) {
-              b.latitude = entry.value.latitude;
-              b.longitude = entry.value.longitude;
-            }));
+    final coordinatesDto = coordinates.map((e) => CoordinatesDto((b) {
+          b.latitude = e.latitude;
+          b.longitude = e.longitude;
+        }));
     try {
       final result = await _openapi.getUserApi().apiUserConfirmHikePost(
             coordinatesDto: BuiltList<CoordinatesDto>(coordinatesDto),
@@ -129,6 +123,24 @@ class PositionPredictionRepositoryImpl extends PositionPredictionRepository {
     } catch (e) {
       print(e);
       return null;
+    }
+  }
+
+  @override
+  Future<List<double>> predictPositions(int userId) async {
+    try {
+      final result = await _openapi.getUserApi().apiUserUserIdPredictDistancePost(userId: userId);
+
+      if (result.statusCode == 200) {
+        final data = result.data as Map<String, dynamic>;
+        final distances = (data['prediction'] as List<dynamic>).map((e) => e as double).toList();
+        return distances;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print(e);
+      return [];
     }
   }
 }

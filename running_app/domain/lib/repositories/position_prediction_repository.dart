@@ -7,6 +7,8 @@ abstract class PositionPredictionRepository {
   Future<bool> confirmHike(PathEntity pathEntity);
   Future<HikeEntity?> getCurrentHike(int userId);
 
+  Future<List<double>> predictPositions(int userId);
+
   Future<void> registerPositionTransfer(int userId);
   void unregisterPositionTransfer();
 

@@ -10,8 +10,10 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/position_prediction/position_prediction_bloc.dart';
+import 'package:running_app/position_prediction/position_prediction_events.dart';
 import 'package:running_app/position_prediction/position_prediction_state.dart';
 import 'package:running_app/routing/routing_view_events.dart';
+import 'package:running_app/shared_widgets/custom_text_button.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:running_app/routing/route_waypoint.dart';
@@ -20,7 +22,8 @@ import 'dart:async';
 
 class PositionPredictionViewPage extends StatefulWidget {
   final String userName;
-  const PositionPredictionViewPage({super.key, required this.userName});
+  final int userId;
+  const PositionPredictionViewPage({super.key, required this.userName, required this.userId});
 
   @override
   State<PositionPredictionViewPage> createState() => _PositionPredictionViewPageState();
@@ -45,6 +48,7 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
     // Unregister and close the bloc when the widget is disposed
     sl.unregister<MapViewBloc>(instanceName: 'userHike');
     _mapBloc.close();
+    AppBlocs.positionPredictionBloc.add(ClearPredictionsEvent());
     super.dispose();
   }
 
@@ -116,6 +120,30 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
                 ),
               ),
             ),
+          ),
+
+          BlocBuilder<PositionPredictionBloc, PositionPredictionState>(
+            builder: (context, state) {
+              if (state.predictedPositions.isNotEmpty) {
+                return const SizedBox.shrink();
+              }
+              return Positioned(
+                bottom: 16.0,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: CustomElevatedButton(
+                    onTap: () {
+                      AppBlocs.positionPredictionBloc.add(RequestPositionPredictionEvent(widget.userId));
+                    },
+                    text: "Predict positions",
+                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    textColor: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              );
+            },
           ),
         ],
       ),

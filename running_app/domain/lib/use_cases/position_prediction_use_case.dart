@@ -13,6 +13,8 @@ class PositionPredictionUseCase {
   Future<bool> confirmHike(PathEntity pathEntity) async => await _repository.confirmHike(pathEntity);
   Future<HikeEntity?> getCurrentHike(int userId) async => await _repository.getCurrentHike(userId);
 
+  Future<List<double>> predictPositions(int userId) async => await _repository.predictPositions(userId);
+
   Future<void> registerPositionTransfer(int userId) async => await _repository.registerPositionTransfer(userId);
   void unregisterPositionTransfer() => _repository.unregisterPositionTransfer();
 
