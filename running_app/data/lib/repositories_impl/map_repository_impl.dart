@@ -313,8 +313,10 @@ class MapRepositoryImpl extends MapRepository {
   void clearPaths() => _controller.preferences.paths.clear();
 
   @override
-  void presentPath(PathEntity path) {
+  void presentPath(
+      {required PathEntity path, Color? colorBorder, Color? colorInner, double? szBorder, double? szInner}) {
     path as PathEntityImpl;
-    _controller.preferences.paths.add(path.ref);
+    _controller.preferences.paths
+        .add(path.ref, colorBorder: colorBorder, colorInner: colorInner, szBorder: szBorder, szInner: szInner);
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/entities/camera_state_entity.dart';
@@ -74,10 +75,18 @@ class AddPolylineMarkerEvent extends MapViewEvent {
 
 class PresentPathEvent extends MapViewEvent {
   final PathEntity path;
+  final Color? colorBorder;
+  final Color? colorInner;
+  final double? szBorder;
+  final double? szInner;
   final ViewAreaEntity? viewArea;
 
   PresentPathEvent({
     required this.path,
+    this.colorBorder,
+    this.colorInner,
+    this.szBorder,
+    this.szInner,
     this.viewArea,
   });
 }

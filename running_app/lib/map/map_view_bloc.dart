@@ -193,7 +193,12 @@ class MapViewBloc extends Bloc<MapViewEvent, MapViewState> {
   }
 
   _presentPathEventHandler(PresentPathEvent event, Emitter<MapViewState> emit) async {
-    _mapUseCase.presentPath(event.path);
+    _mapUseCase.presentPath(
+        path: event.path,
+        colorBorder: event.colorBorder,
+        colorInner: event.colorInner,
+        szBorder: event.szBorder,
+        szInner: event.szInner);
     await Future.delayed(const Duration(milliseconds: 200));
     add(CenterOnPathEvent(path: event.path, viewArea: event.viewArea));
   }

@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/entities/camera_state_entity.dart';
@@ -38,7 +39,8 @@ abstract class MapRepository {
   void clearMarkers();
 
   // Path
-  void presentPath(PathEntity path);
+  void presentPath(
+      {required PathEntity path, Color? colorBorder, Color? colorInner, double? szBorder, double? szInner});
   void clearPaths();
 
   // Miscellaneous

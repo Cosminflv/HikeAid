@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:domain/entities/alert_entity.dart';
 import 'package:domain/entities/camera_state_entity.dart';
@@ -56,8 +57,10 @@ class MapUseCase {
     }
   }
 
-  void presentPath(PathEntity path) {
-    _mapRepository.presentPath(path);
+  void presentPath(
+      {required PathEntity path, Color? colorBorder, Color? colorInner, double? szBorder, double? szInner}) {
+    _mapRepository.presentPath(
+        path: path, colorBorder: colorBorder, colorInner: colorInner, szBorder: szBorder, szInner: szInner);
   }
 
   void clearPaths() => _mapRepository.clearPaths();

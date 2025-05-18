@@ -11,6 +11,7 @@ import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/position_prediction/position_prediction_bloc.dart';
 import 'package:running_app/position_prediction/position_prediction_state.dart';
+import 'package:running_app/routing/routing_view_events.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:running_app/routing/route_waypoint.dart';
@@ -31,6 +32,21 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
   final _mapBloc = MapViewBloc(AssetBundleEntityImpl());
 
   bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Register the _mapBloc with instance name 'userHike'
+    sl.registerSingleton<MapViewBloc>(_mapBloc, instanceName: 'userHike');
+  }
+
+  @override
+  void dispose() {
+    // Unregister and close the bloc when the widget is disposed
+    sl.unregister<MapViewBloc>(instanceName: 'userHike');
+    _mapBloc.close();
+    super.dispose();
+  }
 
   @override
   void didChangeDependencies() {
@@ -116,13 +132,14 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
   Future<void> _performMapActions(MapController controller) async {
     final positionPredictionState = AppBlocs.positionPredictionBloc.state;
     final currentUserHike = positionPredictionState.currentUserHike;
+    final routingBloc = AppBlocs.routingBloc.add(BuildRouteFromPathEvent(path: currentUserHike!.trackPath));
 
     _mapBloc
       ..add(
         InitMapViewEvent(
           instanceName: 'userHike',
           screenCenter: const PointEntity(x: 200, y: 200),
-          isInteractive: false,
+          isInteractive: true,
           mapVisibleAreaFunction: () => const ViewAreaEntity(
             xy: PointEntity(x: 20, y: 20),
             size: SizeEntity(height: 200, width: 200),
@@ -131,7 +148,6 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
         ),
       )
       ..add(SetPositionTracker(false))
-      ..add(AddPolylineMarkerEvent(currentUserHike!.trackPath.coordinates))
       ..add(
         PresentHighlightEvent(
           landmark: currentUserHike.startLandmark,
