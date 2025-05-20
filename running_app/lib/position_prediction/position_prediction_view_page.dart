@@ -46,8 +46,8 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
   @override
   void dispose() {
     // Unregister and close the bloc when the widget is disposed
-    sl.unregister<MapViewBloc>(instanceName: 'userHike');
-    _mapBloc.close();
+    //sl.unregister<MapViewBloc>(instanceName: 'userHike');
+    //_mapBloc.close();
     AppBlocs.positionPredictionBloc.add(ClearPredictionsEvent());
     super.dispose();
   }
@@ -63,89 +63,92 @@ class _PositionPredictionViewPageState extends State<PositionPredictionViewPage>
 
   @override
   Widget build(BuildContext context) {
-    return PlatformScaffold(
-      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
-      iosContentBottomPadding: true,
-      iosContentPadding: true,
-      material: (context, platform) => MaterialScaffoldData(
-        resizeToAvoidBottomInset: false,
-      ),
-      appBar: PlatformAppBar(
-        title: Text(
-          "${widget.userName}'s Hike",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
+    return PopScope(
+      onPopInvokedWithResult: (didPop, res) => _mapBloc.add(SetPositionTracker(true)),
+      child: PlatformScaffold(
         backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
-        automaticallyImplyLeading: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-          onPressed: () => Navigator.of(context).pop(),
+        iosContentBottomPadding: true,
+        iosContentPadding: true,
+        material: (context, platform) => MaterialScaffoldData(
+          resizeToAvoidBottomInset: false,
         ),
-      ),
-      body: Stack(
-        children: [
-          // 1) Your map goes *underneath*
-          MapWidget(
-            onMapCreated: _onMapCreated,
+        appBar: PlatformAppBar(
+          title: Text(
+            "${widget.userName}'s Hike",
+            style: Theme.of(context).textTheme.titleLarge,
           ),
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
+          automaticallyImplyLeading: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+        body: Stack(
+          children: [
+            // 1) Your map goes *underneath*
+            MapWidget(
+              onMapCreated: _onMapCreated,
+            ),
 
-          // 2) Then your bar on top
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: SafeArea(
-              // so it doesn’t collide with status bar / notch
-              child: Container(
-                height: 56, // or whatever height you want
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                color: Theme.of(context).colorScheme.surfaceContainerHigh,
-                alignment: Alignment.center,
-                child: BlocBuilder<PositionPredictionBloc, PositionPredictionState>(
-                  buildWhen: (previous, current) => previous.currentUserHike != current.currentUserHike,
-                  builder: (context, state) {
-                    if (state.currentUserHike == null) {
-                      return const CircularProgressIndicator();
-                    }
-                    final last = state.currentUserHike!.lastCoordinateTimestamp;
-                    final ago = timeago.format(last, locale: 'en'); // or 'ro' for Romanian
-                    return Text(
-                      "Last updated: $ago",
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    );
-                  },
+            // 2) Then your bar on top
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: SafeArea(
+                // so it doesn’t collide with status bar / notch
+                child: Container(
+                  height: 56, // or whatever height you want
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  color: Theme.of(context).colorScheme.surfaceContainerHigh,
+                  alignment: Alignment.center,
+                  child: BlocBuilder<PositionPredictionBloc, PositionPredictionState>(
+                    buildWhen: (previous, current) => previous.currentUserHike != current.currentUserHike,
+                    builder: (context, state) {
+                      if (state.currentUserHike == null) {
+                        return const CircularProgressIndicator();
+                      }
+                      final last = state.currentUserHike!.lastCoordinateTimestamp;
+                      final ago = timeago.format(last, locale: 'en'); // or 'ro' for Romanian
+                      return Text(
+                        "Last updated: $ago",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
 
-          BlocBuilder<PositionPredictionBloc, PositionPredictionState>(
-            builder: (context, state) {
-              if (state.predictedPositions.isNotEmpty) {
-                return const SizedBox.shrink();
-              }
-              return Positioned(
-                bottom: 16.0,
-                left: 0,
-                right: 0,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: CustomElevatedButton(
-                    onTap: () {
-                      AppBlocs.positionPredictionBloc.add(RequestPositionPredictionEvent(widget.userId));
-                    },
-                    text: "Predict positions",
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    textColor: Theme.of(context).colorScheme.onPrimary,
+            BlocBuilder<PositionPredictionBloc, PositionPredictionState>(
+              builder: (context, state) {
+                if (state.predictedPositions.isNotEmpty) {
+                  return const SizedBox.shrink();
+                }
+                return Positioned(
+                  bottom: 16.0,
+                  left: 0,
+                  right: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: CustomElevatedButton(
+                      onTap: () {
+                        AppBlocs.positionPredictionBloc.add(RequestPositionPredictionEvent(widget.userId));
+                      },
+                      text: "Predict positions",
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      textColor: Theme.of(context).colorScheme.onPrimary,
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-        ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
