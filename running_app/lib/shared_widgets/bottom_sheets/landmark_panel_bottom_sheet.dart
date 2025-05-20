@@ -5,6 +5,7 @@ import 'package:running_app/landmark_panel/landmark_panel.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/map/map_view_event.dart';
 import 'package:running_app/map/map_view_state.dart';
+import 'package:running_app/search/search_menu_events.dart';
 
 class LandmarkPanelBottomSheet {
   static PersistentBottomSheetController? _controller;
@@ -46,8 +47,10 @@ class LandmarkPanelBottomSheet {
 
   static void _handleOnCloseTap(BuildContext context, MapViewState state) {
     final mapViewBloc = AppBlocs.mapBloc;
-
+    final searchBloc = AppBlocs.searchMenuBloc;
     mapViewBloc.add(RemoveHighlightsEvent(highlightId: state.mapSelectedLandmark!.id));
+    mapViewBloc.add(SelectedLandmarkUpdatedEvent(landmark: null, forceCenter: false));
+    searchBloc.add(ResultSelectedEvent(result: null));
     Navigator.of(context).pop();
   }
 }

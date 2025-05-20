@@ -75,6 +75,8 @@ class MapBlocListener extends StatelessWidget {
   }
 
   void _presentHighlightOnMap(MapViewState state, BuildContext context) {
+
+    //searchBloc.add(ResultSelectedEvent(result: null));
     final mapViewBloc = AppBlocs.mapBloc;
 
     mapViewBloc.add(PresentHighlightEvent(

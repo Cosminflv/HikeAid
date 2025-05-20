@@ -68,8 +68,7 @@ class SearchViewPage extends StatelessWidget {
                 listener: (context, state) {
                   Navigator.of(context).pop(state.selectedLandmark!);
                 },
-                listenWhen: (previous, current) =>
-                    previous.selectedLandmark != current.selectedLandmark && current.selectedLandmark != null,
+                listenWhen: (previous, current) => current.selectedLandmark != null,
                 builder: (context, state) {
                   var displayedItems = state.results;
 
