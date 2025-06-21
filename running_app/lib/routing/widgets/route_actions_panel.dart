@@ -13,6 +13,7 @@ import 'package:running_app/navigation/navigation_view_events.dart';
 import 'package:running_app/navigation/navigation_view_state.dart';
 import 'package:running_app/routing/routing_view_events.dart';
 import 'package:running_app/routing/widgets/route_details_panel.dart';
+import 'package:running_app/search/search_menu_events.dart';
 import 'package:running_app/shared_widgets/route_action_button.dart';
 
 import '../../../shared_widgets/bottom_sheets/route_actions_bottom_sheet.dart';
@@ -83,6 +84,7 @@ class RouteActionsPanel extends StatelessWidget {
                       }
 
                       AppBlocs.routingBloc.add(ResetRoutingStateEvent());
+                      AppBlocs.searchMenuBloc.add(ResultSelectedEvent(result: null));
                       Navigator.of(context).pop();
                     },
                   ),
@@ -106,6 +108,7 @@ class RouteActionsPanel extends StatelessWidget {
                         return;
                       }
                       _startNavigation(context);
+                      AppBlocs.searchMenuBloc.add(ResultSelectedEvent(result: null));
                     },
                   ),
                 ),
