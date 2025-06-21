@@ -20,7 +20,7 @@ Future<void> showEditImageActions(BuildContext context) async {
   await showModalBottomSheet(
     isDismissible: true,
     context: context,
-    backgroundColor: Theme.of(context).colorScheme.onSecondary, // Background color of the container
+    backgroundColor: Theme.of(context).colorScheme.surface, // Background color of the container
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
     ),
@@ -47,7 +47,7 @@ Future<void> showEditImageActions(BuildContext context) async {
                 size: 20.0,
               ),
               text: AppLocalizations.of(context)!.updatePhoto,
-              backgroundColor: Theme.of(context).highlightColor,
+              backgroundColor: Theme.of(context).colorScheme.onSecondary,
             ),
             const SizedBox(height: 10.0),
             CustomElevatedButton(
@@ -61,7 +61,7 @@ Future<void> showEditImageActions(BuildContext context) async {
                 size: 20.0,
               ),
               text: AppLocalizations.of(context)!.deletePhoto,
-              backgroundColor: Theme.of(context).highlightColor,
+              backgroundColor: Theme.of(context).colorScheme.onSecondary,
             ),
           ],
         ),

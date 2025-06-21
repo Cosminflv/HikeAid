@@ -36,7 +36,7 @@ class _FriendshipRequestsListState extends State<FriendshipRequestsList> {
             );
           },
           child: Card(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
+            color: Theme.of(context).colorScheme.surface,
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               leading: CircleAvatar(
