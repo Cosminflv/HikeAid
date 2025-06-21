@@ -11,10 +11,10 @@ import 'dart:typed_data';
 
 Future<void> showEditImageActions(BuildContext context) async {
   final bloc = AppBlocs.editProfileBloc;
-  final _imageCompressorService = ImagePickerService();
+  final imageCompressorService = ImagePickerService();
 
-  Future<Uint8List?> _pickImage() async {
-    return await _imageCompressorService.pickAndCompressImage(minHeight: 500, minWidth: 500);
+  Future<Uint8List?> pickImage() async {
+    return await imageCompressorService.pickAndCompressImage(minHeight: 500, minWidth: 500);
   }
 
   await showModalBottomSheet(
@@ -35,7 +35,7 @@ Future<void> showEditImageActions(BuildContext context) async {
             const SizedBox(height: 16.0),
             CustomElevatedButton(
               onTap: () async {
-                final imageData = await _pickImage();
+                final imageData = await pickImage();
                 if (imageData != null) bloc.add(UpdateProfilePictureEvent(imageData: imageData));
 
                 if (context.mounted) {
