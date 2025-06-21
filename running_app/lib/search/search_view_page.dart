@@ -65,10 +65,9 @@ class SearchViewPage extends StatelessWidget {
             children: [
               BlocConsumer<SearchMenuBloc, SearchMenuState>(
                 bloc: searchMenuBloc,
-                listener: (context, state) {
-                  Navigator.of(context).pop(state.selectedLandmark!);
-                },
-                listenWhen: (previous, current) => current.selectedLandmark != null,
+                listener: (context, state) => Navigator.of(context).pop(state.selectedLandmark!),
+                listenWhen: (previous, current) =>
+                    previous.selectedLandmark == null && current.selectedLandmark != null,
                 builder: (context, state) {
                   var displayedItems = state.results;
 
