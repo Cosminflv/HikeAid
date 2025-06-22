@@ -106,7 +106,7 @@
     "@tryAgain": {
         "description": "Message in case you have no internet connection on the starting page"
     },
-    "swiftStrideApp": "SwiftStride Running App",
+    "swiftStrideApp": "HikeAid App",
     "@swiftStrideApp": {
         "description": "Application name"
     },
@@ -292,7 +292,7 @@
     "@enableLocationTitle": {
         "description": "Title on ask location permission popup"
     },
-    "enableLocationSubtitle": "To enhance your experience with the SwiftStride Running App, we need access to your precise location. This will help us show you where you are on the map.",
+    "enableLocationSubtitle": "To enhance your experience with the HikeAid App, we need access to your precise location. This will help us show you where you are on the map.",
     "@enableLocationSubtitle": {
         "description": "Subtitle on ask location permission popup"
     },
