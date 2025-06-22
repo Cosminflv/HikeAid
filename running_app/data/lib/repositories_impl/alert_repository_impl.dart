@@ -55,7 +55,14 @@ class AlertRepositoryImpl extends AlertRepository {
           id: e['id'],
           title: e['title'],
           description: e['description'],
-          createdAt: DateTime.parse(e['createdAt']),
+          createdAt: DateTime(
+            DateTime.parse(e['createdAt']).year,
+            DateTime.parse(e['createdAt']).month,
+            DateTime.parse(e['createdAt']).day,
+            DateTime.parse(e['createdAt']).hour + DateTime.parse(e['createdAt']).timeZoneOffset.inHours,
+            DateTime.parse(e['createdAt']).minute,
+            DateTime.parse(e['createdAt']).second,
+          ),
           expiresAt: DateTime.parse(e['expiresAt']),
           isActive: e['isActive'],
           coordinates: CoordinatesEntityImpl(
