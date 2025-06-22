@@ -55,12 +55,6 @@ class FollowPositionButton extends StatelessWidget {
         }
       });
     } else {
-      // if (mapBloc.state.isFollowingPosition) {
-      //   mapBloc.add(CompassLockCameraEvent());
-      // } else {
-      //   mapBloc.add(FollowPositionEvent(shouldTiltCamera: appState.status == AppStatus.navigation));
-      //   mapBloc.add(SelectedLandmarkUpdatedEvent(landmark: null, forceCenter: true));
-      // }
       _followPosition(context);
     }
   }

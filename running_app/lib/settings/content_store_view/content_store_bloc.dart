@@ -71,12 +71,6 @@ class ContentStoreBloc extends Bloc<ContentStoreEvent, ContentStoreState> {
       return;
     }
 
-    // // Apply not selected downloaded content
-    // if (itemByIndex.isCompleted && state.selectedItemIndex != index) {
-    //   _contentStoreUsecase.apply(state.key, index);
-    //   return;
-    // }
-
     // Download remote not downloading content
     if (source == ContentStoreSource.remote && itemByIndex.isDownloadingOrWaiting == false) {
       _contentStoreUsecase.download(state.key, event.index);

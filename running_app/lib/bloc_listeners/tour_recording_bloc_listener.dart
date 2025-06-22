@@ -36,12 +36,6 @@ class TourRecordingBlocListener extends StatelessWidget {
             current.status == RecordingStatus.disabled &&
             current.isValidTour,
       ),
-      // BlocListener<TourRecordingBloc, TourRecordingState>(
-      //   bloc: AppBlocs.tourRecordingBloc,
-      //   listener: (context, state) => AppBlocs.toursViewBloc.add(AddCompletedTourEvent(tour: state.tour!)),
-      //   listenWhen: (previous, current) =>
-      //       previous.status != RecordingStatus.tourSaved && current.status == RecordingStatus.tourSaved,
-      // )
     ], child: child);
   }
 }

@@ -111,53 +111,6 @@ class SearchViewPage extends StatelessWidget {
 
       final searchMenuBloc = AppBlocs.searchMenuBloc;
       searchMenuBloc.add(ResultSelectedEvent(result: landmark.landmark));
-      // _handleBuildRouteTap(context, DTransportMeans.bike, landmark.landmark);
     }
   }
-
-  // void _handleBuildRouteTap(BuildContext context, DTransportMeans transportMeans, LandmarkEntity? destination) {
-  //   final appBloc = BlocProvider.of<AppBloc>(context);
-  //   final locationBloc = BlocProvider.of<LocationBloc>(context);
-  //   final mapBloc = BlocProvider.of<MapViewBloc>(context);
-  //   final routingBloc = BlocProvider.of<RoutingViewBloc>(context);
-
-  //   final appState = appBloc.state;
-  //   final locationState = locationBloc.state;
-  //   final mapState = mapBloc.state;
-
-  //   final route = mapState.mapSelectedRoute;
-  //   final currentPosition = locationState.currentPosition;
-  //   final currentCoordinates = locationState.currentPosition?.coordinates;
-
-  //   if (currentPosition == null) {
-  //     showErrorToast(AppLocalizations.of(context)!.noGpsPosition);
-  //   }
-
-  //   switch (appState.status) {
-  //     case AppStatus.uninitialized:
-  //       return;
-  //     case AppStatus.initializedMap:
-  //       routingBloc.add(BuildRouteEvent(
-  //         departureCoordinates: currentCoordinates,
-  //         waypoints: [destination!],
-  //       ));
-  //       break;
-  //     case AppStatus.routing:
-  //       routingBloc.add(RebuildRouteEvent(
-  //         route: route!,
-  //         waypoint: destination!,
-  //       ));
-  //       break;
-  //     case AppStatus.recording:
-  //     case AppStatus.recordingPaused:
-  //     case AppStatus.navigation:
-  //     case AppStatus.navigationPaused:
-  //       break;
-  //     case AppStatus.drawing:
-  //       break;
-  //     case AppStatus.intializedSDK:
-  //       break;
-  //   }
-  //   mapBloc.add(SelectedLandmarkUpdatedEvent(landmark: null, forceCenter: true));
-  // }
 }

@@ -68,30 +68,7 @@ class RoutingBlocListener extends StatelessWidget {
 
             AppBlocs.positionPredictionBloc.add(ConfirmHikeEvent(false));
 
-            // if (AppBlocs.appBloc.state.isNavigating) {
-            //   AppBlocs.navigationBloc.add(NavigationStatusUpdatedEvent(NavigationStatus.restarting));
-            //   return;
-            // }
-
-            // if (AppBlocs.appBloc.state.isDrawing) {
-            //   _setWaypointsOfRoute(routingState);
-            //   if (AppBlocs.homeViewBloc.state.type == HomePageType.map) RouteActionsBottomSheet.show(context);
-            //   return;
-            // }
-
             AppBlocs.appBloc.add(UpdateAppStatusEvent(AppStatus.routing));
-
-            // if (routingState.routes.first.isTourBased) {
-            //   _setWaypointsOfRoute(routingState);
-            //   sl
-            //       .get<NavigationViewBloc>()
-            //       .add(StartNavigationEvent(routingState.routes.first, 1, isNavigatingOnTour: true));
-            //   return;
-            // }
-
-            // if (mapRouteProfile.isOpened) {
-            //   mapRouteProfile.close();
-            // }
 
             if (AppBlocs.homeViewBloc.state.type == HomePageType.map) RouteActionsBottomSheet.show(context);
           },
@@ -102,48 +79,10 @@ class RoutingBlocListener extends StatelessWidget {
       BlocListener<RoutingViewBloc, RoutingViewState>(
           bloc: routingBloc,
           listener: (context, routingState) {
-            // final routePlanningBloc = AppBlocs.routePlanningBloc;
-            // final previousState = routePlanningBloc.state.previousState;
-
-            // mapBloc.add(RemoveAllHighlightsEvent());
             showErrorToast(AppLocalizations.of(context)!.routeFailed);
-
-            // if (previousState == null) {
-            //   AppBlocs.routePlanningBloc.add(ResetRoutePlanningEvent());
-            //   AppBlocs.appBloc.add(UpdateAppStatusEvent(AppStatus.initializedMap));
-            //   return;
-            // }
-
-            // routePlanningBloc.add(RevertToPreviousStateEvent());
-
-            // if (appBloc.state.isNavigating || previousState.waypoints.length >= 2) return;
-
-            // AppBlocs.routePlanningBloc.add(ResetRoutePlanningEvent());
-            // AppBlocs.appBloc.add(UpdateAppStatusEvent(AppStatus.initializedMap));
           },
           listenWhen: (previous, current) =>
               previous.status != RouteBuildStatus.failed && current.status == RouteBuildStatus.failed),
     ], child: child);
   }
-
-  // _setWaypointsOfRoute(RoutingViewState routingState) {
-  //   final departureLmk = routingState.routes.first.getLandmarkAtDistance(0);
-  //   final destinationLmk = routingState.routes.first.getLandmarkAtDistance(routingState.routes.first.distance);
-
-  //   if (departureLmk == null || destinationLmk == null) {
-  //     AppBlocs.routingBloc.add(RouteBuildStatusUpdatedEvent(RouteBuildStatus.failed));
-  //     return;
-  //   }
-
-  //   final departureWaypoint =
-  //       RouteWaypoint(landmark: departureLmk, type: RouteWaypointType.departure, name: 'Departure');
-  //   final destinationWaypoint =
-  //       RouteWaypoint(landmark: destinationLmk, type: RouteWaypointType.destination, name: 'Destination');
-
-  //   if (AppBlocs.routePlanningBloc.state.routeWayType == RouteWayType.roundTrip) {
-  //     AppBlocs.routePlanningBloc.add(UpdateRouteWayType(RouteWayType.oneWay));
-  //   }
-
-  //   AppBlocs.routePlanningBloc.add(UpdateWaypointsEvent(waypoints: [departureWaypoint, destinationWaypoint]));
-  // }
 }

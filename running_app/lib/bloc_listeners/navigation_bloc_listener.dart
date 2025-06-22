@@ -28,32 +28,6 @@ class NavigationBlocListener extends StatelessWidget {
           listener: (context, navigationState) {
             AppBlocs.navigationInstructionBloc.add(TraveledDistanceUpdatedEvent(navigationState.traveledDistance));
           }),
-      // BlocListener<NavigationViewBloc, NavigationViewState>(
-      //     listenWhen: (previous, current) => previous.previousCoordinates.length != current.previousCoordinates.length,
-      //     listener: (context, navigationState) {
-      //       if (AppBlocs.appBloc.state.isNavigating) {
-      //         AppBlocs.mapBloc.add(AddPolylineMarkerEvent(navigationState.previousCoordinates));
-      //       }
-      //     }),
-      // BlocListener<NavigationViewBloc, NavigationViewState>(
-      //     listenWhen: (previous, current) => previous.status != current.status,
-      //     listener: (context, navigationState) {
-      //       switch (navigationState.status) {
-      //         case NavigationStatus.started:
-      //           if (!navigationState.isNavigatingOnTour) {
-      //             AppBlocs.tourRecordingBloc.add(StartRecordingEvent(recordGpx: true));
-      //           }
-      //           break;
-      //         case NavigationStatus.stopped:
-      //         case NavigationStatus.finished:
-      //           AppBlocs.tourRecordingBloc.add(StopRecordingEvent());
-      //           break;
-      //         case NavigationStatus.restarting:
-      //         case NavigationStatus.paused:
-      //           AppBlocs.tourRecordingBloc.add(PauseRecordingEvent());
-      //           break;
-      //       }
-      //     }),
       BlocListener<NavigationViewBloc, NavigationViewState>(
           listener: (context, navigationState) {
             if (navigationState.status == NavigationStatus.started) {
@@ -64,48 +38,23 @@ class NavigationBlocListener extends StatelessWidget {
 
               AppBlocs.routingBloc.add(CancelBuildRouteEvent());
 
-              //final waypoints = AppBlocs.routePlanningBloc.state.waypoints;
-              //final landmarks = waypoints.where((e) => e.landmark != null).map((e) => e.landmark!).toList();
-
-              // final currentLocation = AppBlocs.locationBloc.state.currentPositionLandmark;
-              // final distance = AppBlocs.mapBloc.state.mapSelectedRoute!.distanceToRoute(currentLocation!.coordinates);
-
-              // for (final lmk in landmarks) {
-              //   AppBlocs.mapBloc.add(PresentHighlightEvent(landmark: lmk, screenPosition: null, showLabel: false));
-              // }
-
-              // if (distance >= 50 && !navigationState.isSimulated) {
-              //   NavigationAdjustRouteBottomSheet.show(context);
-              // }
-
               SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
                 systemNavigationBarContrastEnforced: true,
                 systemNavigationBarIconBrightness: Brightness.light,
               ));
             } else if (navigationState.status == NavigationStatus.finished) {
-              // navigation finished
-              // if (!navigationState.isNavigatingOnTour) {
-              //   AppBlocs.tourRecordingBloc.add(StopRecordingEvent());
-              // }
               AppBlocs.routingBloc.add(ResetEvent());
               AppBlocs.mapBloc
                 ..add(RemoveAllRoutesEvent())
                 ..add(RemoveAllHighlightsEvent());
               AppBlocs.appBloc.add(UpdateAppStatusEvent(AppStatus.initializedMap));
               AppBlocs.positionPredictionBloc.add(UnregisterPositionTransferEvent());
-              //AppBlocs.routePlanningBloc.add(ResetRoutePlanningEvent());
             } else if (navigationState.status == NavigationStatus.stopped) {
-              // navigation stopped or stopped for recalculation with new waypoint
-
-              // if (!navigationState.isNavigatingOnTour) {
-              //   AppBlocs.tourRecordingBloc.add(StopRecordingEvent());
-              // }
               AppBlocs.routingBloc.add(ResetEvent());
               AppBlocs.mapBloc
                 ..add(RemoveAllRoutesEvent())
                 ..add(RemoveAllHighlightsEvent());
               AppBlocs.appBloc.add(UpdateAppStatusEvent(AppStatus.initializedMap));
-              //AppBlocs.routePlanningBloc.add(ResetRoutePlanningEvent());
             } else if (navigationState.status == NavigationStatus.paused) {
               AppBlocs.navigationBloc.add(StopNavigationEvent());
               AppBlocs.routingBloc.add(RouteBuildStatusUpdatedEvent(RouteBuildStatus.succes));

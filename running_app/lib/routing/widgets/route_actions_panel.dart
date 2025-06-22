@@ -127,10 +127,5 @@ class RouteActionsPanel extends StatelessWidget {
     AppBlocs.navigationBloc.add(StartNavigationEvent(route!, null));
 
     RouteActionsBottomSheet.close();
-
-    // withRouteDetails = false means it is in RoutePlanningPage so we have to pop the page
-    // if (!withRouteDetails) {
-    //   Navigator.of(context).pop();
-    // }
   }
 }

@@ -174,10 +174,7 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
               ),
             );
           },
-          listener: (context, state) {
-            // setState(() => isLoading = false);
-            // Navigator.of(context).pop();
-          },
+          listener: (context, state) {},
           listenWhen: (previous, current) =>
               previous.status != RecordingStatus.tourSaved && current.status == RecordingStatus.tourSaved,
         ),
@@ -228,15 +225,6 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
         ),
       )
       ..add(SetPositionTracker(false))
-      // ..add(ApplyMapStyleByPathEvent(
-      //     path: AppBlocs.mapStylesBloc.state.styles.where((e) => e.style == MapStyles.magicDay).toList().first.path,
-      //     smoothTransition: false))
-      // ..add(
-      //   EnablePOICategoryLayerEvent(
-      //     availableCategories: AppBlocs.landmarkCategoryBloc.state.landmarkCategories,
-      //     enabledCategories: [],
-      //   ),
-      // )
       ..add(AddPolylineMarkerEvent(tourRecordingCoordinates))
       ..add(
         PresentHighlightEvent(

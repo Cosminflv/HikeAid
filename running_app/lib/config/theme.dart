@@ -46,25 +46,6 @@ ColorScheme darkColorScheme = const ColorScheme.dark(
   tertiary: Color.fromARGB(255, 66, 94, 87), // Dark teal for variety
 );
 
-// ColorScheme darkColorScheme = const ColorScheme.dark(
-//   surface: Color.fromARGB(255, 0, 0, 0),
-//   onSurface: Color.fromARGB(255, 255, 255, 255),
-//   surfaceContainerHighest: Color.fromARGB(255, 30, 30, 30),
-//   onSurfaceVariant: Color.fromARGB(255, 145, 145, 153),
-//   primary: Color.fromARGB(255, 135, 145, 255),
-//   inversePrimary: Color.fromARGB(255, 255, 255, 255),
-//   onPrimary: Color.fromARGB(255, 0, 0, 0),
-//   primaryContainer: Color.fromARGB(255, 227, 202, 254),
-//   onPrimaryContainer: Color.fromARGB(255, 255, 255, 255),
-//   secondary: Color.fromARGB(255, 77, 77, 77),
-//   onSecondary: Color.fromARGB(255, 0, 0, 0),
-//   secondaryContainer: Color.fromARGB(255, 45, 45, 46),
-//   onSecondaryContainer: Color.fromARGB(255, 0, 0, 0),
-//   surfaceContainerLowest: Color.fromARGB(255, 0, 0, 0),
-//   outline: Colors.white38,
-//   outlineVariant: Color.fromARGB(255, 54, 54, 57),
-// );
-
 CupertinoThemeData getCupertinoTheme() {
   return const CupertinoThemeData(
     primaryContrastingColor: Color.fromARGB(255, 228, 227, 234),
@@ -155,13 +136,6 @@ ThemeData lightThemeData = ThemeData(
     bodySmall: TextStyle(fontSize: 12, color: lightColorScheme.onSurfaceVariant),
   ),
   inputDecorationTheme: inputDecorationTheme(lightColorScheme),
-
-  // extensions: [
-  //   PullDownButtonTheme(
-  //       routeTheme: PullDownMenuRouteTheme(backgroundColor: lightColorScheme.secondaryContainer),
-  //       itemTheme: PullDownMenuItemTheme(
-  //           textStyle: TextStyle(fontWeight: FontWeight.w300, color: lightColorScheme.onSurface))),
-  // ],
 );
 
 ThemeData darkThemeData = ThemeData(
@@ -179,12 +153,4 @@ ThemeData darkThemeData = ThemeData(
     bodySmall: TextStyle(fontSize: 12, color: darkColorScheme.onSurfaceVariant),
   ),
   inputDecorationTheme: inputDecorationTheme(darkColorScheme),
-  // extensions: [
-  //   PullDownButtonTheme(
-  //       routeTheme: PullDownMenuRouteTheme(backgroundColor: darkColorScheme.secondaryContainer),
-  //       dividerTheme: PullDownMenuDividerTheme(
-  //           largeDividerColor: darkColorScheme.surfaceContainerHighest, dividerColor: darkColorScheme.onSurface),
-  //       itemTheme: PullDownMenuItemTheme(
-  //           textStyle: TextStyle(fontWeight: FontWeight.w300, color: darkColorScheme.onSurface))),
-  // ],
 );
