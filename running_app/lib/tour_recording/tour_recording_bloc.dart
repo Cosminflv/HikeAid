@@ -29,7 +29,7 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
     if (event.position == null) return;
 
     if (state.status == RecordingStatus.disabled || state.status == RecordingStatus.paused) return;
-    
+
     _averageSpeedTracker.addCoordinates(CoordinatesWithTimestamp.fromPosition(event.position!));
 
     emit(state.copyWith(
@@ -57,8 +57,10 @@ class TourRecordingBloc extends Bloc<TourRecordingEvent, TourRecordingState> {
     if (event.recordGpx) await _gpxUseCase.startRecording();
   }
 
-  _handleStopRecording(StopRecordingEvent event, Emitter<TourRecordingState> emit) async =>
-      emit(state.copyWith(status: RecordingStatus.disabled));
+  _handleStopRecording(StopRecordingEvent event, Emitter<TourRecordingState> emit) async {
+    await _gpxUseCase.stopRecording();
+    emit(state.copyWith(status: RecordingStatus.disabled));
+  }
 
   _handlePauseRecording(PauseRecordingEvent event, Emitter<TourRecordingState> emit) =>
       emit(state.copyWith(status: RecordingStatus.paused));

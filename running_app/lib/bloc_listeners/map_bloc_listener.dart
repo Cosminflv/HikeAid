@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:core/di/app_blocs.dart';
 import 'package:domain/entities/camera_state_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:running_app/alerts/alert_events.dart';
+import 'package:running_app/navigation_instructions/navigation_instructions_panel_event.dart';
+import 'package:running_app/route_terrain_profile/route_profile_panel_event.dart';
 import 'package:running_app/settings/settings_view_events.dart';
 import 'package:running_app/shared_widgets/bottom_sheets/landmark_panel_bottom_sheet.dart';
 import 'package:running_app/map/map_view_bloc.dart';
@@ -19,6 +22,8 @@ class MapBlocListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigationIntructionBloc = AppBlocs.navigationInstructionBloc;
+    final terrainProfileBloc = AppBlocs.routeTerrainProfileBloc;
     return MultiBlocListener(listeners: [
       BlocListener<MapViewBloc, MapViewState>(
         listener: _mapViewBlocListener,
@@ -50,6 +55,15 @@ class MapBlocListener extends StatelessWidget {
         listenWhen: (previous, current) => !previous.isMapCreated && current.isMapCreated,
       ),
       BlocListener<MapViewBloc, MapViewState>(
+        listener: (context, mapState) {
+          HapticFeedback.heavyImpact();
+          navigationIntructionBloc.add(NavigationInstructionPanelUpdatedEvent(route: mapState.mapSelectedRoute!));
+          terrainProfileBloc.add(RouteUpdatedEvent(route: mapState.mapSelectedRoute!));
+        },
+        listenWhen: (previous, current) =>
+            previous.mapSelectedRoute != current.mapSelectedRoute && current.mapSelectedRoute != null,
+      ),
+      BlocListener<MapViewBloc, MapViewState>(
           listener: (context, mapState) =>
               AppBlocs.settingsViewBloc.add(SettingsCameraStateUpdatedEvent(mapState.cameraState!)),
           listenWhen: (previous, current) => previous.cameraState != current.cameraState),
@@ -75,7 +89,6 @@ class MapBlocListener extends StatelessWidget {
   }
 
   void _presentHighlightOnMap(MapViewState state, BuildContext context) {
-
     //searchBloc.add(ResultSelectedEvent(result: null));
     final mapViewBloc = AppBlocs.mapBloc;
 

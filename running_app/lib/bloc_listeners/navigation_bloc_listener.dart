@@ -14,6 +14,7 @@ import 'package:running_app/navigation_instructions/navigation_instructions_pane
 import 'package:running_app/position_prediction/position_prediction_events.dart';
 import 'package:running_app/routing/routing_view_events.dart';
 import 'package:running_app/shared_widgets/bottom_sheets/route_actions_bottom_sheet.dart';
+import 'package:running_app/tour_recording/tour_recording_events.dart';
 
 class NavigationBlocListener extends StatelessWidget {
   final Widget child;
@@ -70,6 +71,28 @@ class NavigationBlocListener extends StatelessWidget {
             }
           },
           listenWhen: (previous, current) => previous.status != current.status),
+      BlocListener<NavigationViewBloc, NavigationViewState>(
+          listenWhen: (previous, current) => previous.status != current.status,
+          listener: (context, navigationState) {
+            switch (navigationState.status) {
+              case NavigationStatus.started:
+                if (!navigationState.isNavigatingOnTour) {
+                  AppBlocs.tourRecordingBloc.add(StartRecordingEvent(recordGpx: true));
+                  //AppBlocs.cameraBloc.add(ClearCapturedImagesEvent());
+                }
+                break;
+              case NavigationStatus.stopped:
+                AppBlocs.tourRecordingBloc.add(StopRecordingEvent());
+                break;
+              case NavigationStatus.finished:
+                AppBlocs.tourRecordingBloc.add(StopRecordingEvent());
+                break;
+              case NavigationStatus.restarting:
+              case NavigationStatus.paused:
+                AppBlocs.tourRecordingBloc.add(PauseRecordingEvent());
+                break;
+            }
+          }),
     ], child: child);
   }
 }

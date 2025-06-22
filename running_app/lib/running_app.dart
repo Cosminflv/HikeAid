@@ -68,7 +68,8 @@ class _RunningAppState extends State<RunningApp> with WidgetsBindingObserver {
         BlocProvider(create: (context) => AppBlocs.deviceInfo..add(CheckInternetConnectionEvent())),
         BlocProvider(create: (context) => AppBlocs.tourRecordingBloc),
         BlocProvider(create: (context) => sl.get<EditUserProfileViewBloc>()),
-        BlocProvider(create: (context) => sl.get<PositionPredictionBloc>())
+        BlocProvider(create: (context) => sl.get<PositionPredictionBloc>()),
+        BlocProvider(create: (context) => AppBlocs.routeTerrainProfileBloc),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

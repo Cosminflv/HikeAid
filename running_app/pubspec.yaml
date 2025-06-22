@@ -45,6 +45,10 @@ dependencies:
   device_info_plus: ^11.3.0
   platform_info: ^5.0.0
   timeago: ^3.7.1
+  fl_chart: ^0.71.0
+  dotted_line: ^3.2.3
+  another_xlider: ^3.0.2
+  svg_flutter: ^0.0.1
 
 dev_dependencies:
   integration_test:

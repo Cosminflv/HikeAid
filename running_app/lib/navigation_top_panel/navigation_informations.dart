@@ -37,7 +37,7 @@ class NavigationInformationsPanelState extends State<NavigationInformationsPanel
               if (index == 0) return NavigationInformationFirstPage(onItemTap: widget.onItemTap);
               if (index == 1) return NavigationInformationSecondPage(onItemTap: widget.onItemTap);
               if (index == 2) return NavigationInformationThirdPage(onItemTap: widget.onItemTap);
-              return NavigationInformationFourthPage(onItemTap: widget.onItemTap);
+              if (index == 3) return NavigationInformationFourthPage(onItemTap: widget.onItemTap);
             },
           ),
           Align(
@@ -77,27 +77,11 @@ class NavigationInformationFirstPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         GestureDetector(onTap: () => onItemTap(0), child: const CurrentSpeedIndicator()),
-        //GestureDetector(onTap: () => onItemTap(1), child: const AverageSpeedIndicator()),
+        GestureDetector(onTap: () => onItemTap(1), child: const AverageSpeedIndicator()),
       ],
     );
   }
 }
-
-// class NavigationInformationSecondPage extends StatelessWidget {
-//   final Function(int index) onItemTap;
-//   const NavigationInformationSecondPage({super.key, required this.onItemTap});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.start,
-//       children: [
-//         GestureDetector(onTap: () => onItemTap(2), child: const TraveledDistanceIndicator()),
-//         GestureDetector(onTap: () => onItemTap(3), child: const DistanceToNextWaypointIndicator()),
-//       ],
-//     );
-//   }
-// }
 
 class NavigationInformationSecondPage extends StatelessWidget {
   final Function(int index) onItemTap;
@@ -108,8 +92,8 @@ class NavigationInformationSecondPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        GestureDetector(onTap: () => onItemTap(4), child: const TraveledDistanceIndicator()),
-        GestureDetector(onTap: () => onItemTap(5), child: const RemainingDistanceIndicator()),
+        GestureDetector(onTap: () => onItemTap(2), child: const TraveledDistanceIndicator()),
+        GestureDetector(onTap: () => onItemTap(3), child: const RemainingDistanceIndicator()),
       ],
     );
   }
@@ -124,8 +108,8 @@ class NavigationInformationThirdPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        //GestureDetector(onTap: () => onItemTap(6), child: const MotionIndicator()),
-        GestureDetector(onTap: () => onItemTap(7), child: const RemainingDurationIndicator()),
+        GestureDetector(onTap: () => onItemTap(4), child: const MotionIndicator()),
+        GestureDetector(onTap: () => onItemTap(5), child: const RemainingDurationIndicator()),
       ],
     );
   }
@@ -137,11 +121,11 @@ class NavigationInformationFourthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        //GestureDetector(onTap: () => onItemTap(8), child: const TerrainProfileIndicator()),
-        //GestureDetector(onTap: () => onItemTap(9), child: const CurrentElevationIndicator()),
+        GestureDetector(onTap: () => onItemTap(6), child: const TerrainProfileIndicator()),
+        GestureDetector(onTap: () => onItemTap(7), child: const CurrentElevationIndicator()),
       ],
     );
   }

@@ -94,6 +94,7 @@ import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/map/map_view_bloc.dart';
 import 'package:running_app/app/app_bloc.dart';
 import 'package:running_app/position_prediction/position_prediction_bloc.dart';
+import 'package:running_app/route_terrain_profile/route_profile_panel_bloc.dart';
 import 'package:running_app/settings/content_store_view/content_store_bloc.dart';
 import 'package:running_app/settings/settings_view_bloc.dart';
 import 'package:running_app/settings/settings_view_events.dart';
@@ -238,6 +239,7 @@ initEarlyDependencies(String ipv4Address) async {
   sl.registerLazySingleton<MapStylesPanelBloc>(() => MapStylesPanelBloc());
   sl.registerLazySingleton<SettingsViewBloc>(() => SettingsViewBloc());
   sl.registerLazySingleton<PositionPredictionBloc>(() => PositionPredictionBloc(sl.get<PositionPredictionUseCase>()));
+  sl.registerLazySingleton<RouteProfilePanelBloc>((() => RouteProfilePanelBloc()));
 
   sl.registerLazySingleton<MapPlatform>(() => MapPlatformImpl());
 

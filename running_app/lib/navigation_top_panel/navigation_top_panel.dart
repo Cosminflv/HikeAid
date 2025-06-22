@@ -120,12 +120,12 @@ class NavigationTopPanelState extends State<NavigationTopPanel> with SingleTicke
   Widget _getSelectedItem(int index) {
     if (index == -1) return const SizedBox.shrink();
     if (index == 0) return const CurrentSpeedIndicator(isExpanded: true);
-    //if (index == 1) return const AverageSpeedIndicator(isExpanded: true);
+    if (index == 1) return const AverageSpeedIndicator(isExpanded: true);
     if (index == 2) return const TraveledDistanceIndicator(isExpanded: true);
     if (index == 3) return const RemainingDistanceIndicator(isExpanded: true);
-    //if (index == 6) return const MotionIndicator(isExpanded: true);
-    if (index == 4) return const RemainingDurationIndicator(isExpanded: true);
-    //if (index == 8) return const TerrainProfileIndicator();
+    if (index == 4) return const MotionIndicator(isExpanded: true);
+    if (index == 5) return const RemainingDurationIndicator(isExpanded: true);
+    if (index == 6) return const TerrainProfileIndicator();
     //return const CurrentElevationIndicator(isExpanded: true);
     return const SizedBox.shrink();
   }

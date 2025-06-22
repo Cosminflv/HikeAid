@@ -13,6 +13,7 @@ import 'package:running_app/onboarding/auth_session/auth_session_bloc.dart';
 import 'package:running_app/onboarding/authentication/authentication_view_bloc.dart';
 import 'package:running_app/onboarding/registration/registration_view_bloc.dart';
 import 'package:running_app/position_prediction/position_prediction_bloc.dart';
+import 'package:running_app/route_terrain_profile/route_profile_panel_bloc.dart';
 import 'package:running_app/routing/routing_view_bloc.dart';
 import 'package:running_app/search/search_menu_bloc.dart';
 import 'package:running_app/search_users/search_users_view_bloc.dart';
@@ -104,4 +105,7 @@ class AppBlocs {
 
   // Getter for PositionPredictionBloc
   static PositionPredictionBloc get positionPredictionBloc => sl<PositionPredictionBloc>();
+
+  // Getter for RouteTerrainProfileBloc
+  static RouteProfilePanelBloc get routeTerrainProfileBloc => sl<RouteProfilePanelBloc>();
 }

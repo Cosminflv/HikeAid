@@ -45,9 +45,9 @@ class LocationBlocListener extends StatelessWidget {
             positionPredictionBloc.add(SendCoordinatesEvent(
                 CoordinatesWithTimestamp(locationState.currentPosition!.coordinates, 0.0, 0, DateTime.now())));
           }
-          if (AppBlocs.appBloc.state.status == AppStatus.recording) {
+
             AppBlocs.tourRecordingBloc.add(UpdatePositionEvent(locationState.currentPosition));
-          }
+          
           if (AppBlocs.appBloc.state.isNavigating && locationState.currentPosition != null) {
             AppBlocs.navigationBloc.add(AddPreviousCoordinatesEvent(locationState.currentPosition!.coordinates));
           }

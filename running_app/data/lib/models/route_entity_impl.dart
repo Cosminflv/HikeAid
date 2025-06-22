@@ -7,8 +7,18 @@ import 'dart:math';
 
 import 'package:gem_kit/core.dart';
 import 'package:shared/data/coordinates_entity_impl.dart';
+import 'package:shared/data/path_entity_impl.dart';
 import 'package:shared/domain/coordinates_entity.dart';
 import 'package:shared/domain/landmark_entity.dart';
+import 'package:shared/domain/path_entity.dart';
+import 'package:shared/domain/sections/road_section_entity.dart';
+import 'package:shared/domain/sections/steep_section_entity.dart';
+import 'package:shared/domain/sections/surface_section_entity.dart';
+import 'package:shared/domain/terrain_profile_entity.dart';
+import 'package:shared/data/sections/road_section_entity_impl.dart';
+import 'package:shared/data/sections/steep_section_entity_impl.dart';
+import 'package:shared/data/sections/surface_section_entity_impl.dart';
+import 'package:shared/data/terrain_profile_entity_impl.dart';
 import 'package:shared/extensions.dart';
 
 class RouteEntityImpl extends RouteEntity {
@@ -140,5 +150,94 @@ class RouteEntityImpl extends RouteEntity {
 
     final distance = R * c;
     return distance;
+  }
+
+  @override
+  PathEntity getPathByDistances(int start, int end) => PathEntityImpl(ref: ref.getPath(start, end)!);
+
+  @override
+  PathEntityList getPathsByRoadType(DRoadType roadType) {
+    PathEntityList result = [];
+    final profile = ref.terrainProfile;
+    final sections = profile!.roadTypeSections;
+
+    final sectionCount = sections.length;
+    for (int i = 0; i < sectionCount; i++) {
+      final section = sections[i];
+      final enm = section.type;
+
+      if (RoadSectionEntityImpl.parseToRoadType(enm) != roadType) continue;
+
+      final isLast = i == sectionCount - 1;
+      final startDistance = sections[i].startDistanceM ?? 0;
+      final endDistance = isLast ? distance : (sections[i + 1].startDistanceM ?? 0);
+
+      final refPath = ref.getPath(startDistance, endDistance);
+      if (refPath == null) continue;
+
+      result.add(PathEntityImpl(ref: refPath));
+    }
+    return result;
+  }
+
+  @override
+  PathEntityList getPathsBySteepness(DSteepness steepness) {
+    final profile = ref.terrainProfile;
+    final sections = profile!.getSteepSections(SteepSectionEntityImpl.categories);
+
+    final sectionCount = sections.length;
+
+    PathEntityList result = [];
+
+    for (int i = 0; i < sectionCount; i++) {
+      final section = sections[i];
+      final enm = DSteepness.values[section.categ ?? 0];
+
+      if (enm != steepness) continue;
+
+      final isLast = i == sectionCount - 1;
+      final startDistance = sections[i].startDistanceM ?? 0;
+      final endDistance = isLast ? distance : (sections[i + 1].startDistanceM ?? 0);
+
+      final refPath = ref.getPath(startDistance, endDistance)!;
+      result.add(PathEntityImpl(ref: refPath));
+    }
+
+    return result;
+  }
+
+  @override
+  PathEntityList getPathsSurfaceType(DSurfaceType surfaceType) {
+    final profile = ref.terrainProfile;
+    final sections = profile!.surfaceSections;
+
+    final sectionCount = sections.length;
+
+    PathEntityList result = [];
+
+    for (int i = 0; i < sectionCount; i++) {
+      final section = sections[i];
+      final enm = section.type;
+
+      if (SurfaceSectionEntityImpl.parseToSurfaceType(enm) != surfaceType) {
+        continue;
+      }
+
+      final isLast = i == sectionCount - 1;
+      final startDistance = sections[i].startDistanceM ?? 0;
+      final endDistance = isLast ? distance : (sections[i + 1].startDistanceM ?? 0);
+
+      final refPath = ref.getPath(startDistance, endDistance)!;
+      result.add(PathEntityImpl(ref: refPath));
+    }
+
+    return result;
+  }
+
+  @override
+  TerrainProfileEntity? get terrainProfile {
+    RouteTerrainProfile? profile = ref.terrainProfile;
+    if (profile == null) return null;
+    return TerrainProfileEntityImpl(profile: profile, routeLength: distance);
   }
 }

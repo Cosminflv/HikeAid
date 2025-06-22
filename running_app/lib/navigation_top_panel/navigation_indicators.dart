@@ -6,28 +6,33 @@ import 'package:running_app/location/location_bloc.dart';
 import 'package:running_app/location/location_state.dart';
 import 'package:running_app/navigation/navigation_view_bloc.dart';
 import 'package:running_app/navigation/navigation_view_state.dart';
+import 'package:running_app/route_terrain_profile/line_area_chart.dart';
+import 'package:running_app/route_terrain_profile/route_profile_panel_bloc.dart';
+import 'package:running_app/route_terrain_profile/route_profile_panel_state.dart';
+import 'package:running_app/tour_recording/tour_recording_bloc.dart';
+import 'package:running_app/tour_recording/tour_recording_state.dart';
 import 'package:running_app/utils/unit_converters.dart';
 
-// class AverageSpeedIndicator extends StatelessWidget {
-//   final bool isExpanded;
+class AverageSpeedIndicator extends StatelessWidget {
+  final bool isExpanded;
 
-//   const AverageSpeedIndicator({super.key, this.isExpanded = false});
+  const AverageSpeedIndicator({super.key, this.isExpanded = false});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<TourRecordingBloc, TourRecordingState>(
-//       builder: (context, state) {
-//         return NavigationIndicator(
-//           speed: state.averageSpeed != null ? convertSpeed(state.averageSpeed!, DSpeedUnit.kmPerHour) : '-',
-//           label: AppLocalizations.of(context)!.averageSpeed,
-//           color: Theme.of(context).colorScheme.surfaceContainerHighest,
-//           measurementUnit: ' km/h',
-//           isExpanded: isExpanded,
-//         );
-//       },
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TourRecordingBloc, TourRecordingState>(
+      builder: (context, state) {
+        return NavigationIndicator(
+          speed: state.averageSpeed != null ? convertSpeed(state.averageSpeed!, DSpeedUnit.kmPerHour) : '-',
+          label: AppLocalizations.of(context)!.averageSpeed,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          measurementUnit: ' km/h',
+          isExpanded: isExpanded,
+        );
+      },
+    );
+  }
+}
 
 class CurrentSpeedIndicator extends StatelessWidget {
   final bool isExpanded;
@@ -144,112 +149,112 @@ class RemainingDurationIndicator extends StatelessWidget {
   }
 }
 
-// class MotionIndicator extends StatelessWidget {
-//   final bool isExpanded;
+class MotionIndicator extends StatelessWidget {
+  final bool isExpanded;
 
-//   const MotionIndicator({super.key, this.isExpanded = false});
+  const MotionIndicator({super.key, this.isExpanded = false});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<TourRecordingBloc, TourRecordingState>(
-//       builder: (context, state) {
-//         String? durationString;
-//         if (state.timeInMotion != null) {
-//           if (convertTime(state.timeInMotion!) == '0 min' && state.timeInMotion! > 0) {
-//             durationString = convertTimeToCronometer(state.timeInMotion!);
-//           } else {
-//             durationString = convertTime(state.timeInMotion!);
-//           }
-//         } else {
-//           durationString = '0';
-//         }
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TourRecordingBloc, TourRecordingState>(
+      builder: (context, state) {
+        String? durationString;
+        if (state.timeInMotion != null) {
+          if (convertTime(state.timeInMotion!) == '0 min' && state.timeInMotion! > 0) {
+            durationString = convertTimeToCronometer(state.timeInMotion!);
+          } else {
+            durationString = convertTime(state.timeInMotion!);
+          }
+        } else {
+          durationString = '0';
+        }
 
-//         List<String> parts = durationString.split(' ');
-//         String number = parts[0];
-//         String unit = parts.length > 1 ? parts[1] : '';
+        List<String> parts = durationString.split(' ');
+        String number = parts[0];
+        String unit = parts.length > 1 ? parts[1] : '';
 
-//         return NavigationIndicator(
-//           speed: (number == '0') ? '-' : number,
-//           label: AppLocalizations.of(context)!.inMotion,
-//           color: Theme.of(context).colorScheme.surface,
-//           measurementUnit: ' $unit',
-//           isExpanded: isExpanded,
-//         );
-//       },
-//     );
-//   }
-// }
+        return NavigationIndicator(
+          speed: (number == '0') ? '-' : number,
+          label: "In motion",
+          color: Theme.of(context).colorScheme.surface,
+          measurementUnit: ' $unit',
+          isExpanded: isExpanded,
+        );
+      },
+    );
+  }
+}
 
-// class CurrentElevationIndicator extends StatelessWidget {
-//   final bool isExpanded;
+class CurrentElevationIndicator extends StatelessWidget {
+  final bool isExpanded;
 
-//   const CurrentElevationIndicator({super.key, this.isExpanded = false});
+  const CurrentElevationIndicator({super.key, this.isExpanded = false});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<RouteProfilePanelBloc, RouteProfilePanelState>(
-//       builder: (context, profileState) {
-//         return BlocBuilder<NavigationViewBloc, NavigationViewState>(
-//           builder: (context, navigationState) {
-//             String? distanceString = profileState.terrainProfile != null
-//                 ? convertDistance(profileState.terrainProfile!.getElevation(navigationState.traveledDistance).toInt(),
-//                         DDistanceUnit.km,
-//                         metersOnly: true)
-//                     .split(' ')[0]
-//                 : '-';
-//             return NavigationIndicator(
-//               speed: distanceString,
-//               label: AppLocalizations.of(context)!.currentElevation,
-//               color: Theme.of(context).colorScheme.surfaceContainerHighest,
-//               measurementUnit: ' m',
-//               isExpanded: isExpanded,
-//             );
-//           },
-//         );
-//       },
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<RouteProfilePanelBloc, RouteProfilePanelState>(
+      builder: (context, profileState) {
+        return BlocBuilder<NavigationViewBloc, NavigationViewState>(
+          builder: (context, navigationState) {
+            String? distanceString = profileState.terrainProfile != null
+                ? convertDistance(profileState.terrainProfile!.getElevation(navigationState.traveledDistance).toInt(),
+                        DDistanceUnit.km,
+                        metersOnly: true)
+                    .split(' ')[0]
+                : '-';
+            return NavigationIndicator(
+              speed: distanceString,
+              label: "Current Elevation",
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              measurementUnit: ' m',
+              isExpanded: isExpanded,
+            );
+          },
+        );
+      },
+    );
+  }
+}
 
-// class TerrainProfileIndicator extends StatelessWidget {
-//   const TerrainProfileIndicator({super.key});
+class TerrainProfileIndicator extends StatelessWidget {
+  const TerrainProfileIndicator({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final chartController = LineAreaChartController();
-//     return Container(
-//       width: MediaQuery.of(context).size.width / 2,
-//       color: Theme.of(context).colorScheme.surface,
-//       padding: const EdgeInsets.only(left: 5.0, right: 5.0, bottom: 20.0, top: 20.0),
-//       child: BlocBuilder<RouteProfilePanelBloc, RouteProfilePanelState>(
-//         builder: (context, profileState) {
-//           if (profileState.terrainProfile == null) return const SizedBox.shrink();
+  @override
+  Widget build(BuildContext context) {
+    final chartController = LineAreaChartController();
+    return Container(
+      width: MediaQuery.of(context).size.width / 2,
+      color: Theme.of(context).colorScheme.surface,
+      padding: const EdgeInsets.only(left: 5.0, right: 5.0, bottom: 20.0, top: 20.0),
+      child: BlocBuilder<RouteProfilePanelBloc, RouteProfilePanelState>(
+        builder: (context, profileState) {
+          if (profileState.terrainProfile == null) return const SizedBox.shrink();
 
-//           final elevationSamples = profileState.terrainProfile!.getElevationSamples(100);
-//           return BlocListener<NavigationViewBloc, NavigationViewState>(
-//             listener: (BuildContext context, NavigationViewState navigationState) {
-//               if (chartController.setCurrentHighlight != null) {
-//                 chartController.setCurrentHighlight!(navigationState.traveledDistance.toDouble());
-//               }
-//             },
-//             child: AbsorbPointer(
-//               child: LineAreaChart(
-//                 withXAxis: false,
-//                 withYAxis: false,
-//                 isInteractive: true,
-//                 withTopIcons: false,
-//                 legendLabelColor: Theme.of(context).colorScheme.onSurface,
-//                 points: elevationSamples,
-//                 steepSections: const [],
-//                 controller: chartController,
-//               ),
-//             ),
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
+          final elevationSamples = profileState.terrainProfile!.getElevationSamples(100);
+          return BlocListener<NavigationViewBloc, NavigationViewState>(
+            listener: (BuildContext context, NavigationViewState navigationState) {
+              if (chartController.setCurrentHighlight != null) {
+                chartController.setCurrentHighlight!(navigationState.traveledDistance.toDouble());
+              }
+            },
+            child: AbsorbPointer(
+              child: LineAreaChart(
+                withXAxis: false,
+                withYAxis: false,
+                isInteractive: true,
+                withTopIcons: false,
+                legendLabelColor: Theme.of(context).colorScheme.onSurface,
+                points: elevationSamples,
+                steepSections: const [],
+                controller: chartController,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
 
 class NavigationIndicator extends StatelessWidget {
   final String speed;
