@@ -280,9 +280,9 @@
     "@sameAsOldPassword": {
         "description": "Message that appears in case the new password is the same as the old one"
     },
-    "routes": "Routes",
+    "routes": "Map",
     "@routes": {
-        "description": "Routes tab name"
+        "description": "Map tab name"
     },
     "profile": "Profile",
     "@profile": {

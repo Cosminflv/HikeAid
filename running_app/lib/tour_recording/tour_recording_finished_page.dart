@@ -152,9 +152,10 @@ class _TourRecordingFinishedPageState extends State<TourRecordingFinishedPage> {
                                       child: CustomElevatedButton(
                                         backgroundColor: Theme.of(context).colorScheme.primary,
                                         text: isLoading ? null : "Save Tour",
-                                        leading: isLoading
-                                            ? const CupertinoActivityIndicator()
-                                            : const Icon(FontAwesomeIcons.bookmark),
+                                        leading: const Icon(
+                                          FontAwesomeIcons.bookmark,
+                                          color: Colors.white,
+                                        ),
                                         textColor: Theme.of(context).colorScheme.onPrimary,
                                         alignment: MainAxisAlignment.center,
                                         onTap: isLoading ? null : () => _onDoneTap(getSession(context)!.user.id),

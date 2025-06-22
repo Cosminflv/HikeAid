@@ -46,7 +46,10 @@ class _AddAlertDialogState extends State<AddAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Create New Alert'),
+      title: const Text(
+        'Create New Alert',
+        style: TextStyle(color: Colors.white),
+      ),
       actionsAlignment: MainAxisAlignment.spaceBetween,
       content: SingleChildScrollView(
         child: Form(
