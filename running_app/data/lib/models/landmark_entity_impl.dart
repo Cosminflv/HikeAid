@@ -20,7 +20,7 @@ class LandmarkEntityImpl extends LandmarkEntity {
         super(
           name: ref!.name,
           address: ref.address.toAddressString(),
-          countryCode: ref.address.getField(AddressField.countryCode),
+          countryCode: null,
           coordinates: ref.coordinates.toEntity(),
         );
 
