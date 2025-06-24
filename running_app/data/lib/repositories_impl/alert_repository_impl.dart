@@ -50,6 +50,7 @@ class AlertRepositoryImpl extends AlertRepository {
       final alerts = await Future.wait(data.map((e) async {
         e as Map<String, dynamic>;
         final authorName = await _getAlertAuthorName(e['authorId']);
+        final hour = DateTime.parse(e['createdAt']).hour + DateTime.parse(e['createdAt']).timeZoneOffset.inHours;
 
         return AlertEntityImpl(
           id: e['id'],
@@ -59,7 +60,7 @@ class AlertRepositoryImpl extends AlertRepository {
             DateTime.parse(e['createdAt']).year,
             DateTime.parse(e['createdAt']).month,
             DateTime.parse(e['createdAt']).day,
-            DateTime.parse(e['createdAt']).hour + DateTime.parse(e['createdAt']).timeZoneOffset.inHours,
+            hour,
             DateTime.parse(e['createdAt']).minute,
             DateTime.parse(e['createdAt']).second,
           ),
